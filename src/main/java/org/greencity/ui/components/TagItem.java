@@ -20,22 +20,22 @@ public class TagItem extends BaseComponent {
     }
 
     protected boolean isSelected() {
-        String classes = this.closeIcon.getAttribute("class");
+        String classes = closeIcon.getAttribute("class");
 
         return classes != null && classes.contains("global-tag-close-icon");
     }
 
     public void select() {
-        if (!this.isSelected()) {
-            this.rootElement.click();
+        if (!isSelected()) {
+            rootElement.click();
         } else {
             throw new IllegalStateException("Tag is already selected.");
         }
     }
 
     public void remove() {
-        if (this.isSelected()) {
-            this.rootElement.click();
+        if (isSelected()) {
+            rootElement.click();
         } else {
             throw new IllegalStateException("Can't remove a tag that's not selected.");
         }
