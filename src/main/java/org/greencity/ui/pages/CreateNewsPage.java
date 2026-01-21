@@ -128,6 +128,10 @@ public class CreateNewsPage extends BasePage {
         return Objects.requireNonNull(titleInput.getAttribute("class")).contains("ng-invalid");
     }
 
+    public String getImageError() {
+        return imageErrorMessage.getText();
+    }
+
     public String getSourceError() {
         return sourceErrorMessage.getText();
     }
@@ -154,7 +158,8 @@ public class CreateNewsPage extends BasePage {
 
     public NewsPreviewComponent clickPreview() {
         previewBtn.click();
-        return new NewsPreviewComponent(driver);
+        WebElement previewModalRoot = driver.findElement(By.cssSelector("div[role='dialog']"));
+        return new NewsPreviewComponent(driver, previewModalRoot);
     }
 
     public List<String> getAllTags() {
