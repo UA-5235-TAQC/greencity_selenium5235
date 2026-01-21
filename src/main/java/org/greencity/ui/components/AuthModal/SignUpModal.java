@@ -1,4 +1,4 @@
-package org.greencity.ui.components;
+package org.greencity.ui.components.AuthModal;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
