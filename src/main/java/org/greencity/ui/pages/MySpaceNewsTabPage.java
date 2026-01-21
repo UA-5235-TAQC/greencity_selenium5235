@@ -60,7 +60,7 @@ public class MySpaceNewsTabPage extends MySpaceBasePage {
         addNewsButton.click();
     }
 
-    private void waitForVisible(WebElement addNewsButton2) {
+    private void waitForVisible(WebElement element) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'waitForVisible'");
     }
