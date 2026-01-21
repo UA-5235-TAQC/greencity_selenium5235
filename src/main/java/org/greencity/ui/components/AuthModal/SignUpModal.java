@@ -22,7 +22,7 @@ public class SignUpModal extends AuthModalBase {
     private WebElement signUpBtn;
 
     @FindBy(css = "a[aria-label='sign up modal window']")
-    private WebElement switchSignInLink;
+    private WebElement switchSignUpLink;
 
     public SignUpModal(WebDriver driver) {
         super(driver);
@@ -52,6 +52,6 @@ public class SignUpModal extends AuthModalBase {
     }
 
     public void switchToSignIn() {
-        switchSignInLink.click();
+        switchSignUpLink.click();
     }
 }
