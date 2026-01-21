@@ -94,7 +94,7 @@ public class EcoNewsPage extends BasePage {
             }
         }
 
-        return null;
+        throw new IllegalArgumentException("News card with id " + newsId + " not found");
     }
 
     public void switchToGridView() {
@@ -125,6 +125,7 @@ public class EcoNewsPage extends BasePage {
         for (TagItem item : tagItems) {
             if (item.getName().equals(tag.getTagName())) {
                 item.click();
+                return;
             }
         }
     }
