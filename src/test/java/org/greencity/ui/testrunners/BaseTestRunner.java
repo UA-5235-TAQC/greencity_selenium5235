@@ -1,6 +1,7 @@
 package org.greencity.ui.testrunners;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.greencity.utils.TestValueProvider;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -13,11 +14,13 @@ import java.time.Duration;
 
 public class BaseTestRunner {
     protected WebDriver driver;
+    protected static TestValueProvider testValueProvider;
 
 
     @BeforeSuite
     public void beforeSuite() {
         WebDriverManager.chromedriver().setup();
+        testValueProvider = new TestValueProvider();
     }
 
     public void initDriver() {

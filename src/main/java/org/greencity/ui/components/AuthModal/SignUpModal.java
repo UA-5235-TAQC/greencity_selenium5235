@@ -6,8 +6,8 @@ import org.openqa.selenium.support.FindBy;
 
 public class SignUpModal extends AuthModalBase {
 
-    @FindBy(css = "input[formcontrolname='username']")
-    private WebElement usernameInput;
+    @FindBy(id = "firstName")
+    private WebElement firstNameInput;
 
     @FindBy(css = "input[formcontrolname='password']")
     private WebElement passwordInput;
@@ -28,23 +28,28 @@ public class SignUpModal extends AuthModalBase {
         super(driver);
     }
 
-    public void enterUsername(String name) {
-        usernameInput.clear();
-        usernameInput.sendKeys(name);
+    public SignUpModal enterUsername(String name) {
+        firstNameInput.clear();
+        firstNameInput.sendKeys(name);
+        return this;
     }
 
-    public void enterPassword(String password) {
+    public SignUpModal enterPassword(String password) {
         passwordInput.clear();
         passwordInput.sendKeys(password);
+        return this;
     }
 
-    public void enterConfirmPassword(String password) {
+    public SignUpModal enterConfirmPassword(String password) {
         confirmPasswordInput.clear();
         confirmPasswordInput.sendKeys(password);
+        return this;
     }
 
-    public void togglePasswordVisibility() {
+    public SignUpModal togglePasswordVisibility() {
+
         showPasswordBtn.click();
+        return this;
     }
 
     public void clickSignUp() {
