@@ -1,4 +1,4 @@
-package org.greencity.ui.pages;
+package org.greencity.ui.components.AuthModal;
 
 import org.greencity.ui.Base;
 import org.openqa.selenium.WebDriver;
