@@ -119,7 +119,7 @@ public class EcoNewsPage extends BasePage {
                 .toArray(TagItem[]::new);
     }
 
-    public void filterByTag(EcoNewsTag tag) {
+    public void clickTag(EcoNewsTag tag) {
         TagItem[] tagItems = getAllTags();
 
         for (TagItem item : tagItems) {
