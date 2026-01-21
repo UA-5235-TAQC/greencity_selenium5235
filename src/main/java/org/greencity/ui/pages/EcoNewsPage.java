@@ -122,12 +122,12 @@ public class EcoNewsPage extends BasePage {
         throw new IllegalArgumentException("News card with id " + newsId + " not found");
     }
 
-    public void openNewsCardByIndex(int index) {
+    public void clickNewsCardByIndex(int index) {
         NewsListItemComponent card = getNewsCardByIndex(index);
         card.click();
     }
 
-    public void openNewsCardByNewsId(int newsId) {
+    public void clickNewsCardByNewsId(int newsId) {
         NewsListItemComponent card = getNewsCardById(newsId);
         card.click();
     }
