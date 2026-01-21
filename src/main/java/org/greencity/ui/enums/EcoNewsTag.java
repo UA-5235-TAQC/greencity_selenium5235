@@ -7,7 +7,7 @@ public enum EcoNewsTag {
     INITIATIVES("Initiatives"),
     ADS("Ads");
 
-    private String tagName;
+    private final String tagName;
 
     EcoNewsTag(String tagName) {
         this.tagName = tagName;
