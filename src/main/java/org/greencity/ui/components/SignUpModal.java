@@ -4,12 +4,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class SignUpModal extends BaseComponent {
+public class SignUpModal extends AuthModalBase {
 
-    @FindBy(css = "button[aria-label='close form button']")
-    private WebElement closeButton;
-
-    @FindBy(css = "input[formcontrolname='email'], input[formcontrolname='username']")
+    @FindBy(css = "input[formcontrolname='username']")
     private WebElement usernameInput;
 
     @FindBy(css = "input[formcontrolname='password']")
@@ -27,14 +24,8 @@ public class SignUpModal extends BaseComponent {
     @FindBy(css = "a[aria-label='sign up modal window']")
     private WebElement switchSignInLink;
 
-
-    public SignUpModal(WebDriver driver, WebElement rootElement) {
-        super(driver, rootElement);
-    }
-    
-
-    public void closeModal() {
-        closeButton.click();
+    public SignUpModal(WebDriver driver) {
+        super(driver);
     }
 
     public void enterUsername(String name) {
