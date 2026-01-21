@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -51,61 +52,72 @@ public class CreateNewsPage extends BasePage {
     @FindBy(xpath = "//button[contains(text(),'Preview')]")
     private WebElement previewBtn;
 
+    private WebElement previewModalRoot;
+
     public CreateNewsPage(WebDriver driver) {
         super(driver);
     }
 
-    public void enterTitle(String title) {
+    public WebElement getPreviewModalRoot() {
+        previewModalRoot = driver.findElement(By.cssSelector("div[role='dialog']"));
+        return previewModalRoot;
+    }
+
+    public CreateNewsPage enterTitle(String title) {
         titleInput.clear();
         titleInput.sendKeys(title);
+        return this;
     }
 
     private List<TagItem> getTagItems() {
-        return tagRootElements.stream()
-                .map(root -> new TagItem(driver, root))
-                .collect(Collectors.toList());
+        return tagRootElements.stream().map(root -> new TagItem(driver, root)).collect(Collectors.toList());
     }
 
-    public void selectTags(List<String> tags) {
+    public CreateNewsPage selectTags(List<String> tags) {
         List<TagItem> tagItems = getTagItems();
         for (String tagName : tags) {
             for (TagItem tag : tagItems) {
-                if (tag.getName().equalsIgnoreCase(tagName)) {
-                    tag.select();
+                if (tag.getName().equalsIgnoreCase(tagName) && !tag.isSelected()) {
+                    tag.click();
                     break;
                 }
             }
         }
+        return this;
     }
 
-    public void removeTag(String tagName) {
+    public CreateNewsPage removeTag(String tagName) {
         for (TagItem tag : getTagItems()) {
-            if (tag.getName().equalsIgnoreCase(tagName)) {
-                tag.remove();
+            if (tag.getName().equalsIgnoreCase(tagName) && tag.isSelected()) {
+                tag.click();
                 break;
             }
         }
+        return this;
     }
 
-    public void enterSource(String url) {
+    public CreateNewsPage enterSource(String url) {
         sourceInput.clear();
         sourceInput.sendKeys(url);
+        return this;
     }
 
-    public void uploadImage(String filePath) {
+    public CreateNewsPage uploadImage(String filePath) {
         imageUploadInput.sendKeys(filePath);
+        return this;
     }
 
     public void cropImage() {
         imageCropper.click();
     }
 
-    public void enterContent(String text) {
+    public CreateNewsPage enterContent(String text) {
         contentEditor.clear();
         contentEditor.sendKeys(text);
+        return this;
     }
 
-    public void createNews(String title, List<String> tags, String source, String content, String imagePath) {
+    public CreateNewsPage createNews(String title, List<String> tags, String source, String content, String imagePath) {
         if (title != null) enterTitle(title);
         if (tags != null) selectTags(tags);
         if (source != null) enterSource(source);
@@ -114,6 +126,7 @@ public class CreateNewsPage extends BasePage {
             uploadImage(imagePath);
             cropImage();
         }
+        return this;
     }
 
     public String getUploadedImageInfo() {
@@ -158,8 +171,7 @@ public class CreateNewsPage extends BasePage {
 
     public NewsPreviewComponent clickPreview() {
         previewBtn.click();
-        WebElement previewModalRoot = driver.findElement(By.cssSelector("div[role='dialog']"));
-        return new NewsPreviewComponent(driver, previewModalRoot);
+        return new NewsPreviewComponent(driver, getPreviewModalRoot());
     }
 
     public List<String> getAllTags() {

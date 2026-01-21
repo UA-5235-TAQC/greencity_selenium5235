@@ -25,22 +25,6 @@ public class TagItem extends BaseComponent {
         return classes != null && classes.contains("global-tag-close-icon");
     }
 
-    public void select() {
-        if (!isSelected()) {
-            rootElement.click();
-        } else {
-            throw new IllegalStateException("Tag is already selected.");
-        }
-    }
-
-    public void remove() {
-        if (isSelected()) {
-            rootElement.click();
-        } else {
-            throw new IllegalStateException("Can't remove a tag that's not selected.");
-        }
-    }
-
     public void click() {
         rootElement.click();
     }
