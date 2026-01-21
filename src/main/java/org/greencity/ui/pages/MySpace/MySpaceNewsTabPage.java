@@ -1,4 +1,4 @@
-package org.greencity.ui.pages;
+package org.greencity.ui.pages.MySpace;
 
 import java.util.List;
 import java.util.NoSuchElementException;
