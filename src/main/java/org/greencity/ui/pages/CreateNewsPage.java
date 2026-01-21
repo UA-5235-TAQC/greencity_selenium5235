@@ -138,7 +138,8 @@ public class CreateNewsPage extends BasePage {
     }
 
     public boolean isTitleInvalid() {
-        return Objects.requireNonNull(titleInput.getAttribute("class")).contains("ng-invalid");
+        String classAttribute = titleInput.getAttribute("class");
+        return classAttribute != null && classAttribute.contains("ng-invalid");
     }
 
     public String getImageError() {
