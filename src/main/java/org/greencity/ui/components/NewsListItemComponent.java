@@ -22,4 +22,8 @@ public class NewsListItemComponent extends BaseComponent {
 
         return Integer.parseInt(parts[1].replaceAll("\\D.*", ""));
     }
+
+    public void click() {
+        rootElement.click();
+    }
 }

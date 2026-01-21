@@ -8,8 +8,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.List;
-
 public class EcoNewsPage extends BasePage {
     @FindBy(css = "h1.main-header")
     protected WebElement pageTitle;
@@ -65,38 +63,6 @@ public class EcoNewsPage extends BasePage {
         myEventsBtn.click();
     }
 
-    protected List<WebElement> getCardElements() {
-        return cards.findElements(By.cssSelector("li"));
-    }
-
-    public NewsListItemComponent[] getCards() {
-        List<WebElement> cardElements = getCardElements();
-
-        return cardElements.stream()
-                .map(card -> new NewsListItemComponent(driver, card))
-                .toArray(NewsListItemComponent[]::new);
-    }
-
-    public NewsListItemComponent getCardByIndex(int index) {
-        NewsListItemComponent[] cards = getCards();
-
-        if (index < 0 || index >= cards.length) throw new IndexOutOfBoundsException();
-
-        return cards[index];
-    }
-
-    public NewsListItemComponent getCardByNewsId(int newsId) {
-        NewsListItemComponent[] cards = getCards();
-
-        for (NewsListItemComponent card : cards) {
-            if (card.getNewsId() == newsId) {
-                return card;
-            }
-        }
-
-        throw new IllegalArgumentException("News card with id " + newsId + " not found");
-    }
-
     public void switchToGridView() {
         gridViewBtn.click();
     }
@@ -130,26 +96,39 @@ public class EcoNewsPage extends BasePage {
         }
     }
 
-    public void openNewsCardByIndex(int index) {
-        List<WebElement> cardElements = getCardElements();
-
-        if (index < 0 || index >= cardElements.size()) throw new IndexOutOfBoundsException();
-
-        cardElements.get(index).click();
+    public NewsListItemComponent[] getNewsCards() {
+        return cards.findElements(By.cssSelector("li")).stream()
+                .map(card -> new NewsListItemComponent(driver, card))
+                .toArray(NewsListItemComponent[]::new);
     }
 
-    public void openNewsCardByNewsId(int newsId) {
-        for (WebElement card : getCardElements()) {
-            String href = card.findElement(By.cssSelector("a.link")).getAttribute("href");
+    public NewsListItemComponent getNewsCardByIndex(int index) {
+        NewsListItemComponent[] cards = getNewsCards();
 
-            java.util.regex.Matcher matcher = java.util.regex.Pattern.compile("/news/(\\d+)").matcher(href);
+        if (index < 0 || index >= cards.length) throw new IndexOutOfBoundsException();
 
-            if (matcher.find() && Integer.parseInt(matcher.group(1)) == newsId) {
-                card.click();
-                return;
+        return cards[index];
+    }
+
+    public NewsListItemComponent getNewsCardById(int newsId) {
+        NewsListItemComponent[] cards = getNewsCards();
+
+        for (NewsListItemComponent card : cards) {
+            if (card.getNewsId() == newsId) {
+                return card;
             }
         }
 
         throw new IllegalArgumentException("News card with id " + newsId + " not found");
+    }
+
+    public void openNewsCardByIndex(int index) {
+        NewsListItemComponent card = getNewsCardByIndex(index);
+        card.click();
+    }
+
+    public void openNewsCardByNewsId(int newsId) {
+        NewsListItemComponent card = getNewsCardById(newsId);
+        card.click();
     }
 }
