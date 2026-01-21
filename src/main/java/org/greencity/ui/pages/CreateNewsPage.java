@@ -162,12 +162,14 @@ public class CreateNewsPage extends BasePage {
         return publishBtn.isEnabled();
     }
 
-    public void clickPublish() {
+    public CreateNewsPage clickPublish() {
         publishBtn.click();
+        return this;
     }
 
-    public void clickCancel() {
+    public CreateNewsPage clickCancel() {
         cancelBtn.click();
+        return this;
     }
 
     public NewsPreviewComponent clickPreview() {
