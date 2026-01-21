@@ -31,7 +31,6 @@ public class MySpaceNewsTabPage extends MySpaceBasePage {
     }
 
 
-    @SuppressWarnings("null")
     public List<MySpaceNewsListItemComponent> getNewsList() {
         wait.until(ExpectedConditions.visibilityOfAllElements(newsList));
 
