@@ -19,7 +19,7 @@ public class TagItem extends BaseComponent {
         return name.getText();
     }
 
-    protected boolean isSelected() {
+    public boolean isSelected() {
         String classes = closeIcon.getAttribute("class");
 
         return classes != null && classes.contains("global-tag-close-icon");
@@ -39,5 +39,9 @@ public class TagItem extends BaseComponent {
         } else {
             throw new IllegalStateException("Can't remove a tag that's not selected.");
         }
+    }
+
+    public void click() {
+        rootElement.click();
     }
 }
