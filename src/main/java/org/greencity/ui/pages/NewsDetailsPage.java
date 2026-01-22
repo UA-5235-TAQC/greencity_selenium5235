@@ -52,7 +52,7 @@ public class NewsDetailsPage extends BasePage {
     @FindBy(css = ".app-add-comment form")
     protected WebElement commentsForm;
 
-    @FindBy(css = "p.total-count.total-count span")
+    @FindBy(css = "#total-count")
     protected WebElement commentsCount;
 
     @FindBy(css = ".app-eco-news-widget")
