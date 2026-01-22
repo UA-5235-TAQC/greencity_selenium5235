@@ -47,7 +47,6 @@ public class HeaderComponent extends BaseComponent {
     private HeaderComponent switchLanguage(String lang) {
         String currentLang = languageDropdown.getText().trim();
         if (currentLang.equalsIgnoreCase(lang)) {
-            System.out.println("Language is already " + lang + ". Skipping click.");
             return this;
         }
         languageDropdown.click();
@@ -74,7 +73,6 @@ public class HeaderComponent extends BaseComponent {
     }
 
     public HomePage clickLogo() {
-
         logo.click();
         return new HomePage(driver);
     }
