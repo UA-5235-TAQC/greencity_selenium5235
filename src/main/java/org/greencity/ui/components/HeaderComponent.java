@@ -73,7 +73,6 @@ public class HeaderComponent extends BaseComponent {
     }
 
     public HomePage clickLogo() {
-
         logo.click();
         return new HomePage(driver);
     }
