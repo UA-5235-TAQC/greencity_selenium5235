@@ -13,9 +13,6 @@ public class TelegramLinkComponent extends BaseComponent {
     @FindBy(css = "button.chat-pop-up")
     private WebElement chatButton;
 
-    @FindBy(css = "button.chat-pop-up img[src*='telegram']")
-    private WebElement icon;
-
     public TelegramLinkComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
     }
