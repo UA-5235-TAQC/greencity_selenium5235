@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class MySpaceEventsTabPage extends MySpaceBasePage {
 
     @FindBy(css = "ul.events-list > li")
-    private List<WebElement> eventsList; // TODO
+    private List<WebElement> eventsList;
 
     @FindBy(xpath = "//mat-checkbox[.//label[contains(text(),'Online')]]//input[@type='checkbox']")
     private WebElement onlineCheckbox;
