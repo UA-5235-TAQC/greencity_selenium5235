@@ -24,6 +24,6 @@ public class NewsListItemComponent extends BaseComponent {
     }
 
     public void click() {
-        rootElement.click();
+        newsLink.click();
     }
 }
