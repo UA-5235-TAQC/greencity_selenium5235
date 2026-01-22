@@ -30,6 +30,8 @@ public abstract class BasePage extends Base {
 
     abstract public void open();
 
+    public abstract boolean isPageOpened();
+
     public HeaderComponent getHeader() {
         return header;
     }
@@ -37,7 +39,6 @@ public abstract class BasePage extends Base {
     public FooterComponent getFooter() {
         return footerComponent;
     }
-
 
     protected void click(WebElement element) {
         WebElement clickable = wait.until(
@@ -69,5 +70,4 @@ public abstract class BasePage extends Base {
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
-    public abstract boolean isPageOpened();
 }
