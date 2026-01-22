@@ -31,7 +31,7 @@ public class NewsDetailsPage extends BasePage {
     @FindBy(css = ".secondary-global-button.delete-news-button")
     protected WebElement deleteButton;
 
-    @FindBy(css = "a .edit-news")
+    @FindBy(css = "a.edit-news")
     protected WebElement editButton;
 
     @FindBy(css = "img.news_like")
