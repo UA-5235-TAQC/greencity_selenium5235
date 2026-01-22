@@ -28,6 +28,7 @@ public class SignUpModal extends AuthModalBase {
         return this;
     }
 
+    @Override
     public SignUpModal enterPassword(String password) {
         super.enterPassword(password);
         return this;
