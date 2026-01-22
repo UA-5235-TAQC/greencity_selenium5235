@@ -7,4 +7,9 @@ public class MySpaceBasePage extends BasePage {
     public MySpaceBasePage(WebDriver driver) {
         super(driver);
     }
+
+    @Override
+    public boolean isPageOpened() {
+        return false;
+    }
 }
