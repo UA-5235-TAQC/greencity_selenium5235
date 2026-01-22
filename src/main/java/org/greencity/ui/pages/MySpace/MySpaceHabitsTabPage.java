@@ -25,12 +25,7 @@ public class MySpaceHabitsTabPage extends MySpaceBasePage {
 
     
     public boolean hasHabits() {
-        try {
-            wait.until(ExpectedConditions.visibilityOf(noDataRoot));
-            return false;
-        } catch (Exception e) {
-            return true;
-        }
+        return !noDataComponent.isVisible();
     }
 
     public void clickAddHabit() {
