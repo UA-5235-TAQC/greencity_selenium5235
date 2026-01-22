@@ -58,6 +58,16 @@ public class CreateNewsPage extends BasePage {
         super(driver);
     }
 
+    @Override
+    public void open() {
+        driver.get(testValueProvider.getBaseUIGreenCityUrl() + "/news/create-news");
+    }
+
+    @Override
+    public boolean isPageOpened() {
+        return isVisible(titleInput);
+    }
+
     public WebElement getPreviewModalRoot() {
         previewModalRoot = driver.findElement(By.cssSelector("div[role='dialog']"));
         return previewModalRoot;

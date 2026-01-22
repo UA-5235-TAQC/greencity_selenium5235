@@ -3,6 +3,7 @@ package org.greencity.ui.pages;
 import org.greencity.ui.Base;
 import org.greencity.ui.components.FooterComponent;
 import org.greencity.ui.components.HeaderComponent;
+import org.greencity.utils.TestValueProvider;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,7 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public abstract class BasePage extends Base {
 
-    protected final String BASE_URL = "https://www.greencity.cx.ua/#/greenCity";
+    protected TestValueProvider testValueProvider = new TestValueProvider();
 
     @FindBy(xpath = "//app-header")
     protected WebElement rootHeaderElement;
@@ -27,6 +28,7 @@ public abstract class BasePage extends Base {
         this.footerComponent = new FooterComponent(driver, rootFooterElement);
     }
 
+    abstract public void open();
 
     public HeaderComponent getHeader() {
         return header;
@@ -36,9 +38,6 @@ public abstract class BasePage extends Base {
         return footerComponent;
     }
 
-    protected void open(String url) {
-        driver.get(BASE_URL + "/" + url);
-    }
 
     protected void click(WebElement element) {
         WebElement clickable = wait.until(

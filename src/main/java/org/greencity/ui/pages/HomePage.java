@@ -6,7 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class HomePage extends BasePage {
 
@@ -52,8 +51,9 @@ public class HomePage extends BasePage {
         return isVisible(root);
     }
 
+    @Override
     public void open() {
-        driver.get(BASE_URL);
+        driver.get(testValueProvider.getBaseUIGreenCityUrl());
     }
 
     public String getHeroTitle() {
