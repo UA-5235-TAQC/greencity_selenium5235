@@ -182,7 +182,7 @@ public class NewsDetailsPage extends BasePage {
                 .orElse(false);
     }
 
-    public  boolean isCommentsContainerVisible() {
+    public boolean isCommentsContainerVisible() {
         return isVisible(commentsContainer);
     }
 
