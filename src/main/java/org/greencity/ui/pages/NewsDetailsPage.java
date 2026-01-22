@@ -65,6 +65,11 @@ public class NewsDetailsPage extends BasePage {
         driver.get("https://www.greencity.cx.ua/#/greenCity/news/" + newsId);
     }
 
+    @Override
+    public boolean isPageOpened() {
+        return isVisible(root);
+    }
+
     public boolean checkNewsTitle(String expectedTitle) {
         return newsTitleText.getText().trim().equalsIgnoreCase(expectedTitle.trim());
     }
