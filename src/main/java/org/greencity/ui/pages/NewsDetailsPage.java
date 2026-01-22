@@ -8,15 +8,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.ArrayList;
+import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class NewsDetailsPage extends BasePage {
 
-    protected CommentItemComponent commentItemComponent;
+    protected List<CommentItemComponent> componentsList;
     protected NewsDetailsContentComponent newsDetailsContentComponent;
-    protected NewsListItemComponent newsListItemComponent;
+    protected List<NewsListItemComponent> newsList;
 
     public NewsDetailsPage(WebDriver driver) {
         super(driver);
@@ -33,6 +33,9 @@ public class NewsDetailsPage extends BasePage {
 
     @FindBy(css = "a .edit-news")
     protected WebElement editButton;
+
+    @FindBy(css = "img.news_like")
+    protected WebElement likeButton;
 
     @FindBy(css = ".like_wr .numerosity_likes")
     protected WebElement likesCount;
@@ -55,18 +58,65 @@ public class NewsDetailsPage extends BasePage {
     @FindBy(css = ".app-eco-news-widget")
     protected WebElement recommendedNews;
 
+    @FindBy(css = ".news-title-container .news-title")
+    protected WebElement newsTitleText;
+
+    public void open(String newsId) {
+        driver.get("https://www.greencity.cx.ua/#/greenCity/news/" + newsId);
+    }
+
+    public boolean checkNewsTitle(String expectedTitle) {
+        return newsTitleText.getText().trim().equalsIgnoreCase(expectedTitle.trim());
+    }
+
     public void clickBackToNewsButton() {
         click(backToNewsButton);
     }
 
-    public void clickDeleteButton() {
+    public NewsDetailsPage clickDeleteButton() {
         click(deleteButton);
+        return this;
     }
 
-    public void clickEditButton() {
+
+    public NewsDetailsPage clickEditButton() {
         click(editButton);
+        return this;
     }
 
+    public NewsDetailsPage clickLikeButton() {
+        click(likeButton);
+        return this;
+    }
+
+    public boolean isLikeActive() {
+        String src = likeButton.getAttribute("src");
+        return src != null && src.contains("liked.png");
+    }
+
+    public NewsDetailsPage addLike() {
+        if (!isLikeActive()) {
+            int initialCount = getLikesCount();
+            click(likeButton);
+            waitForLikesToChange(initialCount + 1);
+        }
+        return this;
+    }
+
+    public NewsDetailsPage deleteLike() {
+        if (isLikeActive()) {
+            int initialCount = getLikesCount();
+            click(likeButton);
+            waitForLikesToChange(initialCount - 1);
+        }
+        return this;
+    }
+
+
+    private void waitForLikesToChange(int expectedCount) {
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(d -> getLikesCount() == expectedCount);
+    }
     // --- Getters ---
 
     public int getLikesCount() {
@@ -134,14 +184,11 @@ public class NewsDetailsPage extends BasePage {
         return isVisible(commentsForm);
     }
 
-    public void addComment(String text, CommentItemComponent commentItemComponent) {
+    public NewsDetailsPage addComment(String text, CommentItemComponent commentItemComponent) {
         if (isCommentsFormVisible()) {
             commentItemComponent.setCommentText(text);
             commentItemComponent.clickSubmitButton();
-        } else {
-            throw new IllegalStateException("Comments form is not visible!");
         }
+        return this;
     }
-
-
 }
