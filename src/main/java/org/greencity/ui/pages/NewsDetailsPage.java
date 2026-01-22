@@ -63,7 +63,7 @@ public class NewsDetailsPage extends BasePage {
 
     @Override
     public void open(String newsId) {
-        driver.get("https://www.greencity.cx.ua/#/greenCity/news/" + newsId);
+        super.open("news/" + newsId);
     }
 
     @Override
