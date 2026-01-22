@@ -72,7 +72,11 @@ public class EcoNewsPage extends BasePage {
     }
 
     public int getRemainingNewsCount() {
-        return Integer.parseInt(remainingCountText.getText().replaceAll("[^0-9]", ""));
+        String digits = remainingCountText.getText().replaceAll("[^0-9]", "");
+        if (digits == null || digits.isEmpty()) {
+            return 0;
+        }
+        return Integer.parseInt(digits);
     }
 
     public void clickCreateNews() {
