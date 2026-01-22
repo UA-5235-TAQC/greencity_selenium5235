@@ -62,8 +62,8 @@ public class NewsDetailsPage extends BasePage {
     protected WebElement newsTitleText;
 
     @Override
-    public void open(String newsId) {
-        super.open("news/" + newsId);
+    public void open() {
+
     }
 
     @Override
