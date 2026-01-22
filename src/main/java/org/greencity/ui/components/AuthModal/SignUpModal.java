@@ -9,20 +9,14 @@ public class SignUpModal extends AuthModalBase {
     @FindBy(id = "firstName")
     private WebElement firstNameInput;
 
-    @FindBy(css = "input[formcontrolname='password']")
-    private WebElement passwordInput;
-
-    @FindBy(css = "input[formcontrolname='confirmPassword']")
+    @FindBy(css = "input[formcontrolname='repeatPassword']")
     private WebElement confirmPasswordInput;
 
-    @FindBy(css = ".show-hide-btn")
+    @FindBy(css = ".show-password-img")
     private WebElement showPasswordBtn;
 
-    @FindBy(css = "button[type='submit']")
-    private WebElement signUpBtn;
-
-    @FindBy(css = "a[aria-label='sign up modal window']")
-    private WebElement switchSignUpLink;
+    @FindBy(css = "a[aria-label='sign in modal window']")
+    private WebElement signInLink;
 
     public SignUpModal(WebDriver driver) {
         super(driver);
@@ -35,8 +29,7 @@ public class SignUpModal extends AuthModalBase {
     }
 
     public SignUpModal enterPassword(String password) {
-        passwordInput.clear();
-        passwordInput.sendKeys(password);
+        super.enterPassword(password);
         return this;
     }
 
@@ -47,16 +40,11 @@ public class SignUpModal extends AuthModalBase {
     }
 
     public SignUpModal togglePasswordVisibility() {
-
         showPasswordBtn.click();
         return this;
     }
 
-    public void clickSignUp() {
-        signUpBtn.click();
-    }
-
     public void switchToSignIn() {
-        switchSignUpLink.click();
+        signInLink.click();
     }
 }
