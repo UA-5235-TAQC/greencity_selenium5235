@@ -190,10 +190,10 @@ public class NewsDetailsPage extends BasePage {
         return isVisible(commentsForm);
     }
 
-    public NewsDetailsPage addComment(String text, CommentItemComponent commentItemComponent) {
+    public NewsDetailsPage addComment(String text) {
         if (isCommentsFormVisible()) {
-            commentItemComponent.setCommentText(text);
-            commentItemComponent.clickSubmitButton();
+            commentsForm.setCommentText(text);
+            commentsForm.clickSubmitButton();
         }
         return this;
     }
