@@ -37,10 +37,12 @@ public class MySpaceEventsTabPage extends MySpaceBasePage {
 
 
     public int getEventsCount() {
+        wait.until(ExpectedConditions.or(
+                ExpectedConditions.visibilityOfAllElements(eventsList),
+                ExpectedConditions.visibilityOf(noDataRoot)));
         if (noDataComponent.isVisible()) {
             return 0;
         }
-        wait.until(ExpectedConditions.visibilityOfAllElements(eventsList));
         return eventsList.size();
     }
 
