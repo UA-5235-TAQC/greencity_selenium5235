@@ -109,7 +109,12 @@ public class EcoNewsPage extends BasePage {
     public NewsListItemComponent getNewsCardByIndex(int index) {
         NewsListItemComponent[] cards = getNewsCards();
 
-        if (index < 0 || index >= cards.length) throw new IndexOutOfBoundsException();
+        if (index < 0 || index >= cards.length) {
+            throw new IndexOutOfBoundsException(
+                    "Invalid news card index: " + index
+                            + ". Valid index range: 0.." + (cards.length - 1)
+                            + " (total cards: " + cards.length + ")");
+        }
 
         return cards[index];
     }
