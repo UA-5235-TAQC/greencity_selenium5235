@@ -16,8 +16,14 @@ public abstract class AuthModalBase extends Base {
     @FindBy(css = "input[formcontrolname='email']")
     protected WebElement emailInput;
 
+    @FindBy(css = "input[formcontrolname='password']")
+    protected WebElement passwordInput;
+
     @FindBy(css = ".close-modal-window")
     protected WebElement closeBtn;
+
+    @FindBy(css = "button[type='submit']")
+    protected WebElement submitBtn;
 
     @FindBy(css = "button.google-sign-in")
     protected WebElement googleSignInBtn;
@@ -66,5 +72,15 @@ public abstract class AuthModalBase extends Base {
      */
     public boolean isVisible() {
         return root.isDisplayed();
+    }
+
+    public void clickSubmit() {
+        submitBtn.click();
+    }
+
+    public AuthModalBase enterPassword(String password) {
+        passwordInput.clear();
+        passwordInput.sendKeys(password);
+        return this;
     }
 }
