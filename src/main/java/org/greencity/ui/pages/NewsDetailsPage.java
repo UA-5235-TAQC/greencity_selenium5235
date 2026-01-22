@@ -61,6 +61,7 @@ public class NewsDetailsPage extends BasePage {
     @FindBy(css = ".news-title-container .news-title")
     protected WebElement newsTitleText;
 
+    @Override
     public void open(String newsId) {
         driver.get("https://www.greencity.cx.ua/#/greenCity/news/" + newsId);
     }
