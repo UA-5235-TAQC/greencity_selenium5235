@@ -13,6 +13,9 @@ import java.util.stream.Collectors;
 
 public class CreateNewsPage extends BasePage {
 
+    @FindBy(css = "div.main-content")
+    private WebElement root;
+
     @FindBy(css = "textarea[formcontrolname='title']")
     private WebElement titleInput;
 
@@ -56,6 +59,16 @@ public class CreateNewsPage extends BasePage {
 
     public CreateNewsPage(WebDriver driver) {
         super(driver);
+    }
+
+    @Override
+    public void open() {
+        driver.get("#/greenCity/news/create-news");
+    }
+
+    @Override
+    public boolean isPageOpened() {
+        return isVisible(root);
     }
 
     public WebElement getPreviewModalRoot() {
