@@ -29,10 +29,10 @@ public class NewsListItemComponent extends BaseComponent {
     @FindBy(css = ".mw")
     private WebElement authorName;
 
-    @FindBy(xpath = "//img[contains(@alt, 'comment')]/parent::*/span")
+    @FindBy(xpath = ".//img[contains(@alt, 'comment')]/parent::*/span")
     private WebElement commentsCount;
 
-    @FindBy(xpath = "//img[contains(@alt, 'likes')]/parent::*/span")
+    @FindBy(xpath = ".//img[contains(@alt, 'likes')]/parent::*/span")
     private WebElement likesCount;
 
     public NewsListItemComponent(WebDriver driver, WebElement rootElement) {
