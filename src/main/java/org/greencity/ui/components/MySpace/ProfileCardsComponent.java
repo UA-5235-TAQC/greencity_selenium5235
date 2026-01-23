@@ -83,17 +83,6 @@ public class ProfileCardsComponent extends BaseComponent {
 
     /** Checks whether the profile cards component is displayed */
     public boolean isDisplayed() {
-        return cardsContainer.isDisplayed();
-    }
-
-    public static class NoDataComponent extends BaseComponent {
-
-        public NoDataComponent(WebDriver driver, WebElement rootElement) {
-            super(driver, rootElement);
-        }
-        public boolean isVisible() {
-            return rootElement.isDisplayed();
-        }
-
+        return rootElement.isDisplayed();
     }
 }
