@@ -1,5 +1,6 @@
-package org.greencity.ui.components;
+package org.greencity.ui.components.MySpace;
 
+import org.greencity.ui.components.BaseComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
