@@ -74,8 +74,10 @@ public class MySpaceBasePage extends BasePage {
     }
 
     public void openProfile() {
-        wait.until(ExpectedConditions.visibilityOf(editProfile));
-        editProfile.click();
+        WebElement clickableEditProfile = wait.until(
+                ExpectedConditions.elementToBeClickable(editProfile)
+        );
+        clickableEditProfile.click();
     }
 
     public List<String> getToDoItems() {
