@@ -4,7 +4,7 @@ This repository contains UI tests for the GreenCity project using Selenium and M
 
 ## Requirements
 
-- Java 8+ (JDK)
+- Java 21 (JDK)
 - Maven
 
 ## Running tests

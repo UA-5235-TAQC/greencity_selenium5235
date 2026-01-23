@@ -68,7 +68,7 @@ public class CreateNewsPage extends BasePage {
 
     @Override
     public boolean isPageOpened() {
-        return isVisible(root);
+        return isVisible(titleInput);
     }
 
     public WebElement getPreviewModalRoot() {

@@ -40,12 +40,12 @@ public class EcoNewsPage extends BasePage {
 
     @Override
     public void open() {
-
+        driver.get( "#/greenCity/news");
     }
 
     @Override
     public boolean isPageOpened() {
-        return false;
+        return isVisible(pageTitle);
     }
 
     public String getPageTitle() {
