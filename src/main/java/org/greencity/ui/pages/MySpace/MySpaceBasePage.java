@@ -114,6 +114,6 @@ public class MySpaceBasePage extends BasePage {
                 return;
             }
         }
-        throw new NoSuchElementException(tabName + " This tab is not exists");
+        throw new NoSuchElementException("Tab not found: " + tabName);
     }
 }
