@@ -39,7 +39,7 @@ public class HomePage extends BasePage {
     @FindBy(css = "div #subscribe")
     protected WebElement subscribeButton;
 
-    @FindBy(css = ".eco-events a") // Посилання "Read all news"
+    @FindBy(css = ".eco-events a") // "Read all news" link
     protected WebElement readAllNewsLink;
 
     public HomePage(WebDriver driver) {
