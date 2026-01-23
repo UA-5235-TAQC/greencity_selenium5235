@@ -15,43 +15,42 @@ import java.util.NoSuchElementException;
 
 public class MySpaceBasePage extends BasePage {
 
-    @FindBy(xpath = "//p[@class='card-description']")
-    protected WebElement factOfTheDay;
-
-    @FindBy(xpath = "//div[@class='rate']//p")
-    protected WebElement userRating;
-
-    @FindBy(css = ".left-column .name")
-    protected WebElement userName;
-
-    @FindBy(css = ".right-column .item")
-    protected List<WebElement> todoList;
-
-    @FindBy(xpath = "//div[@role='tab']")
-    protected List<WebElement> tabList;
-
-    @FindBy(xpath = "//div[@role='tab' and @aria-selected='true']")
-    protected WebElement activeTab;
-
-    @FindBy(xpath = "//a[@class='edit-icon ng-star-inserted']")
-    protected WebElement editProfile;
-
     @FindBy(xpath = "//div[@class='left-column']")
     public WebElement profilePanel;
-
     @FindBy(xpath = "//div[@role='tablist']")
     public WebElement tabs;
-
     @FindBy(className = "app-calendar")
     public WebElement calendar;
-
     @FindBy(xpath = "(//div[@class='to-do-list-block'])[2]")
     public WebElement toDolist;
-
+    @FindBy(xpath = "//p[@class='card-description']")
+    protected WebElement factOfTheDay;
+    @FindBy(xpath = "//div[@class='rate']//p")
+    protected WebElement userRating;
+    @FindBy(css = ".left-column .name")
+    protected WebElement userName;
+    @FindBy(css = ".right-column .item")
+    protected List<WebElement> todoList;
+    @FindBy(xpath = "//div[@role='tab']")
+    protected List<WebElement> tabList;
+    @FindBy(xpath = "//div[@role='tab' and @aria-selected='true']")
+    protected WebElement activeTab;
+    @FindBy(xpath = "//a[@class='edit-icon ng-star-inserted']")
+    protected WebElement editProfile;
     By toDoItemslocator = By.xpath("(//div[@class='items-count'])[2]");
 
     public MySpaceBasePage(WebDriver driver) {
         super(driver);
+    }
+
+    @Override
+    public void open() {
+
+    }
+
+    @Override
+    public boolean isPageOpened() {
+        return false;
     }
 
     public ProfilePanelComponent getProfilePanel() {
@@ -74,23 +73,17 @@ public class MySpaceBasePage extends BasePage {
     }
 
     public void openProfile() {
-        WebElement clickableEditProfile = wait.until(
-                ExpectedConditions.elementToBeClickable(editProfile)
-        );
+        WebElement clickableEditProfile = wait.until(ExpectedConditions.elementToBeClickable(editProfile));
         clickableEditProfile.click();
     }
 
     public List<String> getToDoItems() {
-        String itemCount = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(toDoItemslocator)
-        ).getText();
+        String itemCount = wait.until(ExpectedConditions.visibilityOfElementLocated(toDoItemslocator)).getText();
         int total = Integer.parseInt(itemCount.replaceAll("\\D+", ""));
         if (total == 0) {
             return Collections.emptyList();
         }
-        return todoList.stream()
-                .map(WebElement::getText)
-                .toList();
+        return todoList.stream().map(WebElement::getText).toList();
     }
 
     public List<String> getTabList() {
