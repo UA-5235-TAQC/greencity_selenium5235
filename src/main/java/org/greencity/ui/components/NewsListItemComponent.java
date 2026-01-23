@@ -103,4 +103,12 @@ public class NewsListItemComponent extends BaseComponent {
     public int getLikesCount() {
         return Integer.parseInt(likesCount.getText());
     }
+
+    public Integer getNewsId(){
+        return 0;
+    }
+
+    public void click() {
+        // ToDo return EcoDetailsPage
+    }
 }
