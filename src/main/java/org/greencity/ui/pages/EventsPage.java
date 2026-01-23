@@ -8,8 +8,8 @@ public class EventsPage extends BasePage {
     }
 
     @Override
-    public void open() {
-
+    public EventsPage open() {
+        return this;
     }
 
     @Override
