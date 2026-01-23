@@ -48,7 +48,7 @@ public class NoDataComponent extends BaseComponent {
         return Objects.requireNonNull(image.getAttribute("src")).trim();
     }
 
-    /** Checks whether the "No Data" component is visible in the DOM */
+    /** Checks whether the "No Data" component is displayed on the page */
     public boolean isDisplayed() {
         return rootElement.isDisplayed();
     }
