@@ -7,4 +7,14 @@ public class MySpaceBasePage extends BasePage {
     public MySpaceBasePage(WebDriver driver) {
         super(driver);
     }
+
+    @Override
+    public void open() {
+
+    }
+
+    @Override
+    public boolean isPageOpened() {
+        return false;
+    }
 }

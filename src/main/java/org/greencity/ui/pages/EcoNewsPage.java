@@ -38,6 +38,16 @@ public class EcoNewsPage extends BasePage {
         super(driver);
     }
 
+    @Override
+    public void open() {
+
+    }
+
+    @Override
+    public boolean isPageOpened() {
+        return false;
+    }
+
     public String getPageTitle() {
         return pageTitle.getText();
     }

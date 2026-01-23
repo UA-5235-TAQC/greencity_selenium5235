@@ -3,6 +3,9 @@ package org.greencity.ui;
 import org.greencity.ui.components.AuthModal.SignUpModal;
 import org.greencity.ui.pages.HomePage;
 import org.greencity.ui.testrunners.BaseTestRunner;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -34,6 +37,8 @@ public class FirstTest extends BaseTestRunner {
                 .enterPassword(testValueProvider.getUserPassword())
                 .enterConfirmPassword(testValueProvider.getUserPassword())
                 .togglePasswordVisibility();
+        WebElement element = driver.findElement(By.id("email"));
+        ExpectedConditions.visibilityOf(element);
 
     }
 }

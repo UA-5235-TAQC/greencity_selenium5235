@@ -8,7 +8,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class CreateNewsPage extends BasePage {
@@ -56,6 +55,16 @@ public class CreateNewsPage extends BasePage {
 
     public CreateNewsPage(WebDriver driver) {
         super(driver);
+    }
+
+    @Override
+    public void open() {
+
+    }
+
+    @Override
+    public boolean isPageOpened() {
+        return false;
     }
 
     public WebElement getPreviewModalRoot() {

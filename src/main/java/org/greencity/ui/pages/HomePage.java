@@ -6,4 +6,14 @@ public class HomePage extends BasePage {
     public HomePage(WebDriver driver) {
         super(driver);
     }
+
+    @Override
+    public void open() {
+
+    }
+
+    @Override
+    public boolean isPageOpened() {
+        return false;
+    }
 }

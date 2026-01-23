@@ -17,49 +17,36 @@ public class NewsDetailsPage extends BasePage {
     protected List<CommentItemComponent> componentsList;
     protected NewsDetailsContentComponent newsDetailsContentComponent;
     protected List<NewsListItemComponent> newsList;
+    @FindBy(css = "main-content app-container")
+    protected WebElement root;
+    @FindBy(css = ".button-link")
+    protected WebElement backToNewsButton;
+    @FindBy(css = ".secondary-global-button.delete-news-button")
+    protected WebElement deleteButton;
+    @FindBy(css = "a.edit-news")
+    protected WebElement editButton;
+    @FindBy(css = "img.news_like")
+    protected WebElement likeButton;
+    @FindBy(css = ".like_wr .numerosity_likes")
+    protected WebElement likesCount;
+    @FindBy(css = ".news-links-images img")
+    protected List<WebElement> socialLinks;
+    @FindBy(css = ".tags .tags-item")
+    protected List<WebElement> tags;
+    @FindBy(xpath = "(//app-comments-container)[1]")
+    protected WebElement commentsContainer;
+    @FindBy(css = ".app-add-comment form")
+    protected WebElement commentsForm;
+    @FindBy(css = "#total-count")
+    protected WebElement commentsCount;
+    @FindBy(css = ".app-eco-news-widget")
+    protected WebElement recommendedNews;
+    @FindBy(css = ".news-title-container .news-title")
+    protected WebElement newsTitleText;
 
     public NewsDetailsPage(WebDriver driver) {
         super(driver);
     }
-
-    @FindBy(css = "main-content app-container")
-    protected WebElement root;
-
-    @FindBy(css = ".button-link")
-    protected WebElement backToNewsButton;
-
-    @FindBy(css = ".secondary-global-button.delete-news-button")
-    protected WebElement deleteButton;
-
-    @FindBy(css = "a.edit-news")
-    protected WebElement editButton;
-
-    @FindBy(css = "img.news_like")
-    protected WebElement likeButton;
-
-    @FindBy(css = ".like_wr .numerosity_likes")
-    protected WebElement likesCount;
-
-    @FindBy(css = ".news-links-images img")
-    protected List<WebElement> socialLinks;
-
-    @FindBy(css = ".tags .tags-item")
-    protected List<WebElement> tags;
-
-    @FindBy(xpath = "(//app-comments-container)[1]")
-    protected WebElement commentsContainer;
-
-    @FindBy(css = ".app-add-comment form")
-    protected WebElement commentsForm;
-
-    @FindBy(css = "#total-count")
-    protected WebElement commentsCount;
-
-    @FindBy(css = ".app-eco-news-widget")
-    protected WebElement recommendedNews;
-
-    @FindBy(css = ".news-title-container .news-title")
-    protected WebElement newsTitleText;
 
     @Override
     public void open() {
@@ -120,8 +107,7 @@ public class NewsDetailsPage extends BasePage {
 
 
     private void waitForLikesToChange(int expectedCount) {
-        new WebDriverWait(driver, Duration.ofSeconds(5))
-                .until(d -> getLikesCount() == expectedCount);
+        new WebDriverWait(driver, Duration.ofSeconds(5)).until(d -> getLikesCount() == expectedCount);
     }
     // --- Getters ---
 
@@ -134,15 +120,11 @@ public class NewsDetailsPage extends BasePage {
     }
 
     public List<String> getSocialIconNames() {
-        return socialLinks.stream()
-                .map(icon -> icon.getAttribute("alt"))
-                .collect(Collectors.toList());
+        return socialLinks.stream().map(icon -> icon.getAttribute("alt")).collect(Collectors.toList());
     }
 
     public List<String> getTags() {
-        return tags.stream()
-                .map(WebElement::getText)
-                .collect(Collectors.toList());
+        return tags.stream().map(WebElement::getText).collect(Collectors.toList());
     }
 
     public int getCommentsCount() {
@@ -175,11 +157,7 @@ public class NewsDetailsPage extends BasePage {
     }
 
     public boolean isTagVisibleByName(String tagName) {
-        return tags.stream()
-                .filter(tag -> tag.getText().trim().equalsIgnoreCase(tagName))
-                .findFirst()
-                .map(this::isVisible)
-                .orElse(false);
+        return tags.stream().filter(tag -> tag.getText().trim().equalsIgnoreCase(tagName)).findFirst().map(this::isVisible).orElse(false);
     }
 
     public boolean isCommentsContainerVisible() {
