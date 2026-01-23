@@ -9,6 +9,11 @@ public class MySpaceBasePage extends BasePage {
     }
 
     @Override
+    public void open() {
+
+    }
+
+    @Override
     public boolean isPageOpened() {
         return false;
     }

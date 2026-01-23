@@ -3,7 +3,6 @@ package org.greencity.ui.pages;
 import org.greencity.ui.Base;
 import org.greencity.ui.components.FooterComponent;
 import org.greencity.ui.components.HeaderComponent;
-import org.greencity.utils.TestValueProvider;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,7 +11,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public abstract class BasePage extends Base {
 
-    protected TestValueProvider testValueProvider = new TestValueProvider();
 
     @FindBy(xpath = "//app-header")
     protected WebElement rootHeaderElement;

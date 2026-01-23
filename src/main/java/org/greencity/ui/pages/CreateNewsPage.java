@@ -62,6 +62,11 @@ public class CreateNewsPage extends BasePage {
     }
 
     @Override
+    public void open() {
+        driver.get("#/greenCity/news/create-news");
+    }
+
+    @Override
     public boolean isPageOpened() {
         return isVisible(root);
     }
