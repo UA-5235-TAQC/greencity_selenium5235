@@ -1,6 +1,7 @@
 package org.greencity.ui.pages.MySpace;
 
-import org.greencity.ui.components.ProfilePanelComponent;
+
+import org.greencity.ui.components.MySpace.ProfilePanelComponent;
 import org.greencity.ui.pages.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

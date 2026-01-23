@@ -2,7 +2,7 @@ package org.greencity.ui.pages.MySpace;
 
 import java.util.List;
 
-import org.greencity.ui.components.NoDataComponent;
+import org.greencity.ui.components.MySpace.NoDataComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -40,7 +40,7 @@ public class MySpaceEventsTabPage extends MySpaceBasePage {
         wait.until(ExpectedConditions.or(
                 ExpectedConditions.visibilityOfAllElements(eventsList),
                 ExpectedConditions.visibilityOf(noDataRoot)));
-        if (noDataComponent.isVisible()) {
+        if (noDataComponent.isDisplayed()) {
             return 0;
         }
         return eventsList.size();

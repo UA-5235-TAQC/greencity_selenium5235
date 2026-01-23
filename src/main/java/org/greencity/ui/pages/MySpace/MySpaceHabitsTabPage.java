@@ -1,6 +1,6 @@
 package org.greencity.ui.pages.MySpace;
 
-import org.greencity.ui.components.NoDataComponent;
+import org.greencity.ui.components.MySpace.NoDataComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -14,7 +14,6 @@ public class MySpaceHabitsTabPage extends MySpaceBasePage {
     @FindBy(css = "div.no-data")
     private WebElement noDataRoot;
 
-
     private NoDataComponent noDataComponent;
 
 
@@ -23,9 +22,9 @@ public class MySpaceHabitsTabPage extends MySpaceBasePage {
         this.noDataComponent = new NoDataComponent(driver, noDataRoot);
     }
 
-    
+
     public boolean hasHabits() {
-        return !noDataComponent.isVisible();
+        return !noDataComponent.isDisplayed();
     }
 
     public void clickAddHabit() {
