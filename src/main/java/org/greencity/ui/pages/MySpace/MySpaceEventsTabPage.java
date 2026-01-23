@@ -2,7 +2,7 @@ package org.greencity.ui.pages.MySpace;
 
 import java.util.List;
 
-import org.greencity.ui.components.NoDataComponent;
+import org.greencity.ui.components.MySpace.ProfileCardsComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -28,11 +28,11 @@ public class MySpaceEventsTabPage extends MySpaceBasePage {
     @FindBy(id = "create-button-join-event")
     private WebElement joinEventButton;
 
-    private NoDataComponent noDataComponent;
+    private ProfileCardsComponent.NoDataComponent noDataComponent;
 
     public MySpaceEventsTabPage(WebDriver driver) {
         super(driver);
-        this.noDataComponent = new NoDataComponent(driver, noDataRoot);
+        this.noDataComponent = new ProfileCardsComponent.NoDataComponent(driver, noDataRoot);
     }
 
 
@@ -77,7 +77,7 @@ public class MySpaceEventsTabPage extends MySpaceBasePage {
         }
     }
 
-    public NoDataComponent getNoDataComponent() {
+    public ProfileCardsComponent.NoDataComponent getNoDataComponent() {
         return noDataComponent;
     }
 }

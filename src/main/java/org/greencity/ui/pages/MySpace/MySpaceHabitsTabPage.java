@@ -1,6 +1,6 @@
 package org.greencity.ui.pages.MySpace;
 
-import org.greencity.ui.components.NoDataComponent;
+import org.greencity.ui.components.MySpace.ProfileCardsComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -15,12 +15,12 @@ public class MySpaceHabitsTabPage extends MySpaceBasePage {
     private WebElement noDataRoot;
 
 
-    private NoDataComponent noDataComponent;
+    private ProfileCardsComponent.NoDataComponent noDataComponent;
 
 
     public MySpaceHabitsTabPage(WebDriver driver) {
         super(driver);
-        this.noDataComponent = new NoDataComponent(driver, noDataRoot);
+        this.noDataComponent = new ProfileCardsComponent.NoDataComponent(driver, noDataRoot);
     }
 
     
@@ -33,7 +33,7 @@ public class MySpaceHabitsTabPage extends MySpaceBasePage {
         addHabitButton.click();
     }
 
-    public NoDataComponent getNoDataComponent() {
+    public ProfileCardsComponent.NoDataComponent getNoDataComponent() {
         return noDataComponent;
     }
 }
