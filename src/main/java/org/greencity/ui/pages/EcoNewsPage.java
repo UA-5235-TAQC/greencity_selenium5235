@@ -4,9 +4,11 @@ import org.greencity.ui.components.NewsListItemComponent;
 import org.greencity.ui.components.TagItem;
 import org.greencity.ui.enums.EcoNewsTag;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class EcoNewsPage extends BasePage {
     @FindBy(css = "h1.main-header")
@@ -40,12 +42,17 @@ public class EcoNewsPage extends BasePage {
 
     @Override
     public void open() {
-        driver.get( "#/greenCity/news");
+        driver.get(testValueProvider.getBaseUIGreenCityUrl() + "#/greenCity/news");
     }
 
     @Override
     public boolean isPageOpened() {
-        return isVisible(pageTitle);
+        try {
+            wait.until(ExpectedConditions.visibilityOf(cards));
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
     }
 
     public String getPageTitle() {
@@ -89,8 +96,9 @@ public class EcoNewsPage extends BasePage {
         return Integer.parseInt(digits);
     }
 
-    public void clickCreateNews() {
+    public CreateNewsPage clickCreateNews() {
         createNewsBtn.click();
+        return new CreateNewsPage(driver);
     }
 
     public TagItem[] getAllTags() {

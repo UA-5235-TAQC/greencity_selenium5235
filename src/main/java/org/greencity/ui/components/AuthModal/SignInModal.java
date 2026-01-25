@@ -1,5 +1,6 @@
 package org.greencity.ui.components.AuthModal;
 
+import org.greencity.ui.pages.MySpace.MySpaceEventsTabPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -32,5 +33,22 @@ public class SignInModal extends AuthModalBase {
 
     public void switchToSignUp() {
         signUpLink.click();
+    }
+
+    @Override
+    public SignInModal enterEmail(String email) {
+        super.enterEmail(email);
+        return this;
+    }
+
+    @Override
+    public SignInModal enterPassword(String password) {
+        super.enterPassword(password);
+        return this;
+    }
+
+    public MySpaceEventsTabPage clickSubmit() {
+        submitBtn.click();
+        return new MySpaceEventsTabPage(driver);
     }
 }

@@ -4,6 +4,7 @@ package org.greencity.ui.pages.MySpace;
 import org.greencity.ui.components.MySpace.ProfilePanelComponent;
 import org.greencity.ui.pages.BasePage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -51,7 +52,12 @@ public class MySpaceBasePage extends BasePage {
 
     @Override
     public boolean isPageOpened() {
-        return false;
+        try {
+            wait.until(ExpectedConditions.visibilityOf(profilePanel));
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
     }
 
     public ProfilePanelComponent getProfilePanel() {
