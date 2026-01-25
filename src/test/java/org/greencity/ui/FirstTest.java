@@ -1,7 +1,6 @@
 package org.greencity.ui;
 
 import org.greencity.ui.components.AuthModal.SignUpModal;
-import org.greencity.ui.components.NewsListItemComponent;
 import org.greencity.ui.pages.EcoNewsPage;
 import org.greencity.ui.pages.HomePage;
 import org.greencity.ui.testrunners.BaseTestRunner;
@@ -43,26 +42,31 @@ public class FirstTest extends BaseTestRunner {
 //
 //    }
 
-//    @Test
-//    public void testTest() {
-//        EcoNewsPage signUpModal = new HomePage(driver)
-//                .getHeader()
-//                .clickEcoNewsLink();
-//
-//        List<NewsListItemComponent> list = signUpModal.getNewsList();
-//
-//        NewsListItemComponent firstNews = list.get(1);
-//        firstNews.clickBookmark();
-//        try {
-//            Thread.sleep(3000);
-//        } catch(InterruptedException e){
-//            e.printStackTrace();
-//        }
-//        System.out.println(">=>------------> " + firstNews.getTitle());
-//        System.out.println(">=>------------> " + firstNews.getAuthorName());
-//        System.out.println(">=>------------> " + firstNews.getNewsText());
-//        System.out.println(">=>------------> " + firstNews.getCommentsCount());
-//        System.out.println(">=>------------> " + firstNews.getCreationDate());
-//        System.out.println(">=>------------> " + firstNews.getLikesCount());
-//    }
+    @Test
+    public void secondTest() {
+        SignUpModal signUpModal = new HomePage(driver)
+                .getHeader()
+                .clickSignUpLink()
+                .enterUsername(testValueProvider.getUserName())
+                .enterPassword(testValueProvider.getUserPassword())
+                .enterConfirmPassword(testValueProvider.getUserPassword())
+                .togglePasswordVisibility();
+
+    }
+
+    @Test
+    public void thirdTest() {
+        HomePage homePage = new HomePage(driver);
+        homePage.open();
+        Assert.assertTrue(homePage.isPageOpened());
+
+        String currentUrl = homePage.getCurrentUrl();
+        System.out.println(currentUrl);
+
+        EcoNewsPage ecoNewsPage = new EcoNewsPage(driver);
+        ecoNewsPage.open();
+        currentUrl = ecoNewsPage.getCurrentUrl();
+        System.out.println(currentUrl);
+
+    }
 }
