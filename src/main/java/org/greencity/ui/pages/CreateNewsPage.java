@@ -6,9 +6,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class CreateNewsPage extends BasePage {
@@ -19,7 +19,8 @@ public class CreateNewsPage extends BasePage {
     @FindBy(css = "textarea[formcontrolname='title']")
     private WebElement titleInput;
 
-    @FindBy(css = "button.tag-button a.global-tag")
+    // У CreateNewsPage.java заміни локатор тегів на цей:
+    @FindBy(css = "div.tags-box button.tag-button")
     private List<WebElement> tagRootElements;
 
     @FindBy(css = "input[formcontrolname='source']")
@@ -46,7 +47,7 @@ public class CreateNewsPage extends BasePage {
     @FindBy(css = ".ql-editor")
     private WebElement contentEditor;
 
-    @FindBy(xpath = "//button[contains(text(),'Publish')]")
+    @FindBy(css = ".submit-buttons button.primary-global-button")
     private WebElement publishBtn;
 
     @FindBy(xpath = "//button[contains(text(),'Cancel')]")
@@ -54,6 +55,9 @@ public class CreateNewsPage extends BasePage {
 
     @FindBy(xpath = "//button[contains(text(),'Preview')]")
     private WebElement previewBtn;
+
+    @FindBy(css = ".title-block div span.field-info")
+    private WebElement titleCharacterCounter;
 
     private WebElement previewModalRoot;
 
@@ -96,6 +100,21 @@ public class CreateNewsPage extends BasePage {
                 }
             }
         }
+        return this;
+    }
+
+    public CreateNewsPage clickTagByName(String tagName) {
+        // Шукаємо кнопку тегу, яка містить span з відповідним текстом (ігноруючи зайві пробіли)
+        String xpathExpression = String.format(
+                "//button[contains(@class, 'tag-button')]//span[contains(@class, 'text') and normalize-space()='%s']",
+                tagName
+        );
+
+        WebElement tagButton = driver.findElement(By.xpath(xpathExpression));
+
+        // Використовуємо явне очікування перед кліком
+        wait.until(ExpectedConditions.elementToBeClickable(tagButton)).click();
+
         return this;
     }
 
@@ -192,5 +211,23 @@ public class CreateNewsPage extends BasePage {
 
     public List<String> getAllTags() {
         return getTagItems().stream().map(TagItem::getName).collect(Collectors.toList());
+    }
+
+    // methods for testing title fields
+    public String getTitleCounterText() {
+        return titleCharacterCounter.getText();
+    }
+
+    public boolean isTitleCounterWarningDisplayed() {
+        String classAttribute = titleInput.getAttribute("class");
+        return classAttribute != null && classAttribute.contains("ng-invalid");
+    }
+
+    public String getTitleValue() {
+        return titleInput.getAttribute("value");
+    }
+
+    public int getTitleLength() {
+        return getTitleValue().length();
     }
 }
