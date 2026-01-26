@@ -1,15 +1,23 @@
 package org.greencity.ui.pages;
 
+import org.greencity.ui.components.CancelModalComponent;
 import org.greencity.ui.components.NewsPreviewComponent;
 import org.greencity.ui.components.TagItem;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.NoSuchElementException;
+
 
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+/**
+ * Page Object for Create News page.
+ * Handles creation of new news articles and modal interactions.
+ */
 
 public class CreateNewsPage extends BasePage {
 
@@ -155,6 +163,10 @@ public class CreateNewsPage extends BasePage {
         return classAttribute != null && classAttribute.contains("ng-invalid");
     }
 
+    public String getTitleValue() {
+        return titleInput.getAttribute("value");
+    }
+
     public String getImageError() {
         return imageErrorMessage.getText();
     }
@@ -192,5 +204,22 @@ public class CreateNewsPage extends BasePage {
 
     public List<String> getAllTags() {
         return getTagItems().stream().map(TagItem::getName).collect(Collectors.toList());
+    }
+
+    public CancelModalComponent getCancelModal() {
+        try {
+            WebElement modalRoot = driver.findElement(By.cssSelector("div[role='dialog']"));
+            return new CancelModalComponent(driver, modalRoot);
+        } catch (NoSuchElementException e) {
+            throw new RuntimeException("Cancel modal not found", e);
+        }
+    }
+
+    public boolean isCancelModalDisplayed() {
+        try {
+            return getCancelModal().isVisible();
+        } catch (RuntimeException e) {
+            return false;
+        }
     }
 }
