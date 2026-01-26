@@ -6,9 +6,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class CreateNewsPage extends BasePage {
@@ -19,7 +19,7 @@ public class CreateNewsPage extends BasePage {
     @FindBy(css = "textarea[formcontrolname='title']")
     private WebElement titleInput;
 
-    @FindBy(css = "button.tag-button a.global-tag")
+    @FindBy(css = "div.tags-box button.tag-button")
     private List<WebElement> tagRootElements;
 
     @FindBy(css = "input[formcontrolname='source']")
@@ -46,7 +46,7 @@ public class CreateNewsPage extends BasePage {
     @FindBy(css = ".ql-editor")
     private WebElement contentEditor;
 
-    @FindBy(xpath = "//button[contains(text(),'Publish')]")
+    @FindBy(css = ".submit-buttons button.primary-global-button")
     private WebElement publishBtn;
 
     @FindBy(xpath = "//button[contains(text(),'Cancel')]")

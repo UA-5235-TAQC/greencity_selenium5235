@@ -3,6 +3,7 @@ package org.greencity.ui.pages.MySpace;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.greencity.ui.pages.NewsDetailsPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -25,11 +26,9 @@ public class MySpaceNewsTabPage extends MySpaceBasePage {
     @FindBy(css = "div.favourites")
     private WebElement favouritesButton;
 
-
     public MySpaceNewsTabPage(WebDriver driver) {
         super(driver);
     }
-
 
     public List<MySpaceNewsListItemComponent> getNewsList() {
         wait.until(ExpectedConditions.visibilityOfAllElements(newsList));
@@ -43,8 +42,7 @@ public class MySpaceNewsTabPage extends MySpaceBasePage {
         WebElement tag = tags.stream()
                 .filter(t -> t.getText().equalsIgnoreCase(tagName))
                 .findFirst()
-                .orElseThrow(() ->
-                        new NoSuchElementException("Tag not found: " + tagName));
+                .orElseThrow(() -> new NoSuchElementException("Tag not found: " + tagName));
 
         tag.click();
     }
@@ -73,5 +71,18 @@ public class MySpaceNewsTabPage extends MySpaceBasePage {
     public void clickFavourites() {
         waitForVisible(favouritesButton);
         favouritesButton.click();
+    }
+
+    public NewsDetailsPage openFirstNewsDetails() {
+        List<MySpaceNewsListItemComponent> news = getNewsList();
+
+        if (news.isEmpty()) {
+            throw new NoSuchElementException("No news found");
+        }
+
+        // клікаємо по root-елементу новини
+        news.get(0).getRoot().click();
+
+        return new NewsDetailsPage(driver);
     }
 }

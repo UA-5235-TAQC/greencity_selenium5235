@@ -1,6 +1,5 @@
 package org.greencity.ui.pages.MySpace;
 
-
 import org.greencity.ui.components.MySpace.ProfilePanelComponent;
 import org.greencity.ui.pages.BasePage;
 import org.openqa.selenium.By;
@@ -111,5 +110,10 @@ public class MySpaceBasePage extends BasePage {
             }
         }
         throw new NoSuchElementException("Tab not found: " + tabName);
+    }
+
+    public MySpaceNewsTabPage switchToNews() {
+        switchTo("My News");
+        return new MySpaceNewsTabPage(driver);
     }
 }

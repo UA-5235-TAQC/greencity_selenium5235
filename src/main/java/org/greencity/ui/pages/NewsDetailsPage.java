@@ -17,43 +17,43 @@ public class NewsDetailsPage extends BasePage {
     protected List<CommentItemComponent> componentsList;
     protected NewsDetailsContentComponent newsDetailsContentComponent;
     protected List<NewsListItemComponent> newsList;
-    
+
     @FindBy(css = "main-content app-container")
     protected WebElement root;
-    
+
     @FindBy(css = ".button-link")
     protected WebElement backToNewsButton;
-    
+
     @FindBy(css = ".secondary-global-button.delete-news-button")
     protected WebElement deleteButton;
-    
+
     @FindBy(css = "a.edit-news")
     protected WebElement editButton;
-    
+
     @FindBy(css = "img.news_like")
     protected WebElement likeButton;
-    
+
     @FindBy(css = ".like_wr .numerosity_likes")
     protected WebElement likesCount;
-    
+
     @FindBy(css = ".news-links-images img")
     protected List<WebElement> socialLinks;
-    
+
     @FindBy(css = ".tags .tags-item")
     protected List<WebElement> tags;
-    
+
     @FindBy(xpath = "(//app-comments-container)[1]")
     protected WebElement commentsContainer;
-    
+
     @FindBy(css = ".app-add-comment form")
     protected WebElement commentsForm;
-    
+
     @FindBy(css = "#total-count")
     protected WebElement commentsCount;
-    
+
     @FindBy(css = ".app-eco-news-widget")
     protected WebElement recommendedNews;
-    
+
     @FindBy(css = ".news-title-container .news-title")
     protected WebElement newsTitleText;
 
@@ -84,9 +84,9 @@ public class NewsDetailsPage extends BasePage {
         return this;
     }
 
-    public NewsDetailsPage clickEditButton() {
+    public CreateNewsPage clickEditButton() {
         click(editButton);
-        return this;
+        return new CreateNewsPage(driver);
     }
 
     public NewsDetailsPage clickLikeButton() {
@@ -142,7 +142,6 @@ public class NewsDetailsPage extends BasePage {
         return Integer.parseInt(getText(commentsCount).trim());
     }
 
-
     public String getTagByIndex(int index) {
         return tags.get(index).getText();
     }
@@ -168,7 +167,8 @@ public class NewsDetailsPage extends BasePage {
     }
 
     public boolean isTagVisibleByName(String tagName) {
-        return tags.stream().filter(tag -> tag.getText().trim().equalsIgnoreCase(tagName)).findFirst().map(this::isVisible).orElse(false);
+        return tags.stream().filter(tag -> tag.getText().trim().equalsIgnoreCase(tagName)).findFirst()
+                .map(this::isVisible).orElse(false);
     }
 
     public boolean isCommentsContainerVisible() {
