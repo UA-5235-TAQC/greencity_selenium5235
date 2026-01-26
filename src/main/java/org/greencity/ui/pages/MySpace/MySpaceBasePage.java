@@ -45,8 +45,8 @@ public class MySpaceBasePage extends BasePage {
     }
 
     @Override
-    public void open() {
-
+    public MySpaceBasePage open() {
+        return this;
     }
 
     @Override

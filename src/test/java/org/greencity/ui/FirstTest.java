@@ -8,6 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+
 public class FirstTest extends BaseTestRunner {
 
     @BeforeMethod
@@ -18,12 +19,15 @@ public class FirstTest extends BaseTestRunner {
     @Test
     public void firstTest() {
         HomePage homePage = new HomePage(driver);
-        String currentUrl = homePage.getCurrentUrl();
-        Assert.assertEquals(currentUrl, testValueProvider.getBaseUIGreenCityUrl());
-        homePage.getHeader().clickEcoNewsLink();
-        currentUrl = homePage.getCurrentUrl();
-        Assert.assertEquals(currentUrl, testValueProvider.getBaseUIGreenCityUrl() + "/news");
 
+        Assert.assertEquals(
+                homePage.getCurrentUrl(),
+                testValueProvider.getBaseUIGreenCityUrl()
+        );
+
+        EcoNewsPage ecoNewsPage = homePage.getHeader().clickEcoNewsLink();
+
+        Assert.assertTrue(ecoNewsPage.getCurrentUrl().contains("/news"));
     }
 
     @Test

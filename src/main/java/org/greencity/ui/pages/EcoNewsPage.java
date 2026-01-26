@@ -3,12 +3,16 @@ package org.greencity.ui.pages;
 import org.greencity.ui.components.NewsListItemComponent;
 import org.greencity.ui.components.TagItem;
 import org.greencity.ui.enums.EcoNewsTag;
+import org.greencity.ui.utils.ValueProvider;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class EcoNewsPage extends BasePage {
+
+    private final ValueProvider valueProvider = new ValueProvider();
+
     @FindBy(css = "h1.main-header")
     protected WebElement pageTitle;
     @FindBy(css = "div#create-button")
@@ -39,8 +43,9 @@ public class EcoNewsPage extends BasePage {
     }
 
     @Override
-    public void open() {
-        driver.get( "#/greenCity/news");
+    public EcoNewsPage open() {
+        driver.get(valueProvider.get("base.ui.greencity.ecoNews.url"));
+        return this;
     }
 
     @Override
@@ -101,9 +106,10 @@ public class EcoNewsPage extends BasePage {
 
     public void clickTag(EcoNewsTag tag) {
         TagItem[] tagItems = getAllTags();
+        String tagName = tag.getByLocale("en");
 
         for (TagItem item : tagItems) {
-            if (item.getName().equals(tag.getTagName())) {
+            if (item.getName().equals(tagName)) {
                 item.click();
                 return;
             }

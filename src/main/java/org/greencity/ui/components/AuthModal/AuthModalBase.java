@@ -1,9 +1,14 @@
 package org.greencity.ui.components.AuthModal;
 
 import org.greencity.ui.Base;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 /**
  * Abstract base class for authentication-related modal dialogs in the UI.
@@ -39,9 +44,10 @@ public abstract class AuthModalBase extends Base {
      * @throws org.openqa.selenium.NoSuchElementException          if the email input element is not present in the DOM
      * @throws org.openqa.selenium.ElementNotInteractableException if the email input element cannot be interacted with
      */
-    public void enterEmail(String email) {
+    public AuthModalBase enterEmail(String email) {
         emailInput.clear();
         emailInput.sendKeys(email);
+        return this;
     }
 
     /**
@@ -75,7 +81,14 @@ public abstract class AuthModalBase extends Base {
     }
 
     public void clickSubmit() {
-        submitBtn.click();
+        try {
+            waitUntilVisible(submitBtn);
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", submitBtn);
+            waitUntilVisible(submitBtn);
+            submitBtn.click();
+        } catch (Exception e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", submitBtn);
+        }
     }
 
     public AuthModalBase enterPassword(String password) {

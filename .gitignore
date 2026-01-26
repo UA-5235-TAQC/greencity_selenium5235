@@ -56,3 +56,4 @@ build/
 
 # Project specific
 config.properties
+application.properties
