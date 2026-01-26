@@ -19,7 +19,7 @@ public class CreateNewsPage extends BasePage {
     @FindBy(css = "textarea[formcontrolname='title']")
     private WebElement titleInput;
 
-    @FindBy(css = "button.tag-button a.global-tag")
+    @FindBy(css = "button.tag-button")
     private List<WebElement> tagRootElements;
 
     @FindBy(css = "input[formcontrolname='source']")
@@ -84,7 +84,9 @@ public class CreateNewsPage extends BasePage {
     }
 
     private List<TagItem> getTagItems() {
-        return tagRootElements.stream().map(root -> new TagItem(driver, root)).collect(Collectors.toList());
+        return tagRootElements.stream()
+                .map(root -> new TagItem(driver, root))
+                .collect(Collectors.toList());
     }
 
     public CreateNewsPage selectTags(List<String> tags) {

@@ -53,7 +53,7 @@ public class HomePage extends BasePage {
 
     @Override
     public HomePage open() {
-        driver.get("/#/greenCity");
+        driver.get(testValueProvider.getBaseUIGreenCityUrl());
         return new HomePage(driver);
     }
 

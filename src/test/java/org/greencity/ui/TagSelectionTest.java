@@ -1,22 +1,69 @@
 package org.greencity.ui;
 
+import org.greencity.ui.components.NewsListItemComponent;
+import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.ui.pages.CreateNewsPage;
 import org.greencity.ui.pages.EcoNewsPage;
-import org.greencity.ui.testrunners.AuthenticatedTestRunner;
+import org.greencity.ui.testrunners.TestRunnerWithUser;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class TagSelectionTest extends AuthenticatedTestRunner {
+import java.util.List;
+
+public class TagSelectionTest extends TestRunnerWithUser {
 
     @Test
     public void checkTagSelection() {
-        EcoNewsPage ecoNewsPage = new EcoNewsPage(driver);
-        ecoNewsPage.open();
+        // 1. Navigate to GreenCity News and click "Create News".
+        EcoNewsPage ecoNewsPage = new EcoNewsPage(driver).open();
+        ecoNewsPage.getHeader().changeToEN();
         Assert.assertTrue(ecoNewsPage.isPageOpened(), "Eco News page should be opened");
-
-        System.out.println(ecoNewsPage.getCurrentUrl());
 
         CreateNewsPage createNewsPage = ecoNewsPage.clickCreateNews();
         Assert.assertTrue(createNewsPage.isPageOpened(), "Create News page should be opened");
+
+        // 2. In the "Tag" field, select one tag ("News").
+        // 3. Fill in the required fields: Title: "Test", Main Text: "Test content with 20 chars"
+        // 4. Click "Publish".
+        List<String> tagNames = List.of(EcoNewsTag.NEWS.getTagName());
+        createNewsPage.selectTags(tagNames)
+                .enterTitle("Test")
+                .enterContent("Test content with 20 chars")
+                .clickPublish();
+
+        // 5. Verify that the news is published with the "News" tag.
+        Assert.assertTrue(ecoNewsPage.isPageOpened(), "Eco News page should be opened after publishing a news");
+
+        NewsListItemComponent newsListItem = ecoNewsPage.getNewsCardByIndex(0);
+        Assert.assertEquals(newsListItem.getTitle(), "Test", "News should have 'Test' title");
+        Assert.assertTrue(newsListItem.hasTags(tagNames), "News should have 'News' tag");
+
+        // 6. Open the "Create News" form again.
+        ecoNewsPage.clickCreateNews();
+        Assert.assertTrue(createNewsPage.isPageOpened(), "Create News page should be opened");
+
+        // 7. Select three tags: "News", "Events", "Education".
+        // 8. Click "Publish".
+        tagNames = List.of(EcoNewsTag.NEWS.getTagName(), EcoNewsTag.EVENTS.getTagName(), EcoNewsTag.EDUCATION.getTagName());
+        createNewsPage.selectTags(tagNames)
+                .enterTitle("Test_2")
+                .enterContent("Test content with 20 chars")
+                .clickPublish();
+
+        // 9. Verify that the news is published with all three selected tags.
+        Assert.assertTrue(ecoNewsPage.isPageOpened(), "Eco News page should be opened after publishing a news");
+
+        newsListItem = ecoNewsPage.getNewsCardByIndex(0);
+        Assert.assertEquals(newsListItem.getTitle(), "Test_2", "News should have 'Test_2' title");
+        Assert.assertTrue(newsListItem.hasTags(tagNames), "News should have 'News', 'Events' and 'Education' tags");
+
+        // 10. Attempt to select a fourth tag ("Initiatives").
+        // 11. Verify that selecting a fourth tag is blocked.
+        ecoNewsPage.clickCreateNews();
+        Assert.assertTrue(createNewsPage.isPageOpened(), "Create News page should be opened");
+
+        tagNames = List.of(EcoNewsTag.NEWS.getTagName(), EcoNewsTag.EVENTS.getTagName(), EcoNewsTag.EDUCATION.getTagName(), EcoNewsTag.INITIATIVES.getTagName());
+        createNewsPage.selectTags(tagNames);
+        Assert.assertFalse(createNewsPage.isPublishButtonEnabled(), "Publishing a news with 4 tags should be blocked");
     }
 }

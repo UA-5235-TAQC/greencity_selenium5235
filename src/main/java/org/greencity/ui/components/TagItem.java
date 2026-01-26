@@ -5,6 +5,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class TagItem extends BaseComponent {
+
+    @FindBy(css = "a.global-tag")
+    protected WebElement root;
+
     @FindBy(css = "a.global-tag .text")
     protected WebElement name;
 
@@ -20,12 +24,10 @@ public class TagItem extends BaseComponent {
     }
 
     public boolean isSelected() {
-        String classes = closeIcon.getAttribute("class");
-
-        return classes != null && classes.contains("global-tag-close-icon");
+        return closeIcon.getAttribute("class").contains("global-tag-close-icon");
     }
 
     public void click() {
-        rootElement.click();
+        root.click();
     }
 }

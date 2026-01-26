@@ -22,18 +22,19 @@ public class SignInModal extends AuthModalBase {
         super(driver);
     }
 
+    @Override
     public SignInModal enterPassword(String password) {
         passwordInput.clear();
         passwordInput.sendKeys(password);
         return this;
     }
 
+    @Override
     public SignInModal enterEmail(String email) {
         emailInput.clear();
         emailInput.sendKeys(email);
         return this;
     }
-
 
     public void clickForgotPassword() {
         forgotPasswordBtn.click();
@@ -46,22 +47,5 @@ public class SignInModal extends AuthModalBase {
 
     public void switchToSignUp() {
         signUpLink.click();
-    }
-
-    @Override
-    public SignInModal enterEmail(String email) {
-        super.enterEmail(email);
-        return this;
-    }
-
-    @Override
-    public SignInModal enterPassword(String password) {
-        super.enterPassword(password);
-        return this;
-    }
-
-    public MySpaceEventsTabPage clickSubmit() {
-        submitBtn.click();
-        return new MySpaceEventsTabPage(driver);
     }
 }
