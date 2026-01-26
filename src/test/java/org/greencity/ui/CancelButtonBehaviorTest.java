@@ -1,7 +1,6 @@
 package org.greencity.ui;
 
 import org.greencity.ui.components.CancelModalComponent;
-import org.greencity.ui.testrunners.TestRunnerWithUser;
 import org.greencity.ui.pages.CreateNewsPage;
 import org.greencity.ui.pages.EcoNewsPage;
 import org.testng.Assert;
@@ -15,7 +14,7 @@ import org.testng.annotations.Test;
  * and that selecting "Yes, cancel" closes the form and returns the user to the news page.
  * Also verify that "Continue editing" keeps the form open with data intact.
  */
-public class CancelButtonBehaviorTest extends TestRunnerWithUser {
+public class CancelButtonBehaviorTest extends FirstTestWithUser {
 
     private EcoNewsPage ecoNewsPage;
     private CreateNewsPage createNewsPage;
