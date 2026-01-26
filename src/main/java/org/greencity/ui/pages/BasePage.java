@@ -26,7 +26,7 @@ public abstract class BasePage extends Base {
         this.footerComponent = new FooterComponent(driver, rootFooterElement);
     }
 
-    abstract public void open();
+    abstract public BasePage open();
 
     public abstract boolean isPageOpened();
 

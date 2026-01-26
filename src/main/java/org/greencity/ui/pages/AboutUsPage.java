@@ -8,8 +8,8 @@ public class AboutUsPage extends BasePage {
     }
 
     @Override
-    public void open() {
-
+    public AboutUsPage open() {
+        return this;
     }
 
     @Override
