@@ -52,12 +52,7 @@ public class MySpaceBasePage extends BasePage {
 
     @Override
     public boolean isPageOpened() {
-        try {
-            wait.until(ExpectedConditions.visibilityOf(profilePanel));
-            return true;
-        } catch (TimeoutException e) {
-            return false;
-        }
+        return isVisible(profilePanel);
     }
 
     public ProfilePanelComponent getProfilePanel() {
