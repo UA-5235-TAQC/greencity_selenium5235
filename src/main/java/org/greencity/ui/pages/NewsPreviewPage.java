@@ -43,9 +43,10 @@ public class NewsPreviewPage extends BasePage {
         super(driver);
     }
 
-    // Should be realized step by step
     @Override
-    public void open() { }
+    public BasePage open() {
+        return null;
+    }
 
     @Override
     public boolean isPageOpened() {

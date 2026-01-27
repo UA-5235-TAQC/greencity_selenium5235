@@ -22,6 +22,19 @@ public class SignInModal extends AuthModalBase {
         super(driver);
     }
 
+    public SignInModal enterPassword(String password) {
+        passwordInput.clear();
+        passwordInput.sendKeys(password);
+        return this;
+    }
+
+    public SignInModal enterEmail(String email) {
+        emailInput.clear();
+        emailInput.sendKeys(email);
+        return this;
+    }
+
+
     public void clickForgotPassword() {
         forgotPasswordBtn.click();
     }
