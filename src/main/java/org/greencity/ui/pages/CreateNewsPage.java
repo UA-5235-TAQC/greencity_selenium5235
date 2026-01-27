@@ -127,14 +127,10 @@ public class CreateNewsPage extends BasePage {
     }
 
     public CreateNewsPage createNews(String title, List<String> tags, String source, String content, String imagePath) {
-        if (title != null)
-            enterTitle(title);
-        if (tags != null)
-            selectTags(tags);
-        if (source != null)
-            enterSource(source);
-        if (content != null)
-            enterContent(content);
+        if (title != null) enterTitle(title);
+        if (tags != null) selectTags(tags);
+        if (source != null) enterSource(source);
+        if (content != null) enterContent(content);
         if (imagePath != null) {
             uploadImage(imagePath);
             cropImage();

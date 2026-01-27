@@ -13,7 +13,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
-import java.util.List;
 
 public class MainTextFieldValidationTest extends BaseTestRunner {
 
@@ -41,7 +40,7 @@ public class MainTextFieldValidationTest extends BaseTestRunner {
     @Test
 public void verifyMainTextValidationAndPublishButtonLogic() {
 
-    // ---------- 1️⃣ < 20 symbols ----------
+    // ---------- < 20 symbols ----------
     createNewsPage.enterTitle("Test");
     createNewsPage.enterContent("Short text");
     createNewsPage.clickTagByName(EcoNewsTag.NEWS.getTagName());
@@ -58,7 +57,7 @@ public void verifyMainTextValidationAndPublishButtonLogic() {
             "Publish button must be disabled when content is invalid"
     );
 
-    // ---------- 2️⃣ > 63 206 symbols ----------
+    // ---------- > 63 206 symbols ----------
     String tooLongText = "A".repeat(63207);
     createNewsPage.enterContent(tooLongText);
 
@@ -73,7 +72,7 @@ public void verifyMainTextValidationAndPublishButtonLogic() {
             "Warning should not be displayed after truncation"
     );
 
-    // ---------- 3️⃣ valid content ----------
+    // ---------- valid content ----------
     String validContent = "This is a valid test content with more than twenty symbols.";
     createNewsPage.enterContent(validContent);
 
@@ -87,7 +86,7 @@ public void verifyMainTextValidationAndPublishButtonLogic() {
             "Publish button should be enabled for valid content"
     );
 
-    // ---------- 4️⃣ Publish ----------
+    // ---------- Publish ----------
     createNewsPage.clickPublish();
 }
 
