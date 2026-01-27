@@ -1,77 +1,57 @@
 package org.greencity.ui.pages;
 
-import org.greencity.ui.components.CancelModalComponent;
-import org.greencity.ui.components.NewsPreviewComponent;
 import org.greencity.ui.components.TagItem;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.NoSuchElementException;
-
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
-
-/**
- * Page Object for Create News page.
- * Handles creation of new news articles and modal interactions.
- */
 
 public class CreateNewsPage extends BasePage {
 
+    private final String tagButtonXpathTemplate = "//button[contains(@class, 'tag-button')]//span[contains(@class, 'text') and normalize-space()='%s']";
     @FindBy(css = "div.main-content")
     private WebElement root;
-
     @FindBy(css = "textarea[formcontrolname='title']")
     private WebElement titleInput;
-
-    @FindBy(css = "button.tag-button a.global-tag")
+    // In CreateNewsPage.java, replace the tag locator with this one:
+    @FindBy(css = "div.tags-box button.tag-button")
     private List<WebElement> tagRootElements;
-
     @FindBy(css = "input[formcontrolname='source']")
     private WebElement sourceInput;
-
     @FindBy(xpath = "//input[@type='file']")
     private WebElement imageUploadInput;
-
     @FindBy(css = "image-cropper.cropper")
     private WebElement imageCropper;
-
     @FindBy(css = "div.image-block p.warning")
     private WebElement imageErrorMessage;
-
     @FindBy(css = "div.source-block span.warning")
     private WebElement sourceErrorMessage;
-
     @FindBy(css = "div.textarea-wrapper div.title-wrapper p.field-info.warning")
     private WebElement contentErrorMessage;
-
     @FindBy(css = "div.textarea-wrapper p.quill-counter.warning")
     private WebElement contentCounterMessage;
-
     @FindBy(css = ".ql-editor")
     private WebElement contentEditor;
-
-    @FindBy(xpath = "//button[contains(text(),'Publish')]")
+    @FindBy(css = ".submit-buttons button.primary-global-button")
     private WebElement publishBtn;
-
     @FindBy(xpath = "//button[contains(text(),'Cancel')]")
     private WebElement cancelBtn;
-
     @FindBy(xpath = "//button[contains(text(),'Preview')]")
     private WebElement previewBtn;
-
-    private WebElement previewModalRoot;
+    @FindBy(css = ".title-block div span.field-info")
+    private WebElement titleCharacterCounter;
 
     public CreateNewsPage(WebDriver driver) {
         super(driver);
     }
 
     @Override
-    public void open() {
-        driver.get("#/greenCity/news/create-news");
+    public CreateNewsPage open() {
+        driver.get(getBaseHost() + "#/greenCity/news/create-news");
+        return new CreateNewsPage(driver);
     }
 
     @Override
@@ -79,10 +59,6 @@ public class CreateNewsPage extends BasePage {
         return isVisible(titleInput);
     }
 
-    public WebElement getPreviewModalRoot() {
-        previewModalRoot = driver.findElement(By.cssSelector("div[role='dialog']"));
-        return previewModalRoot;
-    }
 
     public CreateNewsPage enterTitle(String title) {
         titleInput.clear();
@@ -104,6 +80,18 @@ public class CreateNewsPage extends BasePage {
                 }
             }
         }
+        return this;
+    }
+
+    public CreateNewsPage clickTagByName(String tagName) {
+
+        String xpathExpression = String.format(tagButtonXpathTemplate, tagName);
+
+        WebElement tagButton = driver.findElement(By.xpath(xpathExpression));
+
+        waitUntilClickable(tagButton);
+        tagButton.click();
+
         return this;
     }
 
@@ -197,29 +185,26 @@ public class CreateNewsPage extends BasePage {
         return this;
     }
 
-    public NewsPreviewComponent clickPreview() {
+    public NewsPreviewPage clickPreview() {
         previewBtn.click();
-        return new NewsPreviewComponent(driver, getPreviewModalRoot());
+        return new NewsPreviewPage(driver);
     }
 
     public List<String> getAllTags() {
         return getTagItems().stream().map(TagItem::getName).collect(Collectors.toList());
     }
 
-    public CancelModalComponent getCancelModal() {
-        try {
-            WebElement modalRoot = driver.findElement(By.cssSelector("div[role='dialog']"));
-            return new CancelModalComponent(driver, modalRoot);
-        } catch (NoSuchElementException e) {
-            throw new RuntimeException("Cancel modal not found", e);
-        }
+    // methods for testing title fields
+    public String getTitleCounterText() {
+        return titleCharacterCounter.getText();
     }
 
-    public boolean isCancelModalDisplayed() {
-        try {
-            return getCancelModal().isVisible();
-        } catch (RuntimeException e) {
-            return false;
-        }
+    public boolean isTitleCounterWarningDisplayed() {
+        String classAttribute = titleInput.getAttribute("class");
+        return classAttribute != null && classAttribute.contains("ng-invalid");
+    }
+
+    public int getTitleLength() {
+        return getTitleValue().length();
     }
 }
