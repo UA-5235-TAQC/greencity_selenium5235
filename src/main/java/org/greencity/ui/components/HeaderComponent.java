@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = "//a[contains(@href, '#/greenCity/news')]")
@@ -57,7 +58,13 @@ public class HeaderComponent extends BaseComponent {
         return this;
     }
 
+    public HeaderComponent waitUntilVisible() {
+        wait.until(ExpectedConditions.visibilityOf(logo));
+        return new HeaderComponent(driver, rootElement);
+    }
+
     public EcoNewsPage clickEcoNewsLink() {
+        waitUntilVisible();
         ecoNewsLink.click();
         return new EcoNewsPage(driver);
     }

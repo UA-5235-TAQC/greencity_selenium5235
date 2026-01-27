@@ -39,9 +39,10 @@ public abstract class AuthModalBase extends Base {
      * @throws org.openqa.selenium.NoSuchElementException          if the email input element is not present in the DOM
      * @throws org.openqa.selenium.ElementNotInteractableException if the email input element cannot be interacted with
      */
-    public void enterEmail(String email) {
+    public AuthModalBase enterEmail(String email) {
         emailInput.clear();
         emailInput.sendKeys(email);
+        return this;
     }
 
     /**

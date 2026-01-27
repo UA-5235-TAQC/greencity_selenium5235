@@ -1,5 +1,6 @@
 package org.greencity.ui.components.AuthModal;
 
+import org.greencity.ui.pages.MySpace.MySpaceBasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -28,6 +29,13 @@ public class SignInModal extends AuthModalBase {
     public SignInModal togglePasswordVisibility() {
         showPasswordBtn.click();
         return this;
+    }
+
+    public MySpaceBasePage loginAs(String email, String password) {
+        enterEmail(email);
+        enterPassword(password);
+        clickSubmit();
+        return new MySpaceBasePage(driver);
     }
 
     public void switchToSignUp() {

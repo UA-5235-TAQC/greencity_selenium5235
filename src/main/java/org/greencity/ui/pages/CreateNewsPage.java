@@ -1,6 +1,5 @@
 package org.greencity.ui.pages;
 
-import org.greencity.ui.components.NewsPreviewComponent;
 import org.greencity.ui.components.TagItem;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -185,9 +184,9 @@ public class CreateNewsPage extends BasePage {
         return this;
     }
 
-    public NewsPreviewComponent clickPreview() {
+    public NewsPreviewPage clickPreview() {
         previewBtn.click();
-        return new NewsPreviewComponent(driver, getPreviewModalRoot());
+        return new NewsPreviewPage(driver);
     }
 
     public List<String> getAllTags() {

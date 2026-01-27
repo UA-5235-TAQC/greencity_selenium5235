@@ -60,7 +60,7 @@ public abstract class BasePage extends Base {
         }
     }
 
-    protected void waitUntilVisible(WebElement element) {
+    public void waitUntilVisible(WebElement element) {
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 
