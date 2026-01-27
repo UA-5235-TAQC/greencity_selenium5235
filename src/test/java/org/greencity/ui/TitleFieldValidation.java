@@ -11,12 +11,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
 import java.time.Duration;
 
 public class TitleFieldValidation extends BaseTestRunner {
 
-    private CreateNewsPage createNewsPage;
     private final String VALID_CONTENT = "This is a valid content with more than 20 characters for the news item.";
+    private CreateNewsPage createNewsPage;
 
     @BeforeMethod
     public void beforeMethod() {
