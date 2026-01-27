@@ -1,6 +1,7 @@
 package org.greencity.ui;
 
 import org.greencity.ui.components.AuthModal.SignInModal;
+import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.ui.pages.CreateNewsPage;
 import org.greencity.ui.pages.EcoNewsPage;
 import org.greencity.ui.pages.HomePage;
@@ -10,9 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
 import java.time.Duration;
-import java.util.Collections;
 
 public class TitleFieldValidation extends BaseTestRunner {
 
@@ -32,6 +31,7 @@ public class TitleFieldValidation extends BaseTestRunner {
         // Wait for the "Create News" button to be displayed and clickable
         createNewsPage = new CreateNewsPage(driver);
         ecoNewsPage.clickCreateNews();
+        ecoNewsPage.getHeader().changeToEN();
     }
 
     public void signIn(String email, String password) {
@@ -61,8 +61,8 @@ public class TitleFieldValidation extends BaseTestRunner {
         String longTitle = "A".repeat(171);
         createNewsPage.enterTitle(longTitle);
 
-        // Verify that the field contains 171 characters (maxlength allows it)
-        Assert.assertEquals(createNewsPage.getTitleLength(), 171, "The field should allow inputting 171 characters.");
+        // Verify that the field contains 171characters (maxlength not allows it)
+        Assert.assertEquals(createNewsPage.getTitleLength(), 171, "The field should not allow inputting 171 characters.");
 
         // Verify that the counter shows "171/170" and is highlighted in red
         Assert.assertEquals(createNewsPage.getTitleCounterText(), "171/170", "Counter should show 171/170.");
@@ -77,7 +77,7 @@ public class TitleFieldValidation extends BaseTestRunner {
         Assert.assertFalse(createNewsPage.isTitleInvalid(), "Red highlight should disappear when the title is valid.");
 
         // 4. Filling the remaining mandatory fields
-        createNewsPage.clickTagByName("Новини");
+        createNewsPage.clickTagByName(EcoNewsTag.NEWS.getTagName());
         createNewsPage.enterContent(VALID_CONTENT);
 
         // 5. Final activation check
