@@ -66,8 +66,9 @@ public class CreateNewsPage extends BasePage {
     }
 
     @Override
-    public void open() {
+    public CreateNewsPage open() {
         driver.get("#/greenCity/news/create-news");
+        return new CreateNewsPage(driver);
     }
 
     @Override

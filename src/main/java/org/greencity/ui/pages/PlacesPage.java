@@ -8,8 +8,8 @@ public class PlacesPage extends BasePage {
     }
 
     @Override
-    public void open() {
-
+    public PlacesPage open() {
+        return this;
     }
 
     @Override
