@@ -10,7 +10,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public abstract class BasePage extends Base {
 
-
     @FindBy(xpath = "//app-header")
     protected WebElement rootHeaderElement;
     protected HeaderComponent header;

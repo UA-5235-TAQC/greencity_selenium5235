@@ -1,5 +1,7 @@
 package org.greencity.ui.components.AuthModal;
 
+import org.greencity.ui.pages.HomePage;
+import org.greencity.ui.pages.MySpace.MySpaceEventsTabPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -47,5 +49,9 @@ public class SignUpModal extends AuthModalBase {
 
     public void switchToSignIn() {
         signInLink.click();
+    }
+
+    public void clickSubmit() {
+        submitBtn.click();
     }
 }

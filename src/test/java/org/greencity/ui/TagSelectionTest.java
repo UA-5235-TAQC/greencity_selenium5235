@@ -4,16 +4,21 @@ import org.greencity.ui.components.NewsListItemComponent;
 import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.ui.pages.CreateNewsPage;
 import org.greencity.ui.pages.EcoNewsPage;
-import org.greencity.ui.testrunners.TestRunnerWithUser;
+import org.greencity.ui.pages.HomePage;
+import org.greencity.ui.testrunners.BaseTestRunner;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.util.List;
 
-public class TagSelectionTest extends TestRunnerWithUser {
+public class TagSelectionTest extends BaseTestRunner {
 
     @Test
     public void checkTagSelection() {
+        HomePage homePage = new HomePage(driver);
+        loginUser(homePage);
+
         // 1. Navigate to GreenCity News and click "Create News".
         EcoNewsPage ecoNewsPage = new EcoNewsPage(driver).open();
         ecoNewsPage.getHeader().changeToEN();
@@ -35,8 +40,10 @@ public class TagSelectionTest extends TestRunnerWithUser {
         Assert.assertTrue(ecoNewsPage.isPageOpened(), "Eco News page should be opened after publishing a news");
 
         NewsListItemComponent newsListItem = ecoNewsPage.getNewsCardByIndex(0);
-        Assert.assertEquals(newsListItem.getTitle(), "Test", "News should have 'Test' title");
-        Assert.assertTrue(newsListItem.hasTags(tagNames), "News should have 'News' tag");
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(newsListItem.getTitle(), "Test", "News should have 'Test' title");
+        softAssert.assertTrue(newsListItem.hasTags(tagNames), "News should have 'News' tag");
+        softAssert.assertAll();
 
         // 6. Open the "Create News" form again.
         ecoNewsPage.clickCreateNews();
@@ -54,8 +61,10 @@ public class TagSelectionTest extends TestRunnerWithUser {
         Assert.assertTrue(ecoNewsPage.isPageOpened(), "Eco News page should be opened after publishing a news");
 
         newsListItem = ecoNewsPage.getNewsCardByIndex(0);
-        Assert.assertEquals(newsListItem.getTitle(), "Test_2", "News should have 'Test_2' title");
-        Assert.assertTrue(newsListItem.hasTags(tagNames), "News should have 'News', 'Events' and 'Education' tags");
+        softAssert = new SoftAssert();
+        softAssert.assertEquals(newsListItem.getTitle(), "Test_2", "News should have 'Test_2' title");
+        softAssert.assertTrue(newsListItem.hasTags(tagNames), "News should have 'News', 'Events' and 'Education' tags");
+        softAssert.assertAll();
 
         // 10. Attempt to select a fourth tag ("Initiatives").
         // 11. Verify that selecting a fourth tag is blocked.

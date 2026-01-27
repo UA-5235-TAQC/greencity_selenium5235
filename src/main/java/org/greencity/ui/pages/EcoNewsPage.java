@@ -52,7 +52,7 @@ public class EcoNewsPage extends BasePage {
 
     @Override
     public EcoNewsPage open() {
-        driver.get(testValueProvider.getBaseUIGreenCityUrl() + "/news");
+        driver.get(getBaseHost() + "/#/greenCity/news");
         return new EcoNewsPage(driver);
     }
 

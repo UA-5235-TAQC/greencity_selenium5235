@@ -1,6 +1,5 @@
 package org.greencity.ui;
 
-import org.greencity.utils.TestValueProvider;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -20,14 +19,12 @@ public abstract class Base {
     protected WebDriverWait wait;
     protected JavascriptExecutor js;
     protected Actions actions;
-    protected static TestValueProvider testValueProvider;
 
     public Base(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         this.js = (JavascriptExecutor) driver;
         this.actions = new Actions(driver);
-        testValueProvider = new TestValueProvider();
         PageFactory.initElements(driver, this);
     }
 
@@ -36,7 +33,6 @@ public abstract class Base {
     }
 
     public String getBaseHost() {
-
         String currentUrl = driver.getCurrentUrl();
         URL url = null;
         try {
@@ -49,7 +45,6 @@ public abstract class Base {
         String protocol = url.getProtocol();
 
         return protocol + "://" + host;
-
     }
 
     protected boolean isVisible(WebElement element) {

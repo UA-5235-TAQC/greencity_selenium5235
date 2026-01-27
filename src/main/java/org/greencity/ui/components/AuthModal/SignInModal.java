@@ -48,4 +48,9 @@ public class SignInModal extends AuthModalBase {
     public void switchToSignUp() {
         signUpLink.click();
     }
+
+    public MySpaceEventsTabPage clickSubmit() {
+        submitBtn.click();
+        return new MySpaceEventsTabPage(driver);
+    }
 }
