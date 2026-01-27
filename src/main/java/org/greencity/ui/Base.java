@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
+import java.util.List;
 
 public abstract class Base {
     protected WebDriver driver;
@@ -59,6 +60,9 @@ public abstract class Base {
 
     protected void waitUntilVisible(WebElement element) {
         wait.until(ExpectedConditions.visibilityOf(element));
+    }
+    protected void waitUntilVisible(List<WebElement> elements) {
+        wait.until(ExpectedConditions.visibilityOfAllElements(elements));
     }
 
     protected void waitUntilClickable(WebElement element) {

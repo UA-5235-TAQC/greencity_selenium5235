@@ -100,8 +100,9 @@ public class HeaderComponent extends BaseComponent {
     }
 
     public ProfileDropdownComponent openDropDown() {
-        wait.until(ExpectedConditions.elementToBeClickable(drpButton));
+        waitUntilClickable(drpButton);
         drpButton.click();
+        waitUntilVisible(dropDown);
         return new ProfileDropdownComponent(driver, dropDown);
     }
 }

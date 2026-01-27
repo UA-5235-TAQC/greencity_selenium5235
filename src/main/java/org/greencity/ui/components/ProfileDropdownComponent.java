@@ -17,17 +17,17 @@ public class ProfileDropdownComponent extends BaseComponent {
     }
 
     public void openNotifications() {
-        wait.until(ExpectedConditions.visibilityOfAllElements(links));
+        waitUntilVisible(links);
         links.getFirst().click();
     }
 
     public void openPersonalAccount() {
-        wait.until(ExpectedConditions.visibilityOfAllElements(links));
+        waitUntilVisible(links);
         links.get(1).click();
     }
 
     public void signOut() {
-        wait.until(ExpectedConditions.visibilityOfAllElements(links));
+        waitUntilVisible(links);
         links.getLast().click();
     }
 }
