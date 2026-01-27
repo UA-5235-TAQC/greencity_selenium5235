@@ -99,7 +99,7 @@ public class HeaderComponent extends BaseComponent {
         languageDropdown.click();
     }
 
-    public ProfileDropdownComponent openDropDown() {
+    public ProfileDropdownComponent clickProfileDropdown() {
         wait.until(ExpectedConditions.elementToBeClickable(drpButton));
         drpButton.click();
         return new ProfileDropdownComponent(driver, dropDown);
