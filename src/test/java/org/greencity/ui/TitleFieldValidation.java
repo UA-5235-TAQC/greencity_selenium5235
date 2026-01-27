@@ -1,53 +1,34 @@
 package org.greencity.ui;
 
-import org.greencity.ui.components.AuthModal.SignInModal;
 import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.ui.pages.CreateNewsPage;
-import org.greencity.ui.pages.EcoNewsPage;
 import org.greencity.ui.pages.HomePage;
 import org.greencity.ui.testrunners.BaseTestRunner;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import java.time.Duration;
 
 public class TitleFieldValidation extends BaseTestRunner {
 
     private final String VALID_CONTENT = "This is a valid content with more than 20 characters for the news item.";
     private CreateNewsPage createNewsPage;
 
+
+    @BeforeClass
+    public void LoginUser() {
+        HomePage homePage = new HomePage(driver);
+        loginUser(homePage);
+        createNewsPage = new CreateNewsPage(driver);
+    }
+
     @BeforeMethod
     public void beforeMethod() {
-        driver.get(testValueProvider.getBaseUIGreenCityUrl());
+        createNewsPage = createNewsPage.open();
 
-        // Log in using credentials from the configuration file
-        signIn(testValueProvider.getUserEmail(), testValueProvider.getUserPassword());
-
-        EcoNewsPage ecoNewsPage = new EcoNewsPage(driver);
-        driver.get(testValueProvider.getBaseUIGreenCityUrl() + "/news");
-
-        // Wait for the "Create News" button to be displayed and clickable
-        createNewsPage = new CreateNewsPage(driver);
-        ecoNewsPage.clickCreateNews();
-        ecoNewsPage.getHeader().changeToEN();
+        createNewsPage.getHeader().changeToEN();
     }
 
-    public void signIn(String email, String password) {
-        HomePage homePage = new HomePage(driver);
-        homePage.getHeader().clickSignInLink();
-
-        SignInModal signInModal = new SignInModal(driver);
-        signInModal.enterEmail(email);
-        signInModal.enterPassword(password);
-        signInModal.clickSubmit();
-
-        // Explicit wait for navigation to the profile page
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.urlContains("/profile"));
-    }
 
     @Test
     public void verifyTitleFieldAndPublishButtonLogic() {
