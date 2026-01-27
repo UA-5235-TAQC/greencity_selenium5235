@@ -1,19 +1,18 @@
 package org.greencity.ui.pages;
 
-import org.greencity.ui.components.CancelModalComponent;
-import org.greencity.ui.components.ContentComponent;
-import org.greencity.ui.components.TagItem;
+import org.greencity.ui.components.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-
 import java.io.File;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 public class CreateNewsPage extends BasePage {
+
+    private final String tagButtonXpathTemplate = "//button[contains(@class, 'tag-button')]//span[contains(@class, 'text') and normalize-space()='%s']";
 
     @FindBy(css = "div.main-content")
     private WebElement root;
@@ -38,6 +37,18 @@ public class CreateNewsPage extends BasePage {
 
     @FindBy(css = "div.source-block span")
     private WebElement sourceMessage;
+
+    @FindBy(css = "div.source-block span.warning")
+    private WebElement sourceErrorMessage;
+
+    @FindBy(css = "div.textarea-wrapper div.title-wrapper p.field-info.warning")
+    private WebElement contentErrorMessage;
+
+    @FindBy(css = "div.textarea-wrapper p.quill-counter.warning")
+    private WebElement contentCounterMessage;
+
+    @FindBy(css = ".ql-editor")
+    private WebElement contentEditor;
 
     @FindBy(css = ".submit-buttons button.primary-global-button")
     private WebElement publishBtn;
@@ -75,8 +86,8 @@ public class CreateNewsPage extends BasePage {
 
     @Override
     public CreateNewsPage open() {
-        driver.get(valueProvider.get("base.ui.greencity.createNews.url"));
-        return this;
+        driver.get(getBaseHost() + "#/greenCity/news/create-news");
+        return new CreateNewsPage(driver);
     }
 
     @Override
@@ -94,48 +105,35 @@ public class CreateNewsPage extends BasePage {
         return tagRootElements.stream().map(root -> new TagItem(driver, root)).collect(Collectors.toList());
     }
 
-    public CreateNewsPage selectTags(List<String> tags) {
-        List<TagItem> tagItems = getTagItems();
-        for (String tagName : tags) {
-            for (TagItem tag : tagItems) {
-                if (tag.getName().equalsIgnoreCase(tagName) && !tag.isSelected()) {
-                    tag.click();
-                    break;
-                }
-            }
-        }
-        return this;
+    private TagItem getTagByName(String tagName) {
+        return getTagItems().stream()
+                .filter(tag -> tag.getName().equalsIgnoreCase(tagName))
+                .findFirst()
+                .orElseThrow(() ->
+                        new NoSuchElementException("Tag not found: " + tagName)
+                );
     }
 
     public CreateNewsPage clickTagByName(String tagName) {
-        String xpathExpression = String.format(
-                "//button[contains(@class, 'tag-button')]//span[contains(@class, 'text') and normalize-space()='%s']",
-                tagName
-        );
+        getTagByName(tagName).click();
+        return this;
+    }
 
-        WebElement tagButton = driver.findElement(By.xpath(xpathExpression));
-        wait.until(ExpectedConditions.elementToBeClickable(tagButton)).click();
-
+    public CreateNewsPage selectTags(List<String> tags) {
+        tags.forEach(this::clickTagByName);
         return this;
     }
 
     public CreateNewsPage removeTag(String tagName) {
-        for (TagItem tag : getTagItems()) {
-            if (tag.getName().equalsIgnoreCase(tagName) && tag.isSelected()) {
-                tag.click();
-                break;
-            }
+        TagItem tag = getTagByName(tagName);
+        if (tag.isSelected()) {
+            tag.click();
         }
         return this;
     }
 
     public boolean areTagsVisible() {
-        for (WebElement tag : tagRootElements) {
-            if (!isVisible(tag)) {
-                return false;
-            }
-        }
-        return true;
+        return isVisible(tagRootElements);
     }
 
     public CreateNewsPage enterSource(String url) {
@@ -191,11 +189,6 @@ public class CreateNewsPage extends BasePage {
         return isVisible(submitCropperBtn);
     }
 
-    public boolean isTitleInvalid() {
-        String classAttribute = titleInput.getAttribute("class");
-        return classAttribute != null && classAttribute.contains("ng-invalid");
-    }
-
     public String getImageError() {
         return imageErrorMessage.getText();
     }
@@ -243,7 +236,6 @@ public class CreateNewsPage extends BasePage {
         return getTagItems().stream().map(TagItem::getName).collect(Collectors.toList());
     }
 
-    // methods for testing title fields
     public String getTitleCounterText() {
         return titleCharacterCounter.getText();
     }

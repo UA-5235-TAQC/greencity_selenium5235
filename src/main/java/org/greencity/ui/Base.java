@@ -9,7 +9,10 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
+import java.util.List;
 
 public abstract class Base {
     protected WebDriver driver;
@@ -25,12 +28,23 @@ public abstract class Base {
         PageFactory.initElements(driver, this);
     }
 
-    public String getCurrentUrl(){
+    public String getCurrentUrl() {
         return driver.getCurrentUrl();
     }
 
-    protected void waitUntilVisible(WebElement element) {
-        wait.until(ExpectedConditions.visibilityOf(element));
+    public String getBaseHost() {
+        String currentUrl = driver.getCurrentUrl();
+        URL url = null;
+        try {
+            url = new URL(currentUrl);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+
+        String host = url.getHost();
+        String protocol = url.getProtocol();
+
+        return protocol + "://" + host;
     }
 
     protected boolean isVisible(WebElement element) {
@@ -40,6 +54,23 @@ public abstract class Base {
         } catch (TimeoutException e) {
             return false;
         }
+    }
+
+    protected boolean isVisible(List<WebElement> elements) {
+        try {
+            waitUntilVisible(elements);
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
+    protected void waitUntilVisible(WebElement element) {
+        wait.until(ExpectedConditions.visibilityOf(element));
+    }
+
+    protected void waitUntilVisible(List<WebElement> elements) {
+        wait.until(ExpectedConditions.visibilityOfAllElements(elements));
     }
 
     protected void waitUntilClickable(WebElement element) {

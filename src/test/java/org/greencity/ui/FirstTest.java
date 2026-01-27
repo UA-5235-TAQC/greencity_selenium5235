@@ -42,19 +42,4 @@ public class FirstTest extends BaseTestRunner {
 
     }
 
-    @Test
-    public void thirdTest() {
-        HomePage homePage = new HomePage(driver);
-        homePage.open();
-        Assert.assertTrue(homePage.isPageOpened());
-
-        String currentUrl = homePage.getCurrentUrl();
-        System.out.println(currentUrl);
-
-        EcoNewsPage ecoNewsPage = new EcoNewsPage(driver);
-        ecoNewsPage.open();
-        currentUrl = ecoNewsPage.getCurrentUrl();
-        System.out.println(currentUrl);
-
-    }
 }

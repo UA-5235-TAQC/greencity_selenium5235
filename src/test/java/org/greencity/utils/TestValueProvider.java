@@ -47,4 +47,8 @@ public class TestValueProvider {
         return get("user.id");
     }
 
+    public Long getImplicitlyWait() {
+        return Long.parseLong(get("implicitlyWait"), 10);
+    }
+
 }

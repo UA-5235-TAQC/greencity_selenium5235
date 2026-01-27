@@ -6,7 +6,7 @@ import org.greencity.ui.components.TagItem;
 import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.ui.pages.CreateNewsPage;
 import org.greencity.ui.pages.NewsPreviewPage;
-import org.greencity.ui.testrunners.TestRunnerWithUser;
+import org.greencity.ui.testrunners.BaseTestRunner;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -18,7 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CreateNewsFormVisibilityTest extends TestRunnerWithUser {
+public class CreateNewsFormVisibilityTest extends BaseTestRunner {
 
     private CreateNewsPage createNewsPage;
 

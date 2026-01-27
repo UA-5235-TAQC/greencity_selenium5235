@@ -1,6 +1,8 @@
 package org.greencity.ui.testrunners;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.greencity.ui.pages.BasePage;
+import org.greencity.ui.pages.HomePage;
 import org.greencity.utils.TestValueProvider;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -30,12 +32,14 @@ public class BaseTestRunner {
 
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30L));
+        Long implicitlyWait = testValueProvider.getImplicitlyWait();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(implicitlyWait));
     }
 
     @BeforeClass
     public void beforeClass() {
         initDriver();
+        driver.get(testValueProvider.getBaseUIGreenCityUrl());
     }
     @AfterClass
     public void afterClass() {
@@ -49,5 +53,14 @@ public class BaseTestRunner {
         if (driver != null) {
             driver.quit();
         }
+    }
+
+    public void loginUser(BasePage basePage) {
+         basePage.open()
+                 .getHeader()
+                 .clickSignInLink()
+                 .enterEmail(testValueProvider.getUserEmail())
+                 .enterPassword(testValueProvider.getUserPassword())
+                 .clickSubmit();
     }
 }
