@@ -81,14 +81,8 @@ public abstract class AuthModalBase extends Base {
     }
 
     public void clickSubmit() {
-        try {
-            waitUntilVisible(submitBtn);
-            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", submitBtn);
-            waitUntilVisible(submitBtn);
-            submitBtn.click();
-        } catch (Exception e) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", submitBtn);
-        }
+        waitUntilClickable(submitBtn);
+        submitBtn.click();
     }
 
     public AuthModalBase enterPassword(String password) {

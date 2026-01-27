@@ -2,7 +2,6 @@ package org.greencity.ui.pages;
 
 import org.greencity.ui.components.StatRowComponent;
 import org.greencity.ui.components.SubscribeComponent;
-import org.greencity.ui.utils.ValueProvider;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,7 +9,6 @@ import java.util.List;
 
 public class HomePage extends BasePage {
 
-    private final ValueProvider valueProvider = new ValueProvider();
     protected List<StatRowComponent> statRowComponentList;
     private SubscribeComponent subscribeComponent;
 

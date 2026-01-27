@@ -64,7 +64,6 @@ public class HeaderComponent extends BaseComponent {
 
     public EcoNewsPage clickEcoNewsLink() {
         ecoNewsLink.click();
-        wait.until(ExpectedConditions.urlContains("/news"));
         return new EcoNewsPage(driver);
     }
 
@@ -74,13 +73,8 @@ public class HeaderComponent extends BaseComponent {
     }
 
     public SignInModal clickSignInLink() {
-        try {
-            waitUntilClickable(signInLink);
-            signInLink.click();
-        } catch (Exception e) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", signInLink);
-        }
-
+        waitUntilClickable(signInLink);
+        signInLink.click();
         return new SignInModal(driver);
     }
 

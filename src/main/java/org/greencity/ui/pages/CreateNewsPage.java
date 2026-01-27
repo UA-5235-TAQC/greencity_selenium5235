@@ -1,10 +1,9 @@
 package org.greencity.ui.pages;
 
+import org.greencity.ui.components.CancelModalComponent;
 import org.greencity.ui.components.ContentComponent;
 import org.greencity.ui.components.TagItem;
-import org.greencity.ui.utils.ValueProvider;
 import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -15,8 +14,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CreateNewsPage extends BasePage {
-
-    private final ValueProvider valueProvider = new ValueProvider();
 
     @FindBy(css = "div.main-content")
     private WebElement root;
@@ -68,6 +65,9 @@ public class CreateNewsPage extends BasePage {
 
     @FindBy(css = "div.textarea-wrapper")
     private WebElement contentRoot;
+
+    @FindBy(css = "app-warning-pop-up .main-container")
+    private WebElement cancelModalRoot;
 
     public CreateNewsPage(WebDriver driver) {
         super(driver);
@@ -159,6 +159,10 @@ public class CreateNewsPage extends BasePage {
 
     public ContentComponent getContentComponent() {
         return new ContentComponent(driver, contentRoot);
+    }
+
+    public CancelModalComponent getCancelModalComponent() {
+        return new CancelModalComponent(driver, cancelModalRoot);
     }
 
     public CreateNewsPage createNews(String title, List<String> tags, String source, String content, String imagePath) {

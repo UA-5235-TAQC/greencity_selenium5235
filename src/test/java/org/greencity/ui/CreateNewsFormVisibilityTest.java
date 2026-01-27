@@ -1,5 +1,6 @@
 package org.greencity.ui;
 
+import org.greencity.ui.components.CancelModalComponent;
 import org.greencity.ui.components.ContentComponent;
 import org.greencity.ui.components.TagItem;
 import org.greencity.ui.enums.EcoNewsTag;
@@ -144,5 +145,12 @@ public class CreateNewsFormVisibilityTest extends TestRunnerWithUser {
                 "Preview button should be visible");
         Assert.assertTrue(createNewsPage.isPublishButtonVisible(),
                 "Publish button should be visible");
+
+//        createNewsPage.clickCancel();
+//        CancelModalComponent cancelModal = createNewsPage.getCancelModalComponent();
+//        createNewsPage.waitUntilVisible(cancelModal);
+//        cancelModal.clickClose();
+//
+//        NewsPreviewPage preview = createNewsPage.clickPreview();
     }
 }
