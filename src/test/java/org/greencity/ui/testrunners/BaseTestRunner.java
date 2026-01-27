@@ -27,7 +27,6 @@ public class BaseTestRunner {
 
     public void initDriver() {
         ChromeOptions options = new ChromeOptions();
-        options.setBinary("/usr/bin/brave-browser"); //TODO: remove
         options.addArguments("--remote-allow-origins=*");
         options.addArguments("--disable-popups-blocking");
 
