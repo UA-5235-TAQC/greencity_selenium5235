@@ -62,8 +62,8 @@ public class NewsDetailsPage extends BasePage {
     }
 
     @Override
-    public void open() {
-
+    public NewsDetailsPage open() {
+        return this;
     }
 
     @Override

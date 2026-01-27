@@ -52,8 +52,10 @@ public class HomePage extends BasePage {
     }
 
     @Override
-    public void open() {
-        driver.get("#/greenCity");
+    public HomePage open() {
+        driver.get(getBaseHost() + "/#/greenCity");
+
+        return new HomePage(driver);
     }
 
     public String getHeroTitle() {

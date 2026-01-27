@@ -8,8 +8,8 @@ public class UbsCourierPage extends BasePage {
     }
 
     @Override
-    public void open() {
-
+    public UbsCourierPage open() {
+        return this;
     }
 
     @Override

@@ -5,6 +5,7 @@ import org.greencity.ui.pages.HomePage;
 import org.greencity.ui.pages.EcoNewsPage;
 import org.greencity.ui.pages.MySpace.MySpaceBasePage;
 import org.greencity.ui.components.AuthModal.SignInModal;
+import org.greencity.ui.pages.MySpace.MySpaceHabitsTabPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -77,9 +78,10 @@ public class HeaderComponent extends BaseComponent {
         return new HomePage(driver);
     }
 
-    public MySpaceBasePage clickMySpace() {
+    public MySpaceHabitsTabPage clickMySpace() {
+        waitUntilClickable(mySpace);
         mySpace.click();
-        return new MySpaceBasePage(driver);
+        return new MySpaceHabitsTabPage(driver);
     }
 
     public void clickSearchBtn() {
