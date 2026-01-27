@@ -60,7 +60,6 @@ public class CreateNewsPage extends BasePage {
         return isVisible(titleInput);
     }
 
-
     public CreateNewsPage enterTitle(String title) {
         titleInput.clear();
         titleInput.sendKeys(title);
@@ -128,10 +127,14 @@ public class CreateNewsPage extends BasePage {
     }
 
     public CreateNewsPage createNews(String title, List<String> tags, String source, String content, String imagePath) {
-        if (title != null) enterTitle(title);
-        if (tags != null) selectTags(tags);
-        if (source != null) enterSource(source);
-        if (content != null) enterContent(content);
+        if (title != null)
+            enterTitle(title);
+        if (tags != null)
+            selectTags(tags);
+        if (source != null)
+            enterSource(source);
+        if (content != null)
+            enterContent(content);
         if (imagePath != null) {
             uploadImage(imagePath);
             cropImage();
@@ -207,5 +210,13 @@ public class CreateNewsPage extends BasePage {
 
     public int getTitleLength() {
         return getTitleValue().length();
+    }
+
+    public boolean isContentWarningDisplayed() {
+        try {
+            return contentErrorMessage.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
