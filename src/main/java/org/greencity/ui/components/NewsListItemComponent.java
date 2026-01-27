@@ -57,9 +57,15 @@ public class NewsListItemComponent extends BaseComponent {
     }
 
     public boolean hasTags(List<String> tagNames) {
+        List<String> displayedTags = tagElements.stream()
+                .map(tag -> tag.getText().replace("|", "").trim())
+                .toList();
+
         // NOTE: tag names are capitalized, but in NewsListItemComponent they are displayed in uppercase
-        List<String> upperCaseTagNames = tagNames.stream().map(String::toUpperCase).toList();
-        return tagElements.stream().allMatch(tag -> upperCaseTagNames.contains(tag.getText().replace("|", "").trim()));
+        List<String> expectedTags = tagNames.stream().map(String::toUpperCase).toList();
+
+        return displayedTags.size() == expectedTags.size()
+                && expectedTags.stream().allMatch(displayedTags::contains);
     }
 
     public WebElement getTitleElement() {
