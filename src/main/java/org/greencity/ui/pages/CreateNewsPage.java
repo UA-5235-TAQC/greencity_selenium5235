@@ -60,7 +60,6 @@ public class CreateNewsPage extends BasePage {
         return isVisible(titleInput);
     }
 
-
     public CreateNewsPage enterTitle(String title) {
         titleInput.clear();
         titleInput.sendKeys(title);
@@ -207,5 +206,13 @@ public class CreateNewsPage extends BasePage {
 
     public int getTitleLength() {
         return getTitleValue().length();
+    }
+
+    public boolean isContentWarningDisplayed() {
+        try {
+            return contentErrorMessage.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
