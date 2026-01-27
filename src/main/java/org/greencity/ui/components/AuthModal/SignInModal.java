@@ -1,6 +1,7 @@
 package org.greencity.ui.components.AuthModal;
 
 import org.greencity.ui.pages.MySpace.MySpaceBasePage;
+import org.greencity.ui.pages.MySpace.MySpaceHabitsTabPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -34,7 +35,6 @@ public class SignInModal extends AuthModalBase {
         return this;
     }
 
-
     public void clickForgotPassword() {
         forgotPasswordBtn.click();
     }
@@ -44,11 +44,11 @@ public class SignInModal extends AuthModalBase {
         return this;
     }
 
-    public MySpaceBasePage loginAs(String email, String password) {
+    public MySpaceHabitsTabPage loginAs(String email, String password) {
         enterEmail(email);
         enterPassword(password);
         clickSubmit();
-        return new MySpaceBasePage(driver);
+        return new MySpaceHabitsTabPage(driver);
     }
 
     public void switchToSignUp() {

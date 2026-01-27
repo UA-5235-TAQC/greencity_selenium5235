@@ -30,7 +30,7 @@ public class NewsPreviewPage extends BasePage {
     @FindBy(css = ".news-image-img")
     private WebElement newsImage;
 
-    @FindBy(css = "..news-text-content p")
+    @FindBy(css = ".news-text-content p")
     private WebElement newsText;
 
     @FindBy(css = ".source-text")

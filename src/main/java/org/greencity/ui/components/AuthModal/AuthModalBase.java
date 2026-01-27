@@ -1,9 +1,11 @@
 package org.greencity.ui.components.AuthModal;
 
 import org.greencity.ui.Base;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * Abstract base class for authentication-related modal dialogs in the UI.
@@ -76,6 +78,7 @@ public abstract class AuthModalBase extends Base {
     }
 
     public void clickSubmit() {
+        waitUntilClickable(submitBtn);
         submitBtn.click();
     }
 
