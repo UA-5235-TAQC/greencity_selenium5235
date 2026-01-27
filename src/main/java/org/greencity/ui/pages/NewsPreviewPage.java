@@ -40,6 +40,16 @@ public class NewsPreviewPage extends BasePage {
         super(driver);
     }
 
+    @Override
+    public BasePage open() {
+        return null;
+    }
+
+    @Override
+    public boolean isPageOpened() {
+        return false;
+    }
+
     public List<WebElement> getTagItems() {
         return tagsRoot.findElements(By.className("tags-item"));
     }
