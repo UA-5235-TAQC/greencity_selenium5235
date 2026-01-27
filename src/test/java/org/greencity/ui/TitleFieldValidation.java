@@ -62,7 +62,7 @@ public class TitleFieldValidation extends BaseTestRunner {
         String longTitle = "A".repeat(171);
         createNewsPage.enterTitle(longTitle);
 
-        // Verify that the field contains 171characters (maxlength not allows it)
+        // Verify that the field currently contains 171 characters, even though the maxlength requirement is 170
         Assert.assertEquals(createNewsPage.getTitleLength(), 171, "The field should not allow inputting 171 characters.");
 
         // Verify that the counter shows "171/170" and is highlighted in red
