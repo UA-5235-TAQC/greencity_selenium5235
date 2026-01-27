@@ -19,7 +19,7 @@ public class CreateNewsPage extends BasePage {
     @FindBy(css = "textarea[formcontrolname='title']")
     private WebElement titleInput;
 
-    // У CreateNewsPage.java заміни локатор тегів на цей:
+    // In CreateNewsPage.java, replace the tag locator with this one:
     @FindBy(css = "div.tags-box button.tag-button")
     private List<WebElement> tagRootElements;
 
