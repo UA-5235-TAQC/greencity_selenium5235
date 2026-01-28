@@ -65,6 +65,9 @@ public class BaseTestRunner {
                  .clickSubmit();
 
                  new WebDriverWait(driver, Duration.ofSeconds(10))
-                 .until(ExpectedConditions.urlContains("/profile"));
+                 .until(ExpectedConditions.or(
+                     ExpectedConditions.urlContains("/profile")
+                   
+                 ));
    }
 }

@@ -27,6 +27,12 @@ public class CancelModalComponent extends BaseComponent {
     @FindBy(css = ".close")
     private WebElement closeBtn;
 
+    @FindBy(css = ".warning-title")
+    private WebElement warningTitle;
+
+    @FindBy(css = ".warning-subtitle")
+    private WebElement warningSubtitle;
+
     public CancelModalComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
     }
@@ -51,6 +57,14 @@ public class CancelModalComponent extends BaseComponent {
         return rootElement.isDisplayed();
     }
 
+    public String getWarningTitleText() {
+        return warningTitle.getText().trim();
+    }
+
+    public String getWarningSubtitleText() {
+        return warningSubtitle.getText().trim();
+    }
+
     public boolean isCancelButtonVisible() {
         try {
             wait.until(ExpectedConditions.visibilityOf(yesCancelBtn));
@@ -69,7 +83,7 @@ public class CancelModalComponent extends BaseComponent {
         }
     }
 
-     //Waits until the modal becomes visible.    
+    // Waits until the modal becomes visible.
     public void waitUntilVisible() {
         wait.until(ExpectedConditions.visibilityOf(rootElement));
     }
