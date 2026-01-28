@@ -7,6 +7,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class EcoNewsPage extends BasePage {
     @FindBy(css = "h1.main-header")
@@ -33,6 +37,9 @@ public class EcoNewsPage extends BasePage {
     protected WebElement searchInput;
     @FindBy(css = "img[alt='cancel search']")
     protected WebElement closeSearchIcon;
+
+    private By messageLocator = By.xpath("//div[contains(text(),'successfully published')]");
+
 
     public EcoNewsPage(WebDriver driver) {
         super(driver);
@@ -91,8 +98,9 @@ public class EcoNewsPage extends BasePage {
         return Integer.parseInt(digits);
     }
 
-    public void clickCreateNews() {
+    public CreateNewsPage clickCreateNews() {
         createNewsBtn.click();
+        return new CreateNewsPage(driver);
     }
 
     public TagItem[] getAllTags() {
@@ -151,5 +159,17 @@ public class EcoNewsPage extends BasePage {
     public void clickNewsCardByNewsId(int newsId) {
         NewsListItemComponent card = getNewsCardById(newsId);
         card.click();
+    }
+
+    public void waitForMessageAppear() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(messageLocator));
+    }
+
+    public void waitForMessageDisappear() {
+        wait.until(ExpectedConditions.stalenessOf(driver.findElement(messageLocator)));
+    }
+
+    public String getMessageText() {
+        return driver.findElement(messageLocator).getText();
     }
 }
