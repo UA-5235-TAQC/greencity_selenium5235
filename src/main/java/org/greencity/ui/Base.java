@@ -22,7 +22,7 @@ public abstract class Base {
 
     public Base(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         this.js = (JavascriptExecutor) driver;
         this.actions = new Actions(driver);
         PageFactory.initElements(driver, this);
@@ -33,6 +33,7 @@ public abstract class Base {
     }
 
     public String getBaseHost() {
+
         String currentUrl = driver.getCurrentUrl();
         URL url = null;
         try {
@@ -45,20 +46,21 @@ public abstract class Base {
         String protocol = url.getProtocol();
 
         return protocol + "://" + host;
+
     }
 
-    protected boolean isVisible(WebElement element) {
+    protected boolean areVisible(List<WebElement> elements) {
         try {
-            waitUntilVisible(element);
+            waitUntilVisible(elements);
             return true;
         } catch (TimeoutException e) {
             return false;
         }
     }
 
-    protected boolean isVisible(List<WebElement> elements) {
+    protected boolean isVisible(WebElement element) {
         try {
-            waitUntilVisible(elements);
+            wait.until(ExpectedConditions.visibilityOf(element));
             return true;
         } catch (TimeoutException e) {
             return false;
@@ -68,7 +70,6 @@ public abstract class Base {
     protected void waitUntilVisible(WebElement element) {
         wait.until(ExpectedConditions.visibilityOf(element));
     }
-
     protected void waitUntilVisible(List<WebElement> elements) {
         wait.until(ExpectedConditions.visibilityOfAllElements(elements));
     }
@@ -76,4 +77,5 @@ public abstract class Base {
     protected void waitUntilClickable(WebElement element) {
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
+
 }

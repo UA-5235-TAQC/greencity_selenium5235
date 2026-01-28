@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = "//a[contains(@href, '#/greenCity/news')]")
@@ -32,14 +33,14 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(css = "ul.header_lang-switcher-wrp")
     protected WebElement languageDropdown;
 
-    @FindBy(xpath = "//ul[@id='header_user-wrp']/li[contains(@class,'user-name')]")
-    private WebElement userName;
-
     @FindBy(css = ".body-2")
     protected WebElement drpButton;
 
     @FindBy(css = "ul.dropdown-list")
     protected WebElement dropDown;
+
+    @FindBy(xpath = "//ul[@id='header_user-wrp']/li[contains(@class,'user-name')]")
+    private WebElement userName;
 
     public HeaderComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
@@ -53,7 +54,7 @@ public class HeaderComponent extends BaseComponent {
         return switchLanguage("Uk");
     }
 
-    public HeaderComponent switchLanguage(String lang) {
+    private HeaderComponent switchLanguage(String lang) {
         String currentLang = languageDropdown.getText().trim();
         if (currentLang.equalsIgnoreCase(lang)) {
             return this;
@@ -67,7 +68,9 @@ public class HeaderComponent extends BaseComponent {
     }
 
     public EcoNewsPage clickEcoNewsLink() {
+        waitUntilClickable(ecoNewsLink);
         ecoNewsLink.click();
+        wait.until(ExpectedConditions.urlContains("/greenCity/news"));
         return new EcoNewsPage(driver);
     }
 
@@ -77,7 +80,6 @@ public class HeaderComponent extends BaseComponent {
     }
 
     public SignInModal clickSignInLink() {
-        waitUntilClickable(signInLink);
         signInLink.click();
         return new SignInModal(driver);
     }
@@ -115,5 +117,10 @@ public class HeaderComponent extends BaseComponent {
         drpButton.click();
         waitUntilVisible(dropDown);
         return new ProfileDropdownComponent(driver, dropDown);
+    }
+
+    public String getCurrentLocale() {
+        String lang = drpButton.getText().trim();
+        return lang.equalsIgnoreCase("Uk") ? "uk" : "en";
     }
 }

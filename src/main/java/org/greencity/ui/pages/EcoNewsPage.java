@@ -4,47 +4,39 @@ import org.greencity.ui.components.NewsListItemComponent;
 import org.greencity.ui.components.TagItem;
 import org.greencity.ui.enums.EcoNewsTag;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class EcoNewsPage extends BasePage {
-
     @FindBy(css = "h1.main-header")
     protected WebElement pageTitle;
-
     @FindBy(css = "div#create-button")
     protected WebElement createNewsBtn;
-
     @FindBy(css = "[aria-label='filter by items']")
     protected WebElement tags;
-
     @FindBy(css = "h2")
     protected WebElement remainingCountText;
-
     @FindBy(css = "ul.list")
     protected WebElement cards;
-
     @FindBy(css = "[aria-label='table view']")
     protected WebElement gridViewBtn;
-
     @FindBy(css = "[aria-label='list view']")
     protected WebElement listViewBtn;
-
     @FindBy(css = "div:has(img.my-events-img)")
     protected WebElement myEventsBtn;
-
     @FindBy(css = "div:has(span.bookmark-img)")
     protected WebElement bookmarkBtn;
-
     @FindBy(css = "div:has(span.search-img)")
     protected WebElement searchBtn;
-
     @FindBy(css = "input.place-input")
     protected WebElement searchInput;
-
     @FindBy(css = "img[alt='cancel search']")
     protected WebElement closeSearchIcon;
+
+    private By messageLocator = By.xpath("//div[contains(text(),'successfully published')]");
 
     public EcoNewsPage(WebDriver driver) {
         super(driver);
@@ -52,8 +44,9 @@ public class EcoNewsPage extends BasePage {
 
     @Override
     public EcoNewsPage open() {
-        driver.get( "#/greenCity/news");
-        return  new EcoNewsPage(driver);
+        driver.get(getBaseHost() + "/#/greenCity/news");
+        wait.until(ExpectedConditions.urlContains("/news"));
+        return new EcoNewsPage(driver);
     }
 
     @Override
@@ -96,14 +89,15 @@ public class EcoNewsPage extends BasePage {
 
     public int getRemainingNewsCount() {
         String digits = remainingCountText.getText().replaceAll("[^0-9]", "");
-        if (digits == null || digits.isEmpty()) {
+        if (digits.isEmpty()) {
             return 0;
         }
         return Integer.parseInt(digits);
     }
 
-    public void clickCreateNews() {
+    public CreateNewsPage clickCreateNews() {
         createNewsBtn.click();
+        return new CreateNewsPage(driver);
     }
 
     public TagItem[] getAllTags() {
@@ -113,15 +107,15 @@ public class EcoNewsPage extends BasePage {
     }
 
     public void clickTag(EcoNewsTag tag) {
-        TagItem[] tagItems = getAllTags();
-        String tagName = tag.getByLocale("en");
+        String expectedName = tag.getByLocale(getHeader().getCurrentLocale());
 
-        for (TagItem item : tagItems) {
-            if (item.getName().equals(tagName)) {
+        for (TagItem item : getAllTags()) {
+            if (item.getName().equalsIgnoreCase(expectedName)) {
                 item.click();
                 return;
             }
         }
+        throw new RuntimeException("Tag not found: " + expectedName);
     }
 
     public NewsListItemComponent[] getNewsCards() {
@@ -163,5 +157,17 @@ public class EcoNewsPage extends BasePage {
     public void clickNewsCardByNewsId(int newsId) {
         NewsListItemComponent card = getNewsCardById(newsId);
         card.click();
+    }
+
+    public void waitForMessageAppear() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(messageLocator));
+    }
+
+    public void waitForMessageDisappear() {
+        wait.until(ExpectedConditions.stalenessOf(driver.findElement(messageLocator)));
+    }
+
+    public String getMessageText() {
+        return driver.findElement(messageLocator).getText();
     }
 }

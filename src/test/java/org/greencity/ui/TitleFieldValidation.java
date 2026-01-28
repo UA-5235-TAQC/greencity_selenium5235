@@ -14,9 +14,10 @@ public class TitleFieldValidation extends BaseTestRunner {
     private final String VALID_CONTENT = "This is a valid content with more than 20 characters for the news item.";
     private CreateNewsPage createNewsPage;
 
+
     @BeforeClass
     public void LoginUser() {
-        HomePage homePage = new HomePage(driver).open();
+        HomePage homePage = new HomePage(driver);
         loginUser(homePage);
         createNewsPage = new CreateNewsPage(driver);
     }
@@ -27,12 +28,13 @@ public class TitleFieldValidation extends BaseTestRunner {
         createNewsPage.getHeader().changeToEN();
     }
 
+
     @Test
     public void verifyTitleFieldAndPublishButtonLogic() {
         // 1. Mandatory field validation (Empty title)
         createNewsPage.enterTitle("");
         createNewsPage.getContentComponent().enterContent(""); // Triggering "touched" state for validation
-        Assert.assertTrue(createNewsPage.isTitleCounterWarningDisplayed(), "Title border should be red (ng-invalid) when empty.");
+        Assert.assertTrue(createNewsPage.isTitleInvalid(), "Title border should be red (ng-invalid) when empty.");
         Assert.assertFalse(createNewsPage.isPublishButtonEnabled(), "Publish button should be disabled when the title is empty.");
         Assert.assertEquals(createNewsPage.getTitleCounterText(), "0/170", "Counter should display 0/170.");
 
@@ -53,7 +55,7 @@ public class TitleFieldValidation extends BaseTestRunner {
         // 3. Returning to a valid state (9 characters)
         createNewsPage.enterTitle("Test News");
         Assert.assertEquals(createNewsPage.getTitleCounterText(), "9/170", "Counter should display 9/170.");
-        Assert.assertFalse(createNewsPage.isTitleCounterWarningDisplayed(), "Red highlight should disappear when the title is valid.");
+        Assert.assertFalse(createNewsPage.isTitleInvalid(), "Red highlight should disappear when the title is valid.");
 
         // 4. Filling the remaining mandatory fields
         createNewsPage.clickTagByName(EcoNewsTag.NEWS.getEn());

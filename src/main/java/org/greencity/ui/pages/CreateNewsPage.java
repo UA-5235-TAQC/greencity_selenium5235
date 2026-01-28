@@ -1,84 +1,57 @@
 package org.greencity.ui.pages;
 
-import org.greencity.ui.components.*;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.greencity.ui.components.CancelModalComponent;
+import org.greencity.ui.components.ContentComponent;
+import org.greencity.ui.components.TagItem;
+import org.openqa.selenium.*;
+import org.openqa.selenium.remote.UnreachableBrowserException;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
 import java.io.File;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 public class CreateNewsPage extends BasePage {
 
-    private final String tagButtonXpathTemplate = "//button[contains(@class, 'tag-button')]//span[contains(@class, 'text') and normalize-space()='%s']";
-
     @FindBy(css = "div.main-content")
     private WebElement root;
-
     @FindBy(css = "textarea[formcontrolname='title']")
     private WebElement titleInput;
-
+    @FindBy(css = "div.title h2.title-header")
+    private WebElement pageTitleHeader;
     @FindBy(css = "div.tags-box button.tag-button")
     private List<WebElement> tagRootElements;
-
     @FindBy(css = "input[formcontrolname='source']")
     private WebElement sourceInput;
-
     @FindBy(xpath = "//input[@type='file']")
     private WebElement imageUploadInput;
-
     @FindBy(css = "image-cropper.cropper")
     private WebElement imageCropper;
-
     @FindBy(css = "div.image-block p.warning")
     private WebElement imageErrorMessage;
-
-    @FindBy(css = "div.source-block span")
+    @FindBy(css = "div.source-block")
     private WebElement sourceMessage;
-
-    @FindBy(css = "div.source-block span.warning")
-    private WebElement sourceErrorMessage;
-
-    @FindBy(css = "div.textarea-wrapper div.title-wrapper p.field-info.warning")
-    private WebElement contentErrorMessage;
-
-    @FindBy(css = "div.textarea-wrapper p.quill-counter.warning")
-    private WebElement contentCounterMessage;
-
-    @FindBy(css = ".ql-editor")
-    private WebElement contentEditor;
-
-    @FindBy(css = ".submit-buttons button.primary-global-button")
+    @FindBy(xpath = "//button[@type='submit' and contains(@class,'primary-global-button')]")
     private WebElement publishBtn;
-
-    @FindBy(xpath = "//button[contains(text(),'Cancel')]")
+    @FindBy(css = ".submit-buttons button.tertiary-global-button")
     private WebElement cancelBtn;
-
     @FindBy(xpath = "//button[contains(text(),'Preview')]")
     private WebElement previewBtn;
-
     @FindBy(css = ".title-block div span.field-info")
     private WebElement titleCharacterCounter;
-
     @FindBy(css = "div.date p:nth-of-type(1) span:last-child")
     private WebElement postDate;
-
     @FindBy(css = "div.date p:nth-of-type(2) span:last-child")
     private WebElement authorName;
-
     @FindBy(css = "div.cropper-buttons button.secondary-global-button")
     private WebElement cancelCropperBtn;
-
     @FindBy(css = "div.cropper-buttons button.primary-global-button")
     private WebElement submitCropperBtn;
-
     @FindBy(css = "div.textarea-wrapper")
     private WebElement contentRoot;
-
-    @FindBy(css = "app-warning-pop-up .main-container")
-    private WebElement cancelModalRoot;
+    @FindBy(css = "mat-dialog-container app-warning-pop-up")
+    private WebElement cancelModalContainer;
 
     public CreateNewsPage(WebDriver driver) {
         super(driver);
@@ -93,6 +66,18 @@ public class CreateNewsPage extends BasePage {
     @Override
     public boolean isPageOpened() {
         return isVisible(titleInput);
+    }
+    
+    public boolean isPageOpenedSafe() {
+        try {
+            return isVisible(titleInput);
+        } catch (UnreachableBrowserException e) {
+            return false;
+        }
+    }
+
+    public boolean isPageOpenedAfterPreviewClickBack() {
+        return isVisible(pageTitleHeader);
     }
 
     public CreateNewsPage enterTitle(String title) {
@@ -133,7 +118,7 @@ public class CreateNewsPage extends BasePage {
     }
 
     public boolean areTagsVisible() {
-        return isVisible(tagRootElements);
+        return areVisible(tagRootElements);
     }
 
     public CreateNewsPage enterSource(String url) {
@@ -152,15 +137,11 @@ public class CreateNewsPage extends BasePage {
     }
 
     public boolean isImageUploadInputVisible() {
-        return isVisible(imageUploadInput) || isVisible(imageUploadInput.findElement(By.xpath("..")));
+        return isVisible(imageUploadInput.findElement(By.xpath("..")));
     }
 
     public ContentComponent getContentComponent() {
         return new ContentComponent(driver, contentRoot);
-    }
-
-    public CancelModalComponent getCancelModalComponent() {
-        return new CancelModalComponent(driver, cancelModalRoot);
     }
 
     public CreateNewsPage createNews(String title, List<String> tags, String source, String content, String imagePath) {
@@ -170,6 +151,7 @@ public class CreateNewsPage extends BasePage {
         if (content != null) {
             getContentComponent().enterContent(content);
         }
+
         if (imagePath != null) {
             uploadImage(imagePath);
             cropImage();
@@ -187,6 +169,15 @@ public class CreateNewsPage extends BasePage {
 
     public boolean isSubmitCropperButtonVisible() {
         return isVisible(submitCropperBtn);
+    }
+
+    public boolean isTitleInvalid() {
+        String classAttribute = titleInput.getAttribute("class");
+        return classAttribute != null && classAttribute.contains("ng-invalid");
+    }
+
+    public String getTitleValue() {
+        return titleInput.getAttribute("value");
     }
 
     public String getImageError() {
@@ -209,9 +200,14 @@ public class CreateNewsPage extends BasePage {
         return publishBtn.isEnabled();
     }
 
-    public CreateNewsPage clickPublish() {
+    public EcoNewsPage clickPublish() {
+        waitUntilClickable(publishBtn);
         publishBtn.click();
-        return this;
+        EcoNewsPage ecoNewsPage = new EcoNewsPage(driver);
+        ecoNewsPage.open();
+        wait.until(driver -> ecoNewsPage.isPageOpened());
+        ecoNewsPage.waitForMessageDisappear();
+        return ecoNewsPage;
     }
 
     public boolean isCancelButtonVisible() {
@@ -236,6 +232,7 @@ public class CreateNewsPage extends BasePage {
         return getTagItems().stream().map(TagItem::getName).collect(Collectors.toList());
     }
 
+    // methods for testing title fields
     public String getTitleCounterText() {
         return titleCharacterCounter.getText();
     }
@@ -245,12 +242,27 @@ public class CreateNewsPage extends BasePage {
         return classAttribute != null && classAttribute.contains("ng-invalid");
     }
 
-    public String getTitleValue() {
-        return titleInput.getAttribute("value");
-    }
-
     public int getTitleLength() {
         return getTitleValue().length();
+    }
+
+    public CancelModalComponent getCancelModal() {
+        wait.until(ExpectedConditions.visibilityOf(cancelModalContainer));
+        return new CancelModalComponent(driver, cancelModalContainer);
+    }
+
+    public boolean isCancelModalDisplayed() {
+        try {
+            waitUntilVisible(cancelModalContainer);
+            return cancelModalContainer.isDisplayed();
+        } catch (NoSuchElementException | TimeoutException | UnreachableBrowserException e) {
+            return false;
+        }
+    }
+
+    public CreateNewsPage clearSourceField() {
+        sourceInput.clear();
+        return this;
     }
 
     public boolean isAuthorVisible() {
@@ -281,5 +293,11 @@ public class CreateNewsPage extends BasePage {
         String filePath = imageUploadInput.getAttribute("value");
         File file = new File(filePath);
         return file.length();
+    }
+
+    public CreateNewsPage reload() {
+        driver.navigate().refresh();
+        wait.until(driver -> isPageOpenedSafe());
+        return this;
     }
 }
