@@ -38,6 +38,7 @@ public class CancelButtonBehaviorTest extends BaseTestRunner {
                 ecoNewsPage.clickCreateNews();
 
                 createNewsPage = new CreateNewsPage(driver);
+                createNewsPage.getHeader().changeToEN();
         }
 
         @Test

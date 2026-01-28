@@ -231,6 +231,7 @@ public class CreateNewsPage extends BasePage {
 
     public boolean isCancelModalDisplayed() {
         try {
+            waitUntilVisible(cancelModalContainer);
             return cancelModalContainer.isDisplayed();
         } catch (NoSuchElementException | TimeoutException | UnreachableBrowserException e) {
             return false;
