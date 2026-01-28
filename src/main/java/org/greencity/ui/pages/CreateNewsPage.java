@@ -152,6 +152,10 @@ public class CreateNewsPage extends BasePage {
         return classAttribute != null && classAttribute.contains("ng-invalid");
     }
 
+    public boolean isContentValid() {
+        return !isVisible(contentErrorMessage);
+    }
+
     public String getImageError() {
         return imageErrorMessage.getText();
     }

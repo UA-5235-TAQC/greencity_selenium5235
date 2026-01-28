@@ -34,7 +34,7 @@ public class TitleFieldValidation extends BaseTestRunner {
     public void verifyTitleFieldAndPublishButtonLogic() {
         // 1. Mandatory field validation (Empty title)
         createNewsPage.enterTitle("");
-        createNewsPage.enterContent(""); // Triggering "touched" state for validation
+        createNewsPage.enterContent("");
         Assert.assertTrue(createNewsPage.isTitleInvalid(), "Title border should be red (ng-invalid) when empty.");
         Assert.assertFalse(createNewsPage.isPublishButtonEnabled(), "Publish button should be disabled when the title is empty.");
         Assert.assertEquals(createNewsPage.getTitleCounterText(), "0/170", "Counter should display 0/170.");
@@ -64,5 +64,16 @@ public class TitleFieldValidation extends BaseTestRunner {
 
         // 5. Final activation check
         Assert.assertTrue(createNewsPage.isPublishButtonEnabled(), "Publish button should become enabled after all fields are valid.");
+    }
+
+    @Test
+    public void verifyTooShortContent  () {
+        createNewsPage.enterTitle("Test News");
+        createNewsPage.enterContent("1");
+
+        Assert.assertFalse(createNewsPage.isContentValid());
+
+        createNewsPage.enterContent(VALID_CONTENT);
+        Assert.assertTrue(createNewsPage.isContentValid(), "Content should be valid after all fields are valid.");
     }
 }
