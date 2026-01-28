@@ -26,6 +26,6 @@ public class TagItem extends BaseComponent {
     }
 
     public void click() {
-        rootElement.click();
+        name.click();
     }
 }

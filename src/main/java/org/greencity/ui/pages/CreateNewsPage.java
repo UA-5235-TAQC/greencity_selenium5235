@@ -172,9 +172,9 @@ public class CreateNewsPage extends BasePage {
         return publishBtn.isEnabled();
     }
 
-    public CreateNewsPage clickPublish() {
+    public EcoNewsPage clickPublish() {
         publishBtn.click();
-        return this;
+        return new EcoNewsPage(driver);
     }
 
     public CreateNewsPage clickCancel() {
@@ -207,5 +207,10 @@ public class CreateNewsPage extends BasePage {
 
     public int getTitleLength() {
         return getTitleValue().length();
+    }
+
+    public CreateNewsPage clearSourceField() {
+        sourceInput.clear();
+        return this;
     }
 }
