@@ -1,10 +1,17 @@
 package org.greencity.ui.pages;
 
+import org.greencity.ui.components.CancelModalComponent;
 import org.greencity.ui.components.TagItem;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.UnreachableBrowserException;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
+import java.time.Duration;
+
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +23,6 @@ public class CreateNewsPage extends BasePage {
     private WebElement root;
     @FindBy(css = "textarea[formcontrolname='title']")
     private WebElement titleInput;
-    // In CreateNewsPage.java, replace the tag locator with this one:
     @FindBy(css = "div.tags-box button.tag-button")
     private List<WebElement> tagRootElements;
     @FindBy(css = "input[formcontrolname='source']")
@@ -37,13 +43,14 @@ public class CreateNewsPage extends BasePage {
     private WebElement contentEditor;
     @FindBy(css = ".submit-buttons button.primary-global-button")
     private WebElement publishBtn;
-    @FindBy(xpath = "//button[contains(text(),'Cancel')]")
+    @FindBy(css = ".submit-buttons button.tertiary-global-button")
     private WebElement cancelBtn;
     @FindBy(xpath = "//button[contains(text(),'Preview')]")
     private WebElement previewBtn;
     @FindBy(css = ".title-block div span.field-info")
     private WebElement titleCharacterCounter;
-    private WebElement previewModalRoot;
+    @FindBy(css = "mat-dialog-container app-warning-pop-up")
+    private WebElement cancelModalContainer;
 
     public CreateNewsPage(WebDriver driver) {
         super(driver);
@@ -58,6 +65,15 @@ public class CreateNewsPage extends BasePage {
     @Override
     public boolean isPageOpened() {
         return isVisible(titleInput);
+    }
+
+    
+    public boolean isPageOpenedSafe() {
+        try {
+            return isVisible(titleInput);
+        } catch (UnreachableBrowserException e) {
+            return false;
+        }
     }
 
 
@@ -152,6 +168,10 @@ public class CreateNewsPage extends BasePage {
         return classAttribute != null && classAttribute.contains("ng-invalid");
     }
 
+    public String getTitleValue() {
+        return titleInput.getAttribute("value");
+    }
+
     public String getImageError() {
         return imageErrorMessage.getText();
     }
@@ -201,11 +221,20 @@ public class CreateNewsPage extends BasePage {
         return classAttribute != null && classAttribute.contains("ng-invalid");
     }
 
-    public String getTitleValue() {
-        return titleInput.getAttribute("value");
-    }
-
     public int getTitleLength() {
         return getTitleValue().length();
+    }
+    public CancelModalComponent getCancelModal() {
+        wait.until(ExpectedConditions.visibilityOf(cancelModalContainer));
+        return new CancelModalComponent(driver, cancelModalContainer);
+    }
+
+    public boolean isCancelModalDisplayed() {
+        try {
+            waitUntilVisible(cancelModalContainer);
+            return cancelModalContainer.isDisplayed();
+        } catch (NoSuchElementException | TimeoutException | UnreachableBrowserException e) {
+            return false;
+        }
     }
 }
