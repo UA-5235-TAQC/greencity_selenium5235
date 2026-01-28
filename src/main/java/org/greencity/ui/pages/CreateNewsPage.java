@@ -1,5 +1,6 @@
 package org.greencity.ui.pages;
 
+import org.greencity.ui.components.CancelModalComponent;
 import org.greencity.ui.components.TagItem;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -43,6 +44,8 @@ public class CreateNewsPage extends BasePage {
     private WebElement previewBtn;
     @FindBy(css = ".title-block div span.field-info")
     private WebElement titleCharacterCounter;
+    @FindBy(css = "mat-dialog-container app-warning-pop-up")
+    private WebElement cancelModalContainer;
 
     public CreateNewsPage(WebDriver driver) {
         super(driver);
@@ -206,5 +209,12 @@ public class CreateNewsPage extends BasePage {
 
     public int getTitleLength() {
         return getTitleValue().length();
+    }
+    public CancelModalComponent getCancelModal() {
+    return new CancelModalComponent(driver, cancelModalContainer);
+    }
+
+    public boolean isCancelModalDisplayed() {
+    return isVisible(cancelModalContainer);
     }
 }

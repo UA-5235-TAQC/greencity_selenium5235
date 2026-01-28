@@ -1,11 +1,16 @@
 package org.greencity.ui;
 
 import org.greencity.ui.components.CancelModalComponent;
+import org.greencity.ui.components.HeaderComponent;
 import org.greencity.ui.pages.CreateNewsPage;
 import org.greencity.ui.pages.EcoNewsPage;
+import org.greencity.ui.pages.HomePage;
+import org.greencity.ui.testrunners.BaseTestRunner;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.openqa.selenium.By;
+
 
 /**
  * Test Case: Cancel Button Behavior
@@ -14,7 +19,8 @@ import org.testng.annotations.Test;
  * and that selecting "Yes, cancel" closes the form and returns the user to the news page.
  * Also verify that "Continue editing" keeps the form open with data intact.
  */
-public class CancelButtonBehaviorTest extends FirstTestWithUser {
+
+public class CancelButtonBehaviorTest extends BaseTestRunner {
 
     private EcoNewsPage ecoNewsPage;
     private CreateNewsPage createNewsPage;
@@ -22,28 +28,27 @@ public class CancelButtonBehaviorTest extends FirstTestWithUser {
     private static final String TEST_CONTENT = "Test content with 20 chars";
     private static final String EXPECTED_MODAL_MESSAGE = "All created content will be lost. Do you still want to cancel news creating?";
 
-    @BeforeMethod
-    public void beforeMethod() {
-        driver.get(testValueProvider.getBaseUIGreenCityUrl());
-        // User is already logged in via TestRunnerWithUser
+  @BeforeMethod
+  public void beforeMethod() {
+        HomePage homePage = new HomePage(driver);
+        loginUser(homePage);
+    
+        driver.get(testValueProvider.getBaseUIGreenCityUrl() + "/news");
+    
+        ecoNewsPage = new EcoNewsPage(driver);
+        ecoNewsPage.clickCreateNews();
+    
+        createNewsPage = new CreateNewsPage(driver);
+        Assert.assertTrue(createNewsPage.isPageOpened(), "Create News page was not opened");
     }
+  
 
     @Test
     public void testCancelButtonBehavior() {
-        // Precondition: Navigate to Create News page
-        ecoNewsPage = new EcoNewsPage(driver);
-        ecoNewsPage.open();
-        Assert.assertTrue(ecoNewsPage.isPageOpened(), "EcoNewsPage should be opened");
-
-        ecoNewsPage.clickCreateNews();
-        createNewsPage = new CreateNewsPage(driver);
-        Assert.assertTrue(createNewsPage.isPageOpened(), "CreateNewsPage should be opened");
-
-        // --- Scenario 1: Click "Yes, cancel" button ---
         
         // Step 1-2: Fill form and click Cancel
-        createNewsPage.enterTitle(TEST_TITLE);
-        createNewsPage.enterContent(TEST_CONTENT);
+        createNewsPage.enterTitle(CancelButtonBehaviorTest.TEST_TITLE);
+        createNewsPage.enterContent(CancelButtonBehaviorTest.TEST_CONTENT);
         createNewsPage.clickCancel();
 
         // Step 3-4: Verify modal appears with correct content
@@ -53,7 +58,7 @@ public class CancelButtonBehaviorTest extends FirstTestWithUser {
         CancelModalComponent cancelModal = createNewsPage.getCancelModal();
         Assert.assertEquals(cancelModal.getMessage(), EXPECTED_MODAL_MESSAGE,
                 "Modal message should match expected text");
-        Assert.assertTrue(cancelModal.isYesCancelButtonVisible(),
+        Assert.assertTrue(cancelModal.isCancelButtonVisible(),
                 "'Yes, cancel' button should be visible");
         Assert.assertTrue(cancelModal.isContinueEditingButtonVisible(),
                 "'Continue editing' button should be visible");
@@ -96,6 +101,6 @@ public class CancelButtonBehaviorTest extends FirstTestWithUser {
         Assert.assertEquals(createNewsPage.getTitleValue(), TEST_TITLE, 
                 "Title should be preserved");
         Assert.assertTrue(createNewsPage.getContent().contains(TEST_CONTENT),
-                "Content should be preserved");
+                "Content should be preserved");  
     }
 }

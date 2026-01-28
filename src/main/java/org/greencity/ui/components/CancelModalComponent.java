@@ -51,12 +51,7 @@ public class CancelModalComponent extends BaseComponent {
         return rootElement.isDisplayed();
     }
 
-    /**
-     * Checks if the "Yes, cancel" button is visible in the modal.
-     *
-     * @return true if button is visible and displayed, false otherwise
-     */
-    public boolean isYesCancelButtonVisible() {
+    public boolean isCancelButtonVisible() {
         try {
             wait.until(ExpectedConditions.visibilityOf(yesCancelBtn));
             return yesCancelBtn.isDisplayed();
@@ -65,11 +60,6 @@ public class CancelModalComponent extends BaseComponent {
         }
     }
 
-    /**
-     * Checks if the "Continue editing" button is visible in the modal.
-     *
-     * @return true if button is visible and displayed, false otherwise
-     */
     public boolean isContinueEditingButtonVisible() {
         try {
             wait.until(ExpectedConditions.visibilityOf(continueEditingBtn));
@@ -79,18 +69,11 @@ public class CancelModalComponent extends BaseComponent {
         }
     }
 
-    /**
-     * Waits until the modal becomes visible.
-     * Useful for ensuring modal appears after Cancel button click.
-     */
+     //Waits until the modal becomes visible.    
     public void waitUntilVisible() {
         wait.until(ExpectedConditions.visibilityOf(rootElement));
     }
 
-    /**
-     * Waits until the modal is no longer visible/disappears.
-     * Useful for ensuring modal closes after button click.
-     */
     public void waitUntilClosed() {
         wait.until(ExpectedConditions.invisibilityOf(rootElement));
     }
