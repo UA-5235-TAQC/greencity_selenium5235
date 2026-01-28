@@ -33,7 +33,6 @@ public abstract class Base {
     }
 
     public String getBaseHost() {
-
         String currentUrl = driver.getCurrentUrl();
         URL url = null;
         try {
@@ -46,12 +45,20 @@ public abstract class Base {
         String protocol = url.getProtocol();
 
         return protocol + "://" + host;
-
     }
 
     protected boolean isVisible(WebElement element) {
         try {
-            wait.until(ExpectedConditions.visibilityOf(element));
+            waitUntilVisible(element);
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
+    protected boolean isVisible(List<WebElement> elements) {
+        try {
+            waitUntilVisible(elements);
             return true;
         } catch (TimeoutException e) {
             return false;
@@ -61,6 +68,7 @@ public abstract class Base {
     protected void waitUntilVisible(WebElement element) {
         wait.until(ExpectedConditions.visibilityOf(element));
     }
+
     protected void waitUntilVisible(List<WebElement> elements) {
         wait.until(ExpectedConditions.visibilityOfAllElements(elements));
     }
@@ -68,5 +76,4 @@ public abstract class Base {
     protected void waitUntilClickable(WebElement element) {
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
-
 }

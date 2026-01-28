@@ -1,7 +1,6 @@
 package org.greencity.ui;
 
 import org.greencity.ui.components.AuthModal.SignUpModal;
-import org.greencity.ui.pages.EcoNewsPage;
 import org.greencity.ui.pages.HomePage;
 import org.greencity.ui.testrunners.BaseTestRunner;
 import org.testng.Assert;

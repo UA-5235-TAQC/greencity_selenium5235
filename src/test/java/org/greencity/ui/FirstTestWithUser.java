@@ -35,13 +35,12 @@ public class FirstTestWithUser extends BaseTestRunner {
     }
 
     @Test
-    public  void isUserLoggedIn() {
+    public void isUserLoggedIn() {
         MySpaceHabitsTabPage mySpace = homePage.getHeader().clickMySpace();
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(mySpace.getUserName(), testValueProvider.getUserName());
-        softAssert.assertEquals(mySpace.getProfilePanel().getLocation(), "Kyiv, Ukraine");
-        softAssert.assertEquals(mySpace.getUserRating(), "Rate: 1940");
+        softAssert.assertEquals(mySpace.getProfilePanel().getLocation(), testValueProvider.getUserLocation());
+        softAssert.assertEquals(mySpace.getProfilePanel().getRate(), testValueProvider.getUserRate());
         softAssert.assertAll();
     }
-
 }

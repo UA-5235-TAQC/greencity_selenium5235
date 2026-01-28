@@ -42,12 +42,12 @@ public class NewsPreviewPage extends BasePage {
 
     @Override
     public BasePage open() {
-        return null;
+        return this;
     }
 
     @Override
     public boolean isPageOpened() {
-        return false;
+        return isVisible(newsText);
     }
 
     public List<WebElement> getTagItems() {
@@ -59,26 +59,56 @@ public class NewsPreviewPage extends BasePage {
         return text.substring(text.indexOf(" ") + 1);
     }
 
-    public void clickPublicNewsBtn() { publicNewsBtn.click(); }
+    public void clickPublicNewsBtn() {
+        publicNewsBtn.click();
+    }
 
-    public void clickBackToCreateNewsBtn() { backToCreateNewsBtn.click(); }
+    public void clickBackToCreateNewsBtn() {
+        backToCreateNewsBtn.click();
+    }
 
     //getters
-    public WebElement getPublicNewsBtnElement() { return publicNewsBtn; }
+    public WebElement getPublicNewsBtnElement() {
+        return publicNewsBtn;
+    }
 
-    public WebElement getBackToCreateNewsBtnElement() { return backToCreateNewsBtn; }
+    public WebElement getBackToCreateNewsBtnElement() {
+        return backToCreateNewsBtn;
+    }
 
-    public WebElement getNewsTitleElement() { return newsTitle; }
-    public String getNewsTitle() { return newsTitle.getText(); }
+    public WebElement getNewsTitleElement() {
+        return newsTitle;
+    }
 
-    public WebElement getNewsCreatingDateElement() { return newsCreatingDate; }
-    public String getNewsCreatingDate() { return newsCreatingDate.getText(); }
+    public String getNewsTitle() {
+        return newsTitle.getText();
+    }
 
-    public WebElement getNewsImageElement() { return newsImage; }
+    public WebElement getNewsCreatingDateElement() {
+        return newsCreatingDate;
+    }
 
-    public WebElement getNewsTextElement() { return newsText; }
-    public String getNewsText() { return newsText.getText(); }
+    public String getNewsCreatingDate() {
+        return newsCreatingDate.getText();
+    }
 
-    public WebElement getNewsSourceElement() { return newsSource; }
-    public String getNewsSource() { return newsSource.getText(); }
+    public WebElement getNewsImageElement() {
+        return newsImage;
+    }
+
+    public WebElement getNewsTextElement() {
+        return newsText;
+    }
+
+    public String getNewsText() {
+        return newsText.getText();
+    }
+
+    public WebElement getNewsSourceElement() {
+        return newsSource;
+    }
+
+    public String getNewsSource() {
+        return newsSource.getText();
+    }
 }

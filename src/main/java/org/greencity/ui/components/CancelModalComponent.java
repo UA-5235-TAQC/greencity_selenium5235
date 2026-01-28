@@ -39,6 +39,10 @@ public class CancelModalComponent extends BaseComponent {
     }
 
     public boolean isVisible() {
-        return rootElement.isDisplayed();
+        return messageContainer.isDisplayed();
+    }
+
+    public void waitUntilVisible() {
+        waitUntilVisible(messageContainer);
     }
 }

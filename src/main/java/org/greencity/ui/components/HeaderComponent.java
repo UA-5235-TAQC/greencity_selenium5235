@@ -3,14 +3,17 @@ package org.greencity.ui.components;
 import org.greencity.ui.components.AuthModal.SignUpModal;
 import org.greencity.ui.pages.HomePage;
 import org.greencity.ui.pages.EcoNewsPage;
-import org.greencity.ui.pages.MySpace.MySpaceBasePage;
 import org.greencity.ui.components.AuthModal.SignInModal;
 import org.greencity.ui.pages.MySpace.MySpaceHabitsTabPage;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = "//a[contains(@href, '#/greenCity/news')]")
@@ -19,7 +22,7 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = "//li[contains(@class, 'header_sign-up-link')]")
     protected WebElement signUpLink;
 
-    @FindBy(css = "a.header_sign-in-link")
+    @FindBy(css = "app-header a.header_sign-in-link.tertiary-global-button")
     protected WebElement signInLink;
 
     @FindBy(css = "a.header_logo")
@@ -33,6 +36,9 @@ public class HeaderComponent extends BaseComponent {
 
     @FindBy(css = "ul.header_lang-switcher-wrp")
     protected WebElement languageDropdown;
+
+    @FindBy(xpath = "//ul[@id='header_user-wrp']/li[contains(@class,'user-name')]")
+    private WebElement userName;
 
     @FindBy(css = ".body-2")
     protected WebElement drpButton;
@@ -52,7 +58,7 @@ public class HeaderComponent extends BaseComponent {
         return switchLanguage("Uk");
     }
 
-    private HeaderComponent switchLanguage(String lang) {
+    public HeaderComponent switchLanguage(String lang) {
         String currentLang = languageDropdown.getText().trim();
         if (currentLang.equalsIgnoreCase(lang)) {
             return this;
@@ -67,6 +73,7 @@ public class HeaderComponent extends BaseComponent {
 
     public EcoNewsPage clickEcoNewsLink() {
         ecoNewsLink.click();
+        wait.until(ExpectedConditions.urlContains("/news"));
         return new EcoNewsPage(driver);
     }
 
@@ -97,6 +104,15 @@ public class HeaderComponent extends BaseComponent {
 
     public void clickLanguageDropdown() {
         languageDropdown.click();
+    }
+
+    public String getUser() {
+        try {
+            waitUntilVisible(userName);
+        } catch (Exception e) {
+            return "";
+        }
+        return userName.getText().trim();
     }
 
     public ProfileDropdownComponent clickProfileDropdown() {

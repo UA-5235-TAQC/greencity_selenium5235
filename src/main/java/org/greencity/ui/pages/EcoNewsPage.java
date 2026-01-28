@@ -7,30 +7,43 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class EcoNewsPage extends BasePage {
+
     @FindBy(css = "h1.main-header")
     protected WebElement pageTitle;
+
     @FindBy(css = "div#create-button")
     protected WebElement createNewsBtn;
+
     @FindBy(css = "[aria-label='filter by items']")
     protected WebElement tags;
+
     @FindBy(css = "h2")
     protected WebElement remainingCountText;
+
     @FindBy(css = "ul.list")
     protected WebElement cards;
+
     @FindBy(css = "[aria-label='table view']")
     protected WebElement gridViewBtn;
+
     @FindBy(css = "[aria-label='list view']")
     protected WebElement listViewBtn;
+
     @FindBy(css = "div:has(img.my-events-img)")
     protected WebElement myEventsBtn;
+
     @FindBy(css = "div:has(span.bookmark-img)")
     protected WebElement bookmarkBtn;
+
     @FindBy(css = "div:has(span.search-img)")
     protected WebElement searchBtn;
+
     @FindBy(css = "input.place-input")
     protected WebElement searchInput;
+
     @FindBy(css = "img[alt='cancel search']")
     protected WebElement closeSearchIcon;
 
@@ -40,9 +53,9 @@ public class EcoNewsPage extends BasePage {
 
     @Override
     public EcoNewsPage open() {
-
-        driver.get( "#/greenCity/news");
-        return  new EcoNewsPage(driver);
+        driver.get(getBaseHost() + "#/greenCity/news");
+        wait.until(ExpectedConditions.urlContains("/news"));
+        return new EcoNewsPage(driver);
     }
 
     @Override
@@ -105,7 +118,7 @@ public class EcoNewsPage extends BasePage {
         TagItem[] tagItems = getAllTags();
 
         for (TagItem item : tagItems) {
-            if (item.getName().equals(tag.getTagName())) {
+            if (item.getName().equals(tag.getEn())) {
                 item.click();
                 return;
             }
