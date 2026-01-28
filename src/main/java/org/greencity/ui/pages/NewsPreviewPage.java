@@ -4,13 +4,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
 public class NewsPreviewPage extends BasePage {
-
-    @FindBy(css = "main-content app-container")
-    protected WebElement root;
 
     @FindBy(css = ".button-link")
     private WebElement backToCreateNewsBtn;
@@ -45,12 +43,12 @@ public class NewsPreviewPage extends BasePage {
 
     @Override
     public BasePage open() {
-        return this;
+        return null;
     }
 
     @Override
     public boolean isPageOpened() {
-        return isVisible(root);
+        return false;
     }
 
     public List<WebElement> getTagItems() {
@@ -66,8 +64,10 @@ public class NewsPreviewPage extends BasePage {
         publicNewsBtn.click();
     }
 
-    public void clickBackToCreateNewsBtn() {
+    public CreateNewsPage clickBackToCreateNewsBtn() {
+        waitUntilClickable(backToCreateNewsBtn);
         backToCreateNewsBtn.click();
+        return new CreateNewsPage(driver);
     }
 
     //getters

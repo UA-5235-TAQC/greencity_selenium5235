@@ -3,6 +3,9 @@ package org.greencity.ui.components;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class CancelModalComponent extends BaseComponent {
 
@@ -17,6 +20,12 @@ public class CancelModalComponent extends BaseComponent {
 
     @FindBy(css = ".close")
     private WebElement closeBtn;
+
+    @FindBy(css = ".warning-title")
+    private WebElement warningTitle;
+
+    @FindBy(css = ".warning-subtitle")
+    private WebElement warningSubtitle;
 
     public CancelModalComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
@@ -40,5 +49,39 @@ public class CancelModalComponent extends BaseComponent {
 
     public boolean isVisible() {
         return rootElement.isDisplayed();
+    }
+
+    public String getWarningTitleText() {
+        return warningTitle.getText().trim();
+    }
+
+    public String getWarningSubtitleText() {
+        return warningSubtitle.getText().trim();
+    }
+
+    public boolean isCancelButtonVisible() {
+        try {
+            wait.until(ExpectedConditions.visibilityOf(yesCancelBtn));
+            return yesCancelBtn.isDisplayed();
+        } catch (TimeoutException | NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    public boolean isContinueEditingButtonVisible() {
+        try {
+            wait.until(ExpectedConditions.visibilityOf(continueEditingBtn));
+            return continueEditingBtn.isDisplayed();
+        } catch (TimeoutException | NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    public void waitUntilVisible() {
+        wait.until(ExpectedConditions.visibilityOf(rootElement));
+    }
+
+    public void waitUntilClosed() {
+        wait.until(ExpectedConditions.invisibilityOf(rootElement));
     }
 }
