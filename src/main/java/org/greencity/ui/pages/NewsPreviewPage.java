@@ -50,6 +50,11 @@ public class NewsPreviewPage extends BasePage {
         return false;
     }
 
+    @Override
+    public BasePage waitUntilOpened() {
+        return null;
+    }
+
     public List<WebElement> getTagItems() {
         return tagsRoot.findElements(By.className("tags-item"));
     }

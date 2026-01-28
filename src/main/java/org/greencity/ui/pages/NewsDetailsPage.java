@@ -71,6 +71,11 @@ public class NewsDetailsPage extends BasePage {
         return isVisible(root);
     }
 
+    @Override
+    public BasePage waitUntilOpened() {
+        return null;
+    }
+
     public boolean checkNewsTitle(String expectedTitle) {
         return newsTitleText.getText().trim().equalsIgnoreCase(expectedTitle.trim());
     }

@@ -60,6 +60,11 @@ public class CreateNewsPage extends BasePage {
         return isVisible(titleInput);
     }
 
+    @Override
+    public BasePage waitUntilOpened() {
+        return null;
+    }
+
 
     public CreateNewsPage enterTitle(String title) {
         titleInput.clear();

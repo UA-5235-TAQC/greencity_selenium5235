@@ -50,6 +50,11 @@ public class EcoNewsPage extends BasePage {
         return isVisible(pageTitle);
     }
 
+    @Override
+    public BasePage waitUntilOpened() {
+        return null;
+    }
+
     public String getPageTitle() {
         return pageTitle.getText();
     }
