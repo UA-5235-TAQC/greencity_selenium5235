@@ -51,7 +51,7 @@ public class CreateNewsPage extends BasePage {
 
     @Override
     public CreateNewsPage open() {
-        driver.get(getBaseHost() + "#/greenCity/news/create-news");
+        driver.get(getBaseHost() + "/#/greenCity/news/create-news");
         return new CreateNewsPage(driver);
     }
 
@@ -59,7 +59,6 @@ public class CreateNewsPage extends BasePage {
     public boolean isPageOpened() {
         return isVisible(titleInput);
     }
-
 
     public CreateNewsPage enterTitle(String title) {
         titleInput.clear();
@@ -85,9 +84,7 @@ public class CreateNewsPage extends BasePage {
     }
 
     public CreateNewsPage clickTagByName(String tagName) {
-
         String xpathExpression = String.format(tagButtonXpathTemplate, tagName);
-
         WebElement tagButton = driver.findElement(By.xpath(xpathExpression));
 
         waitUntilClickable(tagButton);

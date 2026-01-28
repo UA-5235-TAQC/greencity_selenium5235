@@ -54,7 +54,6 @@ public class HomePage extends BasePage {
     @Override
     public HomePage open() {
         driver.get(getBaseHost() + "/#/greenCity");
-
         return new HomePage(driver);
     }
 
