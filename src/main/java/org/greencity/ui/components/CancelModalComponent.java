@@ -7,12 +7,6 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-/**
- * Component class for the Cancel Modal dialog.
- * Handles all interactions with the confirmation modal that appears
- * when user clicks the "Cancel" button on the Create News form.
- */
-
 public class CancelModalComponent extends BaseComponent {
 
     @FindBy(css = ".warning-text")
@@ -83,7 +77,6 @@ public class CancelModalComponent extends BaseComponent {
         }
     }
 
-    // Waits until the modal becomes visible.
     public void waitUntilVisible() {
         wait.until(ExpectedConditions.visibilityOf(rootElement));
     }

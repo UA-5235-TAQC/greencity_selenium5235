@@ -68,7 +68,6 @@ public class CreateNewsPage extends BasePage {
     }
 
     
-    // Safe version of isPageOpened that catches UnreachableBrowserException
     public boolean isPageOpenedSafe() {
         try {
             return isVisible(titleInput);
