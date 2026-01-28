@@ -43,6 +43,14 @@ public class TestValueProvider {
         return get("user.password");
     }
 
+    public String getUserLocation() {
+        return get("user.location");
+    }
+
+    public Integer getUserRate() {
+        return Integer.parseInt(get("user.rating"));
+    }
+
     public String getUserId() {
         return get("user.id");
     }

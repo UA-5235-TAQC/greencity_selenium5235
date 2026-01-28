@@ -5,10 +5,15 @@ import org.greencity.ui.pages.HomePage;
 import org.greencity.ui.pages.EcoNewsPage;
 import org.greencity.ui.components.AuthModal.SignInModal;
 import org.greencity.ui.pages.MySpace.MySpaceHabitsTabPage;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = "//a[contains(@href, '#/greenCity/news')]")
@@ -17,7 +22,7 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = "//li[contains(@class, 'header_sign-up-link')]")
     protected WebElement signUpLink;
 
-    @FindBy(css = "a.header_sign-in-link")
+    @FindBy(css = "app-header a.header_sign-in-link.tertiary-global-button")
     protected WebElement signInLink;
 
     @FindBy(css = "a.header_logo")
@@ -68,6 +73,7 @@ public class HeaderComponent extends BaseComponent {
 
     public EcoNewsPage clickEcoNewsLink() {
         ecoNewsLink.click();
+        wait.until(ExpectedConditions.urlContains("/news"));
         return new EcoNewsPage(driver);
     }
 
@@ -77,7 +83,6 @@ public class HeaderComponent extends BaseComponent {
     }
 
     public SignInModal clickSignInLink() {
-        waitUntilClickable(signInLink);
         signInLink.click();
         return new SignInModal(driver);
     }

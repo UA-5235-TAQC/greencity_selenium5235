@@ -18,4 +18,8 @@ public abstract class BaseComponent extends Base {
         this.rootElement = rootElement;
         PageFactory.initElements(new DefaultElementLocatorFactory(rootElement), this);
     }
+
+    public WebElement getRootElement() {
+        return rootElement;
+    }
 }

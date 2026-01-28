@@ -5,12 +5,14 @@ import org.greencity.ui.components.ContentComponent;
 import org.greencity.ui.components.TagItem;
 import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.ui.pages.CreateNewsPage;
+import org.greencity.ui.pages.HomePage;
 import org.greencity.ui.pages.NewsPreviewPage;
 import org.greencity.ui.testrunners.BaseTestRunner;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -23,22 +25,23 @@ public class CreateNewsFormVisibilityTest extends BaseTestRunner {
     private CreateNewsPage createNewsPage;
 
     @BeforeClass
-    public void loginUser() {
-        loginUser(new CreateNewsPage(driver).open());
+    public void LoginUser() {
+        HomePage homePage = new HomePage(driver);
+        loginUser(homePage);
+        createNewsPage = new CreateNewsPage(driver);
     }
 
     @BeforeMethod
-    public void openCreateNewsPage() {
-        createNewsPage = new CreateNewsPage(driver).open();
-        Assert.assertTrue(createNewsPage.isPageOpened(), "Create News page should be opened");
+    public void beforeMethod() {
+        createNewsPage = createNewsPage.open();
+        createNewsPage.getHeader().changeToUK();
     }
 
     @Test(description = "Verify that the Create News form contains the particular fields")
     public void verifyCreateNewsFormFieldsVisibility() {
 
         // 1. Title
-        Assert.assertTrue(createNewsPage.isPageOpened(),
-                "Title should be visible");
+        Assert.assertTrue(createNewsPage.isPageOpened());
         String titleCounter = createNewsPage.getTitleCounterText();
         Assert.assertEquals(titleCounter, "0/170", "Title counter should be 0/170");
         Assert.assertEquals(createNewsPage.getTitleLength(), 0, "Title length should be 0 by default");
@@ -47,7 +50,7 @@ public class CreateNewsFormVisibilityTest extends BaseTestRunner {
         Assert.assertTrue(createNewsPage.areTagsVisible(),
                 "Tags should be visible");
         List<String> expectedUkTags = Arrays.stream(EcoNewsTag.values())
-                .map(tag -> tag.getByLocale("Uk"))
+                .map(EcoNewsTag::getUa)
                 .collect(Collectors.toList());
 
         Assert.assertEquals(
@@ -56,11 +59,10 @@ public class CreateNewsFormVisibilityTest extends BaseTestRunner {
                 "Tags should be in Ukrainian"
         );
 
-        String enLocale = "En";
-        createNewsPage.getHeader().switchLanguage(enLocale);
+        createNewsPage.getHeader().changeToEN();
 
         List<String> expectedEnTags = Arrays.stream(EcoNewsTag.values())
-                .map(tag -> tag.getByLocale(enLocale))
+                .map(EcoNewsTag::getEn)
                 .collect(Collectors.toList());
 
         Assert.assertEquals(
@@ -86,23 +88,40 @@ public class CreateNewsFormVisibilityTest extends BaseTestRunner {
                 "Submit button on cropper should be visible");
 
         long fileSize = createNewsPage.getUploadedImageSize();
-        Assert.assertTrue(fileSize == 0, "Uploaded image size should be 0 bytes by default");
+        Assert.assertEquals(fileSize, 0,
+                "Uploaded image size should be 0 bytes by default");
 
         // 4. Source
-        String ukLocale = "Uk";
-        createNewsPage.getHeader().switchLanguage(ukLocale);
+        createNewsPage.getHeader().changeToUK();
         Assert.assertTrue(createNewsPage.isSourceVisible(),
                 "Source should be visible");
-        Assert.assertEquals(createNewsPage.getSourceMessage(),
-                "Будь ласка, додайте посилання на оригінальну статтю/новину/публікацію. Посилання повинно починатись з http(s)://");
-        Assert.assertEquals(createNewsPage.getSourcePlaceholder(), "Посилання на зовнішнє джерело");
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(
+                createNewsPage.getSourceMessage(),
+                "Будь ласка, додайте посилання на оригінальну статтю/новину/публікацію. Посилання повинно починатись з http(s)://",
+                "Incorrect source validation message"
+        );
+        softAssert.assertEquals(
+                createNewsPage.getSourcePlaceholder(),
+                "Посилання на зовнішнє джерело",
+                "Incorrect source placeholder text"
+        );
+        softAssert.assertAll();
         Assert.assertEquals(createNewsPage.getSource(), "");
 
-        createNewsPage.getHeader().switchLanguage(enLocale);
-
-        Assert.assertEquals(createNewsPage.getSourceMessage(),
-                "Please add the link of original article/news/post. Link must start with http(s)://");
-        Assert.assertEquals(createNewsPage.getSourcePlaceholder(), "Link to external source");
+        createNewsPage.getHeader().changeToEN();
+        softAssert = new SoftAssert();
+        softAssert.assertEquals(
+                createNewsPage.getSourceMessage(),
+                "Please add the link of original article/news/post. Link must start with http(s)://",
+                "Incorrect source validation message"
+        );
+        softAssert.assertEquals(
+                createNewsPage.getSourcePlaceholder(),
+                "Link to external source",
+                "Incorrect source placeholder text"
+        );
+        softAssert.assertAll();
 
         // 5. Content
         ContentComponent content = createNewsPage.getContentComponent();
@@ -115,20 +134,44 @@ public class CreateNewsFormVisibilityTest extends BaseTestRunner {
         Assert.assertTrue(content.isContentMessageVisible(),
                 "Content message should be visible");
 
-        createNewsPage.getHeader().switchLanguage(ukLocale);
-        Assert.assertEquals(content.getContent(), "", "Content should be empty by default");
-        Assert.assertEquals(content.getContentCounter(), "", "Content counter should be empty by default");
-        Assert.assertEquals(content.getContentMessage(), "Поле повинно містити не менше 20 та не більше 63 206 символів");
-        Assert.assertEquals(content.getContentPlaceholder(), "напр. Короткий опис новини, план заходу");
+        createNewsPage.getHeader().changeToUK();
+        Assert.assertEquals(content.getContent(), "",
+                "Content should be empty by default");
+        Assert.assertEquals(content.getContentCounter(), "",
+                "Content counter should be empty by default");
+        softAssert = new SoftAssert();
+        softAssert.assertEquals(
+                content.getContentMessage(),
+                "Поле повинно містити не менше 20 та не більше 63 206 символів",
+                "Incorrect content validation message"
+        );
+        softAssert.assertEquals(
+                content.getContentPlaceholder(),
+                "напр. Короткий опис новини, план заходу",
+                "Incorrect content placeholder text"
+        );
+        softAssert.assertAll();
 
-        createNewsPage.getHeader().switchLanguage(enLocale);
-        Assert.assertEquals(content.getContentMessage(), "Must be minimum 20 and maximum 63 206 symbols");
-        Assert.assertEquals(content.getContentPlaceholder(), "e.g. Short description of news, agenda for event");
+        createNewsPage.getHeader().changeToEN();
+        softAssert = new SoftAssert();
+        softAssert.assertEquals(
+                content.getContentMessage(),
+                "Must be minimum 20 and maximum 63 206 symbols",
+                "Incorrect content validation message"
+        );
+        softAssert.assertEquals(
+                content.getContentPlaceholder(),
+                "e.g. Short description of news, agenda for event",
+                "Incorrect content placeholder text"
+        );
+        softAssert.assertAll();
 
         // 6. Author
         Assert.assertTrue(createNewsPage.isAuthorVisible(),
                 "Author name should be visible");
-        Assert.assertEquals(createNewsPage.getAuthor(), createNewsPage.getHeader().getUser(), "Author should be pre-filled");
+        Assert.assertEquals(createNewsPage.getAuthor(),
+                createNewsPage.getHeader().getUser(),
+                "Author should be pre-filled");
 
         // 7. Date
         Assert.assertTrue(createNewsPage.isPostDateVisible(),
@@ -136,7 +179,8 @@ public class CreateNewsFormVisibilityTest extends BaseTestRunner {
         LocalDate today = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d, yyyy");
         String expectedDate = today.format(formatter);
-        Assert.assertEquals(createNewsPage.getPostDate(), expectedDate, "Date should be today's date");
+        Assert.assertEquals(createNewsPage.getPostDate(), expectedDate,
+                "Date should be today's date");
 
         // 8. Publish, Preview, Cancel buttons
         Assert.assertTrue(createNewsPage.isCancelButtonVisible(),
@@ -146,11 +190,19 @@ public class CreateNewsFormVisibilityTest extends BaseTestRunner {
         Assert.assertTrue(createNewsPage.isPublishButtonVisible(),
                 "Publish button should be visible");
 
-//        createNewsPage.clickCancel();
-//        CancelModalComponent cancelModal = createNewsPage.getCancelModalComponent();
-//        createNewsPage.waitUntilVisible(cancelModal);
-//        cancelModal.clickClose();
-//
-//        NewsPreviewPage preview = createNewsPage.clickPreview();
+        createNewsPage = createNewsPage.clickCancel();
+        CancelModalComponent cancelModal = createNewsPage.getCancelModal();
+        cancelModal.clickClose();
+
+        NewsPreviewPage preview = createNewsPage.clickPreview();
+        preview.clickBackToCreateNewsBtn();
+
+        createNewsPage.getHeader().changeToEN();
+        createNewsPage.enterTitle("Test News");
+        createNewsPage.clickTagByName(EcoNewsTag.NEWS.getEn());
+        String VALID_CONTENT = "This is a valid content with more than 20 characters for the news item.";
+        createNewsPage.getContentComponent().enterContent(VALID_CONTENT);
+        Assert.assertTrue(createNewsPage.isPublishButtonEnabled(), "Publish button should become enabled after all fields are valid.");
+        createNewsPage.clickPublish();
     }
 }

@@ -1,7 +1,6 @@
 package org.greencity.ui;
 
 import org.greencity.ui.components.AuthModal.SignUpModal;
-import org.greencity.ui.pages.EcoNewsPage;
 import org.greencity.ui.pages.HomePage;
 import org.greencity.ui.testrunners.BaseTestRunner;
 import org.testng.Assert;
@@ -19,15 +18,12 @@ public class FirstTest extends BaseTestRunner {
     @Test
     public void firstTest() {
         HomePage homePage = new HomePage(driver);
+        String currentUrl = homePage.getCurrentUrl();
+        Assert.assertEquals(currentUrl, testValueProvider.getBaseUIGreenCityUrl());
+        homePage.getHeader().clickEcoNewsLink();
+        currentUrl = homePage.getCurrentUrl();
+        Assert.assertEquals(currentUrl, testValueProvider.getBaseUIGreenCityUrl() + "/news");
 
-        Assert.assertEquals(
-                homePage.getCurrentUrl(),
-                testValueProvider.getBaseUIGreenCityUrl()
-        );
-
-        EcoNewsPage ecoNewsPage = homePage.getHeader().clickEcoNewsLink();
-
-        Assert.assertTrue(ecoNewsPage.getCurrentUrl().contains("/news"));
     }
 
     @Test

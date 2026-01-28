@@ -12,11 +12,6 @@ import java.util.stream.Collectors;
 
 public class CreateNewsPage extends BasePage {
 
-    private final String tagButtonXpathTemplate = "//button[contains(@class, 'tag-button')]//span[contains(@class, 'text') and normalize-space()='%s']";
-
-    @FindBy(css = "div.main-content")
-    private WebElement root;
-
     @FindBy(css = "textarea[formcontrolname='title']")
     private WebElement titleInput;
 
@@ -77,8 +72,8 @@ public class CreateNewsPage extends BasePage {
     @FindBy(css = "div.textarea-wrapper")
     private WebElement contentRoot;
 
-    @FindBy(css = "app-warning-pop-up .main-container")
-    private WebElement cancelModalRoot;
+    @FindBy(css = "mat-dialog-container app-warning-pop-up")
+    private WebElement cancelModalContainer;
 
     public CreateNewsPage(WebDriver driver) {
         super(driver);
@@ -87,6 +82,7 @@ public class CreateNewsPage extends BasePage {
     @Override
     public CreateNewsPage open() {
         driver.get(getBaseHost() + "#/greenCity/news/create-news");
+        waitUntilPageLoaded();
         return new CreateNewsPage(driver);
     }
 
@@ -96,6 +92,7 @@ public class CreateNewsPage extends BasePage {
     }
 
     public CreateNewsPage enterTitle(String title) {
+        waitUntilVisible(titleInput);
         titleInput.clear();
         titleInput.sendKeys(title);
         return this;
@@ -152,15 +149,15 @@ public class CreateNewsPage extends BasePage {
     }
 
     public boolean isImageUploadInputVisible() {
-        return isVisible(imageUploadInput) || isVisible(imageUploadInput.findElement(By.xpath("..")));
+        return isVisible(imageUploadInput.findElement(By.xpath("..")));
     }
 
     public ContentComponent getContentComponent() {
         return new ContentComponent(driver, contentRoot);
     }
 
-    public CancelModalComponent getCancelModalComponent() {
-        return new CancelModalComponent(driver, cancelModalRoot);
+    public CancelModalComponent getCancelModal() {
+        return new CancelModalComponent(driver, cancelModalContainer);
     }
 
     public CreateNewsPage createNews(String title, List<String> tags, String source, String content, String imagePath) {
@@ -209,9 +206,8 @@ public class CreateNewsPage extends BasePage {
         return publishBtn.isEnabled();
     }
 
-    public CreateNewsPage clickPublish() {
+    public void clickPublish() {
         publishBtn.click();
-        return this;
     }
 
     public boolean isCancelButtonVisible() {

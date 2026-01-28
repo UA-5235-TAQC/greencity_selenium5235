@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class EcoNewsPage extends BasePage {
 
@@ -52,8 +53,9 @@ public class EcoNewsPage extends BasePage {
 
     @Override
     public EcoNewsPage open() {
-        driver.get( "#/greenCity/news");
-        return  new EcoNewsPage(driver);
+        driver.get(getBaseHost() + "#/greenCity/news");
+        wait.until(ExpectedConditions.urlContains("/news"));
+        return new EcoNewsPage(driver);
     }
 
     @Override
@@ -114,10 +116,9 @@ public class EcoNewsPage extends BasePage {
 
     public void clickTag(EcoNewsTag tag) {
         TagItem[] tagItems = getAllTags();
-        String tagName = tag.getByLocale("en");
 
         for (TagItem item : tagItems) {
-            if (item.getName().equals(tagName)) {
+            if (item.getName().equals(tag.getEn())) {
                 item.click();
                 return;
             }

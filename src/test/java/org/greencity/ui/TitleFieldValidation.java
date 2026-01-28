@@ -16,7 +16,7 @@ public class TitleFieldValidation extends BaseTestRunner {
 
     @BeforeClass
     public void LoginUser() {
-        HomePage homePage = new HomePage(driver).open();
+        HomePage homePage = new HomePage(driver);
         loginUser(homePage);
         createNewsPage = new CreateNewsPage(driver);
     }

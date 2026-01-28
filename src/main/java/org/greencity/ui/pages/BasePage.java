@@ -1,10 +1,12 @@
 package org.greencity.ui.pages;
 
 import org.greencity.ui.Base;
+import org.greencity.ui.components.BaseComponent;
 import org.greencity.ui.components.FooterComponent;
 import org.greencity.ui.components.HeaderComponent;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public abstract class BasePage extends Base {
 
@@ -17,6 +19,9 @@ public abstract class BasePage extends Base {
     protected WebElement rootFooterElement;
     protected FooterComponent footerComponent;
 
+    @FindBy(css = "div.main-content")
+    protected WebElement mainContent;
+
     public BasePage(WebDriver driver) {
         super(driver);
     }
@@ -26,16 +31,10 @@ public abstract class BasePage extends Base {
     public abstract boolean isPageOpened();
 
     public HeaderComponent getHeader() {
-        if (header == null) {
-            header = new HeaderComponent(driver, rootHeaderElement);
-        }
         return header;
     }
 
     public FooterComponent getFooter() {
-        if (footerComponent == null) {
-            footerComponent = new FooterComponent(driver, rootFooterElement);
-        }
         return footerComponent;
     }
 
@@ -47,5 +46,9 @@ public abstract class BasePage extends Base {
     protected String getText(WebElement element) {
         waitUntilVisible(element);
         return element.getText();
+    }
+
+    public void waitUntilPageLoaded() {
+        waitUntilVisible(mainContent);
     }
 }

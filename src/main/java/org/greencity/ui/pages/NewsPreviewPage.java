@@ -9,9 +9,6 @@ import java.util.List;
 
 public class NewsPreviewPage extends BasePage {
 
-    @FindBy(css = "main-content app-container")
-    protected WebElement root;
-
     @FindBy(css = ".button-link")
     private WebElement backToCreateNewsBtn;
 
@@ -50,7 +47,7 @@ public class NewsPreviewPage extends BasePage {
 
     @Override
     public boolean isPageOpened() {
-        return isVisible(root);
+        return isVisible(newsText);
     }
 
     public List<WebElement> getTagItems() {

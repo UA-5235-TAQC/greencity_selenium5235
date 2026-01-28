@@ -31,6 +31,7 @@ public class FirstTestWithUser extends BaseTestRunner {
         homePage.getHeader().clickEcoNewsLink();
         currentUrl = homePage.getCurrentUrl();
         Assert.assertEquals(currentUrl, testValueProvider.getBaseUIGreenCityUrl() + "/news");
+
     }
 
     @Test
@@ -38,8 +39,8 @@ public class FirstTestWithUser extends BaseTestRunner {
         MySpaceHabitsTabPage mySpace = homePage.getHeader().clickMySpace();
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(mySpace.getUserName(), testValueProvider.getUserName());
-        softAssert.assertEquals(mySpace.getProfilePanel().getLocation(), "Kyiv, Ukraine");
-        softAssert.assertEquals(mySpace.getUserRating(), "Rate: 1940");
+        softAssert.assertEquals(mySpace.getProfilePanel().getLocation(), testValueProvider.getUserLocation());
+        softAssert.assertEquals(mySpace.getProfilePanel().getRate(), testValueProvider.getUserRate());
         softAssert.assertAll();
     }
 }
