@@ -46,4 +46,5 @@ public abstract class BasePage extends Base {
         return wait.until(ExpectedConditions.visibilityOf(element)).getText();
     }
 
+    public abstract BasePage waitUntilOpened();
 }

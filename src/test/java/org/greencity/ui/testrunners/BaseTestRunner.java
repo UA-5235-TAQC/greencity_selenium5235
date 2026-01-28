@@ -3,10 +3,14 @@ package org.greencity.ui.testrunners;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.greencity.ui.pages.BasePage;
 import org.greencity.ui.pages.HomePage;
+import org.greencity.ui.pages.MySpace.MySpaceBasePage;
+import org.greencity.ui.pages.MySpace.MySpaceHabitsTabPage;
 import org.greencity.utils.TestValueProvider;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
@@ -61,6 +65,8 @@ public class BaseTestRunner {
                  .clickSignInLink()
                  .enterEmail(testValueProvider.getUserEmail())
                  .enterPassword(testValueProvider.getUserPassword())
-                 .clickSubmit();
+                 .clickSubmit()
+                 .waitUntilOpened();
     }
+
 }

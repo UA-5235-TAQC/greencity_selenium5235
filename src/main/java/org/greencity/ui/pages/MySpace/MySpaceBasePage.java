@@ -54,6 +54,11 @@ public class MySpaceBasePage extends BasePage {
         return false;
     }
 
+    @Override
+    public BasePage waitUntilOpened() {
+        return null;
+    }
+
     public ProfilePanelComponent getProfilePanel() {
         return new ProfilePanelComponent(driver, profilePanel);
     }

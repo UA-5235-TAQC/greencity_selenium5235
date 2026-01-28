@@ -16,4 +16,9 @@ public class UbsCourierPage extends BasePage {
     public boolean isPageOpened() {
         return false;
     }
+
+    @Override
+    public BasePage waitUntilOpened() {
+        return null;
+    }
 }
