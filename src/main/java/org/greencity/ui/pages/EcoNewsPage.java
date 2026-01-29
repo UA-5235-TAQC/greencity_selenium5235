@@ -1,6 +1,5 @@
 package org.greencity.ui.pages;
 
-import org.greencity.ui.components.HeaderComponent;
 import org.greencity.ui.components.NewsListItemComponent;
 import org.greencity.ui.components.TagItem;
 import org.greencity.ui.enums.EcoNewsTag;

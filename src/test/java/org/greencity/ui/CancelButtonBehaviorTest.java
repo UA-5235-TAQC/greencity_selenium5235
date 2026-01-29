@@ -1,7 +1,6 @@
 package org.greencity.ui;
 
 import org.greencity.ui.components.CancelModalComponent;
-import org.greencity.ui.components.HeaderComponent;
 import org.greencity.ui.pages.CreateNewsPage;
 import org.greencity.ui.pages.EcoNewsPage;
 import org.greencity.ui.pages.HomePage;
@@ -9,7 +8,7 @@ import org.greencity.ui.testrunners.BaseTestRunner;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.openqa.selenium.By;
+
 
 /**
  * Test Case: Cancel Button Behavior
