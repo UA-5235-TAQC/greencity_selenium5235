@@ -20,12 +20,13 @@ public class BaseTestRunner {
 
     @BeforeSuite
     public void beforeSuite() {
-        WebDriverManager.chromedriver().setup();
+        WebDriverManager.chromedriver().driverVersion("144").setup(); //TODO: remove version selection for others
         testValueProvider = new TestValueProvider();
     }
 
     public void initDriver() {
         ChromeOptions options = new ChromeOptions();
+        options.setBinary("/usr/bin/brave-browser"); //TODO: remove this line for others
         options.addArguments("--remote-allow-origins=*");
         options.addArguments("--disable-popups-blocking");
         if (testValueProvider.isHeadlessMode()) {
@@ -58,7 +59,7 @@ public class BaseTestRunner {
         }
     }
 
-    public void loginUser(BasePage basePage) {
+    public MySpaceHabitsTabPage loginUser(BasePage basePage) {
         MySpaceHabitsTabPage mySpace = basePage.open()
                 .getHeader()
                 .clickSignInLink()
@@ -69,5 +70,7 @@ public class BaseTestRunner {
         if (!mySpace.isPageOpened()) {
             throw new AssertionError("Login failed: MySpace page was not opened");
         }
+
+        return mySpace;
     }
 }

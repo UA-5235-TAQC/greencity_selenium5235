@@ -8,6 +8,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class EcoNewsPage extends BasePage {
     @FindBy(css = "h1.main-header")
     protected WebElement pageTitle;
@@ -95,10 +98,19 @@ public class EcoNewsPage extends BasePage {
         return new CreateNewsPage(driver);
     }
 
-    public TagItem[] getAllTags() {
-        return tags.findElements(By.cssSelector("button.tag-button")).stream()
+    public List<TagItem> getAllTags() {
+        return  tags.findElements(By.cssSelector("button.tag-button")).stream()
                 .map(tag -> new TagItem(driver, tag))
-                .toArray(TagItem[]::new);
+                .toList();
+    }
+
+    public void removeAllSelectedTags() {
+        List<TagItem> tags = getAllTags();
+        tags.forEach(tag -> {
+            if (tag.isSelected()) {
+                tag.click();
+            }
+        });
     }
 
     public void clickTag(EcoNewsTag tag) {
@@ -110,6 +122,7 @@ public class EcoNewsPage extends BasePage {
                 return;
             }
         }
+
         throw new RuntimeException("Tag not found: " + expectedName);
     }
 
