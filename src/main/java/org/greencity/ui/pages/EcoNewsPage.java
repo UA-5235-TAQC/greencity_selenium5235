@@ -125,24 +125,24 @@ public class EcoNewsPage extends BasePage {
         throw new RuntimeException("Tag not found: " + expectedName);
     }
 
-    public NewsListItemComponent[] getNewsCards() {
+    public List<NewsListItemComponent> getNewsCards() {
         return cards.findElements(By.cssSelector("li")).stream()
                 .map(card -> new NewsListItemComponent(driver, card))
-                .toArray(NewsListItemComponent[]::new);
+                .toList();
     }
 
     public NewsListItemComponent getNewsCardByIndex(int index) {
-        NewsListItemComponent[] cards = getNewsCards();
+        List<NewsListItemComponent> cards = getNewsCards();
 
-        if (index < 0 || index >= cards.length) {
-            throw new IndexOutOfBoundsException("Invalid news card index: " + index + ". Valid index range: 0.." + (cards.length - 1) + " (total cards: " + cards.length + ")");
+        if (index < 0 || index >= cards.size()) {
+            throw new IndexOutOfBoundsException("Invalid news card index: " + index + ". Valid index range: 0.." + (cards.size() - 1) + " (total cards: " + cards.size() + ")");
         }
 
-        return cards[index];
+        return cards.get(index);
     }
 
     public NewsListItemComponent getNewsCardById(int newsId) {
-        NewsListItemComponent[] cards = getNewsCards();
+        List<NewsListItemComponent> cards = getNewsCards();
 
         for (NewsListItemComponent card : cards) {
             if (card.getNewsId() == newsId) {
