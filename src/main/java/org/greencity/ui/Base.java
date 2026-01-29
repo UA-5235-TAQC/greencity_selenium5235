@@ -33,7 +33,6 @@ public abstract class Base {
     }
 
     public String getBaseHost() {
-
         String currentUrl = driver.getCurrentUrl();
         URL url = null;
         try {
@@ -46,7 +45,6 @@ public abstract class Base {
         String protocol = url.getProtocol();
 
         return protocol + "://" + host + "/#/greenCity";
-
     }
 
     protected boolean areVisible(List<WebElement> elements) {

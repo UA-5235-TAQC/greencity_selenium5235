@@ -104,13 +104,20 @@ public class CreateNewsPage extends BasePage {
                 );
     }
 
-    public CreateNewsPage clickTagByName(String tagName) {
-        getTagByName(tagName).click();
+    public CreateNewsPage selectTags(List<String> tagNames) {
+        tagNames.forEach(tagName -> {
+            TagItem tag = getTagByName(tagName);
+
+            if(!tag.isSelected()) {
+                tag.click();
+            }
+        });
+
         return this;
     }
 
-    public CreateNewsPage selectTags(List<String> tags) {
-        tags.forEach(this::clickTagByName);
+    public CreateNewsPage clickTagByName(String tagName) {
+        getTagByName(tagName).click();
         return this;
     }
 
