@@ -91,8 +91,10 @@ public class EcoNewsPage extends BasePage {
         return Integer.parseInt(digits);
     }
 
-    public void clickCreateNews() {
+    public CreateNewsPage clickCreateNews() {
+        waitUntilClickable(createNewsBtn);
         createNewsBtn.click();
+        return new CreateNewsPage(driver);
     }
 
     public TagItem[] getAllTags() {

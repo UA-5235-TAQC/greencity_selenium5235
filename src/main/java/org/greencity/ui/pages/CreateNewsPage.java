@@ -25,7 +25,7 @@ public class CreateNewsPage extends BasePage {
     private WebElement imageUploadInput;
     @FindBy(css = "image-cropper.cropper")
     private WebElement imageCropper;
-    @FindBy(css = "div.image-block p.warning")
+    @FindBy(css = "div.image-block p.warning-color")
     private WebElement imageErrorMessage;
     @FindBy(css = "div.source-block span.warning")
     private WebElement sourceErrorMessage;
@@ -43,6 +43,8 @@ public class CreateNewsPage extends BasePage {
     private WebElement previewBtn;
     @FindBy(css = ".title-block div span.field-info")
     private WebElement titleCharacterCounter;
+    @FindBy(css = ".image-preview")
+    private WebElement imgPreviewWrap;
     private WebElement previewModalRoot;
 
     public CreateNewsPage(WebDriver driver) {
@@ -154,6 +156,14 @@ public class CreateNewsPage extends BasePage {
 
     public String getImageError() {
         return imageErrorMessage.getText();
+    }
+
+    public boolean isImageErrorMsg() {
+        return imageErrorMessage != null;
+    }
+
+    public boolean isPreviewImage() {
+        return imgPreviewWrap == null;
     }
 
     public String getSourceError() {

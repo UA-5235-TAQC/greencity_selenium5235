@@ -66,6 +66,7 @@ public class HeaderComponent extends BaseComponent {
     }
 
     public EcoNewsPage clickEcoNewsLink() {
+        waitUntilClickable(ecoNewsLink);
         ecoNewsLink.click();
         return new EcoNewsPage(driver);
     }
