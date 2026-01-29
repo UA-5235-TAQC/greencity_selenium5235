@@ -67,10 +67,7 @@ public class BaseTestRunner {
                  .enterPassword(testValueProvider.getUserPassword())
                  .clickSubmit();
 
-                 new WebDriverWait(driver, Duration.ofSeconds(10))
-                 .until(ExpectedConditions.or(
-                     ExpectedConditions.urlContains("/profile")
-                   
-                 ));
+         new WebDriverWait(driver, Duration.ofSeconds(10))
+                 .until(ExpectedConditions.urlContains("/profile"));
    }
 }
