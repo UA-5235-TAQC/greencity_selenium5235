@@ -9,40 +9,28 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class EcoNewsPage extends BasePage {
-
     @FindBy(css = "h1.main-header")
     protected WebElement pageTitle;
-
     @FindBy(css = "div#create-button")
     protected WebElement createNewsBtn;
-
     @FindBy(css = "[aria-label='filter by items']")
     protected WebElement tags;
-
     @FindBy(css = "h2")
     protected WebElement remainingCountText;
-
     @FindBy(css = "ul.list")
     protected WebElement cards;
-
     @FindBy(css = "[aria-label='table view']")
     protected WebElement gridViewBtn;
-
     @FindBy(css = "[aria-label='list view']")
     protected WebElement listViewBtn;
-
     @FindBy(css = "div:has(img.my-events-img)")
     protected WebElement myEventsBtn;
-
     @FindBy(css = "div:has(span.bookmark-img)")
     protected WebElement bookmarkBtn;
-
     @FindBy(css = "div:has(span.search-img)")
     protected WebElement searchBtn;
-
     @FindBy(css = "input.place-input")
     protected WebElement searchInput;
-
     @FindBy(css = "img[alt='cancel search']")
     protected WebElement closeSearchIcon;
 
@@ -52,7 +40,7 @@ public class EcoNewsPage extends BasePage {
 
     @Override
     public EcoNewsPage open() {
-        driver.get(getBaseHost() + "/#/greenCity/news");
+        driver.get(getBaseHost() + "/news");
         return new EcoNewsPage(driver);
     }
 
@@ -96,7 +84,7 @@ public class EcoNewsPage extends BasePage {
 
     public int getRemainingNewsCount() {
         String digits = remainingCountText.getText().replaceAll("[^0-9]", "");
-        if (digits == null || digits.isEmpty()) {
+        if (digits.isEmpty()) {
             return 0;
         }
         return Integer.parseInt(digits);
@@ -114,14 +102,15 @@ public class EcoNewsPage extends BasePage {
     }
 
     public void clickTag(EcoNewsTag tag) {
-        TagItem[] tagItems = getAllTags();
+        String expectedName = tag.getByLocale(getHeader().getCurrentLocale());
 
-        for (TagItem item : tagItems) {
-            if (item.getName().equals(tag.getTagName())) {
+        for (TagItem item : getAllTags()) {
+            if (item.getName().equalsIgnoreCase(expectedName)) {
                 item.click();
                 return;
             }
         }
+        throw new RuntimeException("Tag not found: " + expectedName);
     }
 
     public NewsListItemComponent[] getNewsCards() {
@@ -134,10 +123,7 @@ public class EcoNewsPage extends BasePage {
         NewsListItemComponent[] cards = getNewsCards();
 
         if (index < 0 || index >= cards.length) {
-            throw new IndexOutOfBoundsException(
-                    "Invalid news card index: " + index
-                            + ". Valid index range: 0.." + (cards.length - 1)
-                            + " (total cards: " + cards.length + ")");
+            throw new IndexOutOfBoundsException("Invalid news card index: " + index + ". Valid index range: 0.." + (cards.length - 1) + " (total cards: " + cards.length + ")");
         }
 
         return cards[index];
