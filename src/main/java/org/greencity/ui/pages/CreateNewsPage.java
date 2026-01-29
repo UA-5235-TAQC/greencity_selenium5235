@@ -5,8 +5,13 @@ import org.greencity.ui.components.ContentComponent;
 import org.greencity.ui.components.TagItem;
 import org.openqa.selenium.*;
 import org.openqa.selenium.remote.UnreachableBrowserException;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 
 import java.io.File;
 import java.util.List;
@@ -67,7 +72,7 @@ public class CreateNewsPage extends BasePage {
     public boolean isPageOpened() {
         return isVisible(titleInput);
     }
-    
+
     public boolean isPageOpenedSafe() {
         try {
             return isVisible(titleInput);
