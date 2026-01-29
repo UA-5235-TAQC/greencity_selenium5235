@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class CreateNewsFormVisibilityTest extends BaseTestRunner {
@@ -32,12 +33,12 @@ public class CreateNewsFormVisibilityTest extends BaseTestRunner {
     public void LoginUser() {
         HomePage homePage = new HomePage(driver);
         loginUser(homePage);
-        createNewsPage = new CreateNewsPage(driver);
+        createNewsPage = homePage.open().getHeader().clickEcoNewsLink().clickCreateNews();;
     }
 
     @BeforeMethod
     public void beforeMethod() {
-        createNewsPage = createNewsPage.open();
+//        createNewsPage = createNewsPage.open();
         createNewsPage.getHeader().changeToUK();
     }
 
@@ -183,7 +184,7 @@ public class CreateNewsFormVisibilityTest extends BaseTestRunner {
         Assert.assertTrue(createNewsPage.isPostDateVisible(),
                 "Post date should be visible");
         LocalDate today = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d, yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d, yyyy").withLocale(Locale.US);;
         String expectedDate = today.format(formatter);
         Assert.assertEquals(createNewsPage.getPostDate(), expectedDate,
                 "Date should be today's date");
@@ -255,9 +256,17 @@ public class CreateNewsFormVisibilityTest extends BaseTestRunner {
         createDefaultNews(createNewsPage);
         Assert.assertTrue(createNewsPage.isPublishButtonEnabled(),
                 "Publish button should become enabled after all fields are valid.");
-        EcoNewsPage ecoNewsPage = createNewsPage.clickPublish();
+        createNewsPage.clickPublish();
+        EcoNewsPage ecoNewsPage = new EcoNewsPage(driver);
         Assert.assertTrue(ecoNewsPage.isPageOpened(),
                 "User should be directed to EcoNewsPage");
+        String message = ecoNewsPage.getMessageText();
+        Assert.assertEquals(
+                message,
+                "Your news has been successfully published",
+                "Success message text should be correct"
+        );
+
     }
 
     private void createDefaultNews(CreateNewsPage page) {

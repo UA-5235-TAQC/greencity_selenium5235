@@ -200,14 +200,9 @@ public class CreateNewsPage extends BasePage {
         return publishBtn.isEnabled();
     }
 
-    public EcoNewsPage clickPublish() {
+    public void clickPublish() {
         waitUntilClickable(publishBtn);
         publishBtn.click();
-        EcoNewsPage ecoNewsPage = new EcoNewsPage(driver);
-        ecoNewsPage.open();
-        wait.until(driver -> ecoNewsPage.isPageOpened());
-        ecoNewsPage.waitForMessageDisappear();
-        return ecoNewsPage;
     }
 
     public boolean isCancelButtonVisible() {
