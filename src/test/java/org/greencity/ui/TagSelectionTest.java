@@ -99,7 +99,7 @@ public class TagSelectionTest extends BaseTestRunner {
         // NOTE: in TagItem rootElement (button) doesn't work, so we click on a name inside the button, and it actually allows us to select more than 3 items.
         Assert.assertFalse(createNewsPage.isPublishButtonEnabled(), "Publishing a news with 4 tags should be blocked");
 
-        // NOTE: we need to get out of the CreateNewsPage to let other tests work as expected, as they run in different order
+        // NOTE: we need to cancel news creation here, as without it the confirmation modal will appear and prevent other tests from working correctly.
         createNewsPage.clickCancel();
         Assert.assertTrue(createNewsPage.isCancelModalDisplayed(),
                 "Confirmation modal should appear after clicking Cancel");
