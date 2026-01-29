@@ -27,7 +27,10 @@ public class SourceFieldValidationTest extends BaseTestRunner {
                 .clickEcoNewsLink()
                 .clickCreateNews();
     }
-
+    @BeforeMethod
+    public void beforeMethod() {
+        createNewsPage = createNewsPage.open();
+    }
 
     @Test
     public void SourceFieldValidation() {
@@ -61,9 +64,12 @@ public class SourceFieldValidationTest extends BaseTestRunner {
         ecoNewsPage.waitForMessageAppear();
         Assert.assertEquals(ecoNewsPage.getMessageText(), "Your news has been successfully published");
         ecoNewsPage.waitForMessageDisappear();
+    }
 
+    @Test
+    public void SourceFieldNonValidValidation() {
         // Create new news item with non-valid Source Field data
-        ecoNewsPage.clickCreateNews()
+        createNewsPage
                 .createNews(
                         "W".repeat(20),
                         List.of(
@@ -84,6 +90,7 @@ public class SourceFieldValidationTest extends BaseTestRunner {
                .clickPublish();
 
        // Verify that success message is appears and matches the given text
+       EcoNewsPage ecoNewsPage = new EcoNewsPage(driver);
        ecoNewsPage.waitForMessageAppear();
        Assert.assertEquals(ecoNewsPage.getMessageText(), "Your news has been successfully published");
     }
