@@ -48,7 +48,7 @@ public class CancelButtonBehaviorTest extends BaseTestRunner {
                                 "Create News page was not opened");
 
                 createNewsPage.enterTitle(TEST_TITLE);
-                createNewsPage.enterContent(TEST_CONTENT);
+                createNewsPage.getContentComponent().enterContent(TEST_CONTENT);
 
                 createNewsPage.clickCancel();
 

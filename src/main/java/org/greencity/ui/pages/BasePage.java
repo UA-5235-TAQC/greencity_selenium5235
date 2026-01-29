@@ -3,6 +3,7 @@ package org.greencity.ui.pages;
 import org.greencity.ui.Base;
 import org.greencity.ui.components.FooterComponent;
 import org.greencity.ui.components.HeaderComponent;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -18,6 +19,8 @@ public abstract class BasePage extends Base {
     @FindBy(xpath = "//app-footer")
     protected WebElement rootFooterElement;
     protected FooterComponent footerComponent;
+
+    private By messageLocator = By.xpath("//div[contains(text(),'successfully published')]");
 
     public BasePage(WebDriver driver) {
         super(driver);
@@ -44,6 +47,18 @@ public abstract class BasePage extends Base {
 
     protected String getText(WebElement element) {
         return wait.until(ExpectedConditions.visibilityOf(element)).getText();
+    }
+    public void waitForMessageAppear() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(messageLocator));
+    }
+
+    public BasePage waitForMessageDisappear() {
+        wait.until(ExpectedConditions.stalenessOf(driver.findElement(messageLocator)));
+        return this;
+    }
+    public String getMessageText() {
+        waitForMessageAppear();
+        return driver.findElement(messageLocator).getText();
     }
 
 }

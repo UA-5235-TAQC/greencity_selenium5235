@@ -30,6 +30,9 @@ public class BaseTestRunner {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
         options.addArguments("--disable-popups-blocking");
+        if (testValueProvider.isHeadlessMode()) {
+            options.addArguments("--headless=new");
+        }
 
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
@@ -64,10 +67,7 @@ public class BaseTestRunner {
                  .enterPassword(testValueProvider.getUserPassword())
                  .clickSubmit();
 
-                 new WebDriverWait(driver, Duration.ofSeconds(10))
-                 .until(ExpectedConditions.or(
-                     ExpectedConditions.urlContains("/profile")
-                   
-                 ));
+         new WebDriverWait(driver, Duration.ofSeconds(10))
+                 .until(ExpectedConditions.urlContains("/profile"));
    }
 }

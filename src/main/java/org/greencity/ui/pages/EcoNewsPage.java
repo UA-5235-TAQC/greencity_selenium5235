@@ -36,13 +36,14 @@ public class EcoNewsPage extends BasePage {
     @FindBy(css = "img[alt='cancel search']")
     protected WebElement closeSearchIcon;
 
+
     public EcoNewsPage(WebDriver driver) {
         super(driver);
     }
 
     @Override
     public EcoNewsPage open() {
-        driver.get(getBaseHost() + "/#/greenCity/news");
+        driver.get(getBaseHost() + "/news");
         wait.until(ExpectedConditions.urlContains("/news"));
         return new EcoNewsPage(driver);
     }
@@ -87,7 +88,7 @@ public class EcoNewsPage extends BasePage {
 
     public int getRemainingNewsCount() {
         String digits = remainingCountText.getText().replaceAll("[^0-9]", "");
-        if (digits == null || digits.isEmpty()) {
+        if (digits.isEmpty()) {
             return 0;
         }
         return Integer.parseInt(digits);
@@ -99,36 +100,30 @@ public class EcoNewsPage extends BasePage {
     }
 
     public TagItem[] getAllTags() {
-        return tags.findElements(By.cssSelector("button.tag-button")).stream()
-                .map(tag -> new TagItem(driver, tag))
-                .toArray(TagItem[]::new);
+        return tags.findElements(By.cssSelector("button.tag-button")).stream().map(tag -> new TagItem(driver, tag)).toArray(TagItem[]::new);
     }
 
     public void clickTag(EcoNewsTag tag) {
-        TagItem[] tagItems = getAllTags();
+        String expectedName = tag.getByLocale(getHeader().getCurrentLocale());
 
-        for (TagItem item : tagItems) {
-            if (item.getName().equals(tag.getTagName())) {
+        for (TagItem item : getAllTags()) {
+            if (item.getName().equalsIgnoreCase(expectedName)) {
                 item.click();
                 return;
             }
         }
+        throw new RuntimeException("Tag not found: " + expectedName);
     }
 
     public NewsListItemComponent[] getNewsCards() {
-        return cards.findElements(By.cssSelector("li")).stream()
-                .map(card -> new NewsListItemComponent(driver, card))
-                .toArray(NewsListItemComponent[]::new);
+        return cards.findElements(By.cssSelector("li")).stream().map(card -> new NewsListItemComponent(driver, card)).toArray(NewsListItemComponent[]::new);
     }
 
     public NewsListItemComponent getNewsCardByIndex(int index) {
         NewsListItemComponent[] cards = getNewsCards();
 
         if (index < 0 || index >= cards.length) {
-            throw new IndexOutOfBoundsException(
-                    "Invalid news card index: " + index
-                            + ". Valid index range: 0.." + (cards.length - 1)
-                            + " (total cards: " + cards.length + ")");
+            throw new IndexOutOfBoundsException("Invalid news card index: " + index + ". Valid index range: 0.." + (cards.length - 1) + " (total cards: " + cards.length + ")");
         }
 
         return cards[index];
@@ -155,4 +150,5 @@ public class EcoNewsPage extends BasePage {
         NewsListItemComponent card = getNewsCardById(newsId);
         card.click();
     }
+
 }
