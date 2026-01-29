@@ -2,7 +2,6 @@ package org.greencity.ui.testrunners;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.greencity.ui.pages.BasePage;
-import org.greencity.ui.pages.MySpace.MySpaceEventsTabPage;
 import org.greencity.ui.pages.MySpace.MySpaceHabitsTabPage;
 import org.greencity.utils.TestValueProvider;
 import org.openqa.selenium.WebDriver;

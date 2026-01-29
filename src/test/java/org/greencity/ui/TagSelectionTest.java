@@ -46,7 +46,7 @@ public class TagSelectionTest extends BaseTestRunner {
         softAssert.assertAll();
 
         // 6. Open the "Create News" form again.
-        ecoNewsPage.clickCreateNews();
+        createNewsPage = ecoNewsPage.clickCreateNews();
         Assert.assertTrue(createNewsPage.isPageOpened(), "Create News page should be opened");
 
         // 7. Select three tags: "News", "Events", "Education".
