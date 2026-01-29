@@ -17,14 +17,14 @@ public class FirstTest extends BaseTestRunner {
     }
 
     @Test
-    public void firstTest() {
+    public void isLogin() {
         HomePage homePage = new HomePage(driver);
+        homePage.open();
         String currentUrl = homePage.getCurrentUrl();
-        Assert.assertEquals(currentUrl, testValueProvider.getBaseUIGreenCityUrl());
-        homePage.getHeader().clickEcoNewsLink();
-        currentUrl = homePage.getCurrentUrl();
-        Assert.assertEquals(currentUrl, testValueProvider.getBaseUIGreenCityUrl() + "/news");
-
+        Assert.assertEquals(currentUrl, testValueProvider.getBaseUIGreenCityUrl() + "#/greenCity");
+        EcoNewsPage ecoNewsPage = homePage.getHeader().clickEcoNewsLink();
+        currentUrl = ecoNewsPage.getCurrentUrl();
+        Assert.assertEquals(currentUrl, testValueProvider.getBaseUIGreenCityUrl() + "#/greenCity/news");
     }
 
     @Test

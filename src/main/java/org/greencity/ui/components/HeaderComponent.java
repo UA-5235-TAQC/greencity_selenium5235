@@ -3,7 +3,6 @@ package org.greencity.ui.components;
 import org.greencity.ui.components.AuthModal.SignUpModal;
 import org.greencity.ui.pages.HomePage;
 import org.greencity.ui.pages.EcoNewsPage;
-import org.greencity.ui.pages.MySpace.MySpaceBasePage;
 import org.greencity.ui.components.AuthModal.SignInModal;
 import org.greencity.ui.pages.MySpace.MySpaceHabitsTabPage;
 import org.openqa.selenium.WebDriver;
@@ -11,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
 
 public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = "//a[contains(@href, '#/greenCity/news')]")
@@ -40,6 +40,9 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(css = "ul.dropdown-list")
     protected WebElement dropDown;
 
+    @FindBy(xpath = "//ul[@id='header_user-wrp']/li[contains(@class,'user-name')]")
+    private WebElement userName;
+
     public HeaderComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
     }
@@ -66,7 +69,9 @@ public class HeaderComponent extends BaseComponent {
     }
 
     public EcoNewsPage clickEcoNewsLink() {
+        waitUntilClickable(ecoNewsLink);
         ecoNewsLink.click();
+        wait.until(ExpectedConditions.urlContains("/greenCity/news"));
         return new EcoNewsPage(driver);
     }
 
@@ -99,10 +104,24 @@ public class HeaderComponent extends BaseComponent {
         languageDropdown.click();
     }
 
+    public String getUser() {
+        try {
+            waitUntilVisible(userName);
+        } catch (Exception e) {
+            return "";
+        }
+        return userName.getText().trim();
+    }
+
     public ProfileDropdownComponent clickProfileDropdown() {
         waitUntilClickable(drpButton);
         drpButton.click();
         waitUntilVisible(dropDown);
         return new ProfileDropdownComponent(driver, dropDown);
+    }
+
+    public String getCurrentLocale() {
+        String lang = drpButton.getText().trim();
+        return lang.equalsIgnoreCase("Uk") ? "uk" : "en";
     }
 }
