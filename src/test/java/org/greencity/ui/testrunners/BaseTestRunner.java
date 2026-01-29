@@ -20,13 +20,12 @@ public class BaseTestRunner {
 
     @BeforeSuite
     public void beforeSuite() {
-        WebDriverManager.chromedriver().driverVersion("144").setup(); //TODO: remove version selection for others
+        WebDriverManager.chromedriver().setup();
         testValueProvider = new TestValueProvider();
     }
 
     public void initDriver() {
         ChromeOptions options = new ChromeOptions();
-        options.setBinary("/usr/bin/brave-browser"); //TODO: remove this line for others
         options.addArguments("--remote-allow-origins=*");
         options.addArguments("--disable-popups-blocking");
         if (testValueProvider.isHeadlessMode()) {
