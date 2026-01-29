@@ -17,12 +17,19 @@ public class ContentComponent extends BaseComponent {
     @FindBy(css = ".title-wrapper p.field-info")
     private WebElement contentMessage;
 
+    @FindBy(css = "div.textarea-wrapper div.title-wrapper p.field-info.warning")
+    private WebElement contentErrorMessage;
+
     public ContentComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
     }
 
     public ContentComponent enterContent(String text) {
         content.clear();
+        content.sendKeys(text);
+        return this;
+    }
+    public ContentComponent enterContentNotClear(String text) {
         content.sendKeys(text);
         return this;
     }
@@ -69,5 +76,13 @@ public class ContentComponent extends BaseComponent {
 
     public boolean isContentMessageInvalid() {
         return contentMessage.getAttribute("class").contains("warning");
+    }
+
+    public boolean isContentWarningDisplayed() {
+        try {
+            return contentErrorMessage.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
