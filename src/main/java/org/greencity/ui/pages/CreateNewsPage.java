@@ -307,4 +307,5 @@ public class CreateNewsPage extends BasePage {
         wait.until(driver -> isPageOpenedSafe());
         return this;
     }
+
 }
