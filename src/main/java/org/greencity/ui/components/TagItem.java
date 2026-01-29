@@ -25,6 +25,7 @@ public class TagItem extends BaseComponent {
         return classes != null && classes.contains("global-tag-close-icon");
     }
 
+    // NOTE: tried to use rootElement.click() here, but somehow it doesn't work.
     public void click() {
         name.click();
     }
