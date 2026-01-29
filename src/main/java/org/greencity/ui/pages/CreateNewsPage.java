@@ -99,26 +99,21 @@ public class CreateNewsPage extends BasePage {
                 );
     }
 
-//    public CreateNewsPage selectTags(List<String> tags) {
-//        List<TagItem> tagItems = getTagItems();
-//        for (String tagName : tags) {
-//            for (TagItem tag : tagItems) {
-//                if (tag.getName().equalsIgnoreCase(tagName) && !tag.isSelected()) {
-//                    tag.click();
-//                    break;
-//                }
-//            }
-//        }
-//        return this;
-//    }
-
-    public CreateNewsPage clickTagByName(String tagName) {
-        getTagByName(tagName).click();
+    public CreateNewsPage selectTags(List<String> tags) {
+        List<TagItem> tagItems = getTagItems();
+        for (String tagName : tags) {
+            for (TagItem tag : tagItems) {
+                if (tag.getName().equalsIgnoreCase(tagName) && !tag.isSelected()) {
+                    tag.click();
+                    break;
+                }
+            }
+        }
         return this;
     }
 
-    public CreateNewsPage selectTags(List<String> tags) {
-        tags.forEach(this::clickTagByName);
+    public CreateNewsPage clickTagByName(String tagName) {
+        getTagByName(tagName).click();
         return this;
     }
 

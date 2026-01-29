@@ -30,10 +30,8 @@ public class TagSelectionTest extends BaseTestRunner {
         // 2. In the "Tag" field, select one tag ("News").
         // 3. Fill in the required fields: Title: "Test", Main Text: "Test content with 20 chars"
         // 4. Click "Publish".
-        List<String> tagNames = List.of(EcoNewsTag.NEWS.getTagName());
-        createNewsPage.selectTags(tagNames)
-                .enterTitle("Test")
-                .enterContent("Test content with 20 chars")
+        List<String> tagNames = List.of(EcoNewsTag.NEWS.getEn());
+        createNewsPage.createNews("Test", tagNames, null, "Test content with 20 chars", null)
                 .clickPublish();
 
         // 5. Verify that the news is published with the "News" tag.
@@ -51,10 +49,8 @@ public class TagSelectionTest extends BaseTestRunner {
 
         // 7. Select three tags: "News", "Events", "Education".
         // 8. Click "Publish".
-        tagNames = List.of(EcoNewsTag.NEWS.getTagName(), EcoNewsTag.EVENTS.getTagName(), EcoNewsTag.EDUCATION.getTagName());
-        createNewsPage.selectTags(tagNames)
-                .enterTitle("Test_2")
-                .enterContent("Test content with 20 chars")
+        tagNames = List.of(EcoNewsTag.NEWS.getEn(), EcoNewsTag.EVENTS.getEn(), EcoNewsTag.EDUCATION.getEn());
+        createNewsPage.createNews("Test_2", tagNames, null, "Test content with 20 chars", null)
                 .clickPublish();
 
         // 9. Verify that the news is published with all three selected tags.
@@ -71,7 +67,7 @@ public class TagSelectionTest extends BaseTestRunner {
         ecoNewsPage.clickCreateNews();
         Assert.assertTrue(createNewsPage.isPageOpened(), "Create News page should be opened");
 
-        tagNames = List.of(EcoNewsTag.NEWS.getTagName(), EcoNewsTag.EVENTS.getTagName(), EcoNewsTag.EDUCATION.getTagName(), EcoNewsTag.INITIATIVES.getTagName());
+        tagNames = List.of(EcoNewsTag.NEWS.getEn(), EcoNewsTag.EVENTS.getEn(), EcoNewsTag.EDUCATION.getEn(), EcoNewsTag.INITIATIVES.getEn());
         createNewsPage.selectTags(tagNames);
         Assert.assertFalse(createNewsPage.isPublishButtonEnabled(), "Publishing a news with 4 tags should be blocked");
     }
