@@ -6,6 +6,7 @@ import org.greencity.ui.pages.EcoNewsPage;
 import org.greencity.ui.pages.HomePage;
 import org.greencity.ui.testrunners.BaseTestRunner;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -21,23 +22,27 @@ import org.testng.annotations.Test;
 
 public class CancelButtonBehaviorTest extends BaseTestRunner {
 
-        private EcoNewsPage ecoNewsPage;
         private CreateNewsPage createNewsPage;
         private static final String TEST_TITLE = "Test";
         private static final String TEST_CONTENT = "Test content with 20 chars";
 
-        @BeforeMethod
-        public void beforeMethod() {
+
+        @BeforeClass
+        public void LoginUser() {
                 HomePage homePage = new HomePage(driver);
                 loginUser(homePage);
+                createNewsPage = homePage
+                        .getHeader()
+                        .clickEcoNewsLink()
+                        .clickCreateNews();
+                createNewsPage
+                        .getHeader()
+                        .changeToEN();
+        }
 
-                driver.get(testValueProvider.getBaseUIGreenCityUrl() + "/#/greenCity/news/");
-
-                ecoNewsPage = new EcoNewsPage(driver);
-                ecoNewsPage.clickCreateNews();
-
-                createNewsPage = new CreateNewsPage(driver);
-                createNewsPage.getHeader().changeToEN();
+        @BeforeMethod
+        public void beforeMethod() {
+                createNewsPage = createNewsPage.open();
         }
 
         @Test
@@ -77,7 +82,7 @@ public class CancelButtonBehaviorTest extends BaseTestRunner {
 
                 cancelModal.clickYesCancel();
 
-                ecoNewsPage = new EcoNewsPage(driver);
+                EcoNewsPage ecoNewsPage = new EcoNewsPage(driver);
                 // Verify redirect
                 Assert.assertTrue(ecoNewsPage.isPageOpened(),
                                 "User should be redirected to EcoNewsPage");
