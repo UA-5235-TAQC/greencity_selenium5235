@@ -59,5 +59,9 @@ public class TestValueProvider {
         return Integer.parseInt(get("user.rating"));
     }
 
+    public boolean isHeadlessMode() {
+        return Boolean.parseBoolean(get("headless.mode"));
+    }
+
 
 }

@@ -45,7 +45,7 @@ public abstract class Base {
         String host = url.getHost();
         String protocol = url.getProtocol();
 
-        return protocol + "://" + host;
+        return protocol + "://" + host + "/#/greenCity";
 
     }
 
