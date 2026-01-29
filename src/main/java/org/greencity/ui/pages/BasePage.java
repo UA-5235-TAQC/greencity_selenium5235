@@ -48,8 +48,9 @@ public abstract class BasePage extends Base {
     protected String getText(WebElement element) {
         return wait.until(ExpectedConditions.visibilityOf(element)).getText();
     }
-    public void waitForMessageAppear() {
+    public BasePage waitForMessageAppear() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(messageLocator));
+        return this;
     }
 
     public BasePage waitForMessageDisappear() {

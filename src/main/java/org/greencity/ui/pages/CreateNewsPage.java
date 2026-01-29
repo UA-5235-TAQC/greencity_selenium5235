@@ -301,11 +301,4 @@ public class CreateNewsPage extends BasePage {
         return this;
     }
 
-    public boolean isContentWarningDisplayed() {
-        try {
-            return contentErrorMessage.isDisplayed();
-        } catch (Exception e) {
-            return false;
-        }
-    }
 }
