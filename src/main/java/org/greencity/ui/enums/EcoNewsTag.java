@@ -1,19 +1,29 @@
 package org.greencity.ui.enums;
 
 public enum EcoNewsTag {
-    NEWS("News"),
-    EVENTS("Events"),
-    EDUCATION("Education"),
-    INITIATIVES("Initiatives"),
-    ADS("Ads");
+    NEWS("News", "Новини"),
+    EVENTS("Events", "Події"),
+    EDUCATION("Education", "Освіта"),
+    INITIATIVES("Initiatives", "Ініціативи"),
+    ADS("Ads", "Реклама");
 
-    private final String tagName;
+    private final String en;
+    private final String ua;
 
-    EcoNewsTag(String tagName) {
-        this.tagName = tagName;
+    EcoNewsTag(String en, String ua) {
+        this.en = en;
+        this.ua = ua;
     }
 
-    public String getTagName() {
-        return tagName;
+    public String getByLocale(String locale) {
+        return "uk".equalsIgnoreCase(locale) ? ua : en;
+    }
+
+    public String getEn() {
+        return en;
+    }
+
+    public String getUa() {
+        return ua;
     }
 }
