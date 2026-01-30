@@ -1,14 +1,15 @@
-package org.greencity.ui;
+package org.greencity.ui.CreateNews;
 
 import org.greencity.ui.components.CancelModalComponent;
 import org.greencity.ui.components.ContentComponent;
 import org.greencity.ui.components.TagItem;
 import org.greencity.ui.enums.EcoNewsTag;
-import org.greencity.ui.pages.CreateNewsPage;
+import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
+import org.greencity.ui.pages.CreateEditNews.NewsPreviewPage;
 import org.greencity.ui.pages.EcoNewsPage;
 import org.greencity.ui.pages.HomePage;
-import org.greencity.ui.pages.NewsPreviewPage;
 import org.greencity.ui.testrunners.BaseTestRunner;
+import org.greencity.utils.NewsTestData;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -22,23 +23,21 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
+import static org.greencity.utils.NewsTestData.*;
+
 public class CreateNewsFormVisibilityTest extends BaseTestRunner {
 
     private CreateNewsPage createNewsPage;
-    private static final String TEST_TITLE = "Test";
-    private static final String TEST_CONTENT = "Test content with 20 chars";
-    private static final String TEST_SOURCE = "https://chatgpt.com/";
 
     @BeforeClass
     public void LoginUser() {
         HomePage homePage = new HomePage(driver);
         loginUser(homePage);
-        createNewsPage = homePage.open().getHeader().clickEcoNewsLink().clickCreateNews();;
+        createNewsPage = homePage.open().getHeader().clickEcoNewsLink().clickCreateNews();
     }
 
     @BeforeMethod
     public void beforeMethod() {
-//        createNewsPage = createNewsPage.open();
         createNewsPage.getHeader().changeToUK();
     }
 
@@ -54,9 +53,7 @@ public class CreateNewsFormVisibilityTest extends BaseTestRunner {
         // 2. Tags
         Assert.assertTrue(createNewsPage.areTagsVisible(),
                 "Tags should be visible");
-        List<String> expectedUkTags = Arrays.stream(EcoNewsTag.values())
-                .map(EcoNewsTag::getUa)
-                .collect(Collectors.toList());
+        List<String> expectedUkTags = EcoNewsTag.getAllUa();
 
         Assert.assertEquals(
                 createNewsPage.getAllTags(),
@@ -65,10 +62,7 @@ public class CreateNewsFormVisibilityTest extends BaseTestRunner {
         );
 
         createNewsPage.getHeader().changeToEN();
-
-        List<String> expectedEnTags = Arrays.stream(EcoNewsTag.values())
-                .map(EcoNewsTag::getEn)
-                .collect(Collectors.toList());
+        List<String> expectedEnTags = EcoNewsTag.getAllEn();
 
         Assert.assertEquals(
                 createNewsPage.getAllTags(),
@@ -224,7 +218,8 @@ public class CreateNewsFormVisibilityTest extends BaseTestRunner {
         Assert.assertNotNull(currentUrl, "Current URL should not be null");
         Assert.assertTrue(currentUrl.contains("/create-news"), "URL should contain /create-news after cancel");
 
-        createDefaultNews(createNewsPage);
+        new NewsTestData()
+                .applyTo(createNewsPage);
         NewsPreviewPage preview = createNewsPage.clickPreview();
         Assert.assertTrue(preview.isPageOpened(),
                 "User should be directed to NewsPreviewPage");
@@ -236,6 +231,10 @@ public class CreateNewsFormVisibilityTest extends BaseTestRunner {
                 "News title on Preview page should match entered title");
         Assert.assertFalse(preview.getTagItems().isEmpty(),
                 "Tags list should not be empty on Preview page");
+        String expectedTag = TEST_TAGS.getFirst();
+        List<String> previewTags = preview.getTagTexts();
+        Assert.assertTrue(previewTags.contains(expectedTag),
+                "Preview page should contain tag: " + expectedTag);
         Assert.assertTrue(preview.getNewsCreatingDateElement().isDisplayed(),
                 "News creating date should be displayed");
         Assert.assertFalse(preview.getAuthorName().isEmpty(),
@@ -253,7 +252,8 @@ public class CreateNewsFormVisibilityTest extends BaseTestRunner {
         createNewsPage.reload();
         Assert.assertTrue(createNewsPage.isPageOpened(),
                 "Create News page should be opened before creating news");
-        createDefaultNews(createNewsPage);
+        new NewsTestData()
+                .applyTo(createNewsPage);
         Assert.assertTrue(createNewsPage.isPublishButtonEnabled(),
                 "Publish button should become enabled after all fields are valid.");
         createNewsPage.clickPublish();
@@ -267,15 +267,5 @@ public class CreateNewsFormVisibilityTest extends BaseTestRunner {
                 "Success message text should be correct"
         );
 
-    }
-
-    private void createDefaultNews(CreateNewsPage page) {
-        page.createNews(
-                TEST_TITLE,
-                List.of(EcoNewsTag.NEWS.getEn()),
-                TEST_SOURCE,
-                TEST_CONTENT,
-                null
-        );
     }
 }

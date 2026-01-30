@@ -3,6 +3,7 @@ package org.greencity.ui.pages;
 import org.greencity.ui.components.CommentItemComponent;
 import org.greencity.ui.components.NewsDetailsContentComponent;
 import org.greencity.ui.components.NewsListItemComponent;
+import org.greencity.ui.pages.CreateEditNews.EditNewsPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -57,12 +58,16 @@ public class NewsDetailsPage extends BasePage {
     @FindBy(css = ".news-title-container .news-title")
     protected WebElement newsTitleText;
 
-    public NewsDetailsPage(WebDriver driver) {
+    private final long newsId;
+
+    public NewsDetailsPage(WebDriver driver, long newsId) {
         super(driver);
+        this.newsId = newsId;
     }
 
     @Override
     public NewsDetailsPage open() {
+        driver.get(getBaseHost() + "/news/" + newsId);
         return this;
     }
 
@@ -84,9 +89,9 @@ public class NewsDetailsPage extends BasePage {
         return this;
     }
 
-    public NewsDetailsPage clickEditButton() {
+    public EditNewsPage clickEditButton() {
         click(editButton);
-        return this;
+        return new EditNewsPage(driver, newsId);
     }
 
     public NewsDetailsPage clickLikeButton() {
