@@ -49,4 +49,17 @@ public class TestValueProvider {
         return Long.parseLong(get("implicitlyWait"), 10);
     }
 
+    public String getUserLocation() {
+        return get("user.location");
+    }
+
+    public Integer getUserRate() {
+        return Integer.parseInt(get("user.rating"));
+    }
+
+    public boolean isHeadlessMode() {
+        return Boolean.parseBoolean(get("headless.mode"));
+    }
+
+
 }
