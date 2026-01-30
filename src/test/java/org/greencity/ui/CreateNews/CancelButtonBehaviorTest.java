@@ -1,7 +1,7 @@
-package org.greencity.ui;
+package org.greencity.ui.CreateNews;
 
-import org.greencity.ui.components.CancelModalComponent;
-import org.greencity.ui.pages.CreateNewsPage;
+import org.greencity.ui.components.CreateEditNewsPage.CancelModalComponent;
+import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
 import org.greencity.ui.pages.EcoNewsPage;
 import org.greencity.ui.pages.HomePage;
 import org.greencity.ui.testrunners.BaseTestRunner;
@@ -9,6 +9,8 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import static org.greencity.utils.NewsTestData.*;
 
 
 /**
@@ -23,9 +25,6 @@ import org.testng.annotations.Test;
 public class CancelButtonBehaviorTest extends BaseTestRunner {
 
         private CreateNewsPage createNewsPage;
-        private static final String TEST_TITLE = "Test";
-        private static final String TEST_CONTENT = "Test content with 20 chars";
-
 
         @BeforeClass
         public void LoginUser() {
@@ -51,8 +50,8 @@ public class CancelButtonBehaviorTest extends BaseTestRunner {
                 Assert.assertTrue(createNewsPage.isPageOpened(),
                                 "Create News page was not opened");
 
-                createNewsPage.enterTitle(TEST_TITLE);
-                createNewsPage.getContentComponent().enterContent(TEST_CONTENT);
+                createNewsPage.enterTitle(TEST_TITLE_EN);
+                createNewsPage.getContentComponent().enterContent(TEST_CONTENT_EN);
 
                 createNewsPage.clickCancel();
 

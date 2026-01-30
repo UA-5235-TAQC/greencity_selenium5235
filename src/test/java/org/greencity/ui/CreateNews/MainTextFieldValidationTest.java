@@ -1,7 +1,7 @@
-package org.greencity.ui;
+package org.greencity.ui.CreateNews;
 
 import org.greencity.ui.enums.EcoNewsTag;
-import org.greencity.ui.pages.CreateNewsPage;
+import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
 import org.greencity.ui.pages.EcoNewsPage;
 import org.greencity.ui.pages.HomePage;
 import org.greencity.ui.testrunners.BaseTestRunner;
@@ -66,7 +66,7 @@ public class MainTextFieldValidationTest extends BaseTestRunner {
         }
 
 
-        Assert.assertEquals(createNewsPage.getContentComponent().getContent().length(), 63206, "Content should be truncated to 63 206 symbols");
+        Assert.assertEquals(createNewsPage.getContentComponent().getContentText().length(), 63206, "Content should be truncated to 63 206 symbols");
 
         Assert.assertFalse(createNewsPage.getContentComponent().isContentWarningDisplayed(), "Warning should not be displayed after truncation");
     }

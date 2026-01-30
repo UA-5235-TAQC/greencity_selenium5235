@@ -53,11 +53,31 @@ String user = tvp.getUserName();
 String baseUrl = tvp.getBaseUIGreenCityUrl();
 ```
 
-## Notes and next steps
+## HTML Report Generation with Allure
 
-- If you prefer `getBaseUIGreenCityUrl()` to use the same key-based fallback as `get(...)`, I can update it to call `get("base.ui.greencity.url")` and fall back to a single system property naming convention.
-- I can also add a small unit test for `TestValueProvider` that verifies file load and system-property fallback.
+After running your tests, you can generate and view the Allure HTML report.
 
----
+### 1 Serve the Report (Quick View)
 
-If you want any changes to this README content or additional examples, tell me which sections to expand.
+This command will automatically generate the report from your test results and open it in your default browser:
+
+```powershell
+allure serve target/allure-results
+```
+
+### 2 Save the Report (Permanent Copy)
+
+To generate a report that you can save and open later:
+
+```powershell
+allure generate target/allure-results -o target/allure-report --clean
+```
+
+Then, open the report in your browser with one of the following options:
+
+```powershell
+allure open target\allure-report
+```
+
+Or directly open the HTML file:
+`target/allure-report/index.html`

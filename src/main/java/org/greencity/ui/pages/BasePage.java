@@ -20,7 +20,7 @@ public abstract class BasePage extends Base {
     protected WebElement rootFooterElement;
     protected FooterComponent footerComponent;
 
-    private By messageLocator = By.xpath("//div[contains(text(),'successfully published')]");
+    private final By messageLocator = By.cssSelector(".mat-mdc-snack-bar-label");
 
     public BasePage(WebDriver driver) {
         super(driver);
@@ -48,6 +48,7 @@ public abstract class BasePage extends Base {
     protected String getText(WebElement element) {
         return wait.until(ExpectedConditions.visibilityOf(element)).getText();
     }
+
     public BasePage waitForMessageAppear() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(messageLocator));
         return this;
@@ -57,9 +58,9 @@ public abstract class BasePage extends Base {
         wait.until(ExpectedConditions.stalenessOf(driver.findElement(messageLocator)));
         return this;
     }
+
     public String getMessageText() {
         waitForMessageAppear();
         return driver.findElement(messageLocator).getText();
     }
-
 }

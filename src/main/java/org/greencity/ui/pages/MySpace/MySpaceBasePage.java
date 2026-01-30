@@ -1,7 +1,7 @@
 package org.greencity.ui.pages.MySpace;
 
-
 import org.greencity.ui.components.MySpace.ProfilePanelComponent;
+import org.greencity.ui.enums.MySpaceTab;
 import org.greencity.ui.pages.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -102,14 +102,14 @@ public class MySpaceBasePage extends BasePage {
         return activeTab.getText();
     }
 
-    public void switchTo(String tabName) {
-        for (WebElement tab : tabList) {
-            wait.until(ExpectedConditions.visibilityOf(tab));
-            if (tab.getText().equalsIgnoreCase(tabName)) {
-                tab.click();
-                return;
+    public MySpaceBasePage switchTo(MySpaceTab tab) {
+        for (WebElement el : tabList) {
+            wait.until(ExpectedConditions.visibilityOf(el));
+            if (tab.matches(el.getText())) {
+                el.click();
+                return this;
             }
         }
-        throw new NoSuchElementException("Tab not found: " + tabName);
+        throw new NoSuchElementException("Tab not found: " + tab);
     }
 }

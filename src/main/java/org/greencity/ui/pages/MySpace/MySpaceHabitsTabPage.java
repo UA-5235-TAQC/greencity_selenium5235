@@ -1,6 +1,7 @@
 package org.greencity.ui.pages.MySpace;
 
 import org.greencity.ui.components.MySpace.NoDataComponent;
+import org.greencity.ui.enums.MySpaceTab;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -22,7 +23,6 @@ public class MySpaceHabitsTabPage extends MySpaceBasePage {
         this.noDataComponent = new NoDataComponent(driver, noDataRoot);
     }
 
-
     public boolean hasHabits() {
         return !noDataComponent.isDisplayed();
     }
@@ -34,5 +34,10 @@ public class MySpaceHabitsTabPage extends MySpaceBasePage {
 
     public NoDataComponent getNoDataComponent() {
         return noDataComponent;
+    }
+
+    public MySpaceNewsTabPage switchTo(MySpaceTab tab) {
+        super.switchTo(tab);
+        return new MySpaceNewsTabPage(driver);
     }
 }

@@ -1,5 +1,6 @@
-package org.greencity.ui.components;
+package org.greencity.ui.components.CreateEditNewsPage;
 
+import org.greencity.ui.components.BaseComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -41,6 +42,14 @@ public class CancelModalComponent extends BaseComponent {
 
     public void clickContinueEditing() {
         continueEditingBtn.click();
+    }
+
+    public String getYesCancelButtonText() {
+        return yesCancelBtn.getText().trim();
+    }
+
+    public String getContinueEditingButtonText() {
+        return continueEditingBtn.getText().trim();
     }
 
     public void clickClose() {

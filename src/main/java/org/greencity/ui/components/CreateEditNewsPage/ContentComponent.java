@@ -1,5 +1,6 @@
-package org.greencity.ui.components;
+package org.greencity.ui.components.CreateEditNewsPage;
 
+import org.greencity.ui.components.BaseComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -17,20 +18,30 @@ public class ContentComponent extends BaseComponent {
     @FindBy(css = ".title-wrapper p.field-info")
     private WebElement contentMessage;
 
-    @FindBy(css = "div.textarea-wrapper div.title-wrapper p.field-info.warning")
-    private WebElement contentErrorMessage;
-
     public ContentComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
     }
 
-    public ContentComponent enterContent(String text) {
+    public ContentComponent clearContent() {
         content.clear();
+        return this;
+    }
+
+    public ContentComponent enterContent(String text) {
+        clearContent();
         content.sendKeys(text);
         return this;
     }
+
     public ContentComponent enterContentNotClear(String text) {
         content.sendKeys(text);
+        return this;
+    }
+
+    public ContentComponent prependContent(String textToAdd) {
+        String currentValue = getContentText();
+        String newValue = textToAdd + (currentValue != null ? currentValue : "");
+        enterContent(newValue);
         return this;
     }
 
@@ -62,7 +73,11 @@ public class ContentComponent extends BaseComponent {
         return isVisible(contentMessage);
     }
 
-    public String getContent() {
+    public WebElement getContent() {
+        return content;
+    }
+
+    public String getContentText() {
         return content.getText();
     }
 
@@ -80,9 +95,42 @@ public class ContentComponent extends BaseComponent {
 
     public boolean isContentWarningDisplayed() {
         try {
-            return contentErrorMessage.isDisplayed();
+            return contentMessage.isDisplayed();
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public int getContentLengthNumber() {
+        String text = getContentCounter();
+        if (text.isEmpty()) {
+            return 0;
+        }
+        String digits = text.replaceAll("\\D+", "");
+        return Integer.parseInt(digits);
+    }
+
+    private ContentComponent removeContentChars(int count, boolean fromStart) {
+        WebElement content = getContent();
+        String currentValue = getContentText();
+        if (currentValue != null && !currentValue.isEmpty()) {
+            String newValue;
+            if (fromStart) {
+                newValue = currentValue.length() > count ? currentValue.substring(count) : "";
+            } else {
+                newValue = currentValue.length() > count ? currentValue.substring(0, currentValue.length() - count) : "";
+            }
+            clearContent();
+            content.sendKeys(newValue);
+        }
+        return this;
+    }
+
+    public ContentComponent removeLastContentChars(int count) {
+        return removeContentChars(count, false);
+    }
+
+    public ContentComponent removeFirstContentChars(int count) {
+        return removeContentChars(count, true);
     }
 }
