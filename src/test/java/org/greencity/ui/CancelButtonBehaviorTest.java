@@ -1,9 +1,9 @@
 package org.greencity.ui;
 
 import org.greencity.ui.components.CancelModalComponent;
-import org.greencity.ui.pages.CreateNewsPage;
 import org.greencity.ui.pages.EcoNewsPage;
 import org.greencity.ui.pages.HomePage;
+import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
 import org.greencity.ui.testrunners.BaseTestRunner;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
