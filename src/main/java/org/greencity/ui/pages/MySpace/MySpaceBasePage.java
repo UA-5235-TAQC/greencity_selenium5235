@@ -37,6 +37,8 @@ public class MySpaceBasePage extends BasePage {
     @FindBy(xpath = "//div[@role='tab' and @aria-selected='true']")
     protected WebElement activeTab;
     @FindBy(xpath = "//a[@class='edit-icon ng-star-inserted']")
+    protected WebElement root;
+    @FindBy(css = ".main-content.app-container")
     protected WebElement editProfile;
     By toDoItemslocator = By.xpath("(//div[@class='items-count'])[2]");
 
@@ -51,7 +53,7 @@ public class MySpaceBasePage extends BasePage {
 
     @Override
     public boolean isPageOpened() {
-        return false;
+        return isVisible(root);
     }
 
     public ProfilePanelComponent getProfilePanel() {

@@ -5,11 +5,15 @@ import org.greencity.ui.pages.HomePage;
 import org.greencity.ui.pages.EcoNewsPage;
 import org.greencity.ui.components.AuthModal.SignInModal;
 import org.greencity.ui.pages.MySpace.MySpaceHabitsTabPage;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 
 public class HeaderComponent extends BaseComponent {
@@ -64,6 +68,7 @@ public class HeaderComponent extends BaseComponent {
         WebElement langOption = languageDropdown.findElement(
                 By.xpath(".//span[text()='" + lang + "']")
         );
+        waitUntilClickable(langOption);
         langOption.click();
         return this;
     }
@@ -81,6 +86,7 @@ public class HeaderComponent extends BaseComponent {
     }
 
     public SignInModal clickSignInLink() {
+        waitUntilClickable(signInLink);
         signInLink.click();
         return new SignInModal(driver);
     }
