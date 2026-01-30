@@ -78,7 +78,7 @@ public abstract class AuthModalBase extends Base {
     }
 
     public void clickSubmit() {
-        waitUntilClickable(submitBtn);
+        waitUntilVisible(submitBtn);
         submitBtn.click();
     }
 

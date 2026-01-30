@@ -16,12 +16,12 @@ public class MySpaceHabitsTabPage extends MySpaceBasePage {
 
     private NoDataComponent noDataComponent;
 
-
     public MySpaceHabitsTabPage(WebDriver driver) {
         super(driver);
         this.noDataComponent = new NoDataComponent(driver, noDataRoot);
     }
 
+    public WebElement getAddHabitButton() { return addHabitButton; }
 
     public boolean hasHabits() {
         return !noDataComponent.isDisplayed();
