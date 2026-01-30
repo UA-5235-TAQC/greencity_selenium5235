@@ -3,6 +3,7 @@ package org.greencity.ui.pages;
 import org.greencity.ui.components.NewsListItemComponent;
 import org.greencity.ui.components.TagItem;
 import org.greencity.ui.enums.EcoNewsTag;
+import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
