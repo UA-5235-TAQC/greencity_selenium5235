@@ -1,11 +1,15 @@
-package org.greencity.ui.pages;
+package org.greencity.ui.pages.CreateEditNews;
 
+import org.greencity.ui.pages.BasePage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
+import java.time.Duration;
 import java.util.List;
 
 public class NewsPreviewPage extends BasePage {
@@ -54,6 +58,13 @@ public class NewsPreviewPage extends BasePage {
 
     public List<WebElement> getTagItems() {
         return tagsRoot.findElements(By.className("tags-item"));
+    }
+
+    public List<String> getTagTexts() {
+        return getTagItems().stream()
+                .map(WebElement::getText)
+                .map(String::trim)
+                .toList();
     }
 
     public String getAuthorName() {
@@ -118,5 +129,14 @@ public class NewsPreviewPage extends BasePage {
 
     public String getNewsSource() {
         return newsSource.getText();
+    }
+
+    public String getPreviewImageSrc() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(driver -> {
+            String src = newsImage.getAttribute("src");
+            return src != null && !src.isEmpty();
+        });
+        return newsImage.getAttribute("src");
     }
 }
