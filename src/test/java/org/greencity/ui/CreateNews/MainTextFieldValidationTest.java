@@ -1,7 +1,7 @@
-package org.greencity.ui;
+package org.greencity.ui.CreateNews;
 
 import org.greencity.ui.enums.EcoNewsTag;
-import org.greencity.ui.pages.CreateNewsPage;
+import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
 import org.greencity.ui.pages.EcoNewsPage;
 import org.greencity.ui.pages.HomePage;
 import org.greencity.ui.testrunners.BaseTestRunner;
