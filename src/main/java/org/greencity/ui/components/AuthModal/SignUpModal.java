@@ -30,14 +30,14 @@ public class SignUpModal extends AuthModalBase {
         return this;
     }
 
-    @Step("Enter password: {password}")
+    @Step("Enter password")
     @Override
     public SignUpModal enterPassword(String password) {
         super.enterPassword(password);
         return this;
     }
 
-    @Step("Enter confirm password: {password}")
+    @Step("Enter confirm password")
     public SignUpModal enterConfirmPassword(String password) {
         confirmPasswordInput.clear();
         confirmPasswordInput.sendKeys(password);
@@ -50,6 +50,7 @@ public class SignUpModal extends AuthModalBase {
         return this;
     }
 
+    @Step("Switch to Sign In modal")
     public void switchToSignIn() {
         signInLink.click();
     }

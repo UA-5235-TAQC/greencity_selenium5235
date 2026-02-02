@@ -1,5 +1,6 @@
 package org.greencity.ui.components.AuthModal;
 
+import io.qameta.allure.Step;
 import org.greencity.ui.Base;
 import org.greencity.ui.pages.BasePage;
 import org.greencity.ui.pages.MySpace.MySpaceHabitsTabPage;
@@ -41,6 +42,8 @@ public abstract class AuthModalBase extends Base {
      * @throws org.openqa.selenium.NoSuchElementException          if the email input element is not present in the DOM
      * @throws org.openqa.selenium.ElementNotInteractableException if the email input element cannot be interacted with
      */
+
+    @Step("Enter email: {email}")
     public AuthModalBase enterEmail(String email) {
         emailInput.clear();
         emailInput.sendKeys(email);
@@ -53,6 +56,8 @@ public abstract class AuthModalBase extends Base {
      * @throws org.openqa.selenium.NoSuchElementException           if the Google sign-in button is not present in the DOM
      * @throws org.openqa.selenium.ElementClickInterceptedException if the Google sign-in button cannot be clicked
      */
+
+    @Step("Click Google Sign-In")
     public void clickGoogleSignIn() {
         googleSignInBtn.click();
     }
@@ -63,6 +68,8 @@ public abstract class AuthModalBase extends Base {
      * @throws org.openqa.selenium.NoSuchElementException           if the close button is not present in the DOM
      * @throws org.openqa.selenium.ElementClickInterceptedException if the close button cannot be clicked
      */
+
+    @Step("Close authentication modal")
     public void close() {
         closeBtn.click();
     }
@@ -73,15 +80,19 @@ public abstract class AuthModalBase extends Base {
      * @return {@code true} if the root element of the authentication modal is displayed; {@code false} otherwise
      * @throws org.openqa.selenium.NoSuchElementException if the root element is not present in the DOM
      */
+
+    @Step("Check authentication modal visibility")
     public boolean isVisible() {
         return root.isDisplayed();
     }
 
+    @Step("Submit authentication form")
     public BasePage clickSubmit() {
         submitBtn.click();
         return new MySpaceHabitsTabPage(driver);
     }
 
+    @Step("Enter password")
     public AuthModalBase enterPassword(String password) {
         passwordInput.clear();
         passwordInput.sendKeys(password);
