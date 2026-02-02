@@ -49,7 +49,7 @@ public class PreviewPageTest extends BaseTestRunner {
         Assert.assertEquals(previewPage.getNewsTitle(), newsTitle);
         Assert.assertEquals(previewPage.getNewsText(), newsText);
         LocalDate today = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d, yyyy").withLocale(Locale.US);;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d, yyyy").withLocale(Locale.US);
         String expectedDate = today.format(formatter);
         Assert.assertEquals(previewPage.getNewsCreatingDate(), expectedDate);
         Assert.assertEquals(previewPage.getAuthorName(), testValueProvider.getUserName());
