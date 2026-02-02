@@ -15,7 +15,7 @@ public class CreateNewsPageTest extends BaseTestRunner {
     String filePath;
 
     @BeforeClass
-    public void LoginUser() {
+    public void loginUser() {
         createNewsPage = new CreateNewsPage(driver);
         filePath = new File("src/test/resources/images/Andromeda_Galaxy.jpg").getAbsolutePath();
         loginUser(createNewsPage);
