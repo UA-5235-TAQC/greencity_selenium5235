@@ -75,10 +75,6 @@ public abstract class AuthModalBase extends Base {
         return root.isDisplayed();
     }
 
-    public void clickSubmit() {
-        submitBtn.click();
-    }
-
     public AuthModalBase enterPassword(String password) {
         passwordInput.clear();
         passwordInput.sendKeys(password);
