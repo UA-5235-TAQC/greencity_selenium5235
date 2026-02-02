@@ -1,6 +1,5 @@
 package org.greencity.ui.components.AuthModal;
 
-import org.greencity.ui.pages.MySpace.MySpaceBasePage;
 import org.greencity.ui.pages.MySpace.MySpaceHabitsTabPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -23,12 +22,14 @@ public class SignInModal extends AuthModalBase {
         super(driver);
     }
 
+    @Override
     public SignInModal enterPassword(String password) {
         passwordInput.clear();
         passwordInput.sendKeys(password);
         return this;
     }
 
+    @Override
     public SignInModal enterEmail(String email) {
         emailInput.clear();
         emailInput.sendKeys(email);
@@ -53,5 +54,10 @@ public class SignInModal extends AuthModalBase {
 
     public void switchToSignUp() {
         signUpLink.click();
+    }
+
+    public MySpaceHabitsTabPage clickSubmit() {
+        submitBtn.click();
+        return new MySpaceHabitsTabPage(driver);
     }
 }

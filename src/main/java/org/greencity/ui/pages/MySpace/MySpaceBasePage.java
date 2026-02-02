@@ -53,7 +53,7 @@ public class MySpaceBasePage extends BasePage {
 
     @Override
     public boolean isPageOpened() {
-        return isVisible(root);
+        return isVisible(profilePanel);
     }
 
     public ProfilePanelComponent getProfilePanel() {

@@ -5,7 +5,6 @@ import org.greencity.ui.pages.HomePage;
 import org.greencity.ui.pages.MySpace.MySpaceHabitsTabPage;
 import org.greencity.ui.pages.NewsPreviewPage;
 import org.greencity.ui.testrunners.BaseTestRunner;
-import org.greencity.utils.TestValueProvider;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -43,8 +42,8 @@ public class PreviewPageTest extends BaseTestRunner {
                 .changeToEN();
         createNewsPage
                 .enterTitle(newsTitle)
-                .enterContent(newsText)
-                .clickPreview();
+                .getContentComponent().enterContent(newsText);
+        createNewsPage.clickPreview();
 
         Assert.assertEquals(driver.getCurrentUrl(), testValueProvider.getBaseUIGreenCityUrl() + "/news/preview");
         Assert.assertEquals(previewPage.getNewsTitle(), newsTitle);
