@@ -23,16 +23,16 @@ public class SignInModal extends AuthModalBase {
         super(driver);
     }
 
-    @Override
     @Step("Enter password")
+    @Override
     public SignInModal enterPassword(String password) {
         passwordInput.clear();
         passwordInput.sendKeys(password);
         return this;
     }
 
-    @Override
     @Step("Enter email: {email}")
+    @Override
     public SignInModal enterEmail(String email) {
         emailInput.clear();
         emailInput.sendKeys(email);
