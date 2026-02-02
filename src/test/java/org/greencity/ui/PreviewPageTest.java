@@ -33,7 +33,7 @@ public class PreviewPageTest extends BaseTestRunner {
     }
 
     @BeforeMethod
-    public void BeforeMethod() { createNewsPage.open(); }
+    public void beforeMethod() { createNewsPage.open(); }
 
     @Test
     public void checkPreviewPage() {
