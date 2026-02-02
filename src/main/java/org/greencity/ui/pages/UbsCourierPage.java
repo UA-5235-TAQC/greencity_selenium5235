@@ -23,4 +23,9 @@ public class UbsCourierPage extends BasePage {
     public boolean isPageOpened() {
         return isVisible(partnersSection);
     }
+
+    @Override
+    public UbsCourierPage waitUntilOpened() {
+        return this;
+    }
 }

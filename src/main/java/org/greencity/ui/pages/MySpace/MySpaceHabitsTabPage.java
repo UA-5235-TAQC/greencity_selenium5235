@@ -1,6 +1,7 @@
 package org.greencity.ui.pages.MySpace;
 
 import org.greencity.ui.components.MySpace.NoDataComponent;
+import org.greencity.ui.pages.BasePage;
 import org.greencity.ui.enums.MySpaceTab;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,7 +9,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class MySpaceHabitsTabPage extends MySpaceBasePage {
-
     @FindBy(id = "create-button-add-new-habit")
     private WebElement addHabitButton;
 
@@ -35,6 +35,17 @@ public class MySpaceHabitsTabPage extends MySpaceBasePage {
 
     public NoDataComponent getNoDataComponent() {
         return noDataComponent;
+    }
+
+    @Override
+    public boolean isPageOpened() {
+        return isVisible(addHabitButton);
+    }
+
+    @Override
+    public MySpaceHabitsTabPage waitUntilOpened() {
+        wait.until(ExpectedConditions.visibilityOf(addHabitButton));
+        return this;
     }
 
     public MySpaceNewsTabPage switchTo(MySpaceTab tab) {

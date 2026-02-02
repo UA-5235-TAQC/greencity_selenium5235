@@ -16,4 +16,9 @@ public class AboutUsPage extends BasePage {
     public boolean isPageOpened() {
         return false;
     }
+
+    @Override
+    public AboutUsPage waitUntilOpened() {
+        return this;
+    }
 }

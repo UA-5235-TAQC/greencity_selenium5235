@@ -64,4 +64,15 @@ public class TitleFieldValidation extends BaseTestRunner {
         // 5. Final activation check
         Assert.assertTrue(createNewsPage.isPublishButtonEnabled(), "Publish button should become enabled after all fields are valid.");
     }
+
+    @Test
+    public void verifyTooShortContent  () {
+        createNewsPage.enterTitle("Test News");
+        createNewsPage.getContentComponent().enterContent("1");
+
+        Assert.assertFalse(createNewsPage.getContentComponent().isContentValid());
+
+        createNewsPage.getContentComponent().enterContent(VALID_CONTENT);
+        Assert.assertTrue(createNewsPage.getContentComponent().isContentValid(), "Content should be valid after all fields are valid.");
+    }
 }

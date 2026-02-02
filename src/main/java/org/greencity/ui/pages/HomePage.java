@@ -52,6 +52,11 @@ public class HomePage extends BasePage {
     }
 
     @Override
+    public HomePage waitUntilOpened() {
+        return this;
+    }
+
+    @Override
     public HomePage open() {
         driver.get(getBaseHost());
 

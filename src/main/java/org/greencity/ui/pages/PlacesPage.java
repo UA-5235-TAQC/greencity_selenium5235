@@ -16,4 +16,9 @@ public class PlacesPage extends BasePage {
     public boolean isPageOpened() {
         return false;
     }
+
+    @Override
+    public PlacesPage waitUntilOpened() {
+        return this;
+    }
 }

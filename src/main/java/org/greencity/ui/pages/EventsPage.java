@@ -16,4 +16,9 @@ public class EventsPage extends BasePage {
     public boolean isPageOpened() {
         return false;
     }
+
+    @Override
+    public EventsPage waitUntilOpened() {
+        return this;
+    }
 }

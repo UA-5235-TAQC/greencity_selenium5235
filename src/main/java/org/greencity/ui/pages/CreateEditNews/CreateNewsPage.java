@@ -1,5 +1,6 @@
 package org.greencity.ui.pages.CreateEditNews;
 
+import org.greencity.ui.pages.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,6 +12,12 @@ public class CreateNewsPage extends CreateEditNewsPage {
     @FindBy(xpath = "//button[@type='submit' and contains(@class,'primary-global-button')]")
     private WebElement publishBtn;
 
+    @FindBy(css = "div.image-block p.warning-color")
+    private WebElement imageErrorMessage;
+
+    @FindBy(css = ".image-preview")
+    private WebElement imgPreviewWrap;
+
     public CreateNewsPage(WebDriver driver) {
         super(driver);
     }
@@ -18,6 +25,11 @@ public class CreateNewsPage extends CreateEditNewsPage {
     @Override
     public CreateNewsPage open() {
         super.open();
+        return this;
+    }
+
+    @Override
+    public CreateNewsPage waitUntilOpened() {
         return this;
     }
 
@@ -57,7 +69,7 @@ public class CreateNewsPage extends CreateEditNewsPage {
         return this;
     }
 
-    public CreateEditNewsPage createNews(String title, List<String> tags, String source, String content, String imagePath) {
+    public CreateNewsPage createNews(String title, List<String> tags, String source, String content, String imagePath) {
         if (title != null) enterTitle(title);
         if (tags != null) selectTags(tags);
         if (source != null) enterSource(source);
@@ -66,8 +78,16 @@ public class CreateNewsPage extends CreateEditNewsPage {
         }
 
         if (imagePath != null) {
-            getImageComponent().uploadImage(imagePath).submitCrop();
+            uploadImage(imagePath);
+            cropImage();
         }
         return this;
+    }
+    public boolean isImageErrorMsg() {
+        return imageErrorMessage != null;
+    }
+
+    public boolean isPreviewImage() {
+        return imgPreviewWrap == null;
     }
 }

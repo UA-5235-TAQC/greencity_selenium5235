@@ -7,6 +7,7 @@ import org.greencity.utils.TestValueProvider;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
@@ -64,11 +65,8 @@ public class BaseTestRunner {
                 .clickSignInLink()
                 .enterEmail(testValueProvider.getUserEmail())
                 .enterPassword(testValueProvider.getUserPassword())
-                .clickSubmit();
-
-        if (!mySpace.isPageOpened()) {
-            throw new AssertionError("Login failed: MySpace page was not opened");
-        }
+                .clickSubmit()
+                .waitUntilOpened();
 
         return mySpace;
     }
