@@ -1,5 +1,6 @@
 package org.greencity.ui.components.AuthModal;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -22,24 +23,28 @@ public class SignUpModal extends AuthModalBase {
         super(driver);
     }
 
+    @Step("Enter username: {name}")
     public SignUpModal enterUsername(String name) {
         firstNameInput.clear();
         firstNameInput.sendKeys(name);
         return this;
     }
 
+    @Step("Enter password: {password}")
     @Override
     public SignUpModal enterPassword(String password) {
         super.enterPassword(password);
         return this;
     }
 
+    @Step("Enter confirm password: {password}")
     public SignUpModal enterConfirmPassword(String password) {
         confirmPasswordInput.clear();
         confirmPasswordInput.sendKeys(password);
         return this;
     }
 
+    @Step("Click toggle password visibility")
     public SignUpModal togglePasswordVisibility() {
         showPasswordBtn.click();
         return this;

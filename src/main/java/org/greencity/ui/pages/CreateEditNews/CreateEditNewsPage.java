@@ -62,6 +62,11 @@ public class CreateEditNewsPage extends BasePage {
         return isVisible(titleInput);
     }
 
+    @Override
+    public CreateEditNewsPage waitUntilOpened() {
+        return this;
+    }
+
     public boolean isPageOpenedSafe() {
         try {
             return isVisible(titleInput);

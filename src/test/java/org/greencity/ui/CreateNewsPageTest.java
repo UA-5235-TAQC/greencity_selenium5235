@@ -28,8 +28,7 @@ public class CreateNewsPageTest extends BaseTestRunner {
 
     @Test
     public void imgUploadNegative() {
-        createNewsPage
-                .uploadImage(filePath);
+        createNewsPage.getImageComponent().uploadImage(filePath);
 
         Assert.assertTrue(createNewsPage.isImageErrorMsg());
         Assert.assertFalse(createNewsPage.isPreviewImage());
