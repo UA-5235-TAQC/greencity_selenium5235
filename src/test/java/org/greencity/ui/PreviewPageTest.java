@@ -1,6 +1,7 @@
 package org.greencity.ui;
 
 
+import io.qameta.allure.*;
 import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
 import org.greencity.ui.pages.CreateEditNews.NewsPreviewPage;
 import org.greencity.ui.pages.HomePage;
@@ -23,6 +24,10 @@ public class PreviewPageTest extends BaseTestRunner {
     String newsTitle = "Super news title";
     String newsText = "This is a test preview content";
 
+    @Epic("Authentication")
+    @Story("User login")
+    @Description("A test that allows a given user to log in to the system")
+    @Severity(SeverityLevel.CRITICAL)
     @BeforeClass
     public void LoginUser() {
         createNewsPage = new CreateNewsPage(driver);
@@ -36,6 +41,11 @@ public class PreviewPageTest extends BaseTestRunner {
     @BeforeMethod
     public void beforeMethod() { createNewsPage.open(); }
 
+    @Epic("Smoke test")
+    @Feature("Preview page")
+    @Description("The test checks whether the entered title and content match the actual")
+    @Severity(SeverityLevel.NORMAL)
+    @TmsLink("https://github.com/UA-5235-TAQC/greencity_selenium5235/issues/10")
     @Test
     public void checkPreviewPage() {
         createNewsPage
