@@ -97,7 +97,7 @@ public class EditNewsFormVisibilityTestUA extends BaseTestRunner {
         Assert.assertTrue(anySelectedUa, "Test tag should be selected by default");
         Assert.assertEquals(EcoNewsTag.getUa(TEST_TAGS), actualTagsUa, "Selected tags do not match expected tags");
 
-        editNewsPage.addTags(EcoNewsTag.getUa(List.of(EcoNewsTag.EVENTS, EcoNewsTag.EDUCATION)));
+        editNewsPage.selectTags(EcoNewsTag.getUa(List.of(EcoNewsTag.EVENTS, EcoNewsTag.EDUCATION)));
         actualTagsUa = editNewsPage.getSelectedTags();
         List<EcoNewsTag> expectedTags = new ArrayList<>(TEST_TAGS);
         expectedTags.add(EcoNewsTag.EVENTS);

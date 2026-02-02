@@ -98,8 +98,15 @@ public class CreateEditNewsPage extends BasePage {
         return this;
     }
 
-    public CreateEditNewsPage selectTags(List<String> tags) {
-        tags.forEach(this::clickTagByName);
+    public CreateEditNewsPage selectTags(List<String> tagNames) {
+        tagNames.forEach(tagName -> {
+            TagItem tag = getTagByName(tagName);
+
+            if(!tag.isSelected()) {
+                tag.click();
+            }
+        });
+
         return this;
     }
 
@@ -274,15 +281,6 @@ public class CreateEditNewsPage extends BasePage {
         return this;
     }
 
-    public CreateEditNewsPage addTags(List<String> tagsToAdd) {
-        List<String> currentlySelectedTags = getSelectedTags();
-        tagsToAdd.stream()
-                .filter(tag -> !currentlySelectedTags.contains(tag))
-                .forEach(this::clickTagByName);
-
-        return this;
-    }
-
     private CreateEditNewsPage removeTitleChars(int count, boolean fromStart) {
         WebElement title = getTitleInput();
         String currentValue = title.getAttribute("value");
@@ -305,19 +303,5 @@ public class CreateEditNewsPage extends BasePage {
 
     public CreateEditNewsPage removeFirstTitleChars(int count) {
         return removeTitleChars(count, true);
-    }
-
-    public CreateEditNewsPage createNews(String title, List<String> tags, String source, String content, String imagePath) {
-        if (title != null) enterTitle(title);
-        if (tags != null) selectTags(tags);
-        if (source != null) enterSource(source);
-        if (content != null) {
-            getContentComponent().enterContent(content);
-        }
-
-        if (imagePath != null) {
-            getImageComponent().uploadImage(imagePath).submitCrop();
-        }
-        return this;
     }
 }

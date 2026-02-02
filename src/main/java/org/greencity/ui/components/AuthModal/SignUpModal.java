@@ -48,4 +48,8 @@ public class SignUpModal extends AuthModalBase {
     public void switchToSignIn() {
         signInLink.click();
     }
+
+    public void clickSubmit() {
+        submitBtn.click();
+    }
 }
