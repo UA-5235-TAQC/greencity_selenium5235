@@ -1,12 +1,10 @@
-package org.greencity.ui;
+package org.greencity.ui.CreateNews;
 
 import org.greencity.ui.enums.EcoNewsTag;
+import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
 import org.greencity.ui.pages.EcoNewsPage;
 import org.greencity.ui.pages.HomePage;
-import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
 import org.greencity.ui.testrunners.BaseTestRunner;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -53,7 +51,7 @@ public class SourceFieldValidationTest extends BaseTestRunner {
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(createNewsPage.getTitleCounterText(), "170/170", "Title length doesn't match");
         softAssert.assertEquals(createNewsPage.getTitleValue(), "A".repeat(170), "Title text doesn't match");
-        softAssert.assertEquals(createNewsPage.getContentComponent().getContent(), "A".repeat(1000), "The content field text doesn't match");
+        softAssert.assertEquals(createNewsPage.getContentComponent().getContentText(), "A".repeat(1000), "The content field text doesn't match");
         softAssert.assertTrue(createNewsPage.isPublishButtonEnabled(), "Publish Button is not enabled");
         softAssert.assertAll();
 

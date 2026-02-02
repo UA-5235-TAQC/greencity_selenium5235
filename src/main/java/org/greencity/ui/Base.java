@@ -68,6 +68,7 @@ public abstract class Base {
     protected void waitUntilVisible(WebElement element) {
         wait.until(ExpectedConditions.visibilityOf(element));
     }
+
     protected void waitUntilVisible(List<WebElement> elements) {
         wait.until(ExpectedConditions.visibilityOfAllElements(elements));
     }
@@ -75,5 +76,4 @@ public abstract class Base {
     protected void waitUntilClickable(WebElement element) {
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
-
 }

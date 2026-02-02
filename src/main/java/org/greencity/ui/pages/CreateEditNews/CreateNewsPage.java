@@ -1,6 +1,5 @@
 package org.greencity.ui.pages.CreateEditNews;
 
-import org.greencity.ui.pages.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -46,14 +45,20 @@ public class CreateNewsPage extends CreateEditNewsPage {
         publishBtn.click();
     }
 
+    public String getPublishButtonText() {
+        waitUntilVisible(publishBtn);
+        return publishBtn.getText().trim();
+    }
+
+    @Override
     public CreateNewsPage reload() {
-        driver.navigate().refresh();
-        wait.until(driver -> isPageOpenedSafe());
+        super.reload();
         return this;
     }
 
+    @Override
     public CreateNewsPage clearSourceField() {
-        getSourceInput().clear();
+        super.clearSourceField();
         return this;
     }
 
@@ -72,8 +77,8 @@ public class CreateNewsPage extends CreateEditNewsPage {
         }
 
         if (imagePath != null) {
-            uploadImage(imagePath);
-            cropImage();
+            getImageComponent().uploadImage(imagePath)
+                            .submitCrop();
         }
         return this;
     }

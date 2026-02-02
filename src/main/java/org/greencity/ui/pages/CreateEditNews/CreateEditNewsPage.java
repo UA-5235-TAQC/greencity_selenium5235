@@ -1,11 +1,11 @@
 package org.greencity.ui.pages.CreateEditNews;
 
-import org.greencity.ui.components.CancelModalComponent;
-import org.greencity.ui.components.ContentComponent;
+import org.greencity.ui.components.CreateEditNewsPage.CancelModalComponent;
+import org.greencity.ui.components.CreateEditNewsPage.ContentComponent;
+import org.greencity.ui.components.CreateEditNewsPage.ImageComponent;
 import org.greencity.ui.components.TagItem;
 import org.greencity.ui.pages.BasePage;
 import org.openqa.selenium.remote.UnreachableBrowserException;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -13,11 +13,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 
-import java.io.File;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class CreateEditNewsPage extends BasePage {
+public class CreateEditNewsPage extends BasePage {
 
     @FindBy(css = "div.main-content")
     private WebElement root;
@@ -29,17 +28,13 @@ public abstract class CreateEditNewsPage extends BasePage {
     private List<WebElement> tagRootElements;
     @FindBy(css = "input[formcontrolname='source']")
     private WebElement sourceInput;
-    @FindBy(xpath = "//input[@type='file']")
-    private WebElement imageUploadInput;
-    @FindBy(css = "image-cropper.cropper")
-    private WebElement imageCropper;
-    @FindBy(css = "div.image-block p.warning")
-    private WebElement imageErrorMessage;
+    @FindBy(css = "div.image-block")
+    private WebElement imageRoot;
     @FindBy(css = "div.source-block")
     private WebElement sourceMessage;
     @FindBy(css = ".submit-buttons button.tertiary-global-button")
     private WebElement cancelBtn;
-    @FindBy(xpath = "//button[contains(text(),'Preview')]")
+    @FindBy(css = ".submit-buttons button.secondary-global-button")
     private WebElement previewBtn;
     @FindBy(css = ".title-block div span.field-info")
     private WebElement titleCharacterCounter;
@@ -47,10 +42,6 @@ public abstract class CreateEditNewsPage extends BasePage {
     private WebElement postDate;
     @FindBy(css = "div.date p:nth-of-type(2) span:last-child")
     private WebElement authorName;
-    @FindBy(css = "div.cropper-buttons button.secondary-global-button")
-    private WebElement cancelCropperBtn;
-    @FindBy(css = "div.cropper-buttons button.primary-global-button")
-    private WebElement submitCropperBtn;
     @FindBy(css = "div.textarea-wrapper")
     private WebElement contentRoot;
     @FindBy(css = "mat-dialog-container app-warning-pop-up")
@@ -69,6 +60,11 @@ public abstract class CreateEditNewsPage extends BasePage {
     @Override
     public boolean isPageOpened() {
         return isVisible(titleInput);
+    }
+
+    @Override
+    public CreateEditNewsPage waitUntilOpened() {
+        return this;
     }
 
     public boolean isPageOpenedSafe() {
@@ -119,6 +115,17 @@ public abstract class CreateEditNewsPage extends BasePage {
         return this;
     }
 
+    public List<String> getSelectedTags() {
+        return getTagItems().stream()
+                .filter(TagItem::isSelected)
+                .map(TagItem::getName)
+                .toList();
+    }
+
+    public List<String> getAllTags() {
+        return getTagItems().stream().map(TagItem::getName).toList();
+    }
+
     public CreateEditNewsPage removeTag(String tagName) {
         TagItem tag = getTagByName(tagName);
         if (tag.isSelected()) {
@@ -131,40 +138,23 @@ public abstract class CreateEditNewsPage extends BasePage {
         return areVisible(tagRootElements);
     }
 
+    public CreateEditNewsPage clearAllSelectedTags() {
+        getSelectedTags().forEach(this::removeTag);
+        return this;
+    }
+
     public CreateEditNewsPage enterSource(String url) {
         sourceInput.clear();
         sourceInput.sendKeys(url);
         return this;
     }
 
-    public CreateEditNewsPage uploadImage(String filePath) {
-        imageUploadInput.sendKeys(filePath);
-        return this;
-    }
-
-    public void cropImage() {
-        imageCropper.click();
-    }
-
-    public boolean isImageUploadInputVisible() {
-        return isVisible(imageUploadInput.findElement(By.xpath("..")));
+    public ImageComponent getImageComponent() {
+        return new ImageComponent(driver, imageRoot);
     }
 
     public ContentComponent getContentComponent() {
         return new ContentComponent(driver, contentRoot);
-    }
-
-
-    public String getUploadedImageInfo() {
-        return imageUploadInput.getAttribute("value");
-    }
-
-    public boolean isCancelCropperButtonVisible() {
-        return isVisible(cancelCropperBtn);
-    }
-
-    public boolean isSubmitCropperButtonVisible() {
-        return isVisible(submitCropperBtn);
     }
 
     public boolean isTitleInvalid() {
@@ -176,8 +166,8 @@ public abstract class CreateEditNewsPage extends BasePage {
         return titleInput.getAttribute("value");
     }
 
-    public String getImageError() {
-        return imageErrorMessage.getText();
+    public WebElement getTitleInput() {
+        return titleInput;
     }
 
     public boolean isSourceVisible() {
@@ -210,11 +200,6 @@ public abstract class CreateEditNewsPage extends BasePage {
         return new NewsPreviewPage(driver);
     }
 
-    public List<String> getAllTags() {
-        return getTagItems().stream().map(TagItem::getName).collect(Collectors.toList());
-    }
-
-    // methods for testing title fields
     public String getTitleCounterText() {
         return titleCharacterCounter.getText();
     }
@@ -266,9 +251,62 @@ public abstract class CreateEditNewsPage extends BasePage {
         return sourceInput.getAttribute("placeholder").trim();
     }
 
-    public long getUploadedImageSize() {
-        String filePath = imageUploadInput.getAttribute("value");
-        File file = new File(filePath);
-        return file.length();
+    public CreateEditNewsPage clearSourceField() {
+        getSourceInput().clear();
+        return this;
+    }
+
+    public CreateEditNewsPage reload() {
+        driver.navigate().refresh();
+        wait.until(driver -> isPageOpenedSafe());
+        return this;
+    }
+
+    public String getCancelButtonText() {
+        waitUntilVisible(cancelBtn);
+        return cancelBtn.getText().trim();
+    }
+
+    public String getPreviewButtonText() {
+        waitUntilVisible(previewBtn);
+        return previewBtn.getText().trim();
+    }
+
+    public CreateEditNewsPage appendTitle(String additionalText) {
+        getTitleInput().sendKeys(additionalText);
+        return this;
+    }
+
+    public CreateEditNewsPage prependTitle(String textToAdd) {
+        WebElement title = getTitleInput();
+        String currentValue = title.getAttribute("value");
+        String newValue = textToAdd + (currentValue != null ? currentValue : "");
+        title.clear();
+        title.sendKeys(newValue);
+        return this;
+    }
+
+    private CreateEditNewsPage removeTitleChars(int count, boolean fromStart) {
+        WebElement title = getTitleInput();
+        String currentValue = title.getAttribute("value");
+        if (currentValue != null && !currentValue.isEmpty()) {
+            String newValue;
+            if (fromStart) {
+                newValue = currentValue.length() > count ? currentValue.substring(count) : "";
+            } else {
+                newValue = currentValue.length() > count ? currentValue.substring(0, currentValue.length() - count) : "";
+            }
+            title.clear();
+            title.sendKeys(newValue);
+        }
+        return this;
+    }
+
+    public CreateEditNewsPage removeLastTitleChars(int count) {
+        return removeTitleChars(count, false);
+    }
+
+    public CreateEditNewsPage removeFirstTitleChars(int count) {
+        return removeTitleChars(count, true);
     }
 }

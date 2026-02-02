@@ -2,6 +2,7 @@ package org.greencity.ui.pages.MySpace;
 
 import org.greencity.ui.components.MySpace.NoDataComponent;
 import org.greencity.ui.pages.BasePage;
+import org.greencity.ui.enums.MySpaceTab;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -45,5 +46,10 @@ public class MySpaceHabitsTabPage extends MySpaceBasePage {
     public MySpaceHabitsTabPage waitUntilOpened() {
         wait.until(ExpectedConditions.visibilityOf(addHabitButton));
         return this;
+    }
+
+    public MySpaceNewsTabPage switchTo(MySpaceTab tab) {
+        super.switchTo(tab);
+        return new MySpaceNewsTabPage(driver);
     }
 }

@@ -1,6 +1,6 @@
 package org.greencity.ui;
 
-import org.greencity.ui.components.CancelModalComponent;
+import org.greencity.ui.components.CreateEditNewsPage.CancelModalComponent;
 import org.greencity.ui.pages.HomePage;
 import org.greencity.ui.pages.CreateEditNews.EditNewsPage;
 import org.greencity.ui.pages.CreateEditNews.NewsPreviewPage;

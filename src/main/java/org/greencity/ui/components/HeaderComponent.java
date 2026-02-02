@@ -1,5 +1,6 @@
 package org.greencity.ui.components;
 
+import io.qameta.allure.Step;
 import org.greencity.ui.components.AuthModal.SignUpModal;
 import org.greencity.ui.pages.HomePage;
 import org.greencity.ui.pages.EcoNewsPage;
@@ -76,6 +77,7 @@ public class HeaderComponent extends BaseComponent {
         return new EcoNewsPage(driver);
     }
 
+    @Step("Click Sign Up link in header")
     public SignUpModal clickSignUpLink() {
         signUpLink.click();
         return new SignUpModal(driver);

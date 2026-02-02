@@ -1,12 +1,13 @@
 package org.greencity.ui.pages.MySpace;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.greencity.ui.components.MySpace.MySpaceNewsItemComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class MySpaceNewsTabPage extends MySpaceBasePage {
 
@@ -25,23 +26,42 @@ public class MySpaceNewsTabPage extends MySpaceBasePage {
     @FindBy(css = "div.favourites")
     private WebElement favouritesButton;
 
-
     public MySpaceNewsTabPage(WebDriver driver) {
         super(driver);
     }
 
+    public List<MySpaceNewsItemComponent> getNewsList() {
+        waitUntilVisible(newsList);
 
-    public List<MySpaceNewsListItemComponent> getNewsList() {
-        wait.until(ExpectedConditions.visibilityOfAllElements(newsList));
+        List<MySpaceNewsItemComponent> components = new ArrayList<>();
+        for (int i = 0; i < newsList.size(); i++) {
+            WebElement item = newsList.get(i);
+            long newsId = i + 1;
+            components.add(new MySpaceNewsItemComponent(driver, item, newsId));
+        }
+        return components;
+    }
 
-        return newsList.stream()
-                .map(item -> new MySpaceNewsListItemComponent(driver, item))
-                .toList();
+    public MySpaceNewsItemComponent getFirstNews() {
+        List<MySpaceNewsItemComponent> news = getNewsList();
+        if (news.isEmpty()) {
+            throw new NoSuchElementException("No news found on the page");
+        }
+        return news.getFirst();
+    }
+
+    public MySpaceNewsItemComponent getNewsById(Long newsId) {
+        List<MySpaceNewsItemComponent> news = getNewsList();
+        return news.stream()
+                .filter(n -> n.getId().equals(newsId))
+                .findFirst()
+                .orElseThrow(() ->
+                        new NoSuchElementException("News with ID " + newsId + " not found"));
     }
 
     public void filterByTag(String tagName) {
         WebElement tag = tags.stream()
-                .filter(t -> t.getText().equalsIgnoreCase(tagName))
+                .filter(t -> t.getText().trim().equalsIgnoreCase(tagName))
                 .findFirst()
                 .orElseThrow(() ->
                         new NoSuchElementException("Tag not found: " + tagName));
@@ -56,22 +76,19 @@ public class MySpaceNewsTabPage extends MySpaceBasePage {
     }
 
     public void clickAddNews() {
-        waitForVisible(addNewsButton);
+        waitUntilClickable(addNewsButton);
         addNewsButton.click();
     }
 
-    private void waitForVisible(WebElement element) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'waitForVisible'");
-    }
-
     public int getNewsCount() {
-        waitForVisible(newsCountLabel);
-        return Integer.parseInt(newsCountLabel.getText());
+        waitUntilVisible(newsCountLabel);
+        String text = newsCountLabel.getText().trim();
+        String numberOnly = text.split(" ")[0];
+        return Integer.parseInt(numberOnly);
     }
 
     public void clickFavourites() {
-        waitForVisible(favouritesButton);
+        waitUntilClickable(favouritesButton);
         favouritesButton.click();
     }
 }

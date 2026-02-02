@@ -5,7 +5,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 
 public class NewsPreviewPage extends BasePage {
@@ -64,6 +66,13 @@ public class NewsPreviewPage extends BasePage {
         return tagsRoot.findElements(By.className("tags-item"));
     }
 
+    public List<String> getTagTexts() {
+        return getTagItems().stream()
+                .map(WebElement::getText)
+                .map(String::trim)
+                .toList();
+    }
+
     public String getAuthorName() {
         String text = authorName.getText();
         return text.substring(text.indexOf(" ") + 1);
@@ -77,6 +86,12 @@ public class NewsPreviewPage extends BasePage {
         waitUntilClickable(backToCreateNewsBtn);
         backToCreateNewsBtn.click();
         return new CreateNewsPage(driver);
+    }
+
+    public EditNewsPage backToEditing(long newsId) {
+        waitUntilClickable(backToCreateNewsBtn);
+        backToCreateNewsBtn.click();
+        return new EditNewsPage(driver, newsId);
     }
 
     //getters
@@ -126,5 +141,14 @@ public class NewsPreviewPage extends BasePage {
 
     public String getNewsSource() {
         return newsSource.getText();
+    }
+
+    public String getPreviewImageSrc() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(driver -> {
+            String src = newsImage.getAttribute("src");
+            return src != null && !src.isEmpty();
+        });
+        return newsImage.getAttribute("src");
     }
 }

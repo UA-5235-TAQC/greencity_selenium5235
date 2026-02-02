@@ -1,9 +1,8 @@
 package org.greencity.ui;
 
-import org.greencity.ui.components.CancelModalComponent;
+import org.greencity.ui.components.CreateEditNewsPage.CancelModalComponent;
 import org.greencity.ui.components.NewsListItemComponent;
 import org.greencity.ui.enums.EcoNewsTag;
-
 import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
 import org.greencity.ui.pages.EcoNewsPage;
 import org.greencity.ui.pages.HomePage;
@@ -52,8 +51,8 @@ public class TagSelectionTest extends BaseTestRunner {
         // 3. Fill in the required fields: Title: "Test", Main Text: "Test content with 20 chars"
         // 4. Click "Publish".
         List<String> tagNames = List.of(EcoNewsTag.NEWS.getEn());
-        createNewsPage.createNews("Test", tagNames, null, "Test content with 20 chars", null)
-                .clickPublish();
+        createNewsPage.createNews("Test", tagNames, null, "Test content with 20 chars", null);
+        createNewsPage.clickPublish();
 
         // 5. Verify that the news is published with the "News" tag.
         Assert.assertTrue(ecoNewsPage.isPageOpened(), "Eco News page should be opened after publishing a news");
@@ -74,8 +73,8 @@ public class TagSelectionTest extends BaseTestRunner {
         // 7. Select three tags: "News", "Events", "Education".
         // 8. Click "Publish".
         List<String> tagNames = List.of(EcoNewsTag.NEWS.getEn(), EcoNewsTag.EVENTS.getEn(), EcoNewsTag.EDUCATION.getEn());
-        createNewsPage.createNews("Test_2", tagNames, null, "Test content with 20 chars", null)
-                .clickPublish();
+        createNewsPage.createNews("Test_2", tagNames, null, "Test content with 20 chars", null);
+        createNewsPage.clickPublish();
 
         // 9. Verify that the news is published with all three selected tags.
         Assert.assertTrue(ecoNewsPage.isPageOpened(), "Eco News page should be opened after publishing a news");
