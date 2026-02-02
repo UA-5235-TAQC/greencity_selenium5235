@@ -7,7 +7,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class MySpaceHabitsTabPage extends MySpaceBasePage {
-
     @FindBy(id = "create-button-add-new-habit")
     private WebElement addHabitButton;
 

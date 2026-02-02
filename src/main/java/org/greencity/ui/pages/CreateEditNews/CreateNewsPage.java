@@ -11,6 +11,12 @@ public class CreateNewsPage extends CreateEditNewsPage {
     @FindBy(xpath = "//button[@type='submit' and contains(@class,'primary-global-button')]")
     private WebElement publishBtn;
 
+    @FindBy(css = "div.image-block p.warning-color")
+    private WebElement imageErrorMessage;
+
+    @FindBy(css = ".image-preview")
+    private WebElement imgPreviewWrap;
+
     public CreateNewsPage(WebDriver driver) {
         super(driver);
     }
@@ -64,5 +70,12 @@ public class CreateNewsPage extends CreateEditNewsPage {
             cropImage();
         }
         return this;
+    }
+    public boolean isImageErrorMsg() {
+        return imageErrorMessage != null;
+    }
+
+    public boolean isPreviewImage() {
+        return imgPreviewWrap == null;
     }
 }
