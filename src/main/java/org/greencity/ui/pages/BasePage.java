@@ -61,4 +61,5 @@ public abstract class BasePage extends Base {
         return driver.findElement(messageLocator).getText();
     }
 
+    public abstract BasePage waitUntilOpened();
 }

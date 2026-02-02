@@ -1,5 +1,6 @@
 package org.greencity.ui.pages.CreateEditNews;
 
+import org.greencity.ui.pages.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -24,6 +25,11 @@ public class CreateNewsPage extends CreateEditNewsPage {
     @Override
     public CreateNewsPage open() {
         super.open();
+        return this;
+    }
+
+    @Override
+    public CreateNewsPage waitUntilOpened() {
         return this;
     }
 

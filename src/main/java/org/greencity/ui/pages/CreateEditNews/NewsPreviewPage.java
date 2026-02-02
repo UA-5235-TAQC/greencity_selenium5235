@@ -55,6 +55,11 @@ public class NewsPreviewPage extends BasePage {
         return newsTitle.isDisplayed();
     }
 
+    @Override
+    public NewsPreviewPage waitUntilOpened() {
+        return this;
+    }
+
     public List<WebElement> getTagItems() {
         return tagsRoot.findElements(By.className("tags-item"));
     }
