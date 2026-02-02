@@ -3,10 +3,13 @@ package org.greencity.ui.pages;
 import org.greencity.ui.components.NewsListItemComponent;
 import org.greencity.ui.components.TagItem;
 import org.greencity.ui.enums.EcoNewsTag;
+import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import java.util.List;
 
 public class EcoNewsPage extends BasePage {
     @FindBy(css = "h1.main-header")
@@ -40,14 +43,18 @@ public class EcoNewsPage extends BasePage {
 
     @Override
     public EcoNewsPage open() {
-
-        driver.get( "#/greenCity/news");
-        return  new EcoNewsPage(driver);
+        driver.get(getBaseHost() + "/news");
+        return new EcoNewsPage(driver);
     }
 
     @Override
     public boolean isPageOpened() {
         return isVisible(pageTitle);
+    }
+
+    @Override
+    public EcoNewsPage waitUntilOpened() {
+        return this;
     }
 
     public String getPageTitle() {
@@ -85,54 +92,63 @@ public class EcoNewsPage extends BasePage {
 
     public int getRemainingNewsCount() {
         String digits = remainingCountText.getText().replaceAll("[^0-9]", "");
-        if (digits == null || digits.isEmpty()) {
+        if (digits.isEmpty()) {
             return 0;
         }
         return Integer.parseInt(digits);
     }
 
-    public void clickCreateNews() {
+    public CreateNewsPage clickCreateNews() {
         createNewsBtn.click();
+        return new CreateNewsPage(driver);
     }
 
-    public TagItem[] getAllTags() {
-        return tags.findElements(By.cssSelector("button.tag-button")).stream()
+    public List<TagItem> getAllTags() {
+        return  tags.findElements(By.cssSelector("button.tag-button")).stream()
                 .map(tag -> new TagItem(driver, tag))
-                .toArray(TagItem[]::new);
+                .toList();
+    }
+
+    public void removeAllSelectedTags() {
+        List<TagItem> tags = getAllTags();
+        tags.forEach(tag -> {
+            if (tag.isSelected()) {
+                tag.click();
+            }
+        });
     }
 
     public void clickTag(EcoNewsTag tag) {
-        TagItem[] tagItems = getAllTags();
+        String expectedName = tag.getByLocale(getHeader().getCurrentLocale());
 
-        for (TagItem item : tagItems) {
-            if (item.getName().equals(tag.getTagName())) {
+        for (TagItem item : getAllTags()) {
+            if (item.getName().equalsIgnoreCase(expectedName)) {
                 item.click();
                 return;
             }
         }
+
+        throw new RuntimeException("Tag not found: " + expectedName);
     }
 
-    public NewsListItemComponent[] getNewsCards() {
+    public List<NewsListItemComponent> getNewsCards() {
         return cards.findElements(By.cssSelector("li")).stream()
                 .map(card -> new NewsListItemComponent(driver, card))
-                .toArray(NewsListItemComponent[]::new);
+                .toList();
     }
 
     public NewsListItemComponent getNewsCardByIndex(int index) {
-        NewsListItemComponent[] cards = getNewsCards();
+        List<NewsListItemComponent> cards = getNewsCards();
 
-        if (index < 0 || index >= cards.length) {
-            throw new IndexOutOfBoundsException(
-                    "Invalid news card index: " + index
-                            + ". Valid index range: 0.." + (cards.length - 1)
-                            + " (total cards: " + cards.length + ")");
+        if (index < 0 || index >= cards.size()) {
+            throw new IndexOutOfBoundsException("Invalid news card index: " + index + ". Valid index range: 0.." + (cards.size() - 1) + " (total cards: " + cards.size() + ")");
         }
 
-        return cards[index];
+        return cards.get(index);
     }
 
     public NewsListItemComponent getNewsCardById(int newsId) {
-        NewsListItemComponent[] cards = getNewsCards();
+        List<NewsListItemComponent> cards = getNewsCards();
 
         for (NewsListItemComponent card : cards) {
             if (card.getNewsId() == newsId) {

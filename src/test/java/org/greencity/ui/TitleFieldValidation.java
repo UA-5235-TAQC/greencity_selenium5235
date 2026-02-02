@@ -1,8 +1,8 @@
 package org.greencity.ui;
 
 import org.greencity.ui.enums.EcoNewsTag;
-import org.greencity.ui.pages.CreateNewsPage;
 import org.greencity.ui.pages.HomePage;
+import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
 import org.greencity.ui.testrunners.BaseTestRunner;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -25,7 +25,6 @@ public class TitleFieldValidation extends BaseTestRunner {
     @BeforeMethod
     public void beforeMethod() {
         createNewsPage = createNewsPage.open();
-
         createNewsPage.getHeader().changeToEN();
     }
 
@@ -34,7 +33,7 @@ public class TitleFieldValidation extends BaseTestRunner {
     public void verifyTitleFieldAndPublishButtonLogic() {
         // 1. Mandatory field validation (Empty title)
         createNewsPage.enterTitle("");
-        createNewsPage.enterContent("");
+        createNewsPage.getContentComponent().enterContent(""); // Triggering "touched" state for validation
         Assert.assertTrue(createNewsPage.isTitleInvalid(), "Title border should be red (ng-invalid) when empty.");
         Assert.assertFalse(createNewsPage.isPublishButtonEnabled(), "Publish button should be disabled when the title is empty.");
         Assert.assertEquals(createNewsPage.getTitleCounterText(), "0/170", "Counter should display 0/170.");
@@ -59,8 +58,8 @@ public class TitleFieldValidation extends BaseTestRunner {
         Assert.assertFalse(createNewsPage.isTitleInvalid(), "Red highlight should disappear when the title is valid.");
 
         // 4. Filling the remaining mandatory fields
-        createNewsPage.clickTagByName(EcoNewsTag.NEWS.getTagName());
-        createNewsPage.enterContent(VALID_CONTENT);
+        createNewsPage.clickTagByName(EcoNewsTag.NEWS.getEn());
+        createNewsPage.getContentComponent().enterContent(VALID_CONTENT);
 
         // 5. Final activation check
         Assert.assertTrue(createNewsPage.isPublishButtonEnabled(), "Publish button should become enabled after all fields are valid.");
@@ -69,11 +68,11 @@ public class TitleFieldValidation extends BaseTestRunner {
     @Test
     public void verifyTooShortContent  () {
         createNewsPage.enterTitle("Test News");
-        createNewsPage.enterContent("1");
+        createNewsPage.getContentComponent().enterContent("1");
 
-        Assert.assertFalse(createNewsPage.isContentValid());
+        Assert.assertFalse(createNewsPage.getContentComponent().isContentValid());
 
-        createNewsPage.enterContent(VALID_CONTENT);
-        Assert.assertTrue(createNewsPage.isContentValid(), "Content should be valid after all fields are valid.");
+        createNewsPage.getContentComponent().enterContent(VALID_CONTENT);
+        Assert.assertTrue(createNewsPage.getContentComponent().isContentValid(), "Content should be valid after all fields are valid.");
     }
 }
