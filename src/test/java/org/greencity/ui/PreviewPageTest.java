@@ -1,9 +1,10 @@
 package org.greencity.ui;
 
-import org.greencity.ui.pages.CreateNewsPage;
+
+import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
+import org.greencity.ui.pages.CreateEditNews.NewsPreviewPage;
 import org.greencity.ui.pages.HomePage;
 import org.greencity.ui.pages.MySpace.MySpaceHabitsTabPage;
-import org.greencity.ui.pages.NewsPreviewPage;
 import org.greencity.ui.testrunners.BaseTestRunner;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
