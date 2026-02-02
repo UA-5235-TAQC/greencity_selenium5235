@@ -154,20 +154,6 @@ public abstract class CreateEditNewsPage extends BasePage {
         return new ContentComponent(driver, contentRoot);
     }
 
-    public CreateEditNewsPage createNews(String title, List<String> tags, String source, String content, String imagePath) {
-        if (title != null) enterTitle(title);
-        if (tags != null) selectTags(tags);
-        if (source != null) enterSource(source);
-        if (content != null) {
-            getContentComponent().enterContent(content);
-        }
-
-        if (imagePath != null) {
-            uploadImage(imagePath);
-            cropImage();
-        }
-        return this;
-    }
 
     public String getUploadedImageInfo() {
         return imageUploadInput.getAttribute("value");

@@ -4,6 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
+
 public class CreateNewsPage extends CreateEditNewsPage {
 
     @FindBy(xpath = "//button[@type='submit' and contains(@class,'primary-global-button')]")
@@ -46,6 +48,21 @@ public class CreateNewsPage extends CreateEditNewsPage {
     @Override
     public CreateNewsPage enterSource(String url) {
         super.enterSource(url);
+        return this;
+    }
+
+    public CreateNewsPage createNews(String title, List<String> tags, String source, String content, String imagePath) {
+        if (title != null) enterTitle(title);
+        if (tags != null) selectTags(tags);
+        if (source != null) enterSource(source);
+        if (content != null) {
+            getContentComponent().enterContent(content);
+        }
+
+        if (imagePath != null) {
+            uploadImage(imagePath);
+            cropImage();
+        }
         return this;
     }
 }
