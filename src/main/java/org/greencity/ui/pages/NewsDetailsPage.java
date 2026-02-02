@@ -72,8 +72,8 @@ public class NewsDetailsPage extends BasePage {
     }
 
     @Override
-    public BasePage waitUntilOpened() {
-        return null;
+    public NewsDetailsPage waitUntilOpened() {
+        return this;
     }
 
     public boolean checkNewsTitle(String expectedTitle) {

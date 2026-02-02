@@ -8,7 +8,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class MySpaceHabitsTabPage extends MySpaceBasePage {
-
     @FindBy(id = "create-button-add-new-habit")
     private WebElement addHabitButton;
 
@@ -17,12 +16,12 @@ public class MySpaceHabitsTabPage extends MySpaceBasePage {
 
     private NoDataComponent noDataComponent;
 
-
     public MySpaceHabitsTabPage(WebDriver driver) {
         super(driver);
         this.noDataComponent = new NoDataComponent(driver, noDataRoot);
     }
 
+    public WebElement getAddHabitButton() { return addHabitButton; }
 
     public boolean hasHabits() {
         return !noDataComponent.isDisplayed();
@@ -43,7 +42,7 @@ public class MySpaceHabitsTabPage extends MySpaceBasePage {
     }
 
     @Override
-    public BasePage waitUntilOpened() {
+    public MySpaceHabitsTabPage waitUntilOpened() {
         wait.until(ExpectedConditions.visibilityOf(addHabitButton));
         return this;
     }

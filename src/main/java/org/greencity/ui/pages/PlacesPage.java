@@ -18,7 +18,7 @@ public class PlacesPage extends BasePage {
     }
 
     @Override
-    public BasePage waitUntilOpened() {
-        return null;
+    public PlacesPage waitUntilOpened() {
+        return this;
     }
 }

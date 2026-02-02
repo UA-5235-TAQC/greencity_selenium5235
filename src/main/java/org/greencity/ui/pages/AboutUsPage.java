@@ -18,7 +18,7 @@ public class AboutUsPage extends BasePage {
     }
 
     @Override
-    public BasePage waitUntilOpened() {
-        return null;
+    public AboutUsPage waitUntilOpened() {
+        return this;
     }
 }

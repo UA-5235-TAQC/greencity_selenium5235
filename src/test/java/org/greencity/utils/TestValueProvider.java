@@ -35,9 +35,7 @@ public class TestValueProvider {
         return get("user.name");
     }
 
-    public String getUserEmail() {
-        return get("user.email");
-    }
+    public String getUserEmail() { return get("user.email"); }
 
     public String getUserPassword() {
         return get("user.password");
@@ -50,5 +48,18 @@ public class TestValueProvider {
     public Long getImplicitlyWait() {
         return Long.parseLong(get("implicitlyWait"), 10);
     }
+
+    public String getUserLocation() {
+        return get("user.location");
+    }
+
+    public Integer getUserRate() {
+        return Integer.parseInt(get("user.rating"));
+    }
+
+    public boolean isHeadlessMode() {
+        return Boolean.parseBoolean(get("headless.mode"));
+    }
+
 
 }

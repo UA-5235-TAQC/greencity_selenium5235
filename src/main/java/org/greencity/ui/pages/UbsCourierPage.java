@@ -18,7 +18,7 @@ public class UbsCourierPage extends BasePage {
     }
 
     @Override
-    public BasePage waitUntilOpened() {
-        return null;
+    public UbsCourierPage waitUntilOpened() {
+        return this;
     }
 }

@@ -2,7 +2,6 @@ package org.greencity.ui.components.AuthModal;
 
 import org.greencity.ui.Base;
 import org.greencity.ui.pages.BasePage;
-import org.greencity.ui.pages.MySpace.MySpaceBasePage;
 import org.greencity.ui.pages.MySpace.MySpaceHabitsTabPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
