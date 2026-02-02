@@ -107,8 +107,15 @@ public abstract class CreateEditNewsPage extends BasePage {
         return this;
     }
 
-    public CreateEditNewsPage selectTags(List<String> tags) {
-        tags.forEach(this::clickTagByName);
+    public CreateEditNewsPage selectTags(List<String> tagNames) {
+        tagNames.forEach(tagName -> {
+            TagItem tag = getTagByName(tagName);
+
+            if(!tag.isSelected()) {
+                tag.click();
+            }
+        });
+
         return this;
     }
 

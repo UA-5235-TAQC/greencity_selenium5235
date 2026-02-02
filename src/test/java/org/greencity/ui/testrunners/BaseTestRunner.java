@@ -2,12 +2,11 @@ package org.greencity.ui.testrunners;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.greencity.ui.pages.BasePage;
+import org.greencity.ui.pages.MySpace.MySpaceHabitsTabPage;
 import org.greencity.utils.TestValueProvider;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
@@ -18,7 +17,6 @@ import java.time.Duration;
 public class BaseTestRunner {
     protected WebDriver driver;
     protected static TestValueProvider testValueProvider;
-
 
     @BeforeSuite
     public void beforeSuite() {
@@ -45,6 +43,7 @@ public class BaseTestRunner {
         initDriver();
         driver.get(testValueProvider.getBaseUIGreenCityUrl());
     }
+
     @AfterClass
     public void afterClass() {
         if (driver != null) {
@@ -59,15 +58,18 @@ public class BaseTestRunner {
         }
     }
 
-    public void loginUser(BasePage basePage) {
-         basePage.open()
-                 .getHeader()
-                 .clickSignInLink()
-                 .enterEmail(testValueProvider.getUserEmail())
-                 .enterPassword(testValueProvider.getUserPassword())
-                 .clickSubmit();
+    public MySpaceHabitsTabPage loginUser(BasePage basePage) {
+        MySpaceHabitsTabPage mySpace = basePage.open()
+                .getHeader()
+                .clickSignInLink()
+                .enterEmail(testValueProvider.getUserEmail())
+                .enterPassword(testValueProvider.getUserPassword())
+                .clickSubmit();
 
-         new WebDriverWait(driver, Duration.ofSeconds(10))
-                 .until(ExpectedConditions.urlContains("/profile"));
-   }
+        if (!mySpace.isPageOpened()) {
+            throw new AssertionError("Login failed: MySpace page was not opened");
+        }
+
+        return mySpace;
+    }
 }
