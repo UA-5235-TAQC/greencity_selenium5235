@@ -37,6 +37,9 @@ public class NewsPreviewPage extends BasePage {
     @FindBy(css = ".source-text")
     private WebElement newsSource;
 
+    @FindBy(css = ".main-content.app-container")
+    private WebElement root;
+
     public NewsPreviewPage(WebDriver driver) {
         super(driver);
     }

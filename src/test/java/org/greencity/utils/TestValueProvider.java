@@ -35,9 +35,7 @@ public class TestValueProvider {
         return get("user.name");
     }
 
-    public String getUserEmail() {
-        return get("user.email");
-    }
+    public String getUserEmail() { return get("user.email"); }
 
     public String getUserPassword() {
         return get("user.password");

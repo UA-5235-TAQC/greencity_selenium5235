@@ -45,6 +45,13 @@ public class SignInModal extends AuthModalBase {
         return this;
     }
 
+    public MySpaceHabitsTabPage loginAs(String email, String password) {
+        enterEmail(email);
+        enterPassword(password);
+        clickSubmit();
+        return new MySpaceHabitsTabPage(driver);
+    }
+
     public void switchToSignUp() {
         signUpLink.click();
     }

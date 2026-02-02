@@ -64,6 +64,7 @@ public class HeaderComponent extends BaseComponent {
         WebElement langOption = languageDropdown.findElement(
                 By.xpath(".//span[text()='" + lang + "']")
         );
+        waitUntilClickable(langOption);
         langOption.click();
         return this;
     }
@@ -81,6 +82,7 @@ public class HeaderComponent extends BaseComponent {
     }
 
     public SignInModal clickSignInLink() {
+        waitUntilClickable(signInLink);
         signInLink.click();
         return new SignInModal(driver);
     }
