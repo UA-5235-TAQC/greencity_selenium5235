@@ -1,7 +1,6 @@
 package org.greencity.ui.components.AuthModal;
 
 import org.greencity.ui.Base;
-import org.greencity.ui.pages.MySpace.MySpaceHabitsTabPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -74,11 +73,6 @@ public abstract class AuthModalBase extends Base {
      */
     public boolean isVisible() {
         return root.isDisplayed();
-    }
-
-    public void clickSubmit() {
-        submitBtn.click();
-        waitUntilVisible(new MySpaceHabitsTabPage(driver).getAddHabitButton());
     }
 
     public AuthModalBase enterPassword(String password) {
