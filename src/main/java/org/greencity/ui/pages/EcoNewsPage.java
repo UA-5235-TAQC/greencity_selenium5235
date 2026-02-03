@@ -1,5 +1,6 @@
 package org.greencity.ui.pages;
 
+import io.qameta.allure.Step;
 import org.greencity.ui.components.NewsListItemComponent;
 import org.greencity.ui.components.TagItem;
 import org.greencity.ui.enums.EcoNewsTag;
@@ -8,6 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
@@ -41,26 +43,32 @@ public class EcoNewsPage extends BasePage {
         super(driver);
     }
 
+    @Step("Open Eco News page")
     @Override
     public EcoNewsPage open() {
         driver.get(getBaseHost() + "/news");
         return new EcoNewsPage(driver);
     }
 
+    @Step("Verify Eco News page is opened")
     @Override
     public boolean isPageOpened() {
         return isVisible(pageTitle);
     }
 
+    @Step("Wait until Eco News page is opened")
     @Override
     public EcoNewsPage waitUntilOpened() {
+        wait.until(ExpectedConditions.visibilityOf(pageTitle));
         return this;
     }
 
+    @Step("Get Eco News page title")
     public String getPageTitle() {
         return pageTitle.getText();
     }
 
+    @Step("Enter search text")
     public void enterSearch(String text) {
         if (!searchInput.isDisplayed()) {
             searchBtn.click();
@@ -68,28 +76,34 @@ public class EcoNewsPage extends BasePage {
         searchInput.sendKeys(text);
     }
 
+    @Step("Close search input")
     public void closeSearch() {
         if (searchInput.isDisplayed()) {
             closeSearchIcon.click();
         }
     }
 
+    @Step("Click Bookmark button")
     public void clickBookmark() {
         bookmarkBtn.click();
     }
 
+    @Step("Click My Events button ")
     public void clickMyEvents() {
         myEventsBtn.click();
     }
 
+    @Step("Switch news list view to grid")
     public void switchToGridView() {
         gridViewBtn.click();
     }
 
+    @Step("Switch news list view to list")
     public void switchToListView() {
         listViewBtn.click();
     }
 
+    @Step("Get count of remaining news")
     public int getRemainingNewsCount() {
         String digits = remainingCountText.getText().replaceAll("[^0-9]", "");
         if (digits.isEmpty()) {
@@ -98,17 +112,20 @@ public class EcoNewsPage extends BasePage {
         return Integer.parseInt(digits);
     }
 
+    @Step("Click on Create News button")
     public CreateNewsPage clickCreateNews() {
         createNewsBtn.click();
         return new CreateNewsPage(driver);
     }
 
+    @Step("Get all available tags")
     public List<TagItem> getAllTags() {
         return  tags.findElements(By.cssSelector("button.tag-button")).stream()
                 .map(tag -> new TagItem(driver, tag))
                 .toList();
     }
 
+    @Step("Remove all selected tags")
     public void removeAllSelectedTags() {
         List<TagItem> tags = getAllTags();
         tags.forEach(tag -> {
@@ -118,6 +135,7 @@ public class EcoNewsPage extends BasePage {
         });
     }
 
+    @Step("Click on tag by name")
     public void clickTag(EcoNewsTag tag) {
         String expectedName = tag.getByLocale(getHeader().getCurrentLocale());
 
@@ -131,12 +149,14 @@ public class EcoNewsPage extends BasePage {
         throw new RuntimeException("Tag not found: " + expectedName);
     }
 
+    @Step("Get all news cards")
     public List<NewsListItemComponent> getNewsCards() {
         return cards.findElements(By.cssSelector("li")).stream()
                 .map(card -> new NewsListItemComponent(driver, card))
                 .toList();
     }
 
+    @Step("Get a news card by index")
     public NewsListItemComponent getNewsCardByIndex(int index) {
         List<NewsListItemComponent> cards = getNewsCards();
 
@@ -147,6 +167,7 @@ public class EcoNewsPage extends BasePage {
         return cards.get(index);
     }
 
+    @Step("Get a news card by id")
     public NewsListItemComponent getNewsCardById(int newsId) {
         List<NewsListItemComponent> cards = getNewsCards();
 
@@ -159,11 +180,13 @@ public class EcoNewsPage extends BasePage {
         throw new IllegalArgumentException("News card with id " + newsId + " not found");
     }
 
+    @Step("Click on a news card by index")
     public void clickNewsCardByIndex(int index) {
         NewsListItemComponent card = getNewsCardByIndex(index);
         card.click();
     }
 
+    @Step("Click on a news card by id")
     public void clickNewsCardByNewsId(int newsId) {
         NewsListItemComponent card = getNewsCardById(newsId);
         card.click();
