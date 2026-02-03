@@ -1,5 +1,6 @@
 package org.greencity.ui.components.AuthModal;
 
+import io.qameta.allure.Step;
 import org.greencity.ui.pages.MySpace.MySpaceHabitsTabPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -22,6 +23,7 @@ public class SignInModal extends AuthModalBase {
         super(driver);
     }
 
+    @Step("Enter password")
     @Override
     public SignInModal enterPassword(String password) {
         passwordInput.clear();
@@ -29,6 +31,7 @@ public class SignInModal extends AuthModalBase {
         return this;
     }
 
+    @Step("Enter email: {email}")
     @Override
     public SignInModal enterEmail(String email) {
         emailInput.clear();
@@ -36,15 +39,18 @@ public class SignInModal extends AuthModalBase {
         return this;
     }
 
+    @Step("Click 'Forgot password'")
     public void clickForgotPassword() {
         forgotPasswordBtn.click();
     }
 
+    @Step("Toggle password visibility")
     public SignInModal togglePasswordVisibility() {
         showPasswordBtn.click();
         return this;
     }
 
+    @Step("Login as user with email: {email}")
     public MySpaceHabitsTabPage loginAs(String email, String password) {
         enterEmail(email);
         enterPassword(password);
@@ -52,10 +58,12 @@ public class SignInModal extends AuthModalBase {
         return new MySpaceHabitsTabPage(driver);
     }
 
+    @Step("Switch to Sign Up modal")
     public void switchToSignUp() {
         signUpLink.click();
     }
 
+    @Step("Submit login form")
     public MySpaceHabitsTabPage clickSubmit() {
         submitBtn.click();
         return new MySpaceHabitsTabPage(driver);
