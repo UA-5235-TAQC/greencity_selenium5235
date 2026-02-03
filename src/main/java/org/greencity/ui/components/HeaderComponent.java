@@ -48,14 +48,17 @@ public class HeaderComponent extends BaseComponent {
         super(driver, rootElement);
     }
 
+    @Step("The selected language for change is English")
     public HeaderComponent changeToEN() {
         return switchLanguage("En");
     }
 
+    @Step("The selected language for change is Ukrainian")
     public HeaderComponent changeToUK() {
         return switchLanguage("Uk");
     }
 
+    @Step("Switch to the selected language")
     private HeaderComponent switchLanguage(String lang) {
         String currentLang = languageDropdown.getText().trim();
         if (currentLang.equalsIgnoreCase(lang)) {
@@ -70,6 +73,7 @@ public class HeaderComponent extends BaseComponent {
         return this;
     }
 
+    @Step("Clicked on the 'EcoNews' link in the header menu")
     public EcoNewsPage clickEcoNewsLink() {
         waitUntilClickable(ecoNewsLink);
         ecoNewsLink.click();
@@ -77,37 +81,43 @@ public class HeaderComponent extends BaseComponent {
         return new EcoNewsPage(driver);
     }
 
-    @Step("Click Sign Up link in header")
+    @Step("Clicked on the 'SignUp' link in the header menu")
     public SignUpModal clickSignUpLink() {
         signUpLink.click();
         return new SignUpModal(driver);
     }
 
+    @Step("Clicked on the 'SignIn' link in the header menu")
     public SignInModal clickSignInLink() {
         waitUntilClickable(signInLink);
         signInLink.click();
         return new SignInModal(driver);
     }
 
+    @Step("Clicked on the logo in the header")
     public HomePage clickLogo() {
         logo.click();
         return new HomePage(driver);
     }
 
+    @Step("Clicked on the 'MySpace' link in the header menu")
     public MySpaceHabitsTabPage clickMySpace() {
         waitUntilClickable(mySpace);
         mySpace.click();
         return new MySpaceHabitsTabPage(driver);
     }
 
+    @Step("Clicked on the 'Search' button in the header menu")
     public void clickSearchBtn() {
         searchBtn.click();
     }
 
+    @Step("Clicked on the language dropdown button in the header menu")
     public void clickLanguageDropdown() {
         languageDropdown.click();
     }
 
+    @Step("Getting the name of a registered user")
     public String getUser() {
         try {
             waitUntilVisible(userName);
@@ -117,6 +127,7 @@ public class HeaderComponent extends BaseComponent {
         return userName.getText().trim();
     }
 
+    @Step("Click the profile dropdown button")
     public ProfileDropdownComponent clickProfileDropdown() {
         waitUntilClickable(drpButton);
         drpButton.click();
@@ -124,8 +135,9 @@ public class HeaderComponent extends BaseComponent {
         return new ProfileDropdownComponent(driver, dropDown);
     }
 
+    @Step("Getting the current language")
     public String getCurrentLocale() {
-        String lang = drpButton.getText().trim();
+        String lang = languageDropdown.getText().trim();
         return lang.equalsIgnoreCase("Uk") ? "uk" : "en";
     }
 }
