@@ -19,7 +19,7 @@ public class BaseTestRunner {
     protected WebDriver driver;
     protected static TestValueProvider testValueProvider;
 
-    @BeforeSuite
+    @BeforeSuite(alwaysRun = true)
     public void beforeSuite() {
         WebDriverManager.chromedriver().setup();
         testValueProvider = new TestValueProvider();
@@ -27,13 +27,25 @@ public class BaseTestRunner {
 
     public void initDriver() {
         ChromeOptions options = new ChromeOptions();
+        // Allow remote origins (used by newer Chrome/Chromedriver combinations)
         options.addArguments("--remote-allow-origins=*");
         options.addArguments("--disable-popups-blocking");
-        if (testValueProvider.isHeadlessMode()) {
-            options.addArguments("--headless=new");
-        }
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
+        // Extra flags that help Chrome run reliably in CI containers
+        options.addArguments("--disable-gpu");
+        options.addArguments("--disable-extensions");
+
+        if (testValueProvider.isHeadlessMode()) {
+            // use new headless mode when available
+            options.addArguments("--headless=new");
+        }
+
+        // If CI provides a CHROME_BIN (set in workflow), use it so ChromeOptions points to the installed binary
+        String chromeBin = System.getenv("CHROME_BIN");
+        if (chromeBin != null && !chromeBin.isEmpty()) {
+            options.setBinary(chromeBin);
+        }
 
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
@@ -43,7 +55,10 @@ public class BaseTestRunner {
 
     @BeforeClass
     public void beforeClass() {
+        System.out.println("beforeClass in BaseTestRunner");
+        System.out.println("getBaseUIGreenCityUrl: " + testValueProvider.getBaseUIGreenCityUrl());
         initDriver();
+        System.out.println("driver: "+driver.toString());
         driver.get(testValueProvider.getBaseUIGreenCityUrl());
     }
 

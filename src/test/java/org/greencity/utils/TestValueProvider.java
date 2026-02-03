@@ -18,7 +18,12 @@ public class TestValueProvider {
     }
 
     public String getBaseUIGreenCityUrl() {
-        return properties != null ? properties.getProperty("base.ui.greencity.url") : System.getProperty("BASE_UI_GREEN_CITY_URL");
+
+        if (properties != null) {
+            return properties.getProperty("base.ui.greencity.url");
+        }
+
+        return System.getProperty("BASE_UI_GREEN_CITY_URL");
     }
 
     // Added: generic getter that reads from config.properties when available,
@@ -46,7 +51,15 @@ public class TestValueProvider {
     }
 
     public Long getImplicitlyWait() {
-        return Long.parseLong(get("implicitlyWait"), 10);
+        String value = get("implicitlyWait");
+        if (value != null) {
+            try {
+                return Long.valueOf(value);
+            } catch (NumberFormatException ignored) {
+            }
+        }
+        // sensible default to avoid failures when config isn't present
+        return 5L;
     }
 
     public String getUserLocation() {
@@ -54,11 +67,27 @@ public class TestValueProvider {
     }
 
     public Integer getUserRate() {
-        return Integer.parseInt(get("user.rating"));
+        String value = get("user.rating");
+        if (value != null) {
+            try {
+                return Integer.parseInt(value);
+            } catch (NumberFormatException ignored) {
+            }
+        }
+        return 0;
     }
 
     public boolean isHeadlessMode() {
-        return Boolean.parseBoolean(get("headless.mode"));
+        String value = get("headless.mode");
+        if (value != null && !value.isEmpty()) {
+            return Boolean.parseBoolean(value);
+        }
+        // Default to headless in CI environments (GitHub Actions sets CI=true)
+        String ci = System.getenv("CI");
+        if (ci != null && !ci.isEmpty()) {
+            return true;
+        }
+        return false;
     }
 
 
