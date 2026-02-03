@@ -291,7 +291,6 @@ public class EditNewsFormVisibilityTestUA extends BaseTestRunner {
         editNewsPage.editNews(TEST_TITLE_UA, EcoNewsTag.getUa(TEST_TAGS), TEST_SOURCE, TEST_CONTENT_UA, TEST_FILEPATH);
         editNewsPage.clickEdit();
         UbsCourierPage ubsCourierPage = new UbsCourierPage(driver);
-        ubsCourierPage.getHeader().changeToEN();
         Assert.assertTrue(ubsCourierPage.isPageOpened(),
                 "User should be directed to UbsCourierPage");
         String message = ubsCourierPage.getMessageText();
