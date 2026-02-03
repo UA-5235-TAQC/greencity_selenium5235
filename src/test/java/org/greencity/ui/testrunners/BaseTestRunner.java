@@ -32,6 +32,8 @@ public class BaseTestRunner {
         if (testValueProvider.isHeadlessMode()) {
             options.addArguments("--headless=new");
         }
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
 
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
