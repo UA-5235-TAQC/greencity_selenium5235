@@ -125,7 +125,7 @@ public class HeaderComponent extends BaseComponent {
     }
 
     public String getCurrentLocale() {
-        String lang = drpButton.getText().trim();
+        String lang = languageDropdown.getText().trim();
         return lang.equalsIgnoreCase("Uk") ? "uk" : "en";
     }
 }

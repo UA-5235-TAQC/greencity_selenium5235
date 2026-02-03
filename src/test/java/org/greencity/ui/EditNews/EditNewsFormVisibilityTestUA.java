@@ -1,6 +1,8 @@
 package org.greencity.ui.EditNews;
 
 
+import io.qameta.allure.*;
+import io.qameta.allure.testng.Tag;
 import org.greencity.ui.components.CreateEditNewsPage.CancelModalComponent;
 import org.greencity.ui.components.CreateEditNewsPage.ContentComponent;
 import org.greencity.ui.components.CreateEditNewsPage.ImageComponent;
@@ -8,7 +10,6 @@ import org.greencity.ui.components.TagItem;
 import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.ui.pages.CreateEditNews.EditNewsPage;
 import org.greencity.ui.pages.CreateEditNews.NewsPreviewPage;
-import org.greencity.ui.pages.EcoNewsPage;
 import org.greencity.ui.pages.HomePage;
 import org.greencity.ui.pages.UbsCourierPage;
 import org.greencity.ui.testrunners.BaseTestRunner;
@@ -32,16 +33,13 @@ public class EditNewsFormVisibilityTestUA extends BaseTestRunner {
     private EditNewsPage editNewsPage;
     private long newsId = 888;
 
+    @Description("A test that allows a given user to log in to the system")
+    @Severity(SeverityLevel.CRITICAL)
     @BeforeClass
     public void LoginUser() {
         HomePage homePage = new HomePage(driver);
         loginUser(homePage);
         editNewsPage = new EditNewsPage(driver, newsId);
-//        createNewsPage = homePage.open().getHeader().clickEcoNewsLink().clickCreateNews();
-//        new NewsTestData()
-//                .applyTo(createNewsPage);
-//        createNewsPage.clickPublish();
-//        editNewsPage = homePage.open().getHeader().clickMySpace().switchTo(MySpaceTab.NEWS).getFirstNews().click().clickEditButton();
     }
 
     @BeforeMethod
@@ -50,7 +48,13 @@ public class EditNewsFormVisibilityTestUA extends BaseTestRunner {
         editNewsPage.getHeader().changeToUK();
     }
 
-    @Test(description = "Verify that the Edit News form contains the particular fields in Ukrainian locale")
+    @Tag("Edit")
+    @Feature("Edit news page")
+    @Issue("14")
+    @TmsLink("https://github.com/UA-5235-TAQC/greencity_selenium5235/issues/14")
+    @Description("Verify that the Edit News form contains the particular fields in Ukrainian locale")
+    @Severity(SeverityLevel.NORMAL)
+    @Test
     public void verifyEditNewsFormFieldsVisibilityInUkrainianLocale() {
 
         // 1. Title
@@ -248,6 +252,7 @@ public class EditNewsFormVisibilityTestUA extends BaseTestRunner {
         softAssert.assertEquals(cancelModal.getContinueEditingButtonText(), "Продовжити");
         softAssert.assertAll();
         cancelModal.clickYesCancel();
+        cancelModal.waitUntilClosed();
 
         editNewsPage = new EditNewsPage(driver, newsId).open();
         editNewsPage.getHeader().changeToUK();

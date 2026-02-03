@@ -1,5 +1,7 @@
 package org.greencity.ui.CreateNews;
 
+import io.qameta.allure.*;
+import io.qameta.allure.testng.Tag;
 import org.greencity.ui.components.CreateEditNewsPage.CancelModalComponent;
 import org.greencity.ui.components.CreateEditNewsPage.ContentComponent;
 import org.greencity.ui.components.CreateEditNewsPage.ImageComponent;
@@ -27,6 +29,8 @@ public class CreateNewsFormVisibilityTestUA extends BaseTestRunner {
 
     private CreateNewsPage createNewsPage;
 
+    @Description("A test that allows a given user to log in to the system")
+    @Severity(SeverityLevel.CRITICAL)
     @BeforeClass
     public void LoginUser() {
         HomePage homePage = new HomePage(driver);
@@ -39,7 +43,13 @@ public class CreateNewsFormVisibilityTestUA extends BaseTestRunner {
         createNewsPage.getHeader().changeToUK();
     }
 
-    @Test(description = "Verify that the Create News form contains the particular fields in Ukrainian locale")
+    @Tag("Create")
+    @Feature("Create news page")
+    @Issue("3")
+    @TmsLink("https://github.com/UA-5235-TAQC/greencity_selenium5235/issues/3")
+    @Description("Verify that the Create News form contains the particular fields in Ukrainian locale")
+    @Severity(SeverityLevel.NORMAL)
+    @Test
     public void verifyCreateNewsFormFieldsVisibilityInUkrainianLocale() {
 
         // 2. Tags
@@ -157,6 +167,7 @@ public class CreateNewsFormVisibilityTestUA extends BaseTestRunner {
         softAssert.assertEquals(cancelModal.getContinueEditingButtonText(), "Продовжити");
         softAssert.assertAll();
         cancelModal.clickYesCancel();
+        cancelModal.waitUntilClosed();
 
         createNewsPage = new CreateNewsPage(driver).open();
         createNewsPage.getHeader().changeToUK();
