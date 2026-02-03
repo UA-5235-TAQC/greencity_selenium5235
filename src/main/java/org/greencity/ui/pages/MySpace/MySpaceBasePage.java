@@ -33,7 +33,7 @@ public class MySpaceBasePage extends BasePage {
     protected WebElement userName;
     @FindBy(css = ".right-column .item")
     protected List<WebElement> todoList;
-    @FindBy(xpath = "//div[@role='tab']")
+    @FindBy(css = ".mat-mdc-tab-labels")
     protected List<WebElement> tabList;
     @FindBy(xpath = "//div[@role='tab' and @aria-selected='true']")
     protected WebElement activeTab;

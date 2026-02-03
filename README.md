@@ -23,15 +23,25 @@ mvn test -Duser.name=localuser -Duser.email=you@example.com
 
 ## Configuration
 
-Tests read configuration from `src/test/resources/config.properties` when present. The following keys are used by the tests and the new `TestValueProvider` helper:
+Tests read configuration from `src/test/resources/config.properties` when present. The following keys are used by the tests and the `TestValueProvider` helper (defaults are applied when values are missing):
 
 - `base.ui.greencity.url` - base UI URL for GreenCity
 - `user.name` - test user name
 - `user.email` - test user email
 - `user.password` - test user password
 - `user.id` - test user id
+- `user.location` - user location
+- `user.rating` - user rating (integer)
+- `implicitlyWait` - implicit wait in seconds (integer, default 5)
+- `headless.mode` - `true` or `false` (when absent, tests default to headless in CI environments)
 
-If `config.properties` is not available, values may be provided via system properties using the same key names (for example `-Duser.name=...`). Note: the existing `getBaseUIGreenCityUrl()` method falls back to the system property `BASE_UI_GREEN_CITY_URL` (uppercase) for backward compatibility.
+If `config.properties` is not available, values may be provided via system properties using the same key names (for example `-Duser.name=...`). Note: the existing `getBaseUIGreenCityUrl()` method also falls back to the system property `BASE_UI_GREEN_CITY_URL` (uppercase) for backward compatibility.
+
+### CI / GitHub Actions
+
+When running in CI (GitHub Actions) the environment variable `CI=true` is normally present. `TestValueProvider` will default to headless mode when it detects `CI` to avoid browser startup issues on Linux runners. If you need to run with a visible browser in CI, explicitly pass `-Dheadless.mode=false` to `mvn test`.
+
+If your CI workflow requires any additional Chrome options, update `src/test/java/org/greencity/ui/testrunners/BaseTestRunner.java` where ChromeOptions are configured.
 
 ## TestValueProvider
 
@@ -44,6 +54,8 @@ If `config.properties` is not available, values may be provided via system prope
   - `getUserEmail()` -> `user.email`
   - `getUserPassword()` -> `user.password`
   - `getUserId()` -> `user.id`
+  - `getImplicitlyWait()` -> `implicitlyWait` (default 5)
+  - `isHeadlessMode()` -> `headless.mode` (defaults to true in CI)
 
 Example usage in a test:
 
