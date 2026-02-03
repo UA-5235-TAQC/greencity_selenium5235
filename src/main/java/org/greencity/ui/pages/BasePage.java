@@ -1,5 +1,6 @@
 package org.greencity.ui.pages;
 
+import io.qameta.allure.Step;
 import org.greencity.ui.Base;
 import org.greencity.ui.components.FooterComponent;
 import org.greencity.ui.components.HeaderComponent;
@@ -27,41 +28,51 @@ public abstract class BasePage extends Base {
         this.footerComponent = new FooterComponent(driver, rootFooterElement);
     }
 
-    abstract public BasePage open();
+    @Step("Open page")
+    public abstract BasePage open();
 
+    @Step("Check that page is opened")
     public abstract boolean isPageOpened();
 
+    @Step("Get header component")
     public HeaderComponent getHeader() {
         return header;
     }
 
+    @Step("Get footer component")
     public FooterComponent getFooter() {
         return footerComponent;
     }
 
+    @Step("Click on web element")
     protected void click(WebElement element) {
         WebElement clickable = wait.until(ExpectedConditions.elementToBeClickable(element));
         clickable.click();
     }
 
+    @Step("Get text from web element")
     protected String getText(WebElement element) {
         return wait.until(ExpectedConditions.visibilityOf(element)).getText();
     }
 
+    @Step("Wait for snackbar message to appear")
     public BasePage waitForMessageAppear() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(messageLocator));
         return this;
     }
 
+    @Step("Wait for snackbar message to disappear")
     public BasePage waitForMessageDisappear() {
         wait.until(ExpectedConditions.stalenessOf(driver.findElement(messageLocator)));
         return this;
     }
 
+    @Step("Get snackbar message text")
     public String getMessageText() {
         waitForMessageAppear();
         return driver.findElement(messageLocator).getText();
     }
 
+    @Step("Wait until page is fully opened")
     public abstract BasePage waitUntilOpened();
 }
