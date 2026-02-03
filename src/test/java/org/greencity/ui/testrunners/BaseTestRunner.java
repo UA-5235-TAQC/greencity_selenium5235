@@ -7,7 +7,6 @@ import org.greencity.utils.TestValueProvider;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
@@ -16,8 +15,8 @@ import org.testng.annotations.BeforeSuite;
 import java.time.Duration;
 
 public class BaseTestRunner {
-    protected WebDriver driver;
     protected static TestValueProvider testValueProvider;
+    protected WebDriver driver;
 
     @BeforeSuite(alwaysRun = true)
     public void beforeSuite() {
@@ -41,12 +40,6 @@ public class BaseTestRunner {
             options.addArguments("--headless=new");
         }
 
-        // If CI provides a CHROME_BIN (set in workflow), use it so ChromeOptions points to the installed binary
-        String chromeBin = System.getenv("CHROME_BIN");
-        if (chromeBin != null && !chromeBin.isEmpty()) {
-            options.setBinary(chromeBin);
-        }
-
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         Long implicitlyWait = testValueProvider.getImplicitlyWait();
@@ -58,7 +51,7 @@ public class BaseTestRunner {
         System.out.println("beforeClass in BaseTestRunner");
         System.out.println("getBaseUIGreenCityUrl: " + testValueProvider.getBaseUIGreenCityUrl());
         initDriver();
-        System.out.println("driver: "+driver.toString());
+        System.out.println("driver: " + driver.toString());
         driver.get(testValueProvider.getBaseUIGreenCityUrl());
     }
 
@@ -77,7 +70,8 @@ public class BaseTestRunner {
     }
 
     public MySpaceHabitsTabPage loginUser(BasePage basePage) {
-        MySpaceHabitsTabPage mySpace = basePage.open()
+        MySpaceHabitsTabPage mySpace = basePage
+                .open()
                 .getHeader()
                 .clickSignInLink()
                 .enterEmail(testValueProvider.getUserEmail())
