@@ -8,6 +8,7 @@ import org.greencity.ui.components.MySpace.MySpaceNewsItemComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import io.qameta.allure.Step;
 
 public class MySpaceNewsTabPage extends MySpaceBasePage {
 
@@ -30,6 +31,7 @@ public class MySpaceNewsTabPage extends MySpaceBasePage {
         super(driver);
     }
 
+    @Step("Get list of news items from My Space News tab")
     public List<MySpaceNewsItemComponent> getNewsList() {
         waitUntilVisible(newsList);
 
@@ -42,6 +44,7 @@ public class MySpaceNewsTabPage extends MySpaceBasePage {
         return components;
     }
 
+    @Step("Get first news item from My Space News tab")
     public MySpaceNewsItemComponent getFirstNews() {
         List<MySpaceNewsItemComponent> news = getNewsList();
         if (news.isEmpty()) {
@@ -50,6 +53,7 @@ public class MySpaceNewsTabPage extends MySpaceBasePage {
         return news.getFirst();
     }
 
+    @Step("Get news item with ID: {newsId}")
     public MySpaceNewsItemComponent getNewsById(Long newsId) {
         List<MySpaceNewsItemComponent> news = getNewsList();
         return news.stream()
@@ -59,6 +63,7 @@ public class MySpaceNewsTabPage extends MySpaceBasePage {
                         new NoSuchElementException("News with ID " + newsId + " not found"));
     }
 
+    @Step("Filter news by tag: '{tagName}'")
     public void filterByTag(String tagName) {
         WebElement tag = tags.stream()
                 .filter(t -> t.getText().trim().equalsIgnoreCase(tagName))
@@ -69,17 +74,20 @@ public class MySpaceNewsTabPage extends MySpaceBasePage {
         tag.click();
     }
 
+    @Step("Get all available tags")
     public List<String> getAllTags() {
         return tags.stream()
                 .map(WebElement::getText)
                 .toList();
     }
 
+    @Step("Click on Add News button")
     public void clickAddNews() {
         waitUntilClickable(addNewsButton);
         addNewsButton.click();
     }
 
+    @Step("Get total news count from My Space News tab")
     public int getNewsCount() {
         waitUntilVisible(newsCountLabel);
         String text = newsCountLabel.getText().trim();
@@ -87,6 +95,7 @@ public class MySpaceNewsTabPage extends MySpaceBasePage {
         return Integer.parseInt(numberOnly);
     }
 
+    @Step("Click on Favourites filter")
     public void clickFavourites() {
         waitUntilClickable(favouritesButton);
         favouritesButton.click();

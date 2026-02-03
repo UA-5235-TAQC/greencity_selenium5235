@@ -2,6 +2,7 @@ package org.greencity.ui.pages.MySpace;
 
 import java.util.List;
 
+import io.qameta.allure.Step;
 import org.greencity.ui.components.MySpace.NoDataComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -36,6 +37,7 @@ public class MySpaceEventsTabPage extends MySpaceBasePage {
     }
 
 
+    @Step("Get number of events in My Space Events tab")
     public int getEventsCount() {
         wait.until(ExpectedConditions.or(
                 ExpectedConditions.visibilityOfAllElements(eventsList),
@@ -45,7 +47,8 @@ public class MySpaceEventsTabPage extends MySpaceBasePage {
         }
         return eventsList.size();
     }
-
+    
+    @Step("Get list of events from My Space Events tab")
     public List<WebElement> getEvents() {
         wait.until(ExpectedConditions.or(
                 ExpectedConditions.visibilityOfAllElements(eventsList),
@@ -53,16 +56,19 @@ public class MySpaceEventsTabPage extends MySpaceBasePage {
         return eventsList;
     }
 
+    @Step("Click on Add Event button")
     public void clickAddEvent() {
         wait.until(ExpectedConditions.elementToBeClickable(addEventButton));
         addEventButton.click();
     }
 
+    @Step("Click on Join Event button")
     public void clickJoinEvent() {
         wait.until(ExpectedConditions.elementToBeClickable(joinEventButton));
         joinEventButton.click();
     }
 
+    @Step("Set 'Online' filter to {enabled}")
     public void setOnline(boolean enabled) {
         wait.until(ExpectedConditions.elementToBeClickable(onlineCheckbox));
         if (onlineCheckbox.isSelected() != enabled) {
@@ -70,6 +76,7 @@ public class MySpaceEventsTabPage extends MySpaceBasePage {
         }
     }
 
+    @Step("Set 'Offline' filter to {enabled}")
     public void setOffline(boolean enabled) {
         wait.until(ExpectedConditions.elementToBeClickable(offlineCheckbox));
         if (offlineCheckbox.isSelected() != enabled) {
@@ -77,6 +84,7 @@ public class MySpaceEventsTabPage extends MySpaceBasePage {
         }
     }
 
+    @Step("Get 'No Data' component")
     public NoDataComponent getNoDataComponent() {
         return noDataComponent;
     }
