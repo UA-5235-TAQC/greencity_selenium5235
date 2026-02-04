@@ -253,7 +253,7 @@ public class CreateNewsFormVisibilityTestEN extends BaseTestRunner {
                 "News title on Preview page should match entered title");
         Assert.assertFalse(preview.getTagItems().isEmpty(),
                 "Tags list should not be empty on Preview page");
-        String expectedTag = EcoNewsTag.getEn(TEST_TAGS).getFirst();
+        String expectedTag = EcoNewsTag.getEn(TEST_TAGS).get(0);
         List<String> previewTags = preview.getTagTexts();
         Assert.assertTrue(previewTags.contains(expectedTag),
                 "Preview page should contain tag: " + expectedTag);

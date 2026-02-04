@@ -50,7 +50,7 @@ public class MySpaceNewsTabPage extends MySpaceBasePage {
         if (news.isEmpty()) {
             throw new NoSuchElementException("No news found on the page");
         }
-        return news.getFirst();
+        return news.get(0);
     }
 
     @Step("Get news item with ID: {newsId}")

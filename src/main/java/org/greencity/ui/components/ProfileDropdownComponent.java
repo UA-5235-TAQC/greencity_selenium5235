@@ -19,7 +19,7 @@ public class ProfileDropdownComponent extends BaseComponent {
     @Step("Open notifications")
     public void openNotifications() {
         waitUntilVisible(links);
-        links.getFirst().click();
+        links.get(0).click();
     }
 
     @Step("Open personal account page")
@@ -31,6 +31,6 @@ public class ProfileDropdownComponent extends BaseComponent {
     @Step("Click Sign Out")
     public void signOut() {
         waitUntilVisible(links);
-        links.getLast().click();
+        links.get(links.size() - 1).click();
     }
 }
