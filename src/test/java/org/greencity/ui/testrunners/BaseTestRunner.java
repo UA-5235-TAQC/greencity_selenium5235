@@ -3,17 +3,16 @@ package org.greencity.ui.testrunners;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.greencity.ui.pages.BasePage;
 import org.greencity.ui.pages.MySpace.MySpaceHabitsTabPage;
+import org.greencity.utils.TestListener;
 import org.greencity.utils.TestValueProvider;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.*;
 
 import java.time.Duration;
 
+@Listeners({TestListener.class})
 public class BaseTestRunner {
     protected static TestValueProvider testValueProvider;
     protected WebDriver driver;
@@ -80,5 +79,9 @@ public class BaseTestRunner {
                 .waitUntilOpened();
 
         return mySpace;
+    }
+
+    public WebDriver getDriver() {
+        return driver;
     }
 }
