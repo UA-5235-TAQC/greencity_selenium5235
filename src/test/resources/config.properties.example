@@ -1,0 +1,31 @@
+# GreenCity Test Configuration Template
+# Copy this file to config.properties and fill in your values
+# config.properties is in .gitignore and will not be committed
+
+# Base URL for GreenCity UI
+base.ui.greencity.url=https://www.greencity.cx.ua
+
+# Test User Credentials
+# These should be credentials for a test user account
+user.name=testuser
+user.email=testuser@example.com
+user.password=testpassword123
+user.id=12345
+
+# User Profile Settings
+user.location=Kyiv
+user.rating=100
+
+# Test Configuration
+# Implicit wait time in seconds (default: 5)
+implicitlyWait=5
+
+# Headless mode: true or false
+# When running in CI (GitHub Actions), this defaults to true
+# Set to false to see the browser during test execution
+headless.mode=true
+
+# Notes:
+# - DO NOT commit config.properties with real credentials
+# - For CI/CD, use environment variables or secrets management
+# - You can override any property via system properties, e.g.: -Duser.name=myuser

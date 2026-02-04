@@ -2,6 +2,12 @@
 
 This repository contains UI tests for the GreenCity project using Selenium and Maven.
 
+## 🔒 Security
+
+This project has undergone a comprehensive security audit. See [SECURITY.md](SECURITY.md) for details.
+
+**Latest Audit:** February 2026 - [View Audit Report](AUDIT_REPORT.md)
+
 ## Requirements
 
 - Java 21 (JDK)
