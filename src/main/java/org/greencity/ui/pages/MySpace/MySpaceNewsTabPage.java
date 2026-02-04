@@ -3,6 +3,7 @@ package org.greencity.ui.pages.MySpace;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 import org.greencity.ui.components.MySpace.MySpaceNewsItemComponent;
 import org.openqa.selenium.WebDriver;
@@ -78,7 +79,7 @@ public class MySpaceNewsTabPage extends MySpaceBasePage {
     public List<String> getAllTags() {
         return tags.stream()
                 .map(WebElement::getText)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     @Step("Click on Add News button")

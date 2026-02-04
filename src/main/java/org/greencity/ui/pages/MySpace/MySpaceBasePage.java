@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 public class MySpaceBasePage extends BasePage {
 
@@ -103,7 +104,7 @@ public class MySpaceBasePage extends BasePage {
         if (total == 0) {
             return Collections.emptyList();
         }
-        return todoList.stream().map(WebElement::getText).toList();
+        return todoList.stream().map(WebElement::getText).collect(Collectors.toList());
     }
 
     @Step("Get list of tabs")

@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class NewsPreviewPage extends BasePage {
 
@@ -76,7 +77,7 @@ public class NewsPreviewPage extends BasePage {
         return getTagItems().stream()
                 .map(WebElement::getText)
                 .map(String::trim)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     @Step("Getting the author's name")

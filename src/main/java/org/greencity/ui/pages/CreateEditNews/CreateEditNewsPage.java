@@ -131,12 +131,12 @@ public class CreateEditNewsPage extends BasePage {
         return getTagItems().stream()
                 .filter(TagItem::isSelected)
                 .map(TagItem::getName)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     @Step("Get list of all tags")
     public List<String> getAllTags() {
-        return getTagItems().stream().map(TagItem::getName).toList();
+        return getTagItems().stream().map(TagItem::getName).collect(Collectors.toList());
     }
 
     @Step("Remove tag: {tagName}")

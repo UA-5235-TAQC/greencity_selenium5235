@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class NewsListItemComponent extends BaseComponent {
     @FindBy(css = ".list-image-content")
@@ -59,10 +60,10 @@ public class NewsListItemComponent extends BaseComponent {
     public boolean hasTags(List<String> tagNames) {
         List<String> displayedTags = tagElements.stream()
                 .map(tag -> tag.getText().replace("|", "").trim())
-                .toList();
+                .collect(Collectors.toList());
 
         // NOTE: tag names are capitalized, but in NewsListItemComponent they are displayed in uppercase
-        List<String> expectedTags = tagNames.stream().map(String::toUpperCase).toList();
+        List<String> expectedTags = tagNames.stream().map(String::toUpperCase).collect(Collectors.toList());
 
         return displayedTags.size() == expectedTags.size()
                 && expectedTags.stream().allMatch(displayedTags::contains);

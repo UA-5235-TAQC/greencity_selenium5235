@@ -12,6 +12,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class EcoNewsPage extends BasePage {
     @FindBy(css = "h1.main-header")
@@ -122,7 +123,7 @@ public class EcoNewsPage extends BasePage {
     public List<TagItem> getAllTags() {
         return  tags.findElements(By.cssSelector("button.tag-button")).stream()
                 .map(tag -> new TagItem(driver, tag))
-                .toList();
+                .collect(Collectors.toList());
     }
 
     @Step("Remove all selected tags")
@@ -153,7 +154,7 @@ public class EcoNewsPage extends BasePage {
     public List<NewsListItemComponent> getNewsCards() {
         return cards.findElements(By.cssSelector("li")).stream()
                 .map(card -> new NewsListItemComponent(driver, card))
-                .toList();
+                .collect(Collectors.toList());
     }
 
     @Step("Get a news card by index")

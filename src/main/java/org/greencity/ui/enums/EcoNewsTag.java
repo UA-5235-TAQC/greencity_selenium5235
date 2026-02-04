@@ -2,6 +2,7 @@ package org.greencity.ui.enums;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public enum EcoNewsTag {
     NEWS("News", "Новини"),
@@ -33,7 +34,7 @@ public enum EcoNewsTag {
     public static List<String> getAllByLocale(String locale) {
         return Arrays.stream(values())
                 .map(tag -> tag.getByLocale(locale))
-                .toList();
+                .collect(Collectors.toList());
     }
 
     public static List<String> getAllEn() {
@@ -47,7 +48,7 @@ public enum EcoNewsTag {
     public static List<String> getByLocale(List<EcoNewsTag> tags, String locale) {
         return tags.stream()
                 .map(tag -> tag.getByLocale(locale))
-                .toList();
+                .collect(Collectors.toList());
     }
 
     public static List<String> getEn(List<EcoNewsTag> tags) {
