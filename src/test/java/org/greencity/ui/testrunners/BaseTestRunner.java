@@ -3,7 +3,8 @@ package org.greencity.ui.testrunners;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.greencity.ui.pages.BasePage;
 import org.greencity.ui.pages.MySpace.MySpaceHabitsTabPage;
-import org.greencity.utils.TestListener;
+import org.greencity.utils.DriverManager;
+import org.greencity.utils.BaseAllureListener;
 import org.greencity.utils.TestValueProvider;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -12,10 +13,15 @@ import org.testng.annotations.*;
 
 import java.time.Duration;
 
-@Listeners({TestListener.class})
+@Listeners(BaseAllureListener.class)
 public class BaseTestRunner {
     protected static TestValueProvider testValueProvider;
-    protected WebDriver driver;
+    public WebDriver driver;
+
+
+    protected WebDriver getDriver() {
+        return DriverManager.getDriver();
+    }
 
     @BeforeSuite(alwaysRun = true)
     public void beforeSuite() {
@@ -23,7 +29,7 @@ public class BaseTestRunner {
         testValueProvider = new TestValueProvider();
     }
 
-    public void initDriver() {
+    public WebDriver initDriver() {
         ChromeOptions options = new ChromeOptions();
         // Allow remote origins (used by newer Chrome/Chromedriver combinations)
         options.addArguments("--remote-allow-origins=*");
@@ -38,35 +44,29 @@ public class BaseTestRunner {
             // use new headless mode when available
             options.addArguments("--headless=new");
         }
-
-        driver = new ChromeDriver(options);
+        WebDriver driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         Long implicitlyWait = testValueProvider.getImplicitlyWait();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(implicitlyWait));
+        return driver;
     }
 
-    @BeforeClass
-    public void beforeClass() {
-        System.out.println("beforeClass in BaseTestRunner");
-        System.out.println("getBaseUIGreenCityUrl: " + testValueProvider.getBaseUIGreenCityUrl());
-        initDriver();
-        System.out.println("driver: " + driver.toString());
+    @BeforeMethod(alwaysRun = true)
+    public void setUp() {
+        WebDriver driver = initDriver();
+        DriverManager.setDriver(driver);
         driver.get(testValueProvider.getBaseUIGreenCityUrl());
     }
 
-    @AfterClass
-    public void afterClass() {
+    @AfterMethod(alwaysRun = true)
+    public void tearDown() {
+        WebDriver driver = DriverManager.getDriver();
         if (driver != null) {
             driver.quit();
         }
+        DriverManager.removeDriver();
     }
 
-    @AfterSuite(alwaysRun = true)
-    public void afterSuite() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
 
     public MySpaceHabitsTabPage loginUser(BasePage basePage) {
         MySpaceHabitsTabPage mySpace = basePage
@@ -81,7 +81,4 @@ public class BaseTestRunner {
         return mySpace;
     }
 
-    public WebDriver getDriver() {
-        return driver;
-    }
 }

@@ -55,6 +55,11 @@ public class SignInModal extends AuthModalBase {
         enterEmail(email);
         enterPassword(password);
         clickSubmit();
+        try {
+            Thread.sleep(1000); // Wait for modal to close
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         return new MySpaceHabitsTabPage(driver);
     }
 
