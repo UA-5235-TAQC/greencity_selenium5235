@@ -17,17 +17,13 @@ public class SourceFieldValidationTest extends BaseTestRunner {
 
     private CreateNewsPage createNewsPage;
 
-    @BeforeClass
-    public void LoginUser() {
-        HomePage homePage = new HomePage(driver);
-        loginUser(homePage);
-        createNewsPage = homePage.getHeader()
-                .clickEcoNewsLink()
-                .clickCreateNews();
-    }
     @BeforeMethod
     public void beforeMethod() {
-        createNewsPage = createNewsPage.open();
+
+        createNewsPage = LoginUser()
+                .getHeader()
+                .clickEcoNewsLink()
+                .clickCreateNews();
     }
 
     @Test

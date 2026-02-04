@@ -15,17 +15,13 @@ public class MainTextFieldValidationTest extends BaseTestRunner {
     private CreateNewsPage createNewsPage;
     private static String tooLongText = "A".repeat(100);
 
-    @BeforeClass
-    public void LoginUser() {
-        HomePage homePage = new HomePage(driver);
-        loginUser(homePage);
-        createNewsPage = homePage.getHeader().clickEcoNewsLink().clickCreateNews();
-        createNewsPage.getHeader().changeToEN();
-    }
-
     @BeforeMethod
     public void beforeMethod() {
-        createNewsPage = createNewsPage.open().reload();
+        createNewsPage = LoginUser()
+                .getHeader()
+                .changeToEN()
+                .clickEcoNewsLink()
+                .clickCreateNews();
         createNewsPage.enterTitle("Test");
         createNewsPage.clickTagByName(EcoNewsTag.NEWS.getEn());
     }

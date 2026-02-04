@@ -10,9 +10,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+
     env:
       CI: "true"
       CHROME_BIN: /usr/bin/google-chrome-stable
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -24,23 +26,23 @@ jobs:
           java-version: '21'
           cache: 'maven'
 
+      # cache тут зайвий, але не шкодить
       - name: Cache Maven local repository
         uses: actions/cache@v4
         with:
-          path: |
-            ~/.m2/repository
+          path: ~/.m2/repository
           key: maven-${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             maven-${{ runner.os }}-
 
-      - name: Install Google Chrome and dependencies
+      - name: Install Google Chrome
         run: |
           sudo apt-get update
-          sudo apt-get install -y wget gnupg ca-certificates lsb-release
+          sudo apt-get install -y wget gnupg ca-certificates
           wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-          echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+          echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" \
+            | sudo tee /etc/apt/sources.list.d/google-chrome.list
           sudo apt-get update
-          # Install Chrome and a minimal set of libraries; avoid libasound2 which can be virtual on some runners
           sudo apt-get install -y --no-install-recommends \
             google-chrome-stable \
             fonts-liberation \
@@ -48,12 +50,31 @@ jobs:
             libxss1 \
             libatk-bridge2.0-0 \
             libgtk-3-0
+
       - name: Confirm Chrome
         run: |
-          which google-chrome-stable || which google-chrome
-          google-chrome-stable --version || google-chrome --version
+          google-chrome-stable --version
 
-      - name: Run Maven tests (headless)
-        run: mvn -B -Dheadless.mode=true test
+      - name: Run Maven tests (FULL LOGS)
+        run: |
+          mvn clean test \
+            -DsuiteXml=src/test/resources/testng.xml \
+            -Dsurefire.useFile=false \
+            -DtrimStackTrace=false
         env:
           BASE_UI_GREEN_CITY_URL: ${{ secrets.BASE_UI_GREEN_CITY_URL }}
+          USER_NAME: ${{ secrets.USER_NAME }}
+          USER_EMAIL: ${{ secrets.USER_EMAIL }}
+          USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
+          USER_ID: ${{ secrets.USER_ID }}
+          IMPLICITLY_WAIT: ${{ secrets.IMPLICITLY_WAIT }}
+          USER_LOCATION: ${{ secrets.USER_LOCATION }}
+          USER_RATE: ${{ secrets.USER_RATE }}
+          HEADLESS_MODE: ${{ secrets.HEADLESS_MODE }}
+
+      - name: Upload Allure results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: target/allure-results

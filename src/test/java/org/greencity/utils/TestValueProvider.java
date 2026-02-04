@@ -23,72 +23,66 @@ public class TestValueProvider {
             return properties.getProperty("base.ui.greencity.url");
         }
 
-        return System.getProperty("BASE_UI_GREEN_CITY_URL");
+        return System.getenv("BASE_UI_GREEN_CITY_URL");
     }
 
-    // Added: generic getter that reads from config.properties when available,
-    // otherwise falls back to a system property with the same key.
-    public String get(String key) {
-        if (properties != null) {
-            return properties.getProperty(key);
-        }
-        return System.getProperty(key);
-    }
 
     // Convenience accessors for values present in src/test/resources/config.properties
     public String getUserName() {
-        return get("user.name");
+        if (properties != null) {
+            return properties.getProperty("user.name");
+        }
+        return System.getenv("USER_NAME");
     }
 
-    public String getUserEmail() { return get("user.email"); }
+    public String getUserEmail() {
+        if (properties != null) {
+            return properties.getProperty("user.email");
+        }
+        return System.getenv("USER_EMAIL");
+    }
 
     public String getUserPassword() {
-        return get("user.password");
+        if (properties != null) {
+            return properties.getProperty("user.password");
+        }
+        return System.getenv("USER_PASSWORD");
     }
 
     public String getUserId() {
-        return get("user.id");
+
+        if (properties != null) {
+            return properties.getProperty("user.id");
+        }
+        return System.getenv("USER_ID");
     }
 
     public Long getImplicitlyWait() {
-        String value = get("implicitlyWait");
-        if (value != null) {
-            try {
-                return Long.valueOf(value);
-            } catch (NumberFormatException ignored) {
-            }
+
+        if (properties != null) {
+            return Long.parseLong(properties.getProperty("implicitlyWait"));
         }
-        // sensible default to avoid failures when config isn't present
-        return 5L;
+        return Long.parseLong(System.getenv("IMPLICITLY_WAIT"));
     }
 
     public String getUserLocation() {
-        return get("user.location");
+        if (properties != null) {
+            return properties.getProperty("user.location");
+        }
+        return System.getenv("USER_LOCATION");
     }
 
     public Integer getUserRate() {
-        String value = get("user.rating");
-        if (value != null) {
-            try {
-                return Integer.parseInt(value);
-            } catch (NumberFormatException ignored) {
-            }
+        if (properties != null) {
+            return Integer.parseInt(properties.getProperty("user.rating"));
         }
-        return 0;
+        return Integer.parseInt(System.getenv("USER_RATING"));
     }
 
     public boolean isHeadlessMode() {
-        String value = get("headless.mode");
-        if (value != null && !value.isEmpty()) {
-            return Boolean.parseBoolean(value);
+        if (properties != null) {
+            return Boolean.parseBoolean(properties.getProperty("headless.mode"));
         }
-        // Default to headless in CI environments (GitHub Actions sets CI=true)
-        String ci = System.getenv("CI");
-        if (ci != null && !ci.isEmpty()) {
-            return true;
-        }
-        return false;
+        return Boolean.parseBoolean(System.getenv("HEADLESS_MODE"));
     }
-
-
 }

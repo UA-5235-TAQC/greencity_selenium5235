@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="TestSuite" parallel="methods" thread-count="2" verbose="1">
+    <!--
+      Suite that runs all tests found under the test classes package.
+      Adjust thread-count as needed for CI/runner resources.
+    -->
+    <test name="AllTests">
+        <classes>
+            <class name="org.greencity.ui.CreateNews.CancelButtonBehaviorTest"/>
+            <class name="org.greencity.ui.CreateNews.CreateNewsFormVisibilityTestEN"/>
+            <class name="org.greencity.ui.CreateNews.CreateNewsFormVisibilityTestUA"/>
+            <class name="org.greencity.ui.CreateNews.MainTextFieldValidationTest"/>
+            <class name="org.greencity.ui.CreateNews.SourceFieldValidationTest"/>
+            <class name="org.greencity.ui.CreateNews.TitleFieldValidation"/>
+
+            <class name="org.greencity.ui.EditNews.EditNewsFormVisibilityTestEN"/>
+            <class name="org.greencity.ui.EditNews.EditNewsFormVisibilityTestUA"/>
+
+            <class name="org.greencity.ui.CancelEditingTest"/>
+            <class name="org.greencity.ui.CreateNewsPageTest"/>
+            <class name="org.greencity.ui.FirstTest"/>
+            <class name="org.greencity.ui.FirstTestWithUser"/>
+            <class name="org.greencity.ui.PreviewPageTest"/>
+            <class name="org.greencity.ui.TagSelectionTest"/>
+
+        </classes>
+    </test>
+</suite>

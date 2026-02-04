@@ -15,17 +15,13 @@ public class TitleFieldValidation extends BaseTestRunner {
     private CreateNewsPage createNewsPage;
 
 
-    @BeforeClass
-    public void LoginUser() {
-        HomePage homePage = new HomePage(driver);
-        loginUser(homePage);
-        createNewsPage = new CreateNewsPage(driver);
-    }
 
     @BeforeMethod
     public void beforeMethod() {
-        createNewsPage = createNewsPage.open();
-        createNewsPage.getHeader().changeToEN();
+        createNewsPage = LoginUser()
+                .getHeader()
+                .clickEcoNewsLink()
+                .clickCreateNews();
     }
 
 

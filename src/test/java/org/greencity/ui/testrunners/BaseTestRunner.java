@@ -1,23 +1,30 @@
 package org.greencity.ui.testrunners;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.greencity.ui.pages.BasePage;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import org.greencity.ui.pages.HomePage;
 import org.greencity.ui.pages.MySpace.MySpaceHabitsTabPage;
+import org.greencity.utils.DriverManager;
+import org.greencity.utils.BaseAllureListener;
 import org.greencity.utils.TestValueProvider;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.*;
 
 import java.time.Duration;
 
+@Listeners(BaseAllureListener.class)
 public class BaseTestRunner {
     protected WebDriver driver;
     protected static TestValueProvider testValueProvider;
+
+
+    protected WebDriver getDriver() {
+        return DriverManager.getDriver();
+    }
 
     @BeforeSuite(alwaysRun = true)
     public void beforeSuite() {
@@ -25,9 +32,14 @@ public class BaseTestRunner {
         testValueProvider = new TestValueProvider();
     }
 
-    public void initDriver() {
+    public WebDriver initDriver() {
         ChromeOptions options = new ChromeOptions();
+        if (testValueProvider.isHeadlessMode()) {
+            // use new headless mode when available
+            options.addArguments("--headless=new");
+        }
         // Allow remote origins (used by newer Chrome/Chromedriver combinations)
+        options.addArguments("--window-size=1920,1080");
         options.addArguments("--remote-allow-origins=*");
         options.addArguments("--disable-popups-blocking");
         options.addArguments("--no-sandbox");
@@ -36,55 +48,39 @@ public class BaseTestRunner {
         options.addArguments("--disable-gpu");
         options.addArguments("--disable-extensions");
 
-        if (testValueProvider.isHeadlessMode()) {
-            // use new headless mode when available
-            options.addArguments("--headless=new");
-        }
 
-        // If CI provides a CHROME_BIN (set in workflow), use it so ChromeOptions points to the installed binary
-        String chromeBin = System.getenv("CHROME_BIN");
-        if (chromeBin != null && !chromeBin.isEmpty()) {
-            options.setBinary(chromeBin);
-        }
-
-        driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
+        WebDriver driver = new ChromeDriver(options);
+        Dimension dimension = new Dimension(1920, 1080);
+        driver.manage().window().setSize(dimension);
         Long implicitlyWait = testValueProvider.getImplicitlyWait();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(implicitlyWait));
+        return driver;
     }
 
-    @BeforeClass
-    public void beforeClass() {
-        System.out.println("beforeClass in BaseTestRunner");
-        System.out.println("getBaseUIGreenCityUrl: " + testValueProvider.getBaseUIGreenCityUrl());
-        initDriver();
-        System.out.println("driver: "+driver.toString());
+    @BeforeMethod(alwaysRun = true)
+    public void setUp() {
+        driver = initDriver();
+        DriverManager.setDriver(driver);
         driver.get(testValueProvider.getBaseUIGreenCityUrl());
     }
 
-    @AfterClass
-    public void afterClass() {
+    @AfterMethod(alwaysRun = true)
+    public void tearDown() {
+        WebDriver driver = DriverManager.getDriver();
         if (driver != null) {
             driver.quit();
         }
+        DriverManager.removeDriver();
     }
 
-    @AfterSuite(alwaysRun = true)
-    public void afterSuite() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
-
-    public MySpaceHabitsTabPage loginUser(BasePage basePage) {
-        MySpaceHabitsTabPage mySpace = basePage.open()
+    @Severity(SeverityLevel.CRITICAL)
+    protected MySpaceHabitsTabPage LoginUser() {
+        return new HomePage(getDriver())
+                .open()
                 .getHeader()
+                .changeToEN()
                 .clickSignInLink()
-                .enterEmail(testValueProvider.getUserEmail())
-                .enterPassword(testValueProvider.getUserPassword())
-                .clickSubmit()
-                .waitUntilOpened();
-
-        return mySpace;
+                .loginAs(testValueProvider.getUserEmail(), testValueProvider.getUserPassword());
     }
+
 }

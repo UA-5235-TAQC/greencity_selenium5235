@@ -11,10 +11,6 @@ import org.testng.annotations.Test;
 
 public class FirstTest extends BaseTestRunner {
 
-    @BeforeMethod
-    public void beforeMethod() {
-        driver.get(testValueProvider.getBaseUIGreenCityUrl());
-    }
 
     @Test
     public void isLogin() {
