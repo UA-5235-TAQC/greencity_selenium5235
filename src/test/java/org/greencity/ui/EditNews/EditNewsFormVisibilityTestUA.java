@@ -31,7 +31,7 @@ import static org.greencity.utils.NewsTestData.*;
 public class EditNewsFormVisibilityTestUA extends BaseTestRunner {
 
     private EditNewsPage editNewsPage;
-    private long newsId = 888;
+    private final long newsId = 888;
 
     @Description("A test that allows a given user to log in to the system")
     @Severity(SeverityLevel.CRITICAL)
@@ -291,6 +291,7 @@ public class EditNewsFormVisibilityTestUA extends BaseTestRunner {
         editNewsPage.editNews(TEST_TITLE_UA, EcoNewsTag.getUa(TEST_TAGS), TEST_SOURCE, TEST_CONTENT_UA, TEST_FILEPATH);
         editNewsPage.clickEdit();
         UbsCourierPage ubsCourierPage = new UbsCourierPage(driver);
+        ubsCourierPage.getHeader().changeToUK();
         Assert.assertTrue(ubsCourierPage.isPageOpened(),
                 "User should be directed to UbsCourierPage");
         String message = ubsCourierPage.getMessageText();
