@@ -21,17 +21,11 @@ public class TagSelectionTest extends BaseTestRunner {
 
     private EcoNewsPage ecoNewsPage;
 
-    @BeforeClass
-    public void loginUserAndChangeLanguage() {
-        HomePage homePage = new HomePage(driver);
-        MySpaceHabitsTabPage mySpace = loginUser(homePage);
-        mySpace.getHeader().changeToEN();
-    }
 
     @BeforeMethod
     public void openEcoNewsPage() {
-        ecoNewsPage = new EcoNewsPage(driver).open();
-        Assert.assertTrue(ecoNewsPage.isPageOpened(), "Eco News page should be opened");
+        LoginUser();
+        ecoNewsPage = new EcoNewsPage(getDriver()).open();
     }
 
     @AfterMethod

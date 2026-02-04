@@ -33,19 +33,10 @@ public class EditNewsFormVisibilityTestUA extends BaseTestRunner {
     private EditNewsPage editNewsPage;
     private final long newsId = 888;
 
-    @Description("A test that allows a given user to log in to the system")
-    @Severity(SeverityLevel.CRITICAL)
-    @BeforeClass
-    public void LoginUser() {
-        HomePage homePage = new HomePage(driver);
-        loginUser(homePage);
-        editNewsPage = new EditNewsPage(driver, newsId);
-    }
-
     @BeforeMethod
     public void beforeMethod() {
-        editNewsPage = editNewsPage.open();
-        editNewsPage.getHeader().changeToUK();
+        LoginUser().getHeader().changeToUK();;
+        editNewsPage = new EditNewsPage(driver, newsId).open();
     }
 
     @Tag("Edit")

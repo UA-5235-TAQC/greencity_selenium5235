@@ -1,6 +1,7 @@
 package org.greencity.ui.CreateNews;
 
 import org.greencity.ui.components.CreateEditNewsPage.CancelModalComponent;
+import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
 import org.greencity.ui.pages.EcoNewsPage;
 import org.greencity.ui.pages.HomePage;
@@ -26,22 +27,13 @@ public class CancelButtonBehaviorTest extends BaseTestRunner {
 
         private CreateNewsPage createNewsPage;
 
-        @BeforeClass
-        public void LoginUser() {
-                HomePage homePage = new HomePage(driver);
-                loginUser(homePage);
-                createNewsPage = homePage
-                        .getHeader()
-                        .clickEcoNewsLink()
-                        .clickCreateNews();
-                createNewsPage
-                        .getHeader()
-                        .changeToEN();
-        }
-
         @BeforeMethod
         public void beforeMethod() {
-                createNewsPage = createNewsPage.open();
+                createNewsPage = LoginUser()
+                        .getHeader()
+                        .changeToEN()
+                        .clickEcoNewsLink()
+                        .clickCreateNews();
         }
 
         @Test

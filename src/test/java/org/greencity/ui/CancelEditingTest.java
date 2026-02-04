@@ -15,16 +15,10 @@ public class CancelEditingTest extends BaseTestRunner {
 
     private EditNewsPage editNewsPage;
 
-    @BeforeClass
-    public void LoginUser() {
-        HomePage homePage = new HomePage(driver);
-        loginUser(homePage);
-        editNewsPage = new EditNewsPage(driver, 818);
-    }
-
     @BeforeMethod
     public void beforeMethod() {
-        editNewsPage = editNewsPage.open();
+        LoginUser();
+        editNewsPage = new EditNewsPage(driver, 818).open();
     }
 
     @Test

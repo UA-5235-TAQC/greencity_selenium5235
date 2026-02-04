@@ -63,7 +63,9 @@ public class HomePage extends BasePage {
     @Step("Open home page")
     @Override
     public HomePage open() {
+
         driver.get(getBaseHost());
+        isPageOpened();
         return new HomePage(driver);
     }
 

@@ -30,20 +30,14 @@ import static org.greencity.utils.NewsTestData.*;
 public class EditNewsFormVisibilityTestEN extends BaseTestRunner {
 
     private EditNewsPage editNewsPage;
-    private long newsId = 830;
+    private final long newsId = 830;
 
-    @Description("A test that allows a given user to log in to the system")
-    @Severity(SeverityLevel.CRITICAL)
-    @BeforeClass
-    public void LoginUser() {
-        HomePage homePage = new HomePage(driver);
-        loginUser(homePage);
-        editNewsPage = new EditNewsPage(driver, newsId);
-    }
+
 
     @BeforeMethod
     public void beforeMethod() {
-        editNewsPage = editNewsPage.open();
+        LoginUser();
+        editNewsPage = new EditNewsPage(driver, newsId).open();
         editNewsPage.getHeader().changeToEN();
     }
 

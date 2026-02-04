@@ -30,23 +30,17 @@ public class CreateNewsFormVisibilityTestUA extends BaseTestRunner {
     private CreateNewsPage createNewsPage;
 
     @Description("A test that allows a given user to log in to the system")
-    @Severity(SeverityLevel.CRITICAL)
-    @BeforeClass
-    public void LoginUser() {
-        HomePage homePage = new HomePage(driver);
-        loginUser(homePage);
-        createNewsPage = homePage.open().getHeader().clickEcoNewsLink().clickCreateNews();
-    }
-
     @BeforeMethod
     public void beforeMethod() {
-        createNewsPage.getHeader().changeToUK();
+        LoginUser().getHeader()
+                .changeToUK()
+                .clickEcoNewsLink()
+                .clickCreateNews();
     }
 
     @Tag("Create")
     @Feature("Create news page")
     @Issue("3")
-    @TmsLink("https://github.com/UA-5235-TAQC/greencity_selenium5235/issues/3")
     @Description("Verify that the Create News form contains the particular fields in Ukrainian locale")
     @Severity(SeverityLevel.NORMAL)
     @Test

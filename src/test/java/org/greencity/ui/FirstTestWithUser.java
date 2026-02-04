@@ -4,26 +4,19 @@ import org.greencity.ui.pages.EcoNewsPage;
 import org.greencity.ui.pages.HomePage;
 import org.greencity.ui.pages.MySpace.MySpaceHabitsTabPage;
 import org.greencity.ui.testrunners.BaseTestRunner;
-import org.greencity.utils.BaseAllureListener;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-@Listeners(BaseAllureListener.class)
+
 public class FirstTestWithUser extends BaseTestRunner {
 
     HomePage homePage;
 
     @BeforeMethod
-    public void LoginUser() {
-        homePage = new HomePage(getDriver())
-                .open()
-                .getHeader()
-                .changeToEN()
-                .clickSignInLink()
-                .loginAs(testValueProvider.getUserEmail(), testValueProvider.getUserPassword())
+    public void navigateHomePage() {
+        homePage = LoginUser()
                 .getHeader()
                 .clickLogo();
     }
