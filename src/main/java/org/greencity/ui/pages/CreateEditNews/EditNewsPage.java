@@ -20,7 +20,7 @@ public class EditNewsPage extends CreateEditNewsPage {
     }
 
     @Override
-    @Step("Open Edit News page for news with ID: {newsId}")
+    @Step("Open Edit News page")
     public EditNewsPage open() {
         driver.get(getBaseHost() + "/news/create-news?id=" + newsId);
         return this;
