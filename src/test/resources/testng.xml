@@ -13,17 +13,16 @@
             <class name="org.greencity.ui.CreateNews.MainTextFieldValidationTest"/>
             <class name="org.greencity.ui.CreateNews.SourceFieldValidationTest"/>
             <class name="org.greencity.ui.CreateNews.TitleFieldValidation"/>
+            <class name="org.greencity.ui.CreateNews.CreateNewsPageTest"/>
+            <class name="org.greencity.ui.CreateNews.PreviewPageTest"/>
 
             <class name="org.greencity.ui.EditNews.EditNewsFormVisibilityTestEN"/>
             <class name="org.greencity.ui.EditNews.EditNewsFormVisibilityTestUA"/>
-
             <class name="org.greencity.ui.EditNews.CancelEditingTest"/>
-            <class name="org.greencity.ui.CreateNews.CreateNewsFormVisibilityTestUA.CreateNewsPageTest"/>
+
             <class name="org.greencity.ui.FirstTest"/>
             <class name="org.greencity.ui.FirstTestWithUser"/>
-            <class name="org.greencity.ui.CreateNews.MainTextFieldValidationTest.PreviewPageTest"/>
             <class name="org.greencity.ui.TagSelectionTest"/>
-
         </classes>
     </test>
 </suite>
