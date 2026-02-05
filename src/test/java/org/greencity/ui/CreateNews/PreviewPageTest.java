@@ -1,14 +1,11 @@
-package org.greencity.ui;
+package org.greencity.ui.CreateNews;
 
 
 import io.qameta.allure.*;
 import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
 import org.greencity.ui.pages.CreateEditNews.NewsPreviewPage;
-import org.greencity.ui.pages.HomePage;
-import org.greencity.ui.pages.MySpace.MySpaceHabitsTabPage;
 import org.greencity.ui.testrunners.BaseTestRunner;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 

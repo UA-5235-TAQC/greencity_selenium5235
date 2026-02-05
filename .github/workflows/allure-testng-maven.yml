@@ -2,9 +2,12 @@ name: CI
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [main]
   pull_request:
-    branches: [ main, master ]
+    branches: [main]
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -78,3 +81,30 @@ jobs:
         with:
           name: allure-results
           path: target/allure-results
+          if-no-files-found: warn
+
+      - name: Load test report history
+        uses: actions/checkout@v4
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Install Allure CLI
+        run: |
+          sudo apt-add-repository ppa:qameta/allure
+          sudo apt update
+          sudo apt install -y allure
+
+      - name: Build Allure report
+        run: |
+          allure generate target/allure-results -o allure-report --clean
+
+      - name: Publish Allure report
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-report
+          force_orphan: true

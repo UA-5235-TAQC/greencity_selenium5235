@@ -10,11 +10,9 @@ import org.greencity.ui.components.TagItem;
 import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.ui.pages.CreateEditNews.EditNewsPage;
 import org.greencity.ui.pages.CreateEditNews.NewsPreviewPage;
-import org.greencity.ui.pages.HomePage;
 import org.greencity.ui.pages.UbsCourierPage;
 import org.greencity.ui.testrunners.BaseTestRunner;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -35,14 +33,14 @@ public class EditNewsFormVisibilityTestUA extends BaseTestRunner {
 
     @BeforeMethod
     public void beforeMethod() {
-        LoginUser().getHeader().changeToUK();;
+        LoginUser();
         editNewsPage = new EditNewsPage(driver, newsId).open();
+        editNewsPage.getHeader().changeToUK();
     }
 
     @Tag("Edit")
     @Feature("Edit news page")
     @Issue("14")
-    @TmsLink("https://github.com/UA-5235-TAQC/greencity_selenium5235/issues/14")
     @Description("Verify that the Edit News form contains the particular fields in Ukrainian locale")
     @Severity(SeverityLevel.NORMAL)
     @Test
