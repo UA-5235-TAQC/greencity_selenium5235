@@ -90,6 +90,54 @@ jobs:
         with:
           ref: gh-pages
           path: gh-pages
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Ensure gh-pages branch exists (preserve history)
+        if: always()
+        env:
+          REPO: ${{ github.repository }}
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          # if checkout succeeded and .git exists, we have the branch with history
+          if [ -d "gh-pages/.git" ]; then
+            echo "gh-pages branch checked out with full history"
+            exit 0
+          fi
+
+          echo "gh-pages branch not found remotely — creating initial gh-pages branch"
+          # create a temporary clone so we can push an initial commit and establish the branch
+          git clone "https://x-access-token:${TOKEN}@github.com/${REPO}.git" gh-pages-tmp || true
+          if [ -d gh-pages-tmp ]; then
+            cd gh-pages-tmp
+            # If remote has gh-pages, checkout it; otherwise create initial commit on gh-pages
+            if git ls-remote --exit-code --heads origin gh-pages >/dev/null 2>&1; then
+              git fetch origin gh-pages
+              git checkout gh-pages
+            else
+              git checkout --orphan gh-pages
+              echo "<html><body><p>Initial gh-pages</p></body></html>" > index.html
+              git add index.html
+              git commit -m "Initialize gh-pages branch"
+              git push "https://x-access-token:${TOKEN}@github.com/${REPO}.git" gh-pages
+            fi
+            cd ..
+            rm -rf gh-pages-tmp
+          else
+            # fallback: create a minimal gh-pages dir locally and push
+            mkdir -p gh-pages
+            cd gh-pages
+            git init
+            git checkout -b gh-pages
+            echo "<html><body><p>Initial gh-pages</p></body></html>" > index.html
+            git add index.html
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "Initialize gh-pages branch"
+            git push "https://x-access-token:${TOKEN}@github.com/${REPO}.git" gh-pages
+            cd ..
+          fi
 
       - name: Install Allure CLI
         run: |
@@ -101,10 +149,19 @@ jobs:
         run: |
           allure generate target/allure-results -o allure-report --clean
 
+      - name: Copy Allure report into gh-pages
+        if: always()
+        run: |
+          # ensure gh-pages working tree exists and replace old report
+          mkdir -p gh-pages
+          rm -rf gh-pages/allure-report || true
+          cp -r allure-report gh-pages/
+          echo "Deployed on $(date -u)" > gh-pages/.deployinfo
+
       - name: Publish Allure report
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: allure-report
-          force_orphan: true
+          publish_dir: gh-pages
+          force_orphan: false
