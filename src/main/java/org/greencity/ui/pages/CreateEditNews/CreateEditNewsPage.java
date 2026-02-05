@@ -97,7 +97,6 @@ public class CreateEditNewsPage extends BasePage {
         return tagRootElements.stream().map(root -> new TagItem(driver, root)).collect(Collectors.toList());
     }
 
-
     private TagItem getTagByName(String tagName) {
         return getTagItems().stream()
                 .filter(tag -> tag.getName().equalsIgnoreCase(tagName))

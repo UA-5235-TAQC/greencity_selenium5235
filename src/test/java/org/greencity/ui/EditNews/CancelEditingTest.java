@@ -1,12 +1,10 @@
-package org.greencity.ui;
+package org.greencity.ui.EditNews;
 
 import org.greencity.ui.components.CreateEditNewsPage.CancelModalComponent;
-import org.greencity.ui.pages.HomePage;
 import org.greencity.ui.pages.CreateEditNews.EditNewsPage;
 import org.greencity.ui.pages.CreateEditNews.NewsPreviewPage;
 import org.greencity.ui.testrunners.BaseTestRunner;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
