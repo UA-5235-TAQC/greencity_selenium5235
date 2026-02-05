@@ -5,12 +5,9 @@ import org.greencity.ui.components.NewsListItemComponent;
 import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
 import org.greencity.ui.pages.EcoNewsPage;
-import org.greencity.ui.pages.HomePage;
-import org.greencity.ui.pages.MySpace.MySpaceHabitsTabPage;
 import org.greencity.ui.testrunners.BaseTestRunner;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -21,17 +18,11 @@ public class TagSelectionTest extends BaseTestRunner {
 
     private EcoNewsPage ecoNewsPage;
 
-    @BeforeClass
-    public void loginUserAndChangeLanguage() {
-        HomePage homePage = new HomePage(driver);
-        MySpaceHabitsTabPage mySpace = loginUser(homePage);
-        mySpace.getHeader().changeToEN();
-    }
 
     @BeforeMethod
     public void openEcoNewsPage() {
-        ecoNewsPage = new EcoNewsPage(driver).open();
-        Assert.assertTrue(ecoNewsPage.isPageOpened(), "Eco News page should be opened");
+        LoginUser();
+        ecoNewsPage = new EcoNewsPage(getDriver()).open();
     }
 
     @AfterMethod

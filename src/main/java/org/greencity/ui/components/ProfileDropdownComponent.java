@@ -1,5 +1,6 @@
 package org.greencity.ui.components;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -15,16 +16,19 @@ public class ProfileDropdownComponent extends BaseComponent {
         super(driver, rootElement);
     }
 
+    @Step("Open notifications")
     public void openNotifications() {
         waitUntilVisible(links);
         links.getFirst().click();
     }
 
+    @Step("Open personal account page")
     public void openPersonalAccount() {
         waitUntilVisible(links);
         links.get(1).click();
     }
 
+    @Step("Click Sign Out")
     public void signOut() {
         waitUntilVisible(links);
         links.getLast().click();

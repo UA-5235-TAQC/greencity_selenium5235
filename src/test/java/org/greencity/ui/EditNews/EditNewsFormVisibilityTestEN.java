@@ -1,5 +1,7 @@
 package org.greencity.ui.EditNews;
 
+import io.qameta.allure.*;
+import io.qameta.allure.testng.Tag;
 import org.greencity.ui.components.CreateEditNewsPage.CancelModalComponent;
 import org.greencity.ui.components.CreateEditNewsPage.ContentComponent;
 import org.greencity.ui.components.CreateEditNewsPage.ImageComponent;
@@ -7,14 +9,9 @@ import org.greencity.ui.components.TagItem;
 import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.ui.pages.CreateEditNews.EditNewsPage;
 import org.greencity.ui.pages.CreateEditNews.NewsPreviewPage;
-import org.greencity.ui.pages.EcoNewsPage;
-import org.greencity.ui.pages.HomePage;
 import org.greencity.ui.pages.UbsCourierPage;
 import org.greencity.ui.testrunners.BaseTestRunner;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -31,27 +28,21 @@ import static org.greencity.utils.NewsTestData.*;
 public class EditNewsFormVisibilityTestEN extends BaseTestRunner {
 
     private EditNewsPage editNewsPage;
-    private long newsId = 830;
-
-    @BeforeClass
-    public void LoginUser() {
-        HomePage homePage = new HomePage(driver);
-        loginUser(homePage);
-        editNewsPage = new EditNewsPage(driver, newsId);
-//        createNewsPage = homePage.open().getHeader().clickEcoNewsLink().clickCreateNews();
-//        new NewsTestData()
-//                .applyTo(createNewsPage);
-//        createNewsPage.clickPublish();
-//        editNewsPage = homePage.open().getHeader().clickMySpace().switchTo(MySpaceTab.NEWS).getFirstNews().click().clickEditButton();
-    }
+    private final long newsId = 830;
 
     @BeforeMethod
     public void beforeMethod() {
-        editNewsPage = editNewsPage.open();
+        LoginUser();
+        editNewsPage = new EditNewsPage(driver, newsId).open();
         editNewsPage.getHeader().changeToEN();
     }
 
-    @Test(description = "Verify that the Edit News form contains the particular fields in English locale")
+    @Tag("Edit")
+    @Feature("Edit news page")
+    @Issue("14")
+    @Description("Verify that the Edit News form contains the particular fields in English locale")
+    @Severity(SeverityLevel.NORMAL)
+    @Test
     public void verifyEditNewsFormFieldsVisibilityInEnglishLocale() {
 
         // 1. Title
@@ -336,6 +327,7 @@ public class EditNewsFormVisibilityTestEN extends BaseTestRunner {
         softAssert.assertEquals(cancelModal.getContinueEditingButtonText(), "Continue editing");
         softAssert.assertAll();
         cancelModal.clickYesCancel();
+        cancelModal.waitUntilClosed();
 
         editNewsPage = new EditNewsPage(driver, newsId).open();
         editNewsPage.getHeader().changeToEN();

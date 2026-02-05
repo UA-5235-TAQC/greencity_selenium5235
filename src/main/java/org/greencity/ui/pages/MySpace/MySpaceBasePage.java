@@ -1,5 +1,6 @@
 package org.greencity.ui.pages.MySpace;
 
+import io.qameta.allure.Step;
 import org.greencity.ui.components.MySpace.ProfilePanelComponent;
 import org.greencity.ui.enums.MySpaceTab;
 import org.greencity.ui.pages.BasePage;
@@ -32,7 +33,7 @@ public class MySpaceBasePage extends BasePage {
     protected WebElement userName;
     @FindBy(css = ".right-column .item")
     protected List<WebElement> todoList;
-    @FindBy(xpath = "//div[@role='tab']")
+    @FindBy(css = ".mat-mdc-tab-labels")
     protected List<WebElement> tabList;
     @FindBy(xpath = "//div[@role='tab' and @aria-selected='true']")
     protected WebElement activeTab;
@@ -46,45 +47,56 @@ public class MySpaceBasePage extends BasePage {
         super(driver);
     }
 
+    @Step("Open My Space Page")
     @Override
     public MySpaceBasePage open() {
+        driver.get(getBaseHost() + "/profile");
         return this;
     }
 
+    @Step("Check if My Space Page is opened")
     @Override
     public boolean isPageOpened() {
         return isVisible(profilePanel);
     }
 
+    @Step("Wait until My Space Page is loaded")
     @Override
     public MySpaceBasePage waitUntilOpened() {
+        waitUntilVisible(profilePanel);
         return this;
     }
 
+    @Step("Create Profile Component")
     public ProfilePanelComponent getProfilePanel() {
         return new ProfilePanelComponent(driver, profilePanel);
     }
 
+    @Step("Get fact of the day")
     public String getFactOfTheDay() {
         wait.until(ExpectedConditions.visibilityOf(factOfTheDay));
         return factOfTheDay.getText();
     }
 
+    @Step("Get user rating")
     public String getUserRating() {
         wait.until(ExpectedConditions.visibilityOf(userRating));
         return userRating.getText();
     }
 
+    @Step("Get user name")
     public String getUserName() {
         wait.until(ExpectedConditions.visibilityOf(userName));
         return userName.getText();
     }
 
+    @Step("Open edit profile page")
     public void openProfile() {
         WebElement clickableEditProfile = wait.until(ExpectedConditions.elementToBeClickable(editProfile));
         clickableEditProfile.click();
     }
 
+    @Step("Get list of to-do items")
     public List<String> getToDoItems() {
         String itemCount = wait.until(ExpectedConditions.visibilityOfElementLocated(toDoItemslocator)).getText();
         int total = Integer.parseInt(itemCount.replaceAll("\\D+", ""));
@@ -94,6 +106,7 @@ public class MySpaceBasePage extends BasePage {
         return todoList.stream().map(WebElement::getText).toList();
     }
 
+    @Step("Get list of tabs")
     public List<String> getTabList() {
         List<String> tabsList = new ArrayList<>();
         for (WebElement tab : tabList) {
@@ -104,11 +117,13 @@ public class MySpaceBasePage extends BasePage {
         return tabsList;
     }
 
+    @Step("Get active tab")
     public String getActiveTab() {
         wait.until(ExpectedConditions.visibilityOf(activeTab));
         return activeTab.getText();
     }
 
+    @Step("Switch to 'selected' tab")
     public MySpaceBasePage switchTo(MySpaceTab tab) {
         for (WebElement el : tabList) {
             wait.until(ExpectedConditions.visibilityOf(el));

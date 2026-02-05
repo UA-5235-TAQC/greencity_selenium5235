@@ -18,48 +18,71 @@ public class TestValueProvider {
     }
 
     public String getBaseUIGreenCityUrl() {
-        return properties != null ? properties.getProperty("base.ui.greencity.url") : System.getProperty("BASE_UI_GREEN_CITY_URL");
+
+        if (properties != null) {
+            return properties.getProperty("base.ui.greencity.url");
+        }
+
+        return System.getenv("BASE_UI_GREEN_CITY_URL");
     }
 
-    // Added: generic getter that reads from config.properties when available,
-    // otherwise falls back to a system property with the same key.
-    public String get(String key) {
-        if (properties != null) {
-            return properties.getProperty(key);
-        }
-        return System.getProperty(key);
-    }
 
     // Convenience accessors for values present in src/test/resources/config.properties
     public String getUserName() {
-        return get("user.name");
+        if (properties != null) {
+            return properties.getProperty("user.name");
+        }
+        return System.getenv("USER_NAME");
     }
 
-    public String getUserEmail() { return get("user.email"); }
+    public String getUserEmail() {
+        if (properties != null) {
+            return properties.getProperty("user.email");
+        }
+        return System.getenv("USER_EMAIL");
+    }
 
     public String getUserPassword() {
-        return get("user.password");
+        if (properties != null) {
+            return properties.getProperty("user.password");
+        }
+        return System.getenv("USER_PASSWORD");
     }
 
     public String getUserId() {
-        return get("user.id");
+
+        if (properties != null) {
+            return properties.getProperty("user.id");
+        }
+        return System.getenv("USER_ID");
     }
 
     public Long getImplicitlyWait() {
-        return Long.parseLong(get("implicitlyWait"), 10);
+
+        if (properties != null) {
+            return Long.parseLong(properties.getProperty("implicitlyWait"));
+        }
+        return Long.parseLong(System.getenv("IMPLICITLY_WAIT"));
     }
 
     public String getUserLocation() {
-        return get("user.location");
+        if (properties != null) {
+            return properties.getProperty("user.location");
+        }
+        return System.getenv("USER_LOCATION");
     }
 
     public Integer getUserRate() {
-        return Integer.parseInt(get("user.rating"));
+        if (properties != null) {
+            return Integer.parseInt(properties.getProperty("user.rating"));
+        }
+        return Integer.parseInt(System.getenv("USER_RATING"));
     }
 
     public boolean isHeadlessMode() {
-        return Boolean.parseBoolean(get("headless.mode"));
+        if (properties != null) {
+            return Boolean.parseBoolean(properties.getProperty("headless.mode"));
+        }
+        return Boolean.parseBoolean(System.getenv("HEADLESS_MODE"));
     }
-
-
 }

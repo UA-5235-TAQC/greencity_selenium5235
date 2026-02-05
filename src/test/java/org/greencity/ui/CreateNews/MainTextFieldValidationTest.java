@@ -3,10 +3,8 @@ package org.greencity.ui.CreateNews;
 import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
 import org.greencity.ui.pages.EcoNewsPage;
-import org.greencity.ui.pages.HomePage;
 import org.greencity.ui.testrunners.BaseTestRunner;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -15,17 +13,13 @@ public class MainTextFieldValidationTest extends BaseTestRunner {
     private CreateNewsPage createNewsPage;
     private static String tooLongText = "A".repeat(100);
 
-    @BeforeClass
-    public void LoginUser() {
-        HomePage homePage = new HomePage(driver);
-        loginUser(homePage);
-        createNewsPage = homePage.getHeader().clickEcoNewsLink().clickCreateNews();
-        createNewsPage.getHeader().changeToEN();
-    }
-
     @BeforeMethod
     public void beforeMethod() {
-        createNewsPage = createNewsPage.open().reload();
+        createNewsPage = LoginUser()
+                .getHeader()
+                .changeToEN()
+                .clickEcoNewsLink()
+                .clickCreateNews();
         createNewsPage.enterTitle("Test");
         createNewsPage.clickTagByName(EcoNewsTag.NEWS.getEn());
     }

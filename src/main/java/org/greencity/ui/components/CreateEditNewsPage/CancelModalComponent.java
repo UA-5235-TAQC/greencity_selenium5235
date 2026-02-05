@@ -1,11 +1,10 @@
 package org.greencity.ui.components.CreateEditNewsPage;
 
+import io.qameta.allure.Step;
 import org.greencity.ui.components.BaseComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class CancelModalComponent extends BaseComponent {
@@ -32,64 +31,67 @@ public class CancelModalComponent extends BaseComponent {
         super(driver, rootElement);
     }
 
+    @Step("Get cancel modal message text")
     public String getMessage() {
         return messageContainer.getText().trim();
     }
 
+    @Step("Click 'Yes, cancel' button in cancel modal")
     public void clickYesCancel() {
         yesCancelBtn.click();
     }
 
+    @Step("Click 'Continue editing' button in cancel modal")
     public void clickContinueEditing() {
         continueEditingBtn.click();
     }
 
+    @Step("Get 'Yes, cancel' button text")
     public String getYesCancelButtonText() {
         return yesCancelBtn.getText().trim();
     }
 
+    @Step("Get 'Continue editing' button text")
     public String getContinueEditingButtonText() {
         return continueEditingBtn.getText().trim();
     }
 
+    @Step("Click close (X) button in cancel modal")
     public void clickClose() {
         closeBtn.click();
     }
 
+    @Step("Check if cancel modal is visible")
     public boolean isVisible() {
         return rootElement.isDisplayed();
     }
 
+    @Step("Get cancel modal warning title text")
     public String getWarningTitleText() {
         return warningTitle.getText().trim();
     }
 
+    @Step("Get cancel modal warning subtitle text")
     public String getWarningSubtitleText() {
         return warningSubtitle.getText().trim();
     }
 
+    @Step("Check if 'Yes, cancel' button is visible")
     public boolean isCancelButtonVisible() {
-        try {
-            wait.until(ExpectedConditions.visibilityOf(yesCancelBtn));
-            return yesCancelBtn.isDisplayed();
-        } catch (TimeoutException | NoSuchElementException e) {
-            return false;
-        }
+        return isVisible(yesCancelBtn);
     }
 
+    @Step("Check if 'Continue editing' button is visible")
     public boolean isContinueEditingButtonVisible() {
-        try {
-            wait.until(ExpectedConditions.visibilityOf(continueEditingBtn));
-            return continueEditingBtn.isDisplayed();
-        } catch (TimeoutException | NoSuchElementException e) {
-            return false;
-        }
+        return isVisible(continueEditingBtn);
     }
 
+    @Step("Wait until cancel modal becomes visible")
     public void waitUntilVisible() {
-        wait.until(ExpectedConditions.visibilityOf(rootElement));
+        waitUntilVisible(rootElement);
     }
 
+    @Step("Wait until cancel modal is closed")
     public void waitUntilClosed() {
         wait.until(ExpectedConditions.invisibilityOf(rootElement));
     }

@@ -21,17 +21,43 @@ You can pass system properties to override values from the properties file, for 
 mvn test -Duser.name=localuser -Duser.email=you@example.com
 ```
 
+### Running tests in parallel with TestNG
+
+A TestNG suite `testng.xml` is provided at the repository root that runs all tests in parallel at the method level. By default it sets `parallel="methods"` and `thread-count="8"`.
+
+Run the suite with Maven:
+
+```powershell
+mvn -Dsurefire.suiteXmlFiles=testng.xml test
+```
+
+Notes and precautions:
+
+- Adjust `thread-count` in `testng.xml` to match the available CPU and memory of your runner (CI or local machine).
+- Make sure each test creates/uses its own WebDriver instance (avoid sharing a single driver across threads). The project uses `DriverManager` (in test classes) — ensure the implementation returns a thread-local driver when running in parallel.
+- Parallel runs can surface race conditions and flaky tests; consider increasing waits or using explicit waits where needed.
+
 ## Configuration
 
-Tests read configuration from `src/test/resources/config.properties` when present. The following keys are used by the tests and the new `TestValueProvider` helper:
+Tests read configuration from `src/test/resources/config.properties` when present. The following keys are used by the tests and the `TestValueProvider` helper (defaults are applied when values are missing):
 
 - `base.ui.greencity.url` - base UI URL for GreenCity
 - `user.name` - test user name
 - `user.email` - test user email
 - `user.password` - test user password
 - `user.id` - test user id
+- `user.location` - user location
+- `user.rating` - user rating (integer)
+- `implicitlyWait` - implicit wait in seconds (integer, default 5)
+- `headless.mode` - `true` or `false` (when absent, tests default to headless in CI environments)
 
-If `config.properties` is not available, values may be provided via system properties using the same key names (for example `-Duser.name=...`). Note: the existing `getBaseUIGreenCityUrl()` method falls back to the system property `BASE_UI_GREEN_CITY_URL` (uppercase) for backward compatibility.
+If `config.properties` is not available, values may be provided via system properties using the same key names (for example `-Duser.name=...`). Note: the existing `getBaseUIGreenCityUrl()` method also falls back to the system property `BASE_UI_GREEN_CITY_URL` (uppercase) for backward compatibility.
+
+### CI / GitHub Actions
+
+When running in CI (GitHub Actions) the environment variable `CI=true` is normally present. `TestValueProvider` will default to headless mode when it detects `CI` to avoid browser startup issues on Linux runners. If you need to run with a visible browser in CI, explicitly pass `-Dheadless.mode=false` to `mvn test`.
+
+If your CI workflow requires any additional Chrome options, update `src/test/java/org/greencity/ui/testrunners/BaseTestRunner.java` where ChromeOptions are configured.
 
 ## TestValueProvider
 
@@ -44,6 +70,8 @@ If `config.properties` is not available, values may be provided via system prope
   - `getUserEmail()` -> `user.email`
   - `getUserPassword()` -> `user.password`
   - `getUserId()` -> `user.id`
+  - `getImplicitlyWait()` -> `implicitlyWait` (default 5)
+  - `isHeadlessMode()` -> `headless.mode` (defaults to true in CI)
 
 Example usage in a test:
 

@@ -1,5 +1,7 @@
 package org.greencity.ui.CreateNews;
 
+import io.qameta.allure.*;
+import io.qameta.allure.testng.Tag;
 import org.greencity.ui.components.CreateEditNewsPage.CancelModalComponent;
 import org.greencity.ui.components.CreateEditNewsPage.ContentComponent;
 import org.greencity.ui.components.CreateEditNewsPage.ImageComponent;
@@ -7,11 +9,9 @@ import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
 import org.greencity.ui.pages.CreateEditNews.NewsPreviewPage;
 import org.greencity.ui.pages.EcoNewsPage;
-import org.greencity.ui.pages.HomePage;
 import org.greencity.ui.testrunners.BaseTestRunner;
 import org.greencity.utils.NewsTestData;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -27,19 +27,21 @@ public class CreateNewsFormVisibilityTestUA extends BaseTestRunner {
 
     private CreateNewsPage createNewsPage;
 
-    @BeforeClass
-    public void LoginUser() {
-        HomePage homePage = new HomePage(driver);
-        loginUser(homePage);
-        createNewsPage = homePage.open().getHeader().clickEcoNewsLink().clickCreateNews();
-    }
-
+    @Description("A test that allows a given user to log in to the system")
     @BeforeMethod
     public void beforeMethod() {
-        createNewsPage.getHeader().changeToUK();
+        createNewsPage =LoginUser().getHeader()
+                .changeToUK()
+                .clickEcoNewsLink()
+                .clickCreateNews();
     }
 
-    @Test(description = "Verify that the Create News form contains the particular fields in Ukrainian locale")
+    @Tag("Create")
+    @Feature("Create news page")
+    @Issue("3")
+    @Description("Verify that the Create News form contains the particular fields in Ukrainian locale")
+    @Severity(SeverityLevel.NORMAL)
+    @Test
     public void verifyCreateNewsFormFieldsVisibilityInUkrainianLocale() {
 
         // 2. Tags
@@ -157,6 +159,7 @@ public class CreateNewsFormVisibilityTestUA extends BaseTestRunner {
         softAssert.assertEquals(cancelModal.getContinueEditingButtonText(), "Продовжити");
         softAssert.assertAll();
         cancelModal.clickYesCancel();
+        cancelModal.waitUntilClosed();
 
         createNewsPage = new CreateNewsPage(driver).open();
         createNewsPage.getHeader().changeToUK();

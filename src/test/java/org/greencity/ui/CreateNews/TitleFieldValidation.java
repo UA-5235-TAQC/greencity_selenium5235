@@ -15,17 +15,13 @@ public class TitleFieldValidation extends BaseTestRunner {
     private CreateNewsPage createNewsPage;
 
 
-    @BeforeClass
-    public void LoginUser() {
-        HomePage homePage = new HomePage(driver);
-        loginUser(homePage);
-        createNewsPage = new CreateNewsPage(driver);
-    }
 
     @BeforeMethod
     public void beforeMethod() {
-        createNewsPage = createNewsPage.open();
-        createNewsPage.getHeader().changeToEN();
+        createNewsPage = LoginUser()
+                .getHeader()
+                .clickEcoNewsLink()
+                .clickCreateNews();
     }
 
 
@@ -47,7 +43,7 @@ public class TitleFieldValidation extends BaseTestRunner {
 
         // Verify that the counter shows "171/170" and is highlighted in red
         Assert.assertEquals(createNewsPage.getTitleCounterText(), "171/170", "Counter should show 171/170.");
-        Assert.assertTrue(createNewsPage.isTitleCounterWarningDisplayed(), "Character counter should be highlighted in red (warning state).");
+        Assert.assertTrue(createNewsPage.isTitleInvalid(), "Character counter should be highlighted in red (warning state).");
 
         // Key point: the button must remain disabled because the limit is 170
         Assert.assertFalse(createNewsPage.isPublishButtonEnabled(), "Publish button should be disabled when the title exceeds 170 characters.");
