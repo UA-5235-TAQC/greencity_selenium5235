@@ -68,7 +68,7 @@ public class TitleFieldValidation extends BaseTestRunner {
     @Severity(SeverityLevel.MINOR)
     @Issue("16")
     @Test
-    public void verifyTooShortContent  () {
+    public void verifyTooShortContent() {
         createNewsPage.enterTitle("Test News");
         createNewsPage.getContentComponent().enterContent("1");
 
