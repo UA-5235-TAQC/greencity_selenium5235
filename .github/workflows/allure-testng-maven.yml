@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [main]
   pull_request:
-    branches: [ main, master ]
+    branches: [main]
 
 permissions:
   contents: write
@@ -91,19 +91,20 @@ jobs:
           ref: gh-pages
           path: gh-pages
 
-      - name: Build test report
-        uses: simple-elf/allure-report-action@v1.7
-        if: always()
-        with:
-          gh_pages: gh-pages
-          allure_history: allure-history
-          allure_results: target/allure-results
+      - name: Install Allure CLI
+        run: |
+          sudo apt-add-repository ppa:qameta/allure
+          sudo apt update
+          sudo apt install -y allure
 
-      - name: Publish test report
+      - name: Build Allure report
+        run: |
+          allure generate target/allure-results -o allure-report --clean
+
+      - name: Publish Allure report
         uses: peaceiris/actions-gh-pages@v4
-        if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: allure-history
+          publish_dir: allure-report
           force_orphan: true
