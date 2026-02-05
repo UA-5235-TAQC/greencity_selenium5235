@@ -22,7 +22,7 @@ public class PreviewPageTest extends BaseTestRunner {
 
     @BeforeMethod
     public void navigateToCreateNewsPage() {
-        LoginUser().getHeader()
+        createNewsPage = LoginUser().getHeader()
                 .clickEcoNewsLink()
                 .clickCreateNews();
     }
@@ -40,7 +40,7 @@ public class PreviewPageTest extends BaseTestRunner {
         createNewsPage
                 .enterTitle(newsTitle)
                 .getContentComponent().enterContent(newsText);
-        createNewsPage.clickPreview();
+        previewPage = createNewsPage.clickPreview();
 
         Assert.assertEquals(getDriver().getCurrentUrl(), testValueProvider.getBaseUIGreenCityUrl() + "/news/preview");
         Assert.assertEquals(previewPage.getNewsTitle(), newsTitle);

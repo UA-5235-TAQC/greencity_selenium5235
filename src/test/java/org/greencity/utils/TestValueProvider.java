@@ -76,7 +76,7 @@ public class TestValueProvider {
         if (properties != null) {
             return Integer.parseInt(properties.getProperty("user.rating"));
         }
-        return Integer.parseInt(System.getenv("USER_RATING"));
+        return Integer.parseInt(System.getenv("USER_RATE"));
     }
 
     public boolean isHeadlessMode() {
