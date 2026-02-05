@@ -46,7 +46,7 @@ public class MainTextFieldValidationTest extends BaseTestRunner {
         String validContent = "This is a valid test content with more than twenty symbols.";
         createNewsPage.getContentComponent().enterContent(validContent);
 
-        Assert.assertFalse(createNewsPage.getContentComponent().isContentWarningDisplayed(), "Warning should disappear for valid content");
+        Assert.assertFalse(createNewsPage.getContentComponent().isContentMessageInvalid(), "Warning should disappear for valid content");
 
         Assert.assertTrue(createNewsPage.isPublishButtonEnabled(), "Publish button should be enabled for valid content");
         createNewsPage.clickPublish();
