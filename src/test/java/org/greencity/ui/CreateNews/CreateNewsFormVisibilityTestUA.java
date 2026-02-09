@@ -22,17 +22,19 @@ import java.util.Locale;
 
 import static org.greencity.utils.NewsTestData.*;
 
+@Tag("Create News")
+@Epic("EcoNews Management")
+@Feature("Create News")
+@Story("Verify visibility and behavior of Create News form in Ukrainian locale")
+@Severity(SeverityLevel.NORMAL)
+@Issue("3")
 public class CreateNewsFormVisibilityTestUA extends CreateNewsUATestRunner {
 
-    @Tag("Create")
-    @Feature("Create news page")
-    @Issue("3")
     @Description("Verify that the Create News form contains the particular fields in Ukrainian locale")
-    @Severity(SeverityLevel.NORMAL)
     @Test
     public void verifyCreateNewsFormFieldsVisibilityInUkrainianLocale() {
 
-        // 2. Tags
+        // Tags
         List<String> expectedUkTags = EcoNewsTag.getAllUa();
 
         Assert.assertEquals(
@@ -41,7 +43,7 @@ public class CreateNewsFormVisibilityTestUA extends CreateNewsUATestRunner {
                 "Tags should be in Ukrainian"
         );
 
-        // 3. Image Upload
+        // Image Upload
         ImageComponent imageComponent = createNewsPage.getImageComponent();
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(
@@ -86,7 +88,7 @@ public class CreateNewsFormVisibilityTestUA extends CreateNewsUATestRunner {
         );
         softAssert.assertAll();
 
-        // 5. Content
+        // Content
         ContentComponent content = createNewsPage.getContentComponent();
         softAssert = new SoftAssert();
         softAssert.assertEquals(
@@ -101,7 +103,7 @@ public class CreateNewsFormVisibilityTestUA extends CreateNewsUATestRunner {
         );
         softAssert.assertAll();
 
-        // 7. Date
+        // Date
         LocalDate today = LocalDate.now();
         DateTimeFormatter formatterUa =
                 DateTimeFormatter.ofPattern("MMM d, yyyy 'р.'")
@@ -113,7 +115,7 @@ public class CreateNewsFormVisibilityTestUA extends CreateNewsUATestRunner {
                 "Date should be today's date"
         );
 
-        // 8. Publish, Preview, Cancel buttons
+        // Publish, Preview, Cancel buttons
         softAssert = new SoftAssert();
         softAssert.assertEquals(
                 createNewsPage.getCancelButtonText(),

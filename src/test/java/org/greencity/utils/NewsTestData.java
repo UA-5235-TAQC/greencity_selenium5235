@@ -18,6 +18,7 @@ public class NewsTestData {
     public static final String TEST_FILEPATH = TEST_FILE.getAbsolutePath();
     public static final File TEST2_FILE = new File("src/test/resources/images/test2.png");
     public static final String TEST2_FILEPATH = TEST2_FILE.getAbsolutePath();
+    public static final String VALID_CONTENT = "This is a valid content with more than 20 characters for the news item.";
 
     public void applyToEn(CreateNewsPage page) {
         page.createNews(TEST_TITLE_EN, EcoNewsTag.getEn(TEST_TAGS), TEST_SOURCE, TEST_CONTENT_EN, TEST_FILEPATH);

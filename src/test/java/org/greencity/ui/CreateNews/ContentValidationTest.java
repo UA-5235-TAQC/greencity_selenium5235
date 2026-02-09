@@ -1,5 +1,7 @@
 package org.greencity.ui.CreateNews;
 
+import io.qameta.allure.*;
+import io.qameta.allure.testng.Tag;
 import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.ui.pages.EcoNewsPage;
 import org.greencity.ui.testrunners.CreateNews.CreateNewsENTestRunner;
@@ -7,7 +9,14 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class MainTextFieldValidationTest extends CreateNewsENTestRunner {
+import static org.greencity.utils.NewsTestData.VALID_CONTENT;
+
+@Tag("Create News")
+@Epic("EcoNews Management")
+@Feature("Create News")
+@Story("Content field validation")
+@Severity(SeverityLevel.NORMAL)
+public class ContentValidationTest extends CreateNewsENTestRunner {
 
     private static String tooLongText = "A".repeat(100);
 
@@ -18,8 +27,9 @@ public class MainTextFieldValidationTest extends CreateNewsENTestRunner {
         createNewsPage.clickTagByName(EcoNewsTag.NEWS.getEn());
     }
 
+    @Description("Verify that the publish button is disabled and a warning is displayed when the content is shorter than 20 characters")
     @Test
-    public void verifyMainTextValidationAndPublishButtonLogic20() {
+    public void verifyContentValidationAndPublishButtonLogic20() {
 
         createNewsPage.getContentComponent().enterContent("Short text");
         Assert.assertFalse(createNewsPage.isPublishButtonEnabled(), "Publish button must be disabled when content is invalid");
@@ -28,9 +38,9 @@ public class MainTextFieldValidationTest extends CreateNewsENTestRunner {
 
     }
 
-
+    @Description("Verify that the publish button is enabled and the warning disappears when the content is valid")
     @Test
-    public void verifyMainTextValidationAndPublishButtonLogicValidContent() {
+    public void verifyContentValidationAndPublishButtonLogicValidContent() {
         String validContent = "This is a valid test content with more than twenty symbols.";
         createNewsPage.getContentComponent().enterContent(validContent);
 
@@ -42,8 +52,9 @@ public class MainTextFieldValidationTest extends CreateNewsENTestRunner {
         Assert.assertEquals(message, "Your news has been successfully published", "Success message text is incorrect");
     }
 
+    @Description("Stress test: verify that the content is truncated correctly to 63,206 symbols")
     @Test(enabled = false)
-    public void verifyMainTextValidationAndPublishButtonLogic63206() {
+    public void verifyContentValidationAndPublishButtonLogic63206() {
         for (int i = 0; i < 270; i++) {
             createNewsPage.getContentComponent().enterContentNotClear(tooLongText);
             try {
@@ -57,5 +68,16 @@ public class MainTextFieldValidationTest extends CreateNewsENTestRunner {
         Assert.assertEquals(createNewsPage.getContentComponent().getContentText().length(), 63206, "Content should be truncated to 63 206 symbols");
 
         Assert.assertFalse(createNewsPage.getContentComponent().isContentWarningDisplayed(), "Warning should not be displayed after truncation");
+    }
+
+    @Description("Verify that the content field validation fails for too short input and passes for valid content")
+    @Test
+    public void verifyTooShortContent() {
+        createNewsPage.getContentComponent().enterContent("1");
+
+        Assert.assertFalse(createNewsPage.getContentComponent().isContentValid());
+
+        createNewsPage.getContentComponent().enterContent(VALID_CONTENT);
+        Assert.assertTrue(createNewsPage.getContentComponent().isContentValid(), "Content should be valid after all fields are valid.");
     }
 }

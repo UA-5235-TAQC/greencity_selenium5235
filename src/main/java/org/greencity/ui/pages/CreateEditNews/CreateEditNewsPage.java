@@ -6,13 +6,10 @@ import org.greencity.ui.components.CreateEditNewsPage.ContentComponent;
 import org.greencity.ui.components.CreateEditNewsPage.ImageComponent;
 import org.greencity.ui.components.TagItem;
 import org.greencity.ui.pages.BasePage;
+import org.openqa.selenium.*;
 import org.openqa.selenium.remote.UnreachableBrowserException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -87,7 +84,8 @@ public class CreateEditNewsPage extends BasePage {
 
     @Step("Enter news title: {title}")
     public CreateEditNewsPage enterTitle(String title) {
-        titleInput.clear();
+        titleInput.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        titleInput.sendKeys(Keys.DELETE);
         titleInput.sendKeys(title);
         return this;
     }

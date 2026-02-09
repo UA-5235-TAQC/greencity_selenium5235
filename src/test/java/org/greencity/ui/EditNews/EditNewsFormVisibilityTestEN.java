@@ -24,13 +24,15 @@ import java.util.Locale;
 
 import static org.greencity.utils.NewsTestData.*;
 
+@Tag("Edit News")
+@Epic("EcoNews Management")
+@Feature("Edit news page")
+@Story("Verify visibility and behavior of Edit News form in English locale")
+@Severity(SeverityLevel.NORMAL)
+@Issue("14")
 public class EditNewsFormVisibilityTestEN extends EditNewsENTestRunner {
 
-    @Tag("Edit")
-    @Feature("Edit news page")
-    @Issue("14")
     @Description("Verify that the Edit News form contains the particular fields in English locale")
-    @Severity(SeverityLevel.NORMAL)
     @Test
     public void verifyEditNewsFormFieldsVisibilityInEnglishLocale() {
 
