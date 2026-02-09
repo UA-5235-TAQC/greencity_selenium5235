@@ -1,37 +1,20 @@
 package org.greencity.ui.CreateNews;
 
 import org.greencity.ui.enums.EcoNewsTag;
-import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
 import org.greencity.ui.pages.EcoNewsPage;
-import org.greencity.ui.pages.HomePage;
-import org.greencity.ui.testrunners.BaseTestRunner;
+import org.greencity.ui.testrunners.CreateNews.CreateNewsENTestRunner;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import java.util.List;
 
-public class SourceFieldValidationTest extends BaseTestRunner {
-
-    private CreateNewsPage createNewsPage;
-
-    @BeforeMethod
-    public void beforeMethod() {
-
-        createNewsPage = LoginUser()
-                .getHeader()
-                .clickEcoNewsLink()
-                .clickCreateNews();
-    }
+public class SourceFieldValidationTest extends CreateNewsENTestRunner {
 
     @Test
     public void SourceFieldValidation() {
         // Navigate and create news item with valid data and empty Source Field
-        createNewsPage.getHeader()
-                .clickEcoNewsLink()
-                .clickCreateNews()
+        createNewsPage
                 .createNews(
                         "A".repeat(170),
                         List.of(

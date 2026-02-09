@@ -1,25 +1,19 @@
 package org.greencity.ui.CreateNews;
 
 import org.greencity.ui.enums.EcoNewsTag;
-import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
 import org.greencity.ui.pages.EcoNewsPage;
-import org.greencity.ui.testrunners.BaseTestRunner;
+import org.greencity.ui.testrunners.CreateNews.CreateNewsENTestRunner;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class MainTextFieldValidationTest extends BaseTestRunner {
+public class MainTextFieldValidationTest extends CreateNewsENTestRunner {
 
-    private CreateNewsPage createNewsPage;
     private static String tooLongText = "A".repeat(100);
 
     @BeforeMethod
     public void beforeMethod() {
-        createNewsPage = LoginUser()
-                .getHeader()
-                .changeToEN()
-                .clickEcoNewsLink()
-                .clickCreateNews();
+        super.beforeMethod();
         createNewsPage.enterTitle("Test");
         createNewsPage.clickTagByName(EcoNewsTag.NEWS.getEn());
     }

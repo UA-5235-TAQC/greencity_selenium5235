@@ -2,24 +2,13 @@ package org.greencity.ui.CreateNews;
 
 import io.qameta.allure.*;
 import org.greencity.ui.enums.EcoNewsTag;
-import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
-import org.greencity.ui.testrunners.BaseTestRunner;
+import org.greencity.ui.testrunners.CreateNews.CreateNewsENTestRunner;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class TitleFieldValidation extends BaseTestRunner {
+public class TitleFieldValidation extends CreateNewsENTestRunner {
 
     private final String VALID_CONTENT = "This is a valid content with more than 20 characters for the news item.";
-    private CreateNewsPage createNewsPage;
-
-    @BeforeMethod
-    public void beforeMethod() {
-        createNewsPage = LoginUser()
-                .getHeader()
-                .clickEcoNewsLink()
-                .clickCreateNews();
-    }
 
     @Epic("Create news test")
     @Feature("Create news page")

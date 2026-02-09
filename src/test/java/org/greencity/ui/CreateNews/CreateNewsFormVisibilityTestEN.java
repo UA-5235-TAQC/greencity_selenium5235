@@ -10,10 +10,9 @@ import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
 import org.greencity.ui.pages.CreateEditNews.NewsPreviewPage;
 import org.greencity.ui.pages.EcoNewsPage;
-import org.greencity.ui.testrunners.BaseTestRunner;
+import org.greencity.ui.testrunners.CreateNews.CreateNewsENTestRunner;
 import org.greencity.utils.NewsTestData;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -24,18 +23,7 @@ import java.util.Locale;
 
 import static org.greencity.utils.NewsTestData.*;
 
-public class CreateNewsFormVisibilityTestEN extends BaseTestRunner {
-
-    private CreateNewsPage createNewsPage;
-
-    @BeforeMethod
-    public void beforeMethod() {
-        createNewsPage = LoginUser()
-                .getHeader()
-                .changeToEN()
-                .clickEcoNewsLink()
-                .clickCreateNews();
-    }
+public class CreateNewsFormVisibilityTestEN extends CreateNewsENTestRunner {
 
     @Tag("Create")
     @Feature("Create news page")
@@ -176,7 +164,8 @@ public class CreateNewsFormVisibilityTestEN extends BaseTestRunner {
         Assert.assertTrue(createNewsPage.isPostDateVisible(),
                 "Post date should be visible");
         LocalDate today = LocalDate.now();
-        DateTimeFormatter formatterEn = DateTimeFormatter.ofPattern("MMM d, yyyy").withLocale(Locale.US);;
+        DateTimeFormatter formatterEn = DateTimeFormatter.ofPattern("MMM d, yyyy").withLocale(Locale.US);
+        ;
         String expectedDateEn = today.format(formatterEn);
         Assert.assertEquals(createNewsPage.getPostDate(), expectedDateEn,
                 "Date should be today's date");

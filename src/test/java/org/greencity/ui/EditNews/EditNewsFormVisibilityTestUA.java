@@ -1,6 +1,5 @@
 package org.greencity.ui.EditNews;
 
-
 import io.qameta.allure.*;
 import io.qameta.allure.testng.Tag;
 import org.greencity.ui.components.CreateEditNewsPage.CancelModalComponent;
@@ -11,9 +10,8 @@ import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.ui.pages.CreateEditNews.EditNewsPage;
 import org.greencity.ui.pages.CreateEditNews.NewsPreviewPage;
 import org.greencity.ui.pages.UbsCourierPage;
-import org.greencity.ui.testrunners.BaseTestRunner;
+import org.greencity.ui.testrunners.EditNews.EditNewsUATestRunner;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -26,17 +24,7 @@ import java.util.Locale;
 
 import static org.greencity.utils.NewsTestData.*;
 
-public class EditNewsFormVisibilityTestUA extends BaseTestRunner {
-
-    private EditNewsPage editNewsPage;
-    private final long newsId = 888;
-
-    @BeforeMethod
-    public void beforeMethod() {
-        LoginUser();
-        editNewsPage = new EditNewsPage(driver, newsId).open();
-        editNewsPage.getHeader().changeToUK();
-    }
+public class EditNewsFormVisibilityTestUA extends EditNewsUATestRunner {
 
     @Tag("Edit")
     @Feature("Edit news page")
@@ -243,7 +231,7 @@ public class EditNewsFormVisibilityTestUA extends BaseTestRunner {
         cancelModal.clickYesCancel();
         cancelModal.waitUntilClosed();
 
-        editNewsPage = new EditNewsPage(driver, newsId).open();
+        editNewsPage = new EditNewsPage(driver, getNewsId()).open();
         editNewsPage.getHeader().changeToUK();
         testTitle = "Макс";
         List<String> testTags = EcoNewsTag.getUa(List.of(EcoNewsTag.INITIATIVES, EcoNewsTag.EVENTS));
@@ -274,7 +262,7 @@ public class EditNewsFormVisibilityTestUA extends BaseTestRunner {
         Assert.assertNotNull(src, "Preview image src should not be null");
         Assert.assertFalse(src.isEmpty(), "Preview image src should not be empty");
 
-        editNewsPage = preview.backToEditing(newsId);
+        editNewsPage = preview.backToEditing(getNewsId());
         editNewsPage.reload();
         editNewsPage.getHeader().changeToUK();
         editNewsPage.editNews(TEST_TITLE_UA, EcoNewsTag.getUa(TEST_TAGS), TEST_SOURCE, TEST_CONTENT_UA, TEST_FILEPATH);

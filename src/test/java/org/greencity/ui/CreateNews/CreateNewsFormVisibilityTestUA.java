@@ -9,10 +9,9 @@ import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
 import org.greencity.ui.pages.CreateEditNews.NewsPreviewPage;
 import org.greencity.ui.pages.EcoNewsPage;
-import org.greencity.ui.testrunners.BaseTestRunner;
+import org.greencity.ui.testrunners.CreateNews.CreateNewsUATestRunner;
 import org.greencity.utils.NewsTestData;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -23,18 +22,7 @@ import java.util.Locale;
 
 import static org.greencity.utils.NewsTestData.*;
 
-public class CreateNewsFormVisibilityTestUA extends BaseTestRunner {
-
-    private CreateNewsPage createNewsPage;
-
-    @Description("A test that allows a given user to log in to the system")
-    @BeforeMethod
-    public void beforeMethod() {
-        createNewsPage =LoginUser().getHeader()
-                .changeToUK()
-                .clickEcoNewsLink()
-                .clickCreateNews();
-    }
+public class CreateNewsFormVisibilityTestUA extends CreateNewsUATestRunner {
 
     @Tag("Create")
     @Feature("Create news page")

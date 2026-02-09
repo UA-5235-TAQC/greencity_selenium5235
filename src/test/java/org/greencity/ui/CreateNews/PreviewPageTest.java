@@ -1,31 +1,19 @@
 package org.greencity.ui.CreateNews;
 
-
 import io.qameta.allure.*;
-import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
 import org.greencity.ui.pages.CreateEditNews.NewsPreviewPage;
-import org.greencity.ui.testrunners.BaseTestRunner;
+import org.greencity.ui.testrunners.CreateNews.CreateNewsENTestRunner;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-public class PreviewPageTest extends BaseTestRunner {
-    CreateNewsPage createNewsPage;
+public class PreviewPageTest extends CreateNewsENTestRunner {
     NewsPreviewPage previewPage;
     String newsTitle = "Super news title";
     String newsText = "This is a test preview content";
-
-
-    @BeforeMethod
-    public void navigateToCreateNewsPage() {
-        LoginUser().getHeader()
-                .clickEcoNewsLink()
-                .clickCreateNews();
-    }
 
     @Epic("Smoke test")
     @Feature("Preview page")
@@ -35,14 +23,11 @@ public class PreviewPageTest extends BaseTestRunner {
     @Test
     public void checkPreviewPage() {
         createNewsPage
-                .getHeader()
-                .changeToEN();
-        createNewsPage
                 .enterTitle(newsTitle)
                 .getContentComponent().enterContent(newsText);
-        createNewsPage.clickPreview();
+        previewPage = createNewsPage.clickPreview();
 
-        Assert.assertEquals(getDriver().getCurrentUrl(), testValueProvider.getBaseUIGreenCityUrl() + "/news/preview");
+        Assert.assertEquals(getDriver().getCurrentUrl(), testValueProvider.getBaseUIGreenCityUrl() + "#/greenCity/news/preview");
         Assert.assertEquals(previewPage.getNewsTitle(), newsTitle);
         Assert.assertEquals(previewPage.getNewsText(), newsText);
         LocalDate today = LocalDate.now();
@@ -52,8 +37,7 @@ public class PreviewPageTest extends BaseTestRunner {
         Assert.assertEquals(previewPage.getAuthorName(), testValueProvider.getUserName());
 
         previewPage.clickBackToCreateNewsBtn();
-        Assert.assertEquals(getDriver().getCurrentUrl(), testValueProvider.getBaseUIGreenCityUrl() + "/news/create-news");
-        //There will be an error because of page components loading bug
-        Assert.assertTrue(createNewsPage.isPageOpened());
+        Assert.assertEquals(getDriver().getCurrentUrl(), testValueProvider.getBaseUIGreenCityUrl() + "#/greenCity/news/create-news");
+        Assert.assertTrue(createNewsPage.isPageOpenedAfterPreviewClickBack());
     }
 }

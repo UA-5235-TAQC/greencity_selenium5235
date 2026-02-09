@@ -1,6 +1,5 @@
 package org.greencity.ui.CreateNews;
 
-
 import io.qameta.allure.*;
 import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
 import org.greencity.ui.testrunners.BaseTestRunner;

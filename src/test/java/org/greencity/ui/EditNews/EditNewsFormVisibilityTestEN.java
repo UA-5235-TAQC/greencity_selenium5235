@@ -10,9 +10,8 @@ import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.ui.pages.CreateEditNews.EditNewsPage;
 import org.greencity.ui.pages.CreateEditNews.NewsPreviewPage;
 import org.greencity.ui.pages.UbsCourierPage;
-import org.greencity.ui.testrunners.BaseTestRunner;
+import org.greencity.ui.testrunners.EditNews.EditNewsENTestRunner;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -25,17 +24,7 @@ import java.util.Locale;
 
 import static org.greencity.utils.NewsTestData.*;
 
-public class EditNewsFormVisibilityTestEN extends BaseTestRunner {
-
-    private EditNewsPage editNewsPage;
-    private final long newsId = 830;
-
-    @BeforeMethod
-    public void beforeMethod() {
-        LoginUser();
-        editNewsPage = new EditNewsPage(driver, newsId).open();
-        editNewsPage.getHeader().changeToEN();
-    }
+public class EditNewsFormVisibilityTestEN extends EditNewsENTestRunner {
 
     @Tag("Edit")
     @Feature("Edit news page")
@@ -329,7 +318,7 @@ public class EditNewsFormVisibilityTestEN extends BaseTestRunner {
         cancelModal.clickYesCancel();
         cancelModal.waitUntilClosed();
 
-        editNewsPage = new EditNewsPage(driver, newsId).open();
+        editNewsPage = new EditNewsPage(driver, getNewsId()).open();
         editNewsPage.getHeader().changeToEN();
         Assert.assertTrue(editNewsPage.isPageOpened(),
                 "User should be redirected to CreateNewsPage");
@@ -377,7 +366,7 @@ public class EditNewsFormVisibilityTestEN extends BaseTestRunner {
         Assert.assertNotNull(src, "Preview image src should not be null");
         Assert.assertFalse(src.isEmpty(), "Preview image src should not be empty");
 
-        editNewsPage = preview.backToEditing(newsId);
+        editNewsPage = preview.backToEditing(getNewsId());
         Assert.assertTrue(editNewsPage.isPageOpenedAfterPreviewClickBack(),
                 "User should be redirected to CreateNewsPage after clicking Back button");
         editNewsPage.reload();
