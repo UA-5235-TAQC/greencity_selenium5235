@@ -237,7 +237,7 @@ public class CreateEditNewsPage extends BasePage {
 
     @Step("Get Cancel modal component")
     public CancelModalComponent getCancelModal() {
-        wait.until(ExpectedConditions.visibilityOf(cancelModalContainer));
+        waitUntilVisible(cancelModalContainer);
         return new CancelModalComponent(driver, cancelModalContainer);
     }
 

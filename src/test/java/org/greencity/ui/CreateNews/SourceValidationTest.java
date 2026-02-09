@@ -17,7 +17,7 @@ import java.util.List;
 @Story("Source field validation")
 @Severity(SeverityLevel.NORMAL)
 @Issue("8")
-public class SourceFieldValidationTest extends CreateNewsENTestRunner {
+public class SourceValidationTest extends CreateNewsENTestRunner {
 
     @Description("Verify that news can be published with empty Source field")
     @Test

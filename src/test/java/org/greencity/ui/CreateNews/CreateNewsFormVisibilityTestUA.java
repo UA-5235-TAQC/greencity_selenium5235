@@ -6,7 +6,6 @@ import org.greencity.ui.components.CreateEditNewsPage.CancelModalComponent;
 import org.greencity.ui.components.CreateEditNewsPage.ContentComponent;
 import org.greencity.ui.components.CreateEditNewsPage.ImageComponent;
 import org.greencity.ui.enums.EcoNewsTag;
-import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
 import org.greencity.ui.pages.CreateEditNews.NewsPreviewPage;
 import org.greencity.ui.pages.EcoNewsPage;
 import org.greencity.ui.testrunners.CreateNews.CreateNewsUATestRunner;
@@ -148,11 +147,9 @@ public class CreateNewsFormVisibilityTestUA extends CreateNewsUATestRunner {
         softAssert.assertEquals(cancelModal.getYesCancelButtonText(), "Скасувати");
         softAssert.assertEquals(cancelModal.getContinueEditingButtonText(), "Продовжити");
         softAssert.assertAll();
-        cancelModal.clickYesCancel();
+        cancelModal.clickClose();
         cancelModal.waitUntilClosed();
 
-        createNewsPage = new CreateNewsPage(driver).open();
-        createNewsPage.getHeader().changeToUK();
         new NewsTestData().applyToUa(createNewsPage);
         NewsPreviewPage preview = createNewsPage.clickPreview();
         Assert.assertEquals(preview.getNewsTitle(), TEST_TITLE_UA,

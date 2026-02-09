@@ -3,6 +3,7 @@ package org.greencity.ui.CreateNews;
 import io.qameta.allure.testng.Tag;
 import org.greencity.ui.components.CreateEditNewsPage.CancelModalComponent;
 import org.greencity.ui.pages.EcoNewsPage;
+import org.greencity.ui.pages.UbsCourierPage;
 import org.greencity.ui.testrunners.CreateNews.CreateNewsENTestRunner;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -16,7 +17,7 @@ import static org.greencity.utils.NewsTestData.*;
 @Story("Cancel button behavior")
 @Severity(SeverityLevel.NORMAL)
 @Issue("9")
-public class CancelButtonBehaviorTest extends CreateNewsENTestRunner {
+public class CancelCreatingTest extends CreateNewsENTestRunner {
 
     @Description("Verify that clicking the Cancel button triggers a confirmation modal, " +
             "and selecting 'Yes, cancel' closes the form and redirects to the EcoNews page")
@@ -55,15 +56,13 @@ public class CancelButtonBehaviorTest extends CreateNewsENTestRunner {
         Assert.assertTrue(cancelModal.isContinueEditingButtonVisible(),
                 "'Continue editing' button should be visible");
 
-        cancelModal.clickYesCancel();
+        UbsCourierPage ubsCourierPage = cancelModal.clickYesCancel().open();
+        Assert.assertFalse(createNewsPage.isCancelModalDisplayed(),
+                "Cancel modal should be closed after clicking 'Yes, cancel'");
 
-        EcoNewsPage ecoNewsPage = new EcoNewsPage(driver);
-        // Verify redirect
-        Assert.assertTrue(ecoNewsPage.isPageOpened(),
-                "User should be redirected to EcoNewsPage");
-
-        String currentUrl = driver.getCurrentUrl();
-        Assert.assertNotNull(currentUrl, "Current URL should not be null");
-        Assert.assertTrue(currentUrl.contains("/news"), "URL should contain /news after cancel");
+        Assert.assertFalse(createNewsPage.isPageOpenedSafe(),
+                "User should be redirected away from Create News page after canceling");
+        Assert.assertTrue(ubsCourierPage.isPageOpenedAfterCancelModalClickYesCancel(),
+                "User should be directed to Ubs Courier page after canceling");
     }
 }

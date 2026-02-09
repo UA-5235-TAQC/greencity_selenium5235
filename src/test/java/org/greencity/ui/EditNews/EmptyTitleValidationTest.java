@@ -32,10 +32,17 @@ public class EmptyTitleValidationTest extends EditNewsENTestRunner {
 
         // 2. Returning to a valid state
         editNewsPage.enterTitle(title);
-        Assert.assertEquals(editNewsPage.getTitleCounterText(), "4/170", "Title counter should be 4/170");
-        Assert.assertEquals(editNewsPage.getTitleLength(), 4, "Title length should be 4");
-        Assert.assertEquals(editNewsPage.getTitleValue(), title, "Title should be the same as the test title");
-        Assert.assertFalse(editNewsPage.isTitleInvalid(), "Red highlight should disappear when the title is valid.");
-        Assert.assertTrue(editNewsPage.isEditButtonEnabled(), "Edit button should become enabled after all fields are valid.");
+        int expectedTitleLength = title.length();
+        String expectedTitleCounter = expectedTitleLength + "/170";
+        Assert.assertEquals(editNewsPage.getTitleCounterText(), expectedTitleCounter,
+                "Title counter should reflect the current title length");
+        Assert.assertEquals(editNewsPage.getTitleLength(), expectedTitleLength,
+                "Title length should match the length of the restored title");
+        Assert.assertEquals(editNewsPage.getTitleValue(), title,
+                "Title should be the same as the initially captured title");
+        Assert.assertFalse(editNewsPage.isTitleInvalid(),
+                "Red highlight should disappear when the title is valid.");
+        Assert.assertTrue(editNewsPage.isEditButtonEnabled(),
+                "Edit button should become enabled after all fields are valid.");
     }
 }

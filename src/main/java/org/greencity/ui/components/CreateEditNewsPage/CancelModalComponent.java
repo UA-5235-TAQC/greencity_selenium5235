@@ -2,6 +2,7 @@ package org.greencity.ui.components.CreateEditNewsPage;
 
 import io.qameta.allure.Step;
 import org.greencity.ui.components.BaseComponent;
+import org.greencity.ui.pages.UbsCourierPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -37,8 +38,9 @@ public class CancelModalComponent extends BaseComponent {
     }
 
     @Step("Click 'Yes, cancel' button in cancel modal")
-    public void clickYesCancel() {
+    public UbsCourierPage clickYesCancel() {
         yesCancelBtn.click();
+        return new UbsCourierPage(driver);
     }
 
     @Step("Click 'Continue editing' button in cancel modal")

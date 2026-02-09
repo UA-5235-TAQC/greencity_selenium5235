@@ -7,7 +7,6 @@ import org.greencity.ui.components.CreateEditNewsPage.ContentComponent;
 import org.greencity.ui.components.CreateEditNewsPage.ImageComponent;
 import org.greencity.ui.components.TagItem;
 import org.greencity.ui.enums.EcoNewsTag;
-import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
 import org.greencity.ui.pages.CreateEditNews.NewsPreviewPage;
 import org.greencity.ui.pages.EcoNewsPage;
 import org.greencity.ui.testrunners.CreateNews.CreateNewsENTestRunner;
@@ -36,7 +35,7 @@ public class CreateNewsFormVisibilityTestEN extends CreateNewsENTestRunner {
     public void verifyCreateNewsFormFieldsVisibilityInEnglishLocale() {
 
         // 1. Title
-        Assert.assertTrue(createNewsPage.isPageOpened());
+        Assert.assertTrue(createNewsPage.isPageOpened(), "Create News page should be opened");
         String titleCounter = createNewsPage.getTitleCounterText();
         Assert.assertEquals(titleCounter, "0/170", "Title counter should be 0/170");
         Assert.assertEquals(createNewsPage.getTitleLength(), 0, "Title length should be 0 by default");
@@ -167,7 +166,6 @@ public class CreateNewsFormVisibilityTestEN extends CreateNewsENTestRunner {
                 "Post date should be visible");
         LocalDate today = LocalDate.now();
         DateTimeFormatter formatterEn = DateTimeFormatter.ofPattern("MMM d, yyyy").withLocale(Locale.US);
-        ;
         String expectedDateEn = today.format(formatterEn);
         Assert.assertEquals(createNewsPage.getPostDate(), expectedDateEn,
                 "Date should be today's date");
@@ -219,16 +217,14 @@ public class CreateNewsFormVisibilityTestEN extends CreateNewsENTestRunner {
         softAssert.assertEquals(cancelModal.getYesCancelButtonText(), "Yes, cancel");
         softAssert.assertEquals(cancelModal.getContinueEditingButtonText(), "Continue editing");
         softAssert.assertAll();
-        cancelModal.clickYesCancel();
+        cancelModal.clickClose();
         cancelModal.waitUntilClosed();
 
-        createNewsPage = new CreateNewsPage(driver).open();
-        createNewsPage.getHeader().changeToEN();
         Assert.assertTrue(createNewsPage.isPageOpened(),
                 "User should be redirected to CreateNewsPage");
         String currentUrl = driver.getCurrentUrl();
         Assert.assertNotNull(currentUrl, "Current URL should not be null");
-        Assert.assertTrue(currentUrl.contains("/create-news"), "URL should contain /create-news after cancel");
+        Assert.assertTrue(currentUrl.contains("/create-news"), "URL should contain /create-news after close the cancel modal");
 
         new NewsTestData().applyToEn(createNewsPage);
         NewsPreviewPage preview = createNewsPage.clickPreview();

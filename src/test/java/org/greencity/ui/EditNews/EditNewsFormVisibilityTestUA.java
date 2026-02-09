@@ -7,7 +7,6 @@ import org.greencity.ui.components.CreateEditNewsPage.ContentComponent;
 import org.greencity.ui.components.CreateEditNewsPage.ImageComponent;
 import org.greencity.ui.components.TagItem;
 import org.greencity.ui.enums.EcoNewsTag;
-import org.greencity.ui.pages.CreateEditNews.EditNewsPage;
 import org.greencity.ui.pages.CreateEditNews.NewsPreviewPage;
 import org.greencity.ui.pages.UbsCourierPage;
 import org.greencity.ui.testrunners.EditNews.EditNewsUATestRunner;
@@ -37,7 +36,7 @@ public class EditNewsFormVisibilityTestUA extends EditNewsUATestRunner {
     public void verifyEditNewsFormFieldsVisibilityInUkrainianLocale() {
 
         // 1. Title
-        Assert.assertTrue(editNewsPage.isPageOpened());
+        Assert.assertTrue(editNewsPage.isPageOpened(), "Edit News page should be opened");
         Assert.assertEquals(editNewsPage.getTitleCounterText(), "4/170", "Title counter should be 4/170");
         Assert.assertEquals(editNewsPage.getTitleLength(), 4, "Title length should be 4");
         Assert.assertEquals(editNewsPage.getTitleValue(), TEST_TITLE_UA, "Title should be the same as the test title");
@@ -230,11 +229,9 @@ public class EditNewsFormVisibilityTestUA extends EditNewsUATestRunner {
         softAssert.assertEquals(cancelModal.getYesCancelButtonText(), "Скасувати");
         softAssert.assertEquals(cancelModal.getContinueEditingButtonText(), "Продовжити");
         softAssert.assertAll();
-        cancelModal.clickYesCancel();
+        cancelModal.clickClose();
         cancelModal.waitUntilClosed();
 
-        editNewsPage = new EditNewsPage(driver, getNewsId()).open();
-        editNewsPage.getHeader().changeToUK();
         testTitle = "Макс";
         List<String> testTags = EcoNewsTag.getUa(List.of(EcoNewsTag.INITIATIVES, EcoNewsTag.EVENTS));
         String testSource = "https://en.wikipedia.org/wiki/Main_Page";

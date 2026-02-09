@@ -7,7 +7,6 @@ import org.greencity.ui.components.CreateEditNewsPage.ContentComponent;
 import org.greencity.ui.components.CreateEditNewsPage.ImageComponent;
 import org.greencity.ui.components.TagItem;
 import org.greencity.ui.enums.EcoNewsTag;
-import org.greencity.ui.pages.CreateEditNews.EditNewsPage;
 import org.greencity.ui.pages.CreateEditNews.NewsPreviewPage;
 import org.greencity.ui.pages.UbsCourierPage;
 import org.greencity.ui.testrunners.EditNews.EditNewsENTestRunner;
@@ -37,7 +36,7 @@ public class EditNewsFormVisibilityTestEN extends EditNewsENTestRunner {
     public void verifyEditNewsFormFieldsVisibilityInEnglishLocale() {
 
         // 1. Title
-        Assert.assertTrue(editNewsPage.isPageOpened());
+        Assert.assertTrue(editNewsPage.isPageOpened(), "Edit News page should be opened");
         Assert.assertEquals(editNewsPage.getTitleCounterText(), "4/170", "Title counter should be 4/170");
         Assert.assertEquals(editNewsPage.getTitleLength(), 4, "Title length should be 4");
         Assert.assertEquals(editNewsPage.getTitleValue(), TEST_TITLE_EN, "Title should be the same as the test title");
@@ -317,16 +316,14 @@ public class EditNewsFormVisibilityTestEN extends EditNewsENTestRunner {
         softAssert.assertEquals(cancelModal.getYesCancelButtonText(), "Yes, cancel");
         softAssert.assertEquals(cancelModal.getContinueEditingButtonText(), "Continue editing");
         softAssert.assertAll();
-        cancelModal.clickYesCancel();
+        cancelModal.clickClose();
         cancelModal.waitUntilClosed();
 
-        editNewsPage = new EditNewsPage(driver, getNewsId()).open();
-        editNewsPage.getHeader().changeToEN();
         Assert.assertTrue(editNewsPage.isPageOpened(),
                 "User should be redirected to CreateNewsPage");
         String currentUrl = driver.getCurrentUrl();
         Assert.assertNotNull(currentUrl, "Current URL should not be null");
-        Assert.assertTrue(currentUrl.contains("/create-news"), "URL should contain /create-news after cancel");
+        Assert.assertTrue(currentUrl.contains("/create-news"), "URL should contain /create-news after close the cancel modal");
 
         testTitle = "Max";
         List<String> testTags = EcoNewsTag.getEn(List.of(EcoNewsTag.INITIATIVES, EcoNewsTag.EVENTS));

@@ -2,6 +2,7 @@ package org.greencity.ui.EditNews;
 
 import io.qameta.allure.testng.Tag;
 import org.greencity.ui.components.CreateEditNewsPage.CancelModalComponent;
+import org.greencity.ui.pages.UbsCourierPage;
 import org.greencity.ui.testrunners.EditNews.EditNewsENTestRunner;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -22,6 +23,7 @@ public class CancelEditingTest extends EditNewsENTestRunner {
         editNewsPage.getContentComponent().enterContent("Short text");
         Assert.assertTrue(editNewsPage.isCancelButtonVisible());
         editNewsPage.clickCancel();
+
         // Verify cancel modal is displayed
         Assert.assertTrue(editNewsPage.isCancelModalDisplayed(),
                 "Confirmation modal should appear after clicking Cancel");
@@ -35,6 +37,13 @@ public class CancelEditingTest extends EditNewsENTestRunner {
         Assert.assertTrue(cancelModal.isContinueEditingButtonVisible(),
                 "'Continue editing' button should be visible");
 
-        cancelModal.clickYesCancel();
+        UbsCourierPage ubsCourierPage = cancelModal.clickYesCancel().open();
+        Assert.assertFalse(editNewsPage.isCancelModalDisplayed(),
+                "Cancel modal should be closed after clicking 'Yes, cancel'");
+
+        Assert.assertFalse(editNewsPage.isPageOpenedSafe(),
+                "User should be redirected away from Edit News page after canceling");
+        Assert.assertTrue(ubsCourierPage.isPageOpenedAfterCancelModalClickYesCancel(),
+                "User should be directed to Ubs Courier page after canceling");
     }
 }
