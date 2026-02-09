@@ -13,7 +13,7 @@
             <class name="org.greencity.ui.CreateNews.ContentValidationTest"/>
             <class name="org.greencity.ui.CreateNews.SourceFieldValidationTest"/>
             <class name="org.greencity.ui.CreateNews.TitleValidationTest"/>
-            <class name="org.greencity.ui.CreateNews.UploadImageNegativeTest"/>
+            <class name="org.greencity.ui.CreateNews.UploadImageTest"/>
             <class name="org.greencity.ui.CreateNews.PreviewPageTest"/>
 
             <class name="org.greencity.ui.EditNews.EditNewsFormVisibilityTestEN"/>

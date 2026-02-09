@@ -73,9 +73,9 @@ public class CreateNewsFormVisibilityTestEN extends CreateNewsENTestRunner {
                 imageComponent.isPlaceholderImagePresent(),
                 "Image zone should be visible"
         );
-        Assert.assertTrue(createNewsPage.getImageComponent().isCancelCropperButtonVisible(),
+        Assert.assertTrue(imageComponent.isCancelCropperButtonVisible(),
                 "Cancel button on cropper should be visible");
-        Assert.assertTrue(createNewsPage.getImageComponent().isSubmitCropperButtonVisible(),
+        Assert.assertTrue(imageComponent.isSubmitCropperButtonVisible(),
                 "Submit button on cropper should be visible");
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(
