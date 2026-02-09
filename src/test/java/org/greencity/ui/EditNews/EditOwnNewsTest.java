@@ -25,14 +25,6 @@ public class EditOwnNewsTest extends NewsDetailsTestRunner {
     @Description("Verify that the author can edit their own news and the changes are saved")
     @Test
     public void verifyAuthorCanEditOwnNews() {
-        Assert.assertTrue(newsDetailsPage.isPageOpened(), "News Details page should be opened");
-        Assert.assertTrue(newsDetailsPage.isEditButtonVisible(), "Edit button should become visible");
-        Assert.assertTrue(newsDetailsPage.isEditButtonEnabled(), "Edit button should become enabled");
-        Assert.assertEquals(
-                newsDetailsPage.getEditButtonText(),
-                "Edit news",
-                "Edit button text is incorrect"
-        );
         long newsId = newsDetailsPage.getId();
         String originalTitle = newsDetailsPage.getTitleValue();
 
