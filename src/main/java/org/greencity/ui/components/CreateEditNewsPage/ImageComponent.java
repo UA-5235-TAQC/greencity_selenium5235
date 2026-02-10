@@ -26,14 +26,11 @@ public class ImageComponent extends BaseComponent {
     @FindBy(css = "div.image-preview img")
     private WebElement previewImage;
 
-    @FindBy(css = "div.image-block p.warning-color")
-    private WebElement imageErrorMessage;
+    @FindBy(css = "div.image-block p.warning")
+    private WebElement imageMessage;
 
     @FindBy(css = "image-cropper.cropper")
     private WebElement cropper;
-
-    @FindBy(css = "p.warning")
-    private WebElement imageMessage;
 
     @FindBy(css = "div.cropper-buttons button.secondary-global-button")
     private WebElement cancelCropperBtn;
@@ -167,7 +164,7 @@ public class ImageComponent extends BaseComponent {
 
     @Step("Check if image error message is displayed")
     public boolean isImageErrorMsg() {
-        return imageErrorMessage != null;
+        return imageMessage.getAttribute("class").contains("warning-color");
     }
 
     @Step("Check if image preview is displayed")

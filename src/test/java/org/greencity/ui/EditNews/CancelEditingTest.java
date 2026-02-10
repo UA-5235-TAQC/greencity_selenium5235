@@ -1,29 +1,29 @@
 package org.greencity.ui.EditNews;
 
+import io.qameta.allure.testng.Tag;
 import org.greencity.ui.components.CreateEditNewsPage.CancelModalComponent;
-import org.greencity.ui.pages.CreateEditNews.EditNewsPage;
-import org.greencity.ui.pages.CreateEditNews.NewsPreviewPage;
-import org.greencity.ui.testrunners.BaseTestRunner;
+import org.greencity.ui.pages.UbsCourierPage;
+import org.greencity.ui.testrunners.EditNews.EditNewsENTestRunner;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
+import io.qameta.allure.*;
 
-public class CancelEditingTest extends BaseTestRunner {
+@Tag("Edit News")
+@Epic("EcoNews Management")
+@Feature("Edit news page")
+@Story("Cancel editing behavior")
+@Severity(SeverityLevel.NORMAL)
+@Issue("18")
+public class CancelEditingTest extends EditNewsENTestRunner {
 
-    private EditNewsPage editNewsPage;
-
-    @BeforeMethod
-    public void beforeMethod() {
-        LoginUser();
-        editNewsPage = new EditNewsPage(driver, 818).open();
-    }
-
+    @Description("Verify that clicking the Cancel button during editing triggers a confirmation modal, " +
+            "and selecting 'Yes, cancel' closes the editor")
     @Test
     public void CancelEditing() {
         editNewsPage.getContentComponent().enterContent("Short text");
         Assert.assertTrue(editNewsPage.isCancelButtonVisible());
         editNewsPage.clickCancel();
+
         // Verify cancel modal is displayed
         Assert.assertTrue(editNewsPage.isCancelModalDisplayed(),
                 "Confirmation modal should appear after clicking Cancel");
@@ -37,18 +37,13 @@ public class CancelEditingTest extends BaseTestRunner {
         Assert.assertTrue(cancelModal.isContinueEditingButtonVisible(),
                 "'Continue editing' button should be visible");
 
-        cancelModal.clickYesCancel();
+        UbsCourierPage ubsCourierPage = cancelModal.clickYesCancel().open();
+        Assert.assertFalse(editNewsPage.isCancelModalDisplayed(),
+                "Cancel modal should be closed after clicking 'Yes, cancel'");
 
-        NewsPreviewPage newsPreviewPage = new NewsPreviewPage(driver);
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(newsPreviewPage.isPageOpened(),
-                "User should be redirected to NewsPreviewPage");
-        softAssert.assertAll();
-
-        String currentUrl = driver.getCurrentUrl();
-        softAssert = new SoftAssert();
-        softAssert.assertNotNull(currentUrl, "Current URL should not be null");
-        softAssert.assertTrue(currentUrl.contains("/news"), "URL should contain /news after cancel");
-        softAssert.assertAll();
+        Assert.assertFalse(editNewsPage.isPageOpenedSafe(),
+                "User should be redirected away from Edit News page after canceling");
+        Assert.assertTrue(ubsCourierPage.isPageOpenedAfterCancelModalClickYesCancel(),
+                "User should be directed to Ubs Courier page after canceling");
     }
 }

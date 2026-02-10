@@ -1,30 +1,23 @@
 package org.greencity.ui.CreateNews;
 
+import io.qameta.allure.*;
+import io.qameta.allure.testng.Tag;
 import org.greencity.ui.enums.EcoNewsTag;
-import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
-import org.greencity.ui.pages.HomePage;
-import org.greencity.ui.testrunners.BaseTestRunner;
+import org.greencity.ui.testrunners.CreateNews.CreateNewsENTestRunner;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class TitleFieldValidation extends BaseTestRunner {
+import static org.greencity.utils.NewsTestData.VALID_CONTENT;
 
-    private final String VALID_CONTENT = "This is a valid content with more than 20 characters for the news item.";
-    private CreateNewsPage createNewsPage;
+@Tag("Create News")
+@Epic("EcoNews Management")
+@Feature("Create News")
+@Story("Title field validation")
+@Severity(SeverityLevel.NORMAL)
+@Issue("4")
+public class TitleValidationTest extends CreateNewsENTestRunner {
 
-
-
-    @BeforeMethod
-    public void beforeMethod() {
-        createNewsPage = LoginUser()
-                .getHeader()
-                .clickEcoNewsLink()
-                .clickCreateNews();
-    }
-
-
+    @Description("Verify the validation of the title field")
     @Test
     public void verifyTitleFieldAndPublishButtonLogic() {
         // 1. Mandatory field validation (Empty title)
@@ -59,16 +52,5 @@ public class TitleFieldValidation extends BaseTestRunner {
 
         // 5. Final activation check
         Assert.assertTrue(createNewsPage.isPublishButtonEnabled(), "Publish button should become enabled after all fields are valid.");
-    }
-
-    @Test
-    public void verifyTooShortContent  () {
-        createNewsPage.enterTitle("Test News");
-        createNewsPage.getContentComponent().enterContent("1");
-
-        Assert.assertFalse(createNewsPage.getContentComponent().isContentValid());
-
-        createNewsPage.getContentComponent().enterContent(VALID_CONTENT);
-        Assert.assertTrue(createNewsPage.getContentComponent().isContentValid(), "Content should be valid after all fields are valid.");
     }
 }

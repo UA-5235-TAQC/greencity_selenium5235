@@ -1,37 +1,29 @@
 package org.greencity.ui.CreateNews;
 
+import io.qameta.allure.*;
+import io.qameta.allure.testng.Tag;
 import org.greencity.ui.enums.EcoNewsTag;
-import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
 import org.greencity.ui.pages.EcoNewsPage;
-import org.greencity.ui.pages.HomePage;
-import org.greencity.ui.testrunners.BaseTestRunner;
+import org.greencity.ui.testrunners.CreateNews.CreateNewsENTestRunner;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import java.util.List;
 
-public class SourceFieldValidationTest extends BaseTestRunner {
+@Tag("Create News")
+@Epic("EcoNews Management")
+@Feature("Create News")
+@Story("Source field validation")
+@Severity(SeverityLevel.NORMAL)
+@Issue("8")
+public class SourceValidationTest extends CreateNewsENTestRunner {
 
-    private CreateNewsPage createNewsPage;
-
-    @BeforeMethod
-    public void beforeMethod() {
-
-        createNewsPage = LoginUser()
-                .getHeader()
-                .clickEcoNewsLink()
-                .clickCreateNews();
-    }
-
+    @Description("Verify that news can be published with empty Source field")
     @Test
     public void SourceFieldValidation() {
         // Navigate and create news item with valid data and empty Source Field
-        createNewsPage.getHeader()
-                .clickEcoNewsLink()
-                .clickCreateNews()
+        createNewsPage
                 .createNews(
                         "A".repeat(170),
                         List.of(
@@ -60,6 +52,7 @@ public class SourceFieldValidationTest extends BaseTestRunner {
         ecoNewsPage.waitForMessageDisappear();
     }
 
+    @Description("Verify validation logic for invalid Source field and successful publish after correction")
     @Test
     public void SourceFieldNonValidValidation() {
         // Create new news item with non-valid Source Field data

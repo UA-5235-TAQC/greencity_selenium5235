@@ -7,12 +7,10 @@ import org.greencity.ui.components.CreateEditNewsPage.ContentComponent;
 import org.greencity.ui.components.CreateEditNewsPage.ImageComponent;
 import org.greencity.ui.components.TagItem;
 import org.greencity.ui.enums.EcoNewsTag;
-import org.greencity.ui.pages.CreateEditNews.EditNewsPage;
 import org.greencity.ui.pages.CreateEditNews.NewsPreviewPage;
 import org.greencity.ui.pages.UbsCourierPage;
-import org.greencity.ui.testrunners.BaseTestRunner;
+import org.greencity.ui.testrunners.EditNews.EditNewsENTestRunner;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -25,28 +23,20 @@ import java.util.Locale;
 
 import static org.greencity.utils.NewsTestData.*;
 
-public class EditNewsFormVisibilityTestEN extends BaseTestRunner {
+@Tag("Edit News")
+@Epic("EcoNews Management")
+@Feature("Edit news page")
+@Story("Verify visibility and behavior of Edit News form in English locale")
+@Severity(SeverityLevel.NORMAL)
+@Issue("14")
+public class EditNewsFormVisibilityTestEN extends EditNewsENTestRunner {
 
-    private EditNewsPage editNewsPage;
-    private final long newsId = 830;
-
-    @BeforeMethod
-    public void beforeMethod() {
-        LoginUser();
-        editNewsPage = new EditNewsPage(driver, newsId).open();
-        editNewsPage.getHeader().changeToEN();
-    }
-
-    @Tag("Edit")
-    @Feature("Edit news page")
-    @Issue("14")
     @Description("Verify that the Edit News form contains the particular fields in English locale")
-    @Severity(SeverityLevel.NORMAL)
     @Test
     public void verifyEditNewsFormFieldsVisibilityInEnglishLocale() {
 
         // 1. Title
-        Assert.assertTrue(editNewsPage.isPageOpened());
+        Assert.assertTrue(editNewsPage.isPageOpened(), "Edit News page should be opened");
         Assert.assertEquals(editNewsPage.getTitleCounterText(), "4/170", "Title counter should be 4/170");
         Assert.assertEquals(editNewsPage.getTitleLength(), 4, "Title length should be 4");
         Assert.assertEquals(editNewsPage.getTitleValue(), TEST_TITLE_EN, "Title should be the same as the test title");
@@ -326,16 +316,14 @@ public class EditNewsFormVisibilityTestEN extends BaseTestRunner {
         softAssert.assertEquals(cancelModal.getYesCancelButtonText(), "Yes, cancel");
         softAssert.assertEquals(cancelModal.getContinueEditingButtonText(), "Continue editing");
         softAssert.assertAll();
-        cancelModal.clickYesCancel();
+        cancelModal.clickClose();
         cancelModal.waitUntilClosed();
 
-        editNewsPage = new EditNewsPage(driver, newsId).open();
-        editNewsPage.getHeader().changeToEN();
         Assert.assertTrue(editNewsPage.isPageOpened(),
                 "User should be redirected to CreateNewsPage");
         String currentUrl = driver.getCurrentUrl();
         Assert.assertNotNull(currentUrl, "Current URL should not be null");
-        Assert.assertTrue(currentUrl.contains("/create-news"), "URL should contain /create-news after cancel");
+        Assert.assertTrue(currentUrl.contains("/create-news"), "URL should contain /create-news after close the cancel modal");
 
         testTitle = "Max";
         List<String> testTags = EcoNewsTag.getEn(List.of(EcoNewsTag.INITIATIVES, EcoNewsTag.EVENTS));
@@ -377,7 +365,7 @@ public class EditNewsFormVisibilityTestEN extends BaseTestRunner {
         Assert.assertNotNull(src, "Preview image src should not be null");
         Assert.assertFalse(src.isEmpty(), "Preview image src should not be empty");
 
-        editNewsPage = preview.backToEditing(newsId);
+        editNewsPage = preview.backToEditing(getNewsId());
         Assert.assertTrue(editNewsPage.isPageOpenedAfterPreviewClickBack(),
                 "User should be redirected to CreateNewsPage after clicking Back button");
         editNewsPage.reload();

@@ -7,13 +7,13 @@
     -->
     <test name="AllTests">
         <classes>
-            <class name="org.greencity.ui.CreateNews.CancelButtonBehaviorTest"/>
+            <class name="org.greencity.ui.CreateNews.CancelCreatingTest"/>
             <class name="org.greencity.ui.CreateNews.CreateNewsFormVisibilityTestEN"/>
             <class name="org.greencity.ui.CreateNews.CreateNewsFormVisibilityTestUA"/>
-            <class name="org.greencity.ui.CreateNews.MainTextFieldValidationTest"/>
-            <class name="org.greencity.ui.CreateNews.SourceFieldValidationTest"/>
-            <class name="org.greencity.ui.CreateNews.TitleFieldValidation"/>
-            <class name="org.greencity.ui.CreateNews.CreateNewsPageTest"/>
+            <class name="org.greencity.ui.CreateNews.ContentValidationTest"/>
+            <class name="org.greencity.ui.CreateNews.SourceValidationTest"/>
+            <class name="org.greencity.ui.CreateNews.TitleValidationTest"/>
+            <class name="org.greencity.ui.CreateNews.UploadImageTest"/>
             <class name="org.greencity.ui.CreateNews.PreviewPageTest"/>
 
             <class name="org.greencity.ui.EditNews.EditNewsFormVisibilityTestEN"/>

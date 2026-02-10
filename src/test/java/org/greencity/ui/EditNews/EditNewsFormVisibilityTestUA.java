@@ -1,6 +1,5 @@
 package org.greencity.ui.EditNews;
 
-
 import io.qameta.allure.*;
 import io.qameta.allure.testng.Tag;
 import org.greencity.ui.components.CreateEditNewsPage.CancelModalComponent;
@@ -8,12 +7,10 @@ import org.greencity.ui.components.CreateEditNewsPage.ContentComponent;
 import org.greencity.ui.components.CreateEditNewsPage.ImageComponent;
 import org.greencity.ui.components.TagItem;
 import org.greencity.ui.enums.EcoNewsTag;
-import org.greencity.ui.pages.CreateEditNews.EditNewsPage;
 import org.greencity.ui.pages.CreateEditNews.NewsPreviewPage;
 import org.greencity.ui.pages.UbsCourierPage;
-import org.greencity.ui.testrunners.BaseTestRunner;
+import org.greencity.ui.testrunners.EditNews.EditNewsUATestRunner;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -26,28 +23,20 @@ import java.util.Locale;
 
 import static org.greencity.utils.NewsTestData.*;
 
-public class EditNewsFormVisibilityTestUA extends BaseTestRunner {
+@Tag("Edit News")
+@Epic("EcoNews Management")
+@Feature("Edit news page")
+@Story("Verify visibility and behavior of Edit News form in Ukrainian locale")
+@Severity(SeverityLevel.NORMAL)
+@Issue("14")
+public class EditNewsFormVisibilityTestUA extends EditNewsUATestRunner {
 
-    private EditNewsPage editNewsPage;
-    private final long newsId = 888;
-
-    @BeforeMethod
-    public void beforeMethod() {
-        LoginUser();
-        editNewsPage = new EditNewsPage(driver, newsId).open();
-        editNewsPage.getHeader().changeToUK();
-    }
-
-    @Tag("Edit")
-    @Feature("Edit news page")
-    @Issue("14")
     @Description("Verify that the Edit News form contains the particular fields in Ukrainian locale")
-    @Severity(SeverityLevel.NORMAL)
     @Test
     public void verifyEditNewsFormFieldsVisibilityInUkrainianLocale() {
 
         // 1. Title
-        Assert.assertTrue(editNewsPage.isPageOpened());
+        Assert.assertTrue(editNewsPage.isPageOpened(), "Edit News page should be opened");
         Assert.assertEquals(editNewsPage.getTitleCounterText(), "4/170", "Title counter should be 4/170");
         Assert.assertEquals(editNewsPage.getTitleLength(), 4, "Title length should be 4");
         Assert.assertEquals(editNewsPage.getTitleValue(), TEST_TITLE_UA, "Title should be the same as the test title");
@@ -240,11 +229,9 @@ public class EditNewsFormVisibilityTestUA extends BaseTestRunner {
         softAssert.assertEquals(cancelModal.getYesCancelButtonText(), "Скасувати");
         softAssert.assertEquals(cancelModal.getContinueEditingButtonText(), "Продовжити");
         softAssert.assertAll();
-        cancelModal.clickYesCancel();
+        cancelModal.clickClose();
         cancelModal.waitUntilClosed();
 
-        editNewsPage = new EditNewsPage(driver, newsId).open();
-        editNewsPage.getHeader().changeToUK();
         testTitle = "Макс";
         List<String> testTags = EcoNewsTag.getUa(List.of(EcoNewsTag.INITIATIVES, EcoNewsTag.EVENTS));
         String testSource = "https://en.wikipedia.org/wiki/Main_Page";
@@ -274,7 +261,7 @@ public class EditNewsFormVisibilityTestUA extends BaseTestRunner {
         Assert.assertNotNull(src, "Preview image src should not be null");
         Assert.assertFalse(src.isEmpty(), "Preview image src should not be empty");
 
-        editNewsPage = preview.backToEditing(newsId);
+        editNewsPage = preview.backToEditing(getNewsId());
         editNewsPage.reload();
         editNewsPage.getHeader().changeToUK();
         editNewsPage.editNews(TEST_TITLE_UA, EcoNewsTag.getUa(TEST_TAGS), TEST_SOURCE, TEST_CONTENT_UA, TEST_FILEPATH);
