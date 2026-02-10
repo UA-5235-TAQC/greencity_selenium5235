@@ -2,6 +2,34 @@
 
 This repository contains UI tests for the GreenCity project using Selenium and Maven.
 
+---
+
+## 📊 Allure Test Report
+
+Проєкт використовує **Allure Report**, який автоматично генерується та публікується через **GitHub Actions**.
+
+### 🔗 Main branch report
+
+Актуальний звіт для гілки `main` доступний за посиланням:
+
+👉 **[https://ua-5235-taqc.github.io/greencity_selenium5235/main/](https://ua-5235-taqc.github.io/greencity_selenium5235/main/)**
+
+У звіті ви можете знайти:
+
+* ✅ результати всіх тестів
+* 📈 історію запусків (history & trends)
+* 🔁 flaky та retried тести
+* ⏱️ тривалість виконання
+* 📊 статистику по тест-кейсам
+
+---
+
+### 🔍 Pull Request reports
+
+Для кожного Pull Request автоматично створюється окремий Allure Report.
+Посилання на нього додається **коментарем у PR** після завершення CI.
+
+
 ## Requirements
 
 - Java 21 (JDK)
