@@ -27,11 +27,14 @@ public class PreviewPageTest extends CreateNewsENTestRunner {
     @Test
     public void checkPreviewPage() {
         createNewsPage
+                .getHeader()
+                .changeToEN();
+        createNewsPage
                 .enterTitle(newsTitle)
                 .getContentComponent().enterContent(newsText);
-        previewPage = createNewsPage.clickPreview();
+        createNewsPage.clickPreview();
 
-        Assert.assertEquals(getDriver().getCurrentUrl(), testValueProvider.getBaseUIGreenCityUrl() + "#/greenCity/news/preview");
+        Assert.assertEquals(getDriver().getCurrentUrl(), testValueProvider.getBaseUIGreenCityUrl() + "/news/preview");
         Assert.assertEquals(previewPage.getNewsTitle(), newsTitle);
         Assert.assertEquals(previewPage.getNewsText(), newsText);
         LocalDate today = LocalDate.now();
@@ -41,7 +44,8 @@ public class PreviewPageTest extends CreateNewsENTestRunner {
         Assert.assertEquals(previewPage.getAuthorName(), testValueProvider.getUserName());
 
         previewPage.clickBackToCreateNewsBtn();
-        Assert.assertEquals(getDriver().getCurrentUrl(), testValueProvider.getBaseUIGreenCityUrl() + "#/greenCity/news/create-news");
-        Assert.assertTrue(createNewsPage.isPageOpenedAfterPreviewClickBack());
+        Assert.assertEquals(getDriver().getCurrentUrl(), testValueProvider.getBaseUIGreenCityUrl() + "/news/create-news");
+        //There will be an error because of page components loading bug
+        Assert.assertTrue(createNewsPage.isPageOpened());
     }
 }

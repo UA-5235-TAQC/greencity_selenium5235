@@ -1,19 +1,18 @@
-name: PR Tests with Allure Report
+name: Main Tests with Allure History
 
 on:
-  pull_request:
+  push:
     branches: [ main ]
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
-  test-and-report:
+  test-and-publish:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout PR branch
+      - name: Checkout main
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -30,8 +29,8 @@ jobs:
           path: ~/.m2
           key: maven-${{ hashFiles('**/pom.xml') }}
 
-      - name: Run tests
-        run: mvn clean test
+      - name: Run tests (main)
+        run: mvn clean test -DsuiteXmlFile=src/test/resources/testng.xml
         continue-on-error: true
         env:
           BASE_UI_GREEN_CITY_URL: ${{ secrets.BASE_UI_GREEN_CITY_URL }}
@@ -44,13 +43,12 @@ jobs:
           USER_RATE: ${{ secrets.USER_RATE }}
           HEADLESS_MODE: ${{ secrets.HEADLESS_MODE }}
 
-      # ⬇️ Забираємо history з gh-pages
-      - name: Load Allure history
+      - name: Load previous Allure history
         run: |
           git fetch origin gh-pages
-          git checkout origin/gh-pages -- history || true
+          git checkout origin/gh-pages -- main/history || true
           mkdir -p target/allure-results
-          cp -r history target/allure-results/ || true
+          cp -r main/history target/allure-results/history || true
 
       - name: Generate Allure Report
         run: |
@@ -58,29 +56,10 @@ jobs:
           tar -xzf allure.tgz
           ./allure-2.25.0/bin/allure generate target/allure-results -o allure-report --clean
 
-      # ⬇️ зберігаємо history назад
-      - name: Save Allure history
-        run: |
-          mkdir -p allure-report/history
-          cp -r allure-report/history history
-
-      - name: Deploy report to gh-pages (PR folder)
+      - name: Deploy MAIN report
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: allure-report
-          destination_dir: pr-${{ github.event.pull_request.number }}
-
-      - name: Comment PR with Allure link
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const pr = context.payload.pull_request.number;
-            const url = `https://${context.repo.owner}.github.io/${context.repo.repo}/pr-${pr}/`;
-            github.rest.issues.createComment({
-              issue_number: pr,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `📊 **Allure Report**: ${url}`
-            });
+          destination_dir: main
