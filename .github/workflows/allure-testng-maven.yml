@@ -1,42 +1,28 @@
-name: CI
+name: Allure Report to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [ main, master ]
   pull_request:
-    branches: [main]
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
-  build:
+  test-and-publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
-
-    env:
-      CI: "true"
-      CHROME_BIN: /usr/bin/google-chrome-stable
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Set up Java 21
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
-          distribution: temurin
+          distribution: 'temurin'
           java-version: '21'
-          cache: 'maven'
-
-      # cache тут зайвий, але не шкодить
-      - name: Cache Maven local repository
-        uses: actions/cache@v4
-        with:
-          path: ~/.m2/repository
-          key: maven-${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            maven-${{ runner.os }}-
 
       - name: Install Google Chrome
         run: |
@@ -58,12 +44,15 @@ jobs:
         run: |
           google-chrome-stable --version
 
-      - name: Run Maven tests (FULL LOGS)
-        run: |
-          mvn clean test \
-            -DsuiteXml=src/test/resources/testng.xml \
-            -Dsurefire.useFile=false \
-            -DtrimStackTrace=false
+      - name: Cache Maven
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: maven-${{ hashFiles('**/pom.xml') }}
+
+      - name: Run tests
+        run: mvn clean test
+        continue-on-error: true
         env:
           BASE_UI_GREEN_CITY_URL: ${{ secrets.BASE_UI_GREEN_CITY_URL }}
           USER_NAME: ${{ secrets.USER_NAME }}
@@ -75,95 +64,15 @@ jobs:
           USER_RATE: ${{ secrets.USER_RATE }}
           HEADLESS_MODE: ${{ secrets.HEADLESS_MODE }}
 
-      - name: Upload Allure results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: allure-results
-          path: target/allure-results
-          if-no-files-found: warn
-
-      - name: Load test report history
-        uses: actions/checkout@v4
-        if: always()
-        continue-on-error: true
-        with:
-          ref: gh-pages
-          path: gh-pages
-          fetch-depth: 0
-          persist-credentials: true
-
-      - name: Ensure gh-pages branch exists (preserve history)
-        if: always()
-        env:
-          REPO: ${{ github.repository }}
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Generate Allure Report
         run: |
-          set -euo pipefail
-          # if checkout succeeded and .git exists, we have the branch with history
-          if [ -d "gh-pages/.git" ]; then
-            echo "gh-pages branch checked out with full history"
-            exit 0
-          fi
+          curl -o allure.tgz -L https://github.com/allure-framework/allure2/releases/download/2.25.0/allure-2.25.0.tgz
+          tar -xzf allure.tgz
+          ./allure-2.25.0/bin/allure generate allure-results -o allure-report --clean
 
-          echo "gh-pages branch not found remotely — creating initial gh-pages branch"
-          # create a temporary clone so we can push an initial commit and establish the branch
-          git clone "https://x-access-token:${TOKEN}@github.com/${REPO}.git" gh-pages-tmp || true
-          if [ -d gh-pages-tmp ]; then
-            cd gh-pages-tmp
-            # If remote has gh-pages, checkout it; otherwise create initial commit on gh-pages
-            if git ls-remote --exit-code --heads origin gh-pages >/dev/null 2>&1; then
-              git fetch origin gh-pages
-              git checkout --track origin/gh-pages
-            else
-              git checkout --orphan gh-pages
-              echo "<html><body><p>Initial gh-pages</p></body></html>" > index.html
-              git add index.html
-              git config user.name "github-actions[bot]"
-              git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-              git commit -m "Initialize gh-pages branch"
-              git push "https://x-access-token:${TOKEN}@github.com/${REPO}.git" gh-pages
-            fi
-            cd ..
-            rm -rf gh-pages-tmp
-          else
-            # fallback: create a minimal gh-pages dir locally and push
-            mkdir -p gh-pages
-            cd gh-pages
-            git init
-            git checkout -b gh-pages
-            echo "<html><body><p>Initial gh-pages</p></body></html>" > index.html
-            git add index.html
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git commit -m "Initialize gh-pages branch"
-            git push "https://x-access-token:${TOKEN}@github.com/${REPO}.git" gh-pages
-            cd ..
-          fi
-
-      - name: Install Allure CLI
-        run: |
-          sudo apt-add-repository ppa:qameta/allure
-          sudo apt update
-          sudo apt install -y allure
-
-      - name: Build Allure report
-        run: |
-          allure generate target/allure-results -o allure-report --clean
-
-      - name: Copy Allure report into gh-pages
-        if: always()
-        run: |
-          # ensure gh-pages working tree exists and replace old report
-          mkdir -p gh-pages
-          rm -rf gh-pages/allure-report || true
-          cp -r allure-report gh-pages/
-          echo "Deployed on $(date -u)" > gh-pages/.deployinfo
-
-      - name: Publish Allure report
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: gh-pages
-          force_orphan: false
+          publish_dir: allure-report
