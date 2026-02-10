@@ -9,6 +9,9 @@ public class UbsCourierPage extends BasePage {
     @FindBy(css = "div.our-partners-section__icons")
     private WebElement partnersSection;
 
+    @FindBy(css = "section#events a[href*='greenCity/news']")
+    private WebElement readAllNewsLink;
+
     public UbsCourierPage(WebDriver driver) {
         super(driver);
     }
@@ -22,6 +25,10 @@ public class UbsCourierPage extends BasePage {
     @Override
     public boolean isPageOpened() {
         return isVisible(partnersSection);
+    }
+
+    public boolean isPageOpenedAfterCancelModalClickYesCancel() {
+        return isVisible(readAllNewsLink);
     }
 
     @Override

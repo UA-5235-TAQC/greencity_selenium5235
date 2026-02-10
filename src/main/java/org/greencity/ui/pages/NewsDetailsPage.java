@@ -29,7 +29,7 @@ public class NewsDetailsPage extends BasePage {
     @FindBy(css = ".secondary-global-button.delete-news-button")
     protected WebElement deleteButton;
 
-    @FindBy(css = "a.edit-news")
+    @FindBy(xpath = "//a[div[@class='edit-news']]")
     protected WebElement editButton;
 
     @FindBy(css = "img.news_like")
@@ -59,6 +59,18 @@ public class NewsDetailsPage extends BasePage {
     @FindBy(css = ".news-title-container .news-title")
     protected WebElement newsTitleText;
 
+    @FindBy(css = ".news-info-date")
+    private WebElement postDate;
+
+    @FindBy(css = ".news-info-author")
+    private WebElement authorName;
+
+    @FindBy(css = ".ql-editor")
+    private WebElement content;
+
+    @FindBy(css = "img.news-image-img")
+    private WebElement newsImage;
+
     private final long newsId;
 
     public NewsDetailsPage(WebDriver driver, long newsId) {
@@ -66,7 +78,7 @@ public class NewsDetailsPage extends BasePage {
         this.newsId = newsId;
     }
 
-    @Step("Open news details page by news id: {newsId}")
+    @Step("Open news details page")
     @Override
     public NewsDetailsPage open() {
         driver.get(getBaseHost() + "/news/" + newsId);
@@ -76,7 +88,7 @@ public class NewsDetailsPage extends BasePage {
     @Step("Check that news details page is opened")
     @Override
     public boolean isPageOpened() {
-        return isVisible(root);
+        return isVisible(newsTitleText);
     }
 
     @Step("Wait until news details page is loaded")
@@ -105,6 +117,17 @@ public class NewsDetailsPage extends BasePage {
     public EditNewsPage clickEditButton() {
         click(editButton);
         return new EditNewsPage(driver, newsId);
+    }
+
+    @Step("Check if Edit button is enabled")
+    public boolean isEditButtonEnabled() {
+        return editButton.isEnabled();
+    }
+
+    @Step("Get Edit button text")
+    public String getEditButtonText() {
+        waitUntilVisible(editButton);
+        return editButton.getText().trim();
     }
 
     @Step("Click 'Like' button")
@@ -166,7 +189,7 @@ public class NewsDetailsPage extends BasePage {
     public List<String> getTags() {
         return tags.stream()
                 .map(WebElement::getText)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Step("Get comments count")
@@ -177,11 +200,6 @@ public class NewsDetailsPage extends BasePage {
     @Step("Get tag by index: {index}")
     public String getTagByIndex(int index) {
         return tags.get(index).getText();
-    }
-
-    @Step("Check if news details page root is visible")
-    public boolean isPageVisible() {
-        return isVisible(root);
     }
 
     @Step("Check if 'Back to news' button is visible")
@@ -221,5 +239,66 @@ public class NewsDetailsPage extends BasePage {
     @Step("Check if comments form is visible")
     public boolean isCommentsFormVisible() {
         return isVisible(commentsForm);
+    }
+
+    @Step("Get title text")
+    public String getTitleValue() {
+        return newsTitleText.getText().trim();
+    }
+
+    @Step("Check if tags are visible on page")
+    public boolean areTagsVisible() {
+        return areVisible(tags);
+    }
+
+    @Step("Check if post date is visible")
+    public boolean isPostDateVisible() {
+        return isVisible(authorName);
+    }
+
+    @Step("Get post date")
+    public String getPostDate() {
+        return postDate.getText().trim();
+    }
+
+    @Step("Check if author is visible")
+    public boolean isAuthorVisible() {
+        return isVisible(authorName);
+    }
+
+    @Step("Get author name")
+    public String getAuthor() {
+        return authorName.getText().substring(3).trim();
+    }
+
+    @Step("Get news ID")
+    public long getId() {
+        return newsId;
+    }
+
+    @Step("Check if content is visible")
+    public boolean isContentVisible() {
+        return isVisible(content);
+    }
+
+    @Step("Get content text")
+    public String getContentText() {
+        return content.getText();
+    }
+
+    @Step("Check if news image is visible")
+    public boolean isNewsImageVisible() {
+        return isVisible(newsImage);
+    }
+
+    @Step("Get news image src")
+    public String getNewsImageSrc() {
+        return newsImage.getAttribute("src");
+    }
+
+    @Step("Check if image is present")
+    public boolean isNewsImagePresent() {
+        String src = getNewsImageSrc();
+        return src != null && src.startsWith("https://");
     }
 }

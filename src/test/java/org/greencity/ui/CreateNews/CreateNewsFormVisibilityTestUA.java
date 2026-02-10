@@ -6,13 +6,11 @@ import org.greencity.ui.components.CreateEditNewsPage.CancelModalComponent;
 import org.greencity.ui.components.CreateEditNewsPage.ContentComponent;
 import org.greencity.ui.components.CreateEditNewsPage.ImageComponent;
 import org.greencity.ui.enums.EcoNewsTag;
-import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
 import org.greencity.ui.pages.CreateEditNews.NewsPreviewPage;
 import org.greencity.ui.pages.EcoNewsPage;
-import org.greencity.ui.testrunners.BaseTestRunner;
+import org.greencity.ui.testrunners.CreateNews.CreateNewsUATestRunner;
 import org.greencity.utils.NewsTestData;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -23,28 +21,19 @@ import java.util.Locale;
 
 import static org.greencity.utils.NewsTestData.*;
 
-public class CreateNewsFormVisibilityTestUA extends BaseTestRunner {
+@Tag("Create News")
+@Epic("EcoNews Management")
+@Feature("Create News")
+@Story("Verify visibility and behavior of Create News form in Ukrainian locale")
+@Severity(SeverityLevel.NORMAL)
+@Issue("3")
+public class CreateNewsFormVisibilityTestUA extends CreateNewsUATestRunner {
 
-    private CreateNewsPage createNewsPage;
-
-    @Description("A test that allows a given user to log in to the system")
-    @BeforeMethod
-    public void beforeMethod() {
-        createNewsPage =LoginUser().getHeader()
-                .changeToUK()
-                .clickEcoNewsLink()
-                .clickCreateNews();
-    }
-
-    @Tag("Create")
-    @Feature("Create news page")
-    @Issue("3")
     @Description("Verify that the Create News form contains the particular fields in Ukrainian locale")
-    @Severity(SeverityLevel.NORMAL)
     @Test
     public void verifyCreateNewsFormFieldsVisibilityInUkrainianLocale() {
 
-        // 2. Tags
+        // Tags
         List<String> expectedUkTags = EcoNewsTag.getAllUa();
 
         Assert.assertEquals(
@@ -53,7 +42,7 @@ public class CreateNewsFormVisibilityTestUA extends BaseTestRunner {
                 "Tags should be in Ukrainian"
         );
 
-        // 3. Image Upload
+        // Image Upload
         ImageComponent imageComponent = createNewsPage.getImageComponent();
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(
@@ -98,7 +87,7 @@ public class CreateNewsFormVisibilityTestUA extends BaseTestRunner {
         );
         softAssert.assertAll();
 
-        // 5. Content
+        // Content
         ContentComponent content = createNewsPage.getContentComponent();
         softAssert = new SoftAssert();
         softAssert.assertEquals(
@@ -113,7 +102,7 @@ public class CreateNewsFormVisibilityTestUA extends BaseTestRunner {
         );
         softAssert.assertAll();
 
-        // 7. Date
+        // Date
         LocalDate today = LocalDate.now();
         DateTimeFormatter formatterUa =
                 DateTimeFormatter.ofPattern("MMM d, yyyy 'р.'")
@@ -125,7 +114,7 @@ public class CreateNewsFormVisibilityTestUA extends BaseTestRunner {
                 "Date should be today's date"
         );
 
-        // 8. Publish, Preview, Cancel buttons
+        // Publish, Preview, Cancel buttons
         softAssert = new SoftAssert();
         softAssert.assertEquals(
                 createNewsPage.getCancelButtonText(),
@@ -158,11 +147,9 @@ public class CreateNewsFormVisibilityTestUA extends BaseTestRunner {
         softAssert.assertEquals(cancelModal.getYesCancelButtonText(), "Скасувати");
         softAssert.assertEquals(cancelModal.getContinueEditingButtonText(), "Продовжити");
         softAssert.assertAll();
-        cancelModal.clickYesCancel();
+        cancelModal.clickClose();
         cancelModal.waitUntilClosed();
 
-        createNewsPage = new CreateNewsPage(driver).open();
-        createNewsPage.getHeader().changeToUK();
         new NewsTestData().applyToUa(createNewsPage);
         NewsPreviewPage preview = createNewsPage.clickPreview();
         Assert.assertEquals(preview.getNewsTitle(), TEST_TITLE_UA,
