@@ -31,9 +31,9 @@ public class BaseTestRunner {
 
     @BeforeSuite(alwaysRun = true)
     public void beforeSuite(ITestContext context) {
-        for(ITestNGMethod method : context.getAllTestMethods()) {
-            method.setRetryAnalyzerClass(RetryAnalyzer.class);
-        }
+//        for(ITestNGMethod method : context.getAllTestMethods()) {
+//            method.setRetryAnalyzerClass(RetryAnalyzer.class);
+//        }
         WebDriverManager.chromedriver().setup();
         testValueProvider = new TestValueProvider();
     }
