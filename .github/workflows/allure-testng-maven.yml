@@ -1,22 +1,22 @@
-name: Allure Report to GitHub Pages
+name: PR Tests with Allure Report
 
 on:
-  push:
-    branches: [ main, master ]
   pull_request:
+    branches: [ main ]
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
+  pull-requests: write
 
 jobs:
-  test-and-publish:
+  test-and-report:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout PR branch
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up JDK
         uses: actions/setup-java@v4
@@ -64,15 +64,44 @@ jobs:
           USER_RATE: ${{ secrets.USER_RATE }}
           HEADLESS_MODE: ${{ secrets.HEADLESS_MODE }}
 
+
+      # ⬇️ Забираємо history з gh-pages
+      - name: Load Allure history
+        run: |
+          git fetch origin gh-pages
+          git checkout origin/gh-pages -- history || true
+          mkdir -p target/allure-results
+          cp -r history target/allure-results/ || true
+
       - name: Generate Allure Report
         run: |
           curl -o allure.tgz -L https://github.com/allure-framework/allure2/releases/download/2.25.0/allure-2.25.0.tgz
           tar -xzf allure.tgz
-          ./allure-2.25.0/bin/allure generate allure-results -o allure-report --clean
+          ./allure-2.25.0/bin/allure generate target/allure-results -o allure-report --clean
 
-      - name: Deploy to GitHub Pages
+      # ⬇️ зберігаємо history назад
+      - name: Save Allure history
+        run: |
+          mkdir -p allure-report/history
+          cp -r allure-report/history history
+
+      - name: Deploy report to gh-pages (PR folder)
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: allure-report
+          destination_dir: pr-${{ github.event.pull_request.number }}
+
+      - name: Comment PR with Allure link
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request.number;
+            const url = `https://${context.repo.owner}.github.io/${context.repo.repo}/pr-${pr}/`;
+            github.rest.issues.createComment({
+              issue_number: pr,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `📊 **Allure Report**: ${url}`
+            });

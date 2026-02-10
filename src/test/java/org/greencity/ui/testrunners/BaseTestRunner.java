@@ -7,11 +7,14 @@ import org.greencity.ui.pages.HomePage;
 import org.greencity.ui.pages.MySpace.MySpaceHabitsTabPage;
 import org.greencity.utils.DriverManager;
 import org.greencity.utils.BaseAllureListener;
+import org.greencity.utils.RetryAnalyzer;
 import org.greencity.utils.TestValueProvider;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.ITestContext;
+import org.testng.ITestNGMethod;
 import org.testng.annotations.*;
 
 import java.time.Duration;
@@ -27,7 +30,10 @@ public class BaseTestRunner {
     }
 
     @BeforeSuite(alwaysRun = true)
-    public void beforeSuite() {
+    public void beforeSuite(ITestContext context) {
+        for(ITestNGMethod method : context.getAllTestMethods()) {
+            method.setRetryAnalyzerClass(RetryAnalyzer.class);
+        }
         WebDriverManager.chromedriver().setup();
         testValueProvider = new TestValueProvider();
     }
