@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="TestSuite" parallel="methods" thread-count="2" verbose="1">
+<suite name="TestSuite" parallel="methods" thread-count="8" verbose="1">
     <!--
       Suite that runs all tests found under the test classes package.
       Adjust thread-count as needed for CI/runner resources.
     -->
-    <test name="AllTests">
+    <test name="UITests">
         <classes>
             <class name="org.greencity.ui.CreateNews.CancelCreatingTest"/>
             <class name="org.greencity.ui.CreateNews.CreateNewsFormVisibilityTestEN"/>
@@ -23,6 +23,11 @@
             <class name="org.greencity.ui.FirstTest"/>
             <class name="org.greencity.ui.FirstTestWithUser"/>
             <class name="org.greencity.ui.TagSelectionTest"/>
+        </classes>
+    </test>
+    <test name="APITests">
+        <classes>
+            <class name="org.greencity.api.OwnSecurityTest"/>
         </classes>
     </test>
 </suite>
