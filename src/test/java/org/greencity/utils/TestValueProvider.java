@@ -49,12 +49,12 @@ public class TestValueProvider {
         return System.getenv("USER_PASSWORD");
     }
 
-    public String getUserId() {
+    public int getUserId() {
 
         if (properties != null) {
-            return properties.getProperty("user.id");
+            return Integer.parseInt(properties.getProperty("user.id"));
         }
-        return System.getenv("USER_ID");
+        return Integer.parseInt(System.getenv("USER_ID"));
     }
 
     public Long getImplicitlyWait() {
@@ -84,5 +84,20 @@ public class TestValueProvider {
             return Boolean.parseBoolean(properties.getProperty("headless.mode"));
         }
         return Boolean.parseBoolean(System.getenv("HEADLESS_MODE"));
+    }
+
+    public String getBaseGreencityUserAPIUrl() {
+        if (properties != null) {
+            return properties.getProperty("base.greencity.user.api.url");
+        }
+
+        return System.getenv("BASE_GREEN_CITY_USER_API_URL");
+    }
+    public String getGreencityAPIUrl() {
+        if (properties != null) {
+            return properties.getProperty("base.greencity.api.url");
+        }
+
+        return System.getenv("BASE_GREEN_CITY_API_URL");
     }
 }

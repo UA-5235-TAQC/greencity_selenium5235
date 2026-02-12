@@ -1,6 +1,8 @@
 name: PR Tests with Allure Report
 
 on:
+  push:
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -31,7 +33,7 @@ jobs:
           key: maven-${{ hashFiles('**/pom.xml') }}
 
       - name: Run tests
-        run: mvn clean test
+        run: mvn test
         continue-on-error: true
         env:
           BASE_UI_GREEN_CITY_URL: ${{ secrets.BASE_UI_GREEN_CITY_URL }}
@@ -43,46 +45,32 @@ jobs:
           USER_LOCATION: ${{ secrets.USER_LOCATION }}
           USER_RATE: ${{ secrets.USER_RATE }}
           HEADLESS_MODE: ${{ secrets.HEADLESS_MODE }}
+          BASE_GREEN_CITY_USER_API_URL: ${{ secrets.BASE_GREEN_CITY_USER_API_URL }}
+          BASE_GREEN_CITY_API_URL: ${{ secrets.BASE_GREEN_CITY_API_URL }}
 
-      # ⬇️ Забираємо history з gh-pages
-      - name: Load Allure history
-        run: |
-          git fetch origin gh-pages
-          git checkout origin/gh-pages -- history || true
-          mkdir -p target/allure-results
-          cp -r history target/allure-results/ || true
 
-      - name: Generate Allure Report
-        run: |
-          curl -o allure.tgz -L https://github.com/allure-framework/allure2/releases/download/2.25.0/allure-2.25.0.tgz
-          tar -xzf allure.tgz
-          ./allure-2.25.0/bin/allure generate target/allure-results -o allure-report --clean
-
-      # ⬇️ зберігаємо history назад
-      - name: Save Allure history
-        run: |
-          mkdir -p allure-report/history
-          cp -r allure-report/history history
-
-      - name: Deploy report to gh-pages (PR folder)
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Get Allure history
+        uses: actions/checkout@v2
+        if: always()
+        continue-on-error: true
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: allure-report
-          destination_dir: pr-${{ github.event.pull_request.number }}
-          keep_files: true  # Важливо, щоб звіти різних PR не видаляли один одного
-          enable_jekyll: false # Вимикає Jekyll, щоб він не ігнорував технічні папки Allure
+          ref: gh-pages
+          path: gh-pages
 
-      - name: Comment PR with Allure link
-        uses: actions/github-script@v7
+      - name: Allure Report action from marketplace
+        uses: simple-elf/allure-report-action@master
+        if: always()
+        id: allure-report
         with:
-          script: |
-            const pr = context.payload.pull_request.number;
-            const url = `https://${context.repo.owner}.github.io/${context.repo.repo}/pr-${pr}/`;
-            github.rest.issues.createComment({
-              issue_number: pr,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `📊 **Allure Report**: ${url}`
-            });
+          allure_results: allure-results
+          gh_pages: gh-pages
+          allure_report: allure-report
+          allure_history: allure-history
+
+      - name: Deploy report to Github Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v2
+        env:
+          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUBLISH_BRANCH: gh-pages
+          PUBLISH_DIR: allure-history
