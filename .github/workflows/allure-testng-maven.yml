@@ -71,6 +71,8 @@ jobs:
           publish_branch: gh-pages
           publish_dir: allure-report
           destination_dir: pr-${{ github.event.pull_request.number }}
+          keep_files: true  # Важливо, щоб звіти різних PR не видаляли один одного
+          enable_jekyll: false # Вимикає Jekyll, щоб він не ігнорував технічні папки Allure
 
       - name: Comment PR with Allure link
         uses: actions/github-script@v7
