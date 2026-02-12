@@ -95,7 +95,7 @@ public class TestValueProvider {
     }
     public String getGreencityAPIUrl() {
         if (properties != null) {
-                return properties.getProperty("base.greencity.api.url");
+            return properties.getProperty("base.greencity.api.url");
         }
 
         return System.getenv("BASE_GREEN_CITY_API_URL");

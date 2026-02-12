@@ -11,4 +11,3 @@ public class SignInResponse {
     private boolean ownRegistrations;
 }
 
-

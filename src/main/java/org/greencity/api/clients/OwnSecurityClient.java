@@ -10,8 +10,8 @@ public class OwnSecurityClient extends BaseApiClient{
         super(baseUrl);
     }
 
-    public  OwnSecurityClient(String baseUrl, String apiKey) {
-        super(baseUrl, apiKey);
+    public  OwnSecurityClient(String baseUrl, String token) {
+        super(baseUrl, token);
     }
 
     public Response signIn(String username, String password){

@@ -17,7 +17,7 @@ public class OwnSecurityTest extends ApiTestRunner {
     }
 
     @Test
-    public void singInTest(){
+    public void signInTest(){
         Response response = client.signIn(testValueProvider.getUserEmail(), testValueProvider.getUserPassword());
         Assert.assertEquals(response.getStatusCode(), 200);
 
