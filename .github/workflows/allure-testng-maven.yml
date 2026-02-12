@@ -33,7 +33,7 @@ jobs:
           key: maven-${{ hashFiles('**/pom.xml') }}
 
       - name: Run tests
-        run: mvn clean test
+        run: mvn test
         continue-on-error: true
         env:
           BASE_UI_GREEN_CITY_URL: ${{ secrets.BASE_UI_GREEN_CITY_URL }}
