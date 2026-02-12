@@ -12,7 +12,7 @@ This repository contains UI tests for the GreenCity project using Selenium and M
 
 Актуальний звіт для гілки `main` доступний за посиланням:
 
-👉 **[https://ua-5235-taqc.github.io/greencity_selenium5235/main/](https://ua-5235-taqc.github.io/greencity_selenium5235/main/)**
+👉 **[https://ua-5235-taqc.github.io/greencity_selenium5235](https://ua-5235-taqc.github.io/greencity_selenium5235)**
 
 У звіті ви можете знайти:
 
@@ -137,3 +137,4 @@ allure open target\allure-report
 
 Or directly open the HTML file:
 `target/allure-report/index.html`
+
