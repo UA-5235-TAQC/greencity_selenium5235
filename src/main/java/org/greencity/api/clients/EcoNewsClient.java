@@ -30,7 +30,7 @@ public class EcoNewsClient extends BaseApiClient {
     public Response postEcoNews(EcoNewsRequest body) {
         return prepareRequest()
                 .contentType("multipart/form-data")
-                .multiPart("addEcoNewsDtoRequest", body, "application/json")
+                .multiPart("addEcoNewsDtoRequest", body, "application/json; charset=UTF-8")
                 .log().all()
                 .post(resourcePath)
                 .then()

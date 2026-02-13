@@ -10,6 +10,7 @@ import org.greencity.ui.enums.EcoNewsTag;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.util.List;
 
@@ -24,11 +25,10 @@ public class CreateEcoNewsTest extends ApiTestRunner {
 
     @BeforeClass
     public void prepareTokens() {
-        // Use the existing OwnSecurityClient
+
         String userApiUrl = testValueProvider.getBaseGreencityUserAPIUrl();
         OwnSecurityClient ownSecurityClient = new OwnSecurityClient(userApiUrl);
 
-        // Send login request
         Response response = ownSecurityClient.signIn(
                 testValueProvider.getUserEmail(),
                 testValueProvider.getUserPassword()
@@ -36,10 +36,8 @@ public class CreateEcoNewsTest extends ApiTestRunner {
 
         Assert.assertEquals(response.getStatusCode(), 200, "Login request failed");
 
-        // Extract access token
         accessToken = response.jsonPath().getString("accessToken");
 
-        // Initialize EcoNews client with authorization token
         ecoNewsClient = new EcoNewsClient(testValueProvider.getGreencityAPIUrl(), accessToken);
     }
 
@@ -48,24 +46,32 @@ public class CreateEcoNewsTest extends ApiTestRunner {
             "and receive a valid response with generated ID and correct data.")
     @Step("Create a new EcoNews item and validate response")
     public void createEcoNewsSuccessTest() {
-        // Create request body
+
+        String expectedTitle = "Новина про екологію " + System.currentTimeMillis();
+        String expectedText = "Це дуже важливий текст новини, який має бути довшим за 20 символів.";
+
         EcoNewsRequest requestBody = EcoNewsRequest.builder()
-                .title("Eco news test title")
-                .text("This is a very important news text that must be longer than 20 characters.")
+                .title(expectedTitle)
+                .text(expectedText)
                 .tags(List.of(EcoNewsTag.NEWS.getEn().toLowerCase()))
                 .source("https://example.com")
-                .shortInfo("Short description")
+                .shortInfo("Короткий опис")
                 .image(null)
                 .build();
 
         Response response = ecoNewsClient.postEcoNews(requestBody);
 
-        Assert.assertEquals(response.getStatusCode(), 201, "Eco News was not created successfully");
+        Assert.assertEquals(response.getStatusCode(), 201, "Eco News was not created!");
 
         Integer id = response.jsonPath().get("id");
         String title = response.jsonPath().getString("title");
-        String text = response.jsonPath().getString("text");
+        String text = response.jsonPath().getString("content"); // перевірили, що тут 'content'
 
-        Assert.assertNotNull(id, "Response should contain a generated news ID");
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertNotNull(id, "ID should not be null");
+        softAssert.assertEquals(title, expectedTitle, "Title mismatch!");
+        softAssert.assertEquals(text, expectedText, "Content mismatch!");
+        softAssert.assertAll();
     }
 }

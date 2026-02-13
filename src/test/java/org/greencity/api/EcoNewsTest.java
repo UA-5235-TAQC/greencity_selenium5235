@@ -32,21 +32,19 @@ public class EcoNewsTest extends ApiTestRunner {
             "and validates the first news item, including its ID, title, author details, and tags.")
     @Test
     public void verifyEcoNewsPageDataTest() {
-        // 1. Build query parameters
+
         Map<String, Object> queryParams = new HashMap<>();
         queryParams.put("author-id", testValueProvider.getUserId());
         queryParams.put("favorite", false);
         queryParams.put("page", 0);
         queryParams.put("size", 20);
 
-        // 2. Send request and get response
+        // Send request and get response
         Response response = ecoNewsClient.getEcoNews(queryParams);
         Assert.assertEquals(response.getStatusCode(), 200);
 
-        // 3. Deserialize response to EcoNewsPageResponse object
         EcoNewsPageResponse pageResponse = response.as(EcoNewsPageResponse.class);
 
-        // 4. Validations (Soft Assertions)
         SoftAssert softAssert = new SoftAssert();
 
         // Validate pagination data
