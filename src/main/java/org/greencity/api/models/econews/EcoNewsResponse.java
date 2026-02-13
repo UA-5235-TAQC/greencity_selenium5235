@@ -24,5 +24,5 @@ public class EcoNewsResponse {
     private int countOfEcoNews;
     private boolean favorite;
     private int dislikes = 0;
-    private boolean hidden = true;
+    private boolean hidden;
 }

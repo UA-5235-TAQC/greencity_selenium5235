@@ -85,14 +85,13 @@ public abstract class BaseApiClient {
     @Step("Attach files to request: {imagePath}")
     protected void attachFilesToRequest(RequestSpecification request, String imagePath) {
         if (imagePath == null || imagePath.isEmpty()) {
-            request.multiPart("image", "", "");
             return;
         }
         try {
             File file = new File(imagePath);
-            String fileName = file.getName().toLowerCase();
-            String mineType = fileName.endsWith(".png") ? "image/png" : "image/jpeg";
-            request.multiPart("type", fileName, new FileInputStream(file), mineType);
+            String fileName = file.getName();
+            String mimeType = fileName.toLowerCase().endsWith(".png") ? "image/png" : "image/jpeg";
+            request.multiPart("image", fileName, new FileInputStream(file), mimeType);
         } catch (IOException e) {
             throw new RuntimeException("Failed to attach file: " + e.getMessage(), e);
         }

@@ -1,17 +1,10 @@
 package org.greencity.api.clients;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.qameta.allure.Step;
-import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.greencity.api.models.econews.UpdateEcoNewsDto;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-
 import org.greencity.api.models.econews.EcoNewsRequest;
 
 import java.util.Map;
