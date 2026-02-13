@@ -9,5 +9,9 @@ public class SignInResponse {
     private String refreshToken;
     private String name;
     private boolean ownRegistrations;
+
+//    public String getAccessToken() {
+//        return this.accessToken;
+//    }
 }
 
