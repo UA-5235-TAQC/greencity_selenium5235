@@ -1,26 +1,28 @@
 package org.greencity.api.models.econews;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
-import org.greencity.api.models.AuthorDto;
+import org.greencity.api.models.AuthorResponse;
 
 import java.time.OffsetDateTime;
 import java.util.List;
 
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class EcoNewsResponse {
-    private OffsetDateTime creationDate;
-    private String imagePath;
-    private long id;
+
+    private int id;
     private String title;
     private String content;
     private String shortInfo;
-    private AuthorDto author;
-    private int likes;
-    private int dislikes;
-    private int countComments;
-    private boolean hidden;
-    private List<String> tagsEn;
+    private AuthorResponse author;
+    private OffsetDateTime creationDate;
+    private String imagePath;
+    private String source;
     private List<String> tagsUk;
+    private List<String> tagsEn;
+    private int likes;
+    private int countComments;
+    private int countOfEcoNews;
+    private boolean favorite;
+    private int dislikes = 0;
+    private boolean hidden = true;
 }

@@ -8,6 +8,10 @@ import io.restassured.specification.RequestSpecification;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
 public abstract class BaseApiClient {
     protected final String baseApiUrl;
 
@@ -76,5 +80,21 @@ public abstract class BaseApiClient {
                 prepareRequest()
                         .delete(path)
         );
+    }
+
+    @Step("Attach files to request: {imagePath}")
+    protected void attachFilesToRequest(RequestSpecification request, String imagePath) {
+        if (imagePath == null || imagePath.isEmpty()) {
+            request.multiPart("image", "", "");
+            return;
+        }
+        try {
+            File file = new File(imagePath);
+            String fileName = file.getName().toLowerCase();
+            String mineType = fileName.endsWith(".png") ? "image/png" : "image/jpeg";
+            request.multiPart("type", fileName, new FileInputStream(file), mineType);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to attach file: " + e.getMessage(), e);
+        }
     }
 }

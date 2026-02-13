@@ -1,20 +1,27 @@
 package org.greencity.api;
 
+import io.qameta.allure.*;
+import io.qameta.allure.testng.Tag;
 import io.restassured.response.Response;
 import org.greencity.api.models.econews.EcoNewsResponse;
 import org.greencity.api.models.econews.UpdateEcoNewsDto;
 import org.greencity.api.testrunners.EcoNewsWithoutTokenRunner;
-import org.greencity.utils.api.EcoNewsDtoFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import java.time.LocalDate;
 
+@Epic("EcoNews API")
+@Feature("EcoNews CRUD without authorization")
+@Severity(SeverityLevel.NORMAL)
+@Tag("API")
 public class EcoNewsWithoutTokenTest extends EcoNewsWithoutTokenRunner {
 
     private final long ecoNewsIdEn = 830L;
 
     @Test
+    @Story("Get EcoNews by ID")
+    @Description("Verify that EcoNews can be successfully retrieved by ID without authorization.")
     public void getEcoNewsByIdTest() {
         Response response = ecoNewsClient.getEcoNewsById(ecoNewsIdEn);
         Assert.assertEquals(response.getStatusCode(), 200);
@@ -61,6 +68,8 @@ public class EcoNewsWithoutTokenTest extends EcoNewsWithoutTokenRunner {
     }
 
     @Test
+    @Story("Get non-existing EcoNews")
+    @Description("Verify that requesting non-existing EcoNews returns 404 status code.")
     public void getNonExistingEcoNewsTest() {
         long ecoNewsId = 1L;
         Response response = ecoNewsClient.getEcoNewsById(ecoNewsId);
@@ -74,6 +83,8 @@ public class EcoNewsWithoutTokenTest extends EcoNewsWithoutTokenRunner {
     }
 
     @Test
+    @Story("Get EcoNews in English")
+    @Description("Verify that EcoNews can be retrieved in English using lang parameter.")
     public void getEcoNewsEnTest() {
         Response response = ecoNewsClient.getEcoNewsByIdWithLang(ecoNewsIdEn, "en");
         Assert.assertEquals(response.getStatusCode(), 200,
@@ -83,6 +94,8 @@ public class EcoNewsWithoutTokenTest extends EcoNewsWithoutTokenRunner {
     }
 
     @Test
+    @Story("Get EcoNews in Ukrainian")
+    @Description("Verify that EcoNews can be retrieved in Ukrainian using lang parameter.")
     public void getEcoNewsUkTest() {
         long ecoNewsIdEn = 888L;
         Response response = ecoNewsClient.getEcoNewsByIdWithLang(ecoNewsIdEn, "uk");
@@ -103,6 +116,8 @@ public class EcoNewsWithoutTokenTest extends EcoNewsWithoutTokenRunner {
     }
 
     @Test
+    @Story("Update EcoNews without token")
+    @Description("Verify that updating EcoNews without authorization returns 401 status code.")
     public void testUpdateEcoNewsByIdWithoutTokenShouldReturn401() {
         UpdateEcoNewsDto updateDto = new UpdateEcoNewsDto();
         updateDto.setId(ecoNewsIdEn);
@@ -115,6 +130,8 @@ public class EcoNewsWithoutTokenTest extends EcoNewsWithoutTokenRunner {
     }
 
     @Test
+    @Story("Delete EcoNews without token")
+    @Description("Verify that deleting EcoNews without authorization returns 401 status code.")
     public void testDeleteEcoNewsByIdWithoutTokenShouldReturn401() {
         long ecoNewsId = 1488L;
         Response deleteResponse = ecoNewsClient.deleteEcoNewsById(ecoNewsId);

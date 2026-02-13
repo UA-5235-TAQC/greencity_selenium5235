@@ -3,8 +3,8 @@ package org.greencity.api.models;
 import lombok.Data;
 
 @Data
-public class AuthorDto {
+public class AuthorResponse {
     private int id;
     private String name;
-    private String profilePicturePath;
+    private String profilePicturePath = "";
 }

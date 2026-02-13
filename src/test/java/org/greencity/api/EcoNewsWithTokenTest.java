@@ -1,5 +1,7 @@
 package org.greencity.api;
 
+import io.qameta.allure.*;
+import io.qameta.allure.testng.Tag;
 import io.restassured.response.Response;
 import org.greencity.api.models.econews.EcoNewsResponse;
 import org.greencity.api.models.econews.UpdateEcoNewsDto;
@@ -12,11 +14,17 @@ import java.io.File;
 import java.time.LocalDate;
 import java.util.List;
 
+@Epic("EcoNews API")
+@Feature("EcoNews CRUD with authorization")
+@Severity(SeverityLevel.NORMAL)
+@Tag("API")
 public class EcoNewsWithTokenTest extends EcoNewsWithTokenRunner {
 
     private final long ecoNewsId = 1443L;
 
     @Test
+    @Story("Update EcoNews with invalid tag")
+    @Description("Verify that updating EcoNews with an invalid tag returns 400 Bad Request")
     public void testUpdateEcoNewsByIdWithInvalidTagShouldReturn400() {
         UpdateEcoNewsDto updateDto = new UpdateEcoNewsDto();
         updateDto.setId(ecoNewsId);
@@ -27,6 +35,8 @@ public class EcoNewsWithTokenTest extends EcoNewsWithTokenRunner {
     }
 
     @Test
+    @Story("Update EcoNews without image")
+    @Description("Verify that updating EcoNews without providing an image works correctly")
     public void testUpdateEcoNewsByIdWithoutImage() {
         EcoNewsDtoFactory dtoFactory = new EcoNewsDtoFactory(ecoNewsId);
         UpdateEcoNewsDto updateDto = dtoFactory.createDefaultDto();
@@ -71,28 +81,45 @@ public class EcoNewsWithTokenTest extends EcoNewsWithTokenRunner {
     }
 
     @Test
+    @Story("Update EcoNews with image causing server error")
+    @Description("Verify that updating EcoNews with a specific image triggers a 500 Internal Server Error")
     public void testUpdateEcoNewsByIdWithImageShouldReturn500() {
         EcoNewsDtoFactory dtoFactory = new EcoNewsDtoFactory(ecoNewsId);
         UpdateEcoNewsDto updateDto = dtoFactory.createDefaultDto();
 
-        File image = new File("src/test/resources/images/test2.png");
+        String imagePath = "src/test/resources/images/test2.png";
+        File image = new File(imagePath);
+
         if (!image.exists()) {
             throw new RuntimeException("Image file not found: " + image.getAbsolutePath());
         }
 
-        Response response = ecoNewsClient.updateEcoNewsById(ecoNewsId, updateDto, image);
-        Assert.assertEquals(response.getStatusCode(), 500,
-                "Expected status code 500");
+        Response response = ecoNewsClient
+                .updateEcoNewsById(ecoNewsId, updateDto, imagePath);
+
+        Assert.assertEquals(
+                response.getStatusCode(),
+                500,
+                "Expected status code 500"
+        );
+
         String message = response.jsonPath().getString("message");
-        Assert.assertEquals(message, "No message available",
-                "Message should match expected");
+        Assert.assertEquals(
+                message,
+                "No message available",
+                "Message should match expected"
+        );
 
         EcoNewsResponse ecoNews = response.as(EcoNewsResponse.class);
-        Assert.assertNull(ecoNews.getImagePath(),
-                "Image path should be null");
+        Assert.assertNull(
+                ecoNews.getImagePath(),
+                "Image path should be null"
+        );
     }
 
     @Test
+    @Story("Delete existing EcoNews")
+    @Description("Verify that an authorized user can successfully delete an existing EcoNews item")
     public void testDeleteEcoNewsByIdShouldReturn200() {
         long ecoNewsIdToDelete = 1445L;
         Response deleteResponse = ecoNewsClient.deleteEcoNewsById(ecoNewsIdToDelete);
@@ -105,6 +132,8 @@ public class EcoNewsWithTokenTest extends EcoNewsWithTokenRunner {
     }
 
     @Test
+    @Story("Delete non-existing EcoNews")
+    @Description("Verify that deleting a non-existing EcoNews returns 404 Not Found")
     public void testDeleteNonExistingEcoNewsShouldReturn404() {
         long nonExistingId = 999999L;
         Response deleteResponse = ecoNewsClient.deleteEcoNewsById(nonExistingId);

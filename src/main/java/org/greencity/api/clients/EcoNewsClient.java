@@ -1,6 +1,5 @@
 package org.greencity.api.clients;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.qameta.allure.Step;
 import io.restassured.RestAssured;
@@ -13,14 +12,19 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
+import org.greencity.api.models.econews.EcoNewsRequest;
+
+import java.util.Map;
+
 public class EcoNewsClient extends BaseApiClient {
+    protected final String resourcePath = "/eco-news";
 
     public EcoNewsClient(String baseUrl) {
         super(baseUrl);
     }
 
-    public EcoNewsClient(String baseUrl, String token) {
-        super(baseUrl, token);
+    public EcoNewsClient(String baseApiUrl, String token) {
+        super(baseApiUrl, token);
     }
 
     public String getPath(long ecoNewsId) {
@@ -28,12 +32,12 @@ public class EcoNewsClient extends BaseApiClient {
         return resourcePath + ecoNewsId;
     }
 
-    @Step("GET EcoNews by ID: {ecoNewsId}")
+    @Step("Get EcoNews by ID: {ecoNewsId}")
     public Response getEcoNewsById(long ecoNewsId) {
         return get(getPath(ecoNewsId));
     }
 
-    @Step("GET EcoNews by ID: {ecoNewsId} with language: {lang}")
+    @Step("Get EcoNews by ID: {ecoNewsId} with language: {lang}")
     public Response getEcoNewsByIdWithLang(long ecoNewsId, String lang) {
         return execute(
                 prepareRequest()
@@ -42,46 +46,37 @@ public class EcoNewsClient extends BaseApiClient {
         );
     }
 
-    @Step("UPDATE EcoNews by ID: {ecoNewsId} with DTO and image: {image}")
-    public Response updateEcoNewsById(long ecoNewsId, UpdateEcoNewsDto updateDto, File image) {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-
-        RequestSpecification request = RestAssured.given()
-                .baseUri(baseApiUrl)
-                .header("Authorization", "Bearer " + token)
-                .contentType(ContentType.MULTIPART);
-
-        if (image != null) {
-            String mimeType;
-            if (image.getName().toLowerCase().endsWith(".png")) {
-                mimeType = "image/png";
-            } else if (image.getName().toLowerCase().endsWith(".jpg") || image.getName().toLowerCase().endsWith(".jpeg")) {
-                mimeType = "image/jpeg";
-            } else {
-                throw new IllegalArgumentException("Only PNG and JPEG are allowed");
-            }
-            request.multiPart("image", image, mimeType);
-        }
-
-        try {
-            File tempJsonFile = File.createTempFile("updateEcoNewsDto", ".json");
-            tempJsonFile.deleteOnExit();
-            Files.writeString(tempJsonFile.toPath(), mapper.writeValueAsString(updateDto));
-            request.multiPart("updateEcoNewsDto", tempJsonFile, "application/json");
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to prepare JSON file for multipart", e);
-        }
-
-        if (image != null) {
-            request.multiPart("image", image);
-        }
-
-        return request.put(getPath(ecoNewsId));
+    @Step("Update EcoNews by ID: {ecoNewsId}")
+    public Response updateEcoNewsById(long ecoNewsId,
+                                      UpdateEcoNewsDto updateDto,
+                                      String imagePath) {
+        RequestSpecification request = prepareRequest()
+                .contentType(ContentType.MULTIPART)
+                .multiPart("updateEcoNewsDto", updateDto,
+                        "application/json; charset=UTF-8");
+        attachFilesToRequest(request, imagePath);
+        return execute(request.put(getPath(ecoNewsId)));
     }
 
-    @Step("DELETE EcoNews by ID: {ecoNewsId}")
+    @Step("Delete EcoNews by ID: {ecoNewsId}")
     public Response deleteEcoNewsById(long ecoNewsId) {
         return delete(getPath(ecoNewsId));
+    }
+
+    @Step("Get EcoNews with query parameters: {queryParams}")
+    public Response getEcoNews(Map<String, ?> queryParams) {
+        return prepareRequest().queryParams(queryParams).log().all().get(resourcePath).then().extract().response();
+    }
+
+    @Step("Post new EcoNews without image")
+    public Response postEcoNews(EcoNewsRequest body) {
+        return prepareRequest().contentType(ContentType.MULTIPART).multiPart("addEcoNewsDtoRequest", body, "application/json; charset=UTF-8").log().all().post(resourcePath).then().extract().response();
+    }
+
+    @Step("Post new EcoNews {body} with image: {imagePath}")
+    public Response postEcoNews(EcoNewsRequest body, String imagePath) {
+        RequestSpecification request = prepareRequest().contentType(ContentType.MULTIPART).multiPart("addEcoNewsDtoRequest", body, "application/json; charset=UTF-8");
+        attachFilesToRequest(request, imagePath);
+        return request.log().all().post(resourcePath).then().extract().response();
     }
 }
