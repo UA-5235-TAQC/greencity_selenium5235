@@ -15,8 +15,6 @@ public class ApiTestRunner {
     @BeforeSuite
     public void setUp() {
         testValueProvider = new TestValueProvider();
-
-        RestAssured.baseURI = testValueProvider.getGreencityAPIUrl();
         RestAssured.registerParser("application/json", Parser.JSON);
         RestAssured.config = RestAssuredConfig.config()
                 .encoderConfig(EncoderConfig.encoderConfig().defaultContentCharset("UTF-8"));

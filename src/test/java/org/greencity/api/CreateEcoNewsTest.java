@@ -44,7 +44,6 @@ public class CreateEcoNewsTest extends ApiTestRunner {
     @Test
     @Description("This test verifies that an authorized user can successfully create a new EcoNews item " +
             "and receive a valid response with generated ID and correct data.")
-    @Step("Create a new EcoNews item and validate response")
     public void createEcoNewsSuccessTest() {
 
         String expectedTitle = "Новина про екологію " + System.currentTimeMillis();
@@ -65,7 +64,7 @@ public class CreateEcoNewsTest extends ApiTestRunner {
 
         Integer id = response.jsonPath().get("id");
         String title = response.jsonPath().getString("title");
-        String text = response.jsonPath().getString("content"); // перевірили, що тут 'content'
+        String text = response.jsonPath().getString("content");
 
 
         SoftAssert softAssert = new SoftAssert();
