@@ -10,7 +10,7 @@ import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.ui.pages.CreateEditNews.NewsPreviewPage;
 import org.greencity.ui.pages.EcoNewsPage;
 import org.greencity.ui.testrunners.CreateNews.CreateNewsENTestRunner;
-import org.greencity.utils.NewsTestData;
+import org.greencity.utils.ui.NewsTestData;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -20,7 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 
-import static org.greencity.utils.NewsTestData.*;
+import static org.greencity.utils.ui.NewsTestData.*;
 
 @Tag("Create News")
 @Epic("EcoNews Management")

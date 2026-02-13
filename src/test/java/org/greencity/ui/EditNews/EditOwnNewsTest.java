@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-import static org.greencity.utils.NewsTestData.*;
+import static org.greencity.utils.ui.NewsTestData.*;
 
 @Tag("Edit News")
 @Epic("EcoNews Management")

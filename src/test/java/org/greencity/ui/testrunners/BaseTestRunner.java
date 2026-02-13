@@ -5,16 +5,14 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import org.greencity.ui.pages.HomePage;
 import org.greencity.ui.pages.MySpace.MySpaceHabitsTabPage;
-import org.greencity.utils.DriverManager;
-import org.greencity.utils.BaseAllureListener;
-import org.greencity.utils.RetryAnalyzer;
+import org.greencity.utils.ui.DriverManager;
+import org.greencity.utils.ui.BaseAllureListener;
 import org.greencity.utils.TestValueProvider;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.ITestContext;
-import org.testng.ITestNGMethod;
 import org.testng.annotations.*;
 
 import java.time.Duration;

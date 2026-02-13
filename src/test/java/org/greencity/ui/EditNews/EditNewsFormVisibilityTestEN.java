@@ -21,7 +21,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import static org.greencity.utils.NewsTestData.*;
+import static org.greencity.utils.ui.NewsTestData.*;
 
 @Tag("Edit News")
 @Epic("EcoNews Management")

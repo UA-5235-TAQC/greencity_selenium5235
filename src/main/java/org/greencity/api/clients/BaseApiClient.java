@@ -1,6 +1,9 @@
 package org.greencity.api.clients;
 
+import io.qameta.allure.Step;
+import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,10 +33,8 @@ public abstract class BaseApiClient {
         this.token = token;
     }
 
-
     protected RequestSpecification prepareRequest() {
         RequestSpecification request = io.restassured.RestAssured.given()
-//                .log().all()
                 .baseUri(baseApiUrl).contentType(contentType);
         if (token != null) {
             request.header("Authorization", "Bearer " + token);
@@ -41,4 +42,39 @@ public abstract class BaseApiClient {
         return request;
     }
 
+    protected RequestSpecification prepareMultipartRequest(String token) {
+        RequestSpecification request = RestAssured.given()
+                .contentType(ContentType.MULTIPART)
+                .log().all();
+
+        if (token != null) {
+            request.header("Authorization", "Bearer " + token);
+        }
+
+        return request;
+    }
+
+    protected Response execute(Response response) {
+        return response
+                .then()
+                .log().all()
+                .extract()
+                .response();
+    }
+
+    @Step("GET request to {path}")
+    protected Response get(String path) {
+        return execute(
+                prepareRequest()
+                        .get(path)
+        );
+    }
+
+    @Step("DELETE request to {path}")
+    protected Response delete(String path) {
+        return execute(
+                prepareRequest()
+                        .delete(path)
+        );
+    }
 }
