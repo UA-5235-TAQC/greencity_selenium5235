@@ -1,5 +1,7 @@
 package org.greencity.api;
 
+import io.qameta.allure.*;
+import io.qameta.allure.testng.Tag;
 import io.restassured.response.Response;
 import org.greencity.api.clients.EcoNewsClient;
 import org.greencity.api.clients.OwnSecurityClient;
@@ -8,55 +10,64 @@ import org.greencity.ui.enums.EcoNewsTag;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 import java.util.List;
 
+@Epic("EcoNews API")
+@Feature("Create EcoNews")
+@Story("Verify that an authorized user can create a new EcoNews item")
+@Severity(SeverityLevel.CRITICAL)
+@Tag("API")
 public class CreateEcoNewsTest extends ApiTestRunner {
     private String accessToken;
     private EcoNewsClient ecoNewsClient;
 
     @BeforeClass
     public void prepareTokens() {
-        // Використовуємо ваш існуючий OwnSecurityClient
+        // Use the existing OwnSecurityClient
         String userApiUrl = testValueProvider.getBaseGreencityUserAPIUrl();
         OwnSecurityClient ownSecurityClient = new OwnSecurityClient(userApiUrl);
 
-        // Викликаємо ваш метод signIn
+        // Send login request
         Response response = ownSecurityClient.signIn(
                 testValueProvider.getUserEmail(),
                 testValueProvider.getUserPassword()
         );
 
-        Assert.assertEquals(response.getStatusCode(), 200, "Login failed!");
+        Assert.assertEquals(response.getStatusCode(), 200, "Login request failed");
 
-        // Дістаємо токен (структура JSON у відповіді однакова)
+        // Extract access token
         accessToken = response.jsonPath().getString("accessToken");
 
-        // Далі ініціалізуємо клієнт новин
+        // Initialize EcoNews client with authorization token
         ecoNewsClient = new EcoNewsClient(testValueProvider.getGreencityAPIUrl(), accessToken);
     }
 
     @Test
+    @Description("This test verifies that an authorized user can successfully create a new EcoNews item " +
+            "and receive a valid response with generated ID and correct data.")
+    @Step("Create a new EcoNews item and validate response")
     public void createEcoNewsSuccessTest() {
-        // Створюємо об'єкт із плоскими полями
+        // Create request body
         EcoNewsRequest requestBody = EcoNewsRequest.builder()
-                .title("Новина про екологію ") // Унікальний заголовок
-                .text("Це дуже важливий текст новини, який має бути довшим за 20 символів.")
+                .title("Eco news test title")
+                .text("This is a very important news text that must be longer than 20 characters.")
                 .tags(List.of(EcoNewsTag.NEWS.getEn().toLowerCase()))
                 .source("https://example.com")
-                .shortInfo("Короткий опис")
+                .shortInfo("Short description")
                 .image(null)
                 .build();
 
         Response response = ecoNewsClient.postEcoNews(requestBody);
 
-        Assert.assertEquals(response.getStatusCode(), 201, "Eco News was not created!");
+        Assert.assertEquals(response.getStatusCode(), 201, "Eco News was not created successfully");
 
         Integer id = response.jsonPath().get("id");
         String title = response.jsonPath().getString("title");
         String text = response.jsonPath().getString("text");
 
-        Assert.assertNotNull(id, "Response should contain an ID");
+        Assert.assertNotNull(id, "Response should contain a generated news ID");
+        Assert.assertEquals(title, requestBody.getTitle(), "Title in response does not match request");
+        Assert.assertEquals(text, requestBody.getText(), "Text in response does not match request");
     }
 }
