@@ -11,10 +11,11 @@ import org.testng.annotations.Test;
 public class EcoNewsAddToFavoritesTest extends ApiTestRunner {
 
     private EcoNewsFavoritesClient favoritesClient;
+    private static final int SELECTED_NEWS_ID = 1375;
 
     @BeforeClass
     public void setUpFavoritesClient() {
-        // creating OwnSecurityClient and signing in
+        // Signing in
         OwnSecurityClient securityClient = new OwnSecurityClient(testValueProvider.getBaseGreencityUserAPIUrl());
         Response loginResponse = securityClient.signIn(
                 testValueProvider.getUserEmail(),
@@ -32,12 +33,12 @@ public class EcoNewsAddToFavoritesTest extends ApiTestRunner {
 
     @Test
     public void addAndRemoveEcoNewsFavoritesTest() {
-        long ecoNewsId = 1375;
 
-        Response addResponse = favoritesClient.addToFavorites(ecoNewsId);
-        Assert.assertEquals(addResponse.getStatusCode(), 200);
+        Response addNewsResponse = favoritesClient.addToFavorites(SELECTED_NEWS_ID);
+        Assert.assertEquals(addNewsResponse.getStatusCode(), 200);
 
-        Response removeResponse = favoritesClient.removeFromFavorites(ecoNewsId);
-        Assert.assertEquals(removeResponse.getStatusCode(), 200);
+        Response removeNewsResponse = favoritesClient.removeFromFavorites(SELECTED_NEWS_ID);
+        Assert.assertEquals(removeNewsResponse.getStatusCode(), 200);
+
     }
 }

@@ -11,7 +11,7 @@ public class EcoNewsFavoritesClient extends BaseApiClient {
     }
 
     // add to favorites
-    public Response addToFavorites(long ecoNewsId) {
+    public Response addToFavorites(int ecoNewsId) {
         return prepareRequest()
                 .post(resourcePath + "/" + ecoNewsId + "/favorites")
                 .then()
@@ -20,7 +20,7 @@ public class EcoNewsFavoritesClient extends BaseApiClient {
     }
 
     // delete from favorites
-    public Response removeFromFavorites(long ecoNewsId) {
+    public Response removeFromFavorites(int ecoNewsId) {
         return prepareRequest()
                 .delete(resourcePath + "/" + ecoNewsId + "/favorites")
                 .then()
