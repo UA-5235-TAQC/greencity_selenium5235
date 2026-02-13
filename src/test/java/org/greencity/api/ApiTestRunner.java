@@ -13,6 +13,8 @@ public class ApiTestRunner {
     @BeforeSuite
     public void setUp() {
         testValueProvider = new TestValueProvider();
+
+        RestAssured.baseURI = testValueProvider.getGreencityAPIUrl();
         RestAssured.registerParser("application/json", Parser.JSON);
     }
 }
