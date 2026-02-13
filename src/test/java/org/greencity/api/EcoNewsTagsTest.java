@@ -49,10 +49,7 @@ public class EcoNewsTagsTest extends ApiTestRunner {
 
         Assert.assertTrue(tags.length > 0, "Tags list should not be empty");
 
-        System.out.println(response.asString());
-
         for (TagResponse tag : tags) {
-            
             Assert.assertNotNull(tag.getName());
             Assert.assertTrue(tag.getId() > 0);
         }
