@@ -16,22 +16,22 @@ public class EcoNewsTagsTest extends ApiTestRunner {
     @BeforeClass
     public void setUpClient() {
 
-        //  Створюємо security client (USER API)
+        //  Create security client (USER API)
         OwnSecurityClient securityClient =
                 new OwnSecurityClient(testValueProvider.getBaseGreencityUserAPIUrl());
 
-        //  Логінимось
+        //  Log in
         Response loginResponse = securityClient.signIn(
                 testValueProvider.getUserEmail(),
                 testValueProvider.getUserPassword()
         );
 
-        //  Беремо токен
+        //  Get token
         String token = loginResponse
                 .as(SignInResponse.class)
                 .getAccessToken();
 
-        //  Створюємо EcoNewsClient (CORE API) з токеном
+        //  Create EcoNewsClient (CORE API) with token
         client = new EcoNewsClient(
                 testValueProvider.getGreencityAPIUrl(),
                 token
