@@ -10,7 +10,7 @@ import org.greencity.api.models.ecoNewsComment.GetCommentResponse;
 
 import java.util.List;
 
-public class EcoNewsCommentClient extends BaseApiClient {
+public class EcoNewsCommentClient extends BaseApiClient{
     protected final String resourcePath = "/eco-news/";
 
     public EcoNewsCommentClient(String baseUrl, String token) {
