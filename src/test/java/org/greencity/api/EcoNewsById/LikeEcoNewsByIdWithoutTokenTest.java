@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import java.util.Map;
 
 @Epic("EcoNews API")
-@Feature("Like EcoNews by ID without token")
+@Feature("Like EcoNews by ID")
 @Severity(SeverityLevel.CRITICAL)
 @Tag("API")
 public class LikeEcoNewsByIdWithoutTokenTest extends EcoNewsWithoutTokenRunner {
@@ -21,10 +21,10 @@ public class LikeEcoNewsByIdWithoutTokenTest extends EcoNewsWithoutTokenRunner {
         long anotherUserId = 3;
         Map<String, Object> queryParams = Map.of("author-id", anotherUserId);
         Response anotherUserEcoNewsPageResponse = ecoNewsClient.getEcoNews(queryParams);
-        Assert.assertEquals(anotherUserEcoNewsPageResponse.getStatusCode(), 200, "Eco News created by user with ID " + anotherUserId + " was gotten successfully.");
+        Assert.assertEquals(anotherUserEcoNewsPageResponse.getStatusCode(), 200, "Status code should be 200 for getting Eco News created by user with ID " + anotherUserId);
 
         long anotherUserEcoNewsId = anotherUserEcoNewsPageResponse.jsonPath().getLong("page[0].id");
         Response anotherUserEcoNewsResponse = ecoNewsClient.likeEcoNewsById(anotherUserEcoNewsId);
-        Assert.assertEquals(anotherUserEcoNewsResponse.getStatusCode(), 401, "Can not like Eco News without being authorized.");
+        Assert.assertEquals(anotherUserEcoNewsResponse.getStatusCode(), 401, "Status code should be 401 for liking Eco News without being authorized");
     }
 }

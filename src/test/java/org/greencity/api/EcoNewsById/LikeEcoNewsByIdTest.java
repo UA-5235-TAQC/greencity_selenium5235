@@ -20,7 +20,7 @@ public class LikeEcoNewsByIdTest extends EcoNewsWithTokenRunner {
     public void likeNonExistingEcoNewsById() {
         long nonExistingId = 999999L;
         Response response = ecoNewsClient.likeEcoNewsById(nonExistingId);
-        Assert.assertEquals(response.getStatusCode(), 404, "Users can not like non-existing Eco News.");
+        Assert.assertEquals(response.getStatusCode(), 404, "Status code should be 404 for liking non-existing Eco News.");
     }
 
     @Test
@@ -29,10 +29,10 @@ public class LikeEcoNewsByIdTest extends EcoNewsWithTokenRunner {
         long anotherUserId = 3;
         Map<String, Object> queryParams = Map.of("author-id", anotherUserId);
         Response anotherUserEcoNewsPageResponse = ecoNewsClient.getEcoNews(queryParams);
-        Assert.assertEquals(anotherUserEcoNewsPageResponse.getStatusCode(), 200, "Eco News created by user with ID " + anotherUserId + " was gotten successfully.");
+        Assert.assertEquals(anotherUserEcoNewsPageResponse.getStatusCode(), 200, "Status code should be 200 for getting Eco News created by user with ID " + anotherUserId);
 
         long anotherUserEcoNewsId = anotherUserEcoNewsPageResponse.jsonPath().getLong("page[0].id");
         Response anotherUserEcoNewsResponse = ecoNewsClient.likeEcoNewsById(anotherUserEcoNewsId);
-        Assert.assertEquals(anotherUserEcoNewsResponse.getStatusCode(), 200, "Another user's Eco News was liked successfully.");
+        Assert.assertEquals(anotherUserEcoNewsResponse.getStatusCode(), 200, "Status code should be 200 for liking Eco News by ID " + anotherUserEcoNewsId);
     }
 }

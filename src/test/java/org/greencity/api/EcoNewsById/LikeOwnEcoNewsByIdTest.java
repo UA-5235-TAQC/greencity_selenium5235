@@ -8,7 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 @Epic("EcoNews API")
-@Feature("Like own EcoNews by ID")
+@Feature("Like EcoNews by ID")
 @Severity(SeverityLevel.CRITICAL)
 @Tag("API")
 public class LikeOwnEcoNewsByIdTest extends CreateNewsRunner {
@@ -18,6 +18,6 @@ public class LikeOwnEcoNewsByIdTest extends CreateNewsRunner {
     public void likeOwnEcoNews() {
         Response response = ecoNewsClient.likeEcoNewsById(ecoNewsId);
 
-        Assert.assertEquals(response.getStatusCode(), 400, "Users can not like their own Eco News.");
+        Assert.assertEquals(response.getStatusCode(), 400, "Status code should be 400 for liking own Eco News");
     }
 }
