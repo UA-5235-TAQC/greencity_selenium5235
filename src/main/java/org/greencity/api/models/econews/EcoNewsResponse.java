@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 public class EcoNewsResponse {
 
-    private int id;
+    private long id;
     private String title;
     private String content;
     private String shortInfo;

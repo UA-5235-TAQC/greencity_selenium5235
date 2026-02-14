@@ -39,15 +39,23 @@ public class EcoNewsClient extends BaseApiClient {
         );
     }
 
-    @Step("Update EcoNews by ID: {ecoNewsId}")
+    @Step("Update EcoNews by ID: {ecoNewsId} without image")
+    public Response updateEcoNewsById(long ecoNewsId,
+                                      UpdateEcoNewsDto updateDto) {
+        return updateEcoNewsById(ecoNewsId, updateDto, null);
+    }
+
+    @Step("Update EcoNews by ID: {ecoNewsId} with image")
     public Response updateEcoNewsById(long ecoNewsId,
                                       UpdateEcoNewsDto updateDto,
                                       String imagePath) {
-        RequestSpecification request = prepareRequest()
-                .contentType(ContentType.MULTIPART)
-                .multiPart("updateEcoNewsDto", updateDto,
-                        "application/json; charset=UTF-8");
-        attachFilesToRequest(request, imagePath);
+
+        RequestSpecification request = prepareMultipartRequest(updateDto);
+
+        if (imagePath != null) {
+            attachFilesToRequest(request, imagePath);
+        }
+
         return execute(request.put(getPath(ecoNewsId)));
     }
 

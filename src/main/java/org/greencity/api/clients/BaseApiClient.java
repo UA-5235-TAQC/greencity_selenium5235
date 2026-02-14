@@ -7,6 +7,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import lombok.Getter;
 import lombok.Setter;
+import org.greencity.api.models.econews.UpdateEcoNewsDto;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -46,16 +47,12 @@ public abstract class BaseApiClient {
         return request;
     }
 
-    protected RequestSpecification prepareMultipartRequest(String token) {
-        RequestSpecification request = RestAssured.given()
+    protected RequestSpecification prepareMultipartRequest(UpdateEcoNewsDto updateDto) {
+        return prepareRequest()
                 .contentType(ContentType.MULTIPART)
-                .log().all();
-
-        if (token != null) {
-            request.header("Authorization", "Bearer " + token);
-        }
-
-        return request;
+                .multiPart("updateEcoNewsDto",
+                        updateDto,
+                        "application/json; charset=UTF-8");
     }
 
     protected Response execute(Response response) {

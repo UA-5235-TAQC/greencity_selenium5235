@@ -17,23 +17,19 @@ import java.time.LocalDate;
 @Feature("EcoNews CRUD with authorization")
 @Severity(SeverityLevel.NORMAL)
 @Tag("API")
-public class EcoNewsByIdWithoutImageTest extends CreateNewsRunner {
-
-    public EcoNewsByIdWithoutImageTest() {
-        super(null);
-    }
+public class UpdateEcoNewsByIdWithoutImageTest extends CreateNewsRunner {
 
     @Test
     @Story("Update EcoNews without image")
     @Description("Verify that updating EcoNews without providing an image works correctly")
     public void testUpdateEcoNewsByIdWithoutImage() {
         EcoNewsDtoFactory dtoFactory = new EcoNewsDtoFactory(ecoNewsId);
-        UpdateEcoNewsDto updateDto = dtoFactory.createDefaultDto();
-        Response response = ecoNewsClient.updateEcoNewsById(ecoNewsId, updateDto, null);
+        UpdateEcoNewsDto updateDto = dtoFactory.createDefaultDtoEn();
+        Response response = ecoNewsClient.updateEcoNewsById(ecoNewsId, updateDto);
         Assert.assertEquals(response.getStatusCode(), 200);
         EcoNewsResponse ecoNews = response.as(EcoNewsResponse.class);
         SoftAssert softAssert = new SoftAssert();
-        LocalDate expectedDate = LocalDate.of(2026, 2, 13);
+        LocalDate expectedDate = LocalDate.now();
         softAssert.assertEquals(ecoNews.getCreationDate().toLocalDate(), expectedDate,
                 "Edit date should match expected");
         softAssert.assertNull(ecoNews.getImagePath(),

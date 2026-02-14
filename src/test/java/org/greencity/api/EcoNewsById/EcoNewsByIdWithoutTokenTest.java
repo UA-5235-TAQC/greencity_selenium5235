@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 @Severity(SeverityLevel.NORMAL)
 @Tag("API")
 public class EcoNewsByIdWithoutTokenTest extends EcoNewsWithoutTokenRunner {
-    private long ecoNewsId = 1L;
+    private final long ecoNewsId = 1L;
 
     @Test
     @Story("Get non-existing EcoNews")

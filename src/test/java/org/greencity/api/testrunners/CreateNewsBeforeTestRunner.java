@@ -11,20 +11,16 @@ import java.io.File;
 
 public class CreateNewsBeforeTestRunner extends EcoNewsWithTokenRunner {
     protected long ecoNewsId = 1L;
-    private final String imagePath;
+    protected String imagePath;
 
-    public CreateNewsBeforeTestRunner() {
-        this.imagePath = null;
-    }
-
-    public CreateNewsBeforeTestRunner(String imagePath) {
+    protected void setImagePath(String imagePath) {
         this.imagePath = imagePath;
     }
 
     @BeforeMethod(description = "Create a new EcoNews before each test")
     public void createEcoNews() {
         EcoNewsDtoFactory dtoFactory = new EcoNewsDtoFactory(0);
-        var dto = dtoFactory.createDefaultDto();
+        var dto = dtoFactory.createDefaultDtoEn();
 
         EcoNewsRequest request = EcoNewsRequest.builder()
                 .title(dto.getTitle())
