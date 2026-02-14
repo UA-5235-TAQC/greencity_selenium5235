@@ -80,4 +80,14 @@ public class EcoNewsClient extends BaseApiClient {
         attachFilesToRequest(request, imagePath);
         return request.log().all().post(resourcePath).then().extract().response();
     }
+
+    @Step("Like or remove like from EcoNews by ID: {ecoNewsId}")
+    public Response likeEcoNewsById(long ecoNewsId) {
+        return prepareRequest().log().all().post(getPath(ecoNewsId) + "/likes").then().extract().response();
+    }
+
+    @Step("Count likes on EcoNews by ID: {ecoNewsId}")
+    public Response countEcoNewsLikes(long ecoNewsId) {
+        return prepareRequest().log().all().get(getPath(ecoNewsId) + "/likes/count").then().extract().response();
+    }
 }
