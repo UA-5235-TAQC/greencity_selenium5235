@@ -7,6 +7,8 @@ import java.io.File;
 import java.util.List;
 
 public class NewsTestData {
+    // API: EcoNews ID for adding to favorites
+    public static final int ECO_NEWS_ID = 100;
 
     public static final String TEST_TITLE_EN = "Test";
     public static final String TEST_CONTENT_EN = "Test content with 20 chars";

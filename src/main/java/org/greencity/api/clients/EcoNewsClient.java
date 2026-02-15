@@ -59,4 +59,22 @@ public class EcoNewsClient extends BaseApiClient {
             throw new RuntimeException("Failed to attach file: " + e.getMessage(), e);
         }
     }
+
+    @Step("Add EcoNews with id={ecoNewsId} to favorites")
+    public Response addToFavorites(int ecoNewsId) {
+        return prepareRequest()
+                .post(resourcePath + "/" + ecoNewsId + "/favorites")
+                .then()
+                .extract()
+                .response();
+    }
+
+    @Step("Remove EcoNews with id={ecoNewsId} from favorites")
+    public Response removeFromFavorites(int ecoNewsId) {
+        return prepareRequest()
+                .delete(resourcePath + "/" + ecoNewsId + "/favorites")
+                .then()
+                .extract()
+                .response();
+    }
 }
