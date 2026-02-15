@@ -1,0 +1,1023 @@
+[[2026-02-15T14:22:32.994Z] [SEVERE] https://www.greencity.cx.ua/#/greenCity - Not signed in with the identity provider., [2026-02-15T14:22:33.463Z] [SEVERE] https://accounts.google.com/gsi/client 81:88 "[GSI_LOGGER]: FedCM get() rejects with NetworkError: Error retrieving a token.", [2026-02-15T14:22:37.184Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" NullInjectorError: R3InjectorError(s)[e -> e -> e -> e]: 
+  NullInjectorError: No provider for e!
+    at Ip.get (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:38580)
+    at Op.get (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:41619)
+    at Op.get (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:41619)
+    at Op.get (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:41619)
+    at Op.get (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:41619)
+    at T0.get (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:66384)
+    at vI (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:20405)
+    at yI (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:20645)
+    at p (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:52307)
+    at fc.ɵfac [as factory] (https://www.greencity.cx.ua/chunk-R2CKRCT3.js:1:97963), [2026-02-15T14:22:37.184Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" NullInjectorError: R3InjectorError(s)[e -> e -> e -> e]: 
+  NullInjectorError: No provider for e!
+    at Ip.get (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:38580)
+    at Op.get (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:41619)
+    at Op.get (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:41619)
+    at Op.get (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:41619)
+    at Op.get (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:41619)
+    at T0.get (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:66384)
+    at vI (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:20405)
+    at yI (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:20645)
+    at p (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:52307)
+    at fc.ɵfac [as factory] (https://www.greencity.cx.ua/chunk-R2CKRCT3.js:1:97963), [2026-02-15T14:22:38.654Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.654Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.654Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.654Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.654Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.654Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.654Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.655Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.655Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.655Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.655Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.656Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.656Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.658Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.662Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.666Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.669Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.672Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.675Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.680Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.682Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.686Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.688Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.692Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.697Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.700Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.704Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.706Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.711Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.717Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.718Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.722Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.726Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.731Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.736Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.739Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.747Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.747Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.757Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.767Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.767Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.771Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.779Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.780Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.785Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.796Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.800Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.807Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.811Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.817Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.822Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.827Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.830Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.834Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.837Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.841Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.845Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.849Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.853Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.857Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.862Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.866Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.871Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.875Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.879Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.882Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.886Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.890Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.893Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.901Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.903Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.906Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.909Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.918Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.919Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.923Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.927Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.937Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.937Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.938Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.945Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.946Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.953Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.960Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.962Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.969Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.970Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.979Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.985Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.990Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:38.995Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:39.003Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:39.005Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:39.010Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:39.014Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:39.018Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:39.019Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:39.024Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:39.027Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687), [2026-02-15T14:22:39.030Z] [SEVERE] https://www.greencity.cx.ua/chunk-NUXSP4TM.js 10:45939 "ERROR" TypeError: Cannot read properties of null (reading 'setValue')
+    at n.quillContentChanged (https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:16043)
+    at https://www.greencity.cx.ua/chunk-VNNOUBDJ.js:1:7223
+    at eE (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76097)
+    at Object.o [as next] (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:11:76277)
+    at bv.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:3120)
+    at Fr._next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2803)
+    at Fr.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2530)
+    at https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7848
+    at Ac (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:2222)
+    at S0.next (https://www.greencity.cx.ua/chunk-NUXSP4TM.js:7:7687)]
