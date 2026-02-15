@@ -2,16 +2,10 @@ package org.greencity.api;
 
 import io.qameta.allure.*;
 import io.qameta.allure.testng.Tag;
-import io.restassured.response.Response;
-import org.greencity.api.models.econews.EcoNewsPageResponse;
-import org.greencity.api.models.econews.EcoNewsResponse;
 import org.greencity.api.testrunners.EcoNewsWithoutTokenRunner;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 @Epic("EcoNews API")
 @Feature("Retrieve EcoNews Page")
@@ -24,19 +18,6 @@ public class EcoNewsTest extends EcoNewsWithoutTokenRunner {
             "and validates the first news item, including its ID, title, author details, and tags.")
     @Test
     public void verifyEcoNewsPageDataTest() {
-
-        Map<String, Object> queryParams = new HashMap<>();
-        queryParams.put("author-id", testValueProvider.getUserId());
-        queryParams.put("favorite", false);
-        queryParams.put("page", 0);
-        queryParams.put("size", 20);
-
-        // Send request and get response
-        Response response = ecoNewsClient.getEcoNews(queryParams);
-        Assert.assertEquals(response.getStatusCode(), 200);
-
-        EcoNewsPageResponse pageResponse = response.as(EcoNewsPageResponse.class);
-
         SoftAssert softAssert = new SoftAssert();
 
         // Validate pagination data
@@ -44,8 +25,6 @@ public class EcoNewsTest extends EcoNewsWithoutTokenRunner {
         softAssert.assertFalse(pageResponse.getPage().isEmpty(), "News list should not be empty");
 
         // Get the first news item for detailed validation (expected id: 1373)
-        EcoNewsResponse firstNews = pageResponse.getPage().get(0);
-
         softAssert.assertEquals(firstNews.getId(), 1373, "News ID does not match expected value");
         softAssert.assertEquals(firstNews.getTitle(), "Test_2", "News title does not match expected value");
         softAssert.assertEquals(firstNews.getAuthor().getId(), 149, "Author ID does not match expected value");
@@ -60,5 +39,4 @@ public class EcoNewsTest extends EcoNewsWithoutTokenRunner {
 
         softAssert.assertAll();
     }
-
 }

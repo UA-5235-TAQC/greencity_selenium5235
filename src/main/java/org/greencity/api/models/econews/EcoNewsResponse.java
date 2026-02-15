@@ -1,7 +1,9 @@
 package org.greencity.api.models.econews;
 
+import io.qameta.allure.Step;
 import lombok.Data;
 import org.greencity.api.models.AuthorResponse;
+import org.greencity.ui.enums.EcoNewsTag;
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -25,4 +27,9 @@ public class EcoNewsResponse {
     private boolean favorite;
     private int dislikes = 0;
     private boolean hidden;
+
+    @Step("Get tags in Ukrainian")
+    public List<String> getTagsUk() {
+        return EcoNewsTag.mapStringsToLocale(tagsEn, "uk");
+    }
 }

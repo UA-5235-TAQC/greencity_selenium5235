@@ -10,8 +10,9 @@ import org.testng.annotations.BeforeMethod;
 import java.io.File;
 
 public class CreateNewsBeforeTestRunner extends EcoNewsWithTokenRunner {
-    protected long ecoNewsId = 1L;
+    protected long ecoNewsId;
     protected String imagePath;
+    protected EcoNewsResponse createdNews;
 
     protected void setImagePath(String imagePath) {
         this.imagePath = imagePath;
@@ -20,15 +21,7 @@ public class CreateNewsBeforeTestRunner extends EcoNewsWithTokenRunner {
     @BeforeMethod(description = "Create a new EcoNews before each test")
     public void createEcoNews() {
         EcoNewsDtoFactory dtoFactory = new EcoNewsDtoFactory(0);
-        var dto = dtoFactory.createDefaultDtoEn();
-
-        EcoNewsRequest request = EcoNewsRequest.builder()
-                .title(dto.getTitle())
-                .text(dto.getContent())
-                .shortInfo(dto.getShortInfo())
-                .source(dto.getSource())
-                .tags(dto.getTags())
-                .build();
+        EcoNewsRequest request = dtoFactory.createNewsEn();
 
         Response response;
         if (imagePath != null) {
@@ -43,7 +36,7 @@ public class CreateNewsBeforeTestRunner extends EcoNewsWithTokenRunner {
 
         Assert.assertEquals(response.getStatusCode(), 201, "New EcoNews should be created");
 
-        EcoNewsResponse created = response.as(EcoNewsResponse.class);
-        ecoNewsId = created.getId();
+        createdNews = response.as(EcoNewsResponse.class);
+        ecoNewsId = createdNews.getId();
     }
 }

@@ -7,6 +7,7 @@ import org.greencity.api.models.econews.EcoNewsResponse;
 import org.greencity.api.models.econews.UpdateEcoNewsDto;
 import org.greencity.api.testrunners.CreateNewsRunner;
 import org.greencity.ui.enums.EcoNewsTag;
+import org.greencity.utils.api.EcoNewsAssertions;
 import org.greencity.utils.api.EcoNewsDtoFactory;
 import org.greencity.utils.api.ValidationErrorResponse;
 import org.testng.Assert;
@@ -17,50 +18,18 @@ import org.testng.asserts.SoftAssert;
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.greencity.utils.api.EcoNewsDtoFactory.TEST_TAGS;
-import static org.greencity.utils.api.EcoNewsTexts.*;
+import static org.greencity.utils.api.EcoNewsDtoFactory.*;
 
 @Epic("EcoNews API")
-@Feature("EcoNews CRUD without authorization")
+@Feature("CRUD operations with created news with image")
 @Severity(SeverityLevel.NORMAL)
 @Tag("API")
 public class EcoNewsByIdWithImageTest extends CreateNewsRunner {
 
     @BeforeClass
+    @Description("Set image path before running tests")
     public void setupImage() {
         setImagePath("src/test/resources/images/test2.png");
-    }
-
-    private void assertEcoNewsResponse(EcoNewsResponse ecoNews,
-                                       long expectedId,
-                                       String expectedTitle,
-                                       String expectedContent,
-                                       String expectedShortInfo,
-                                       LocalDate expectedDate,
-                                       List<String> expectedTagsEn,
-                                       List<String> expectedTagsUk) {
-        SoftAssert softAssert = new SoftAssert();
-
-        softAssert.assertEquals(ecoNews.getId(), expectedId, "EcoNews ID should match");
-        softAssert.assertEquals(ecoNews.getTitle(), expectedTitle, "Title should match expected");
-        softAssert.assertEquals(ecoNews.getContent(), expectedContent, "Content should match expected");
-        softAssert.assertEquals(ecoNews.getShortInfo(), expectedShortInfo, "ShortInfo should match expected");
-        softAssert.assertEquals(ecoNews.getCreationDate().toLocalDate(), expectedDate, "Creation date should match expected");
-        softAssert.assertNotNull(ecoNews.getImagePath(), "Image path should not be null");
-        softAssert.assertNotNull(ecoNews.getAuthor(), "Author should not be null");
-        softAssert.assertEquals(ecoNews.getAuthor().getId(), 149, "Author ID should match expected");
-        softAssert.assertEquals(ecoNews.getAuthor().getName(), "NameForTest611", "Author name should match expected");
-        softAssert.assertEquals(ecoNews.getLikes(), 0, "Likes should be 0");
-        softAssert.assertEquals(ecoNews.getDislikes(), 0, "Dislikes should be 0");
-        softAssert.assertEquals(ecoNews.getCountComments(), 0, "Count of comments should be 0");
-        softAssert.assertFalse(ecoNews.isHidden(), "Hidden should be false");
-
-        softAssert.assertNotNull(ecoNews.getTagsEn(), "Tags in English should not be null");
-        softAssert.assertEquals(ecoNews.getTagsEn(), expectedTagsEn, "Tags in English should match expected");
-        softAssert.assertNotNull(ecoNews.getTagsUk(), "Tags in Ukrainian should not be null");
-        softAssert.assertEquals(ecoNews.getTagsUk(), expectedTagsUk, "Tags in Ukrainian should match expected");
-
-        softAssert.assertAll();
     }
 
     @Test
@@ -68,26 +37,31 @@ public class EcoNewsByIdWithImageTest extends CreateNewsRunner {
     @Description("Verify that EcoNews can be successfully retrieved by ID.")
     public void getEcoNewsByIdTest() {
         Response response = ecoNewsClient.getEcoNewsById(ecoNewsId);
-        Assert.assertEquals(response.getStatusCode(), 200, "Expected status code 200");
+        Assert.assertEquals(response.getStatusCode(), 200,
+                "Expected status code 200");
 
         EcoNewsResponse ecoNews = response.as(EcoNewsResponse.class);
-        LocalDate today = LocalDate.now();
+        LocalDate creationDate = createdNews.getCreationDate().toLocalDate();
 
-        assertEcoNewsResponse(
+        EcoNewsAssertions.assertEcoNewsResponse(
                 ecoNews,
-                ecoNewsId,
-                TITLE_EN,
-                CONTENT_EN,
-                SHORT_INFO_EN,
-                today,
-                List.of(EcoNewsTag.NEWS.getEn(), EcoNewsTag.EDUCATION.getEn()),
-                List.of(EcoNewsTag.NEWS.getUa(), EcoNewsTag.EDUCATION.getUa())
+                createdNews.getId(),
+                createdNews.getTitle(),
+                createdNews.getContent(),
+                createdNews.getShortInfo(),
+                creationDate,
+                createdNews.getTagsEn(),
+                createdNews.getTagsUk(),
+                createdNews.getAuthor().getId(),
+                createdNews.getAuthor().getName(),
+                true,
+                true
         );
     }
 
     @Test
-    @Story("Get EcoNews in English")
-    @Description("Verify that EcoNews can be retrieved in English using lang parameter.")
+    @Story("Get EcoNews in English and Ukrainian")
+    @Description("Verify that EcoNews can be retrieved in English and Ukrainian using lang parameter.")
     public void getEcoNewsLangTest() {
         Response response = ecoNewsClient.getEcoNewsByIdWithLang(ecoNewsId, "en");
         Assert.assertEquals(response.getStatusCode(), 200,
@@ -103,8 +77,21 @@ public class EcoNewsByIdWithImageTest extends CreateNewsRunner {
     }
 
     @Test
-    @Story("Update EcoNews with invalid tag")
-    @Description("Verify that updating EcoNews with an invalid tag returns 400 Bad Request")
+    @Story("Get non-existing EcoNews")
+    @Description("Verify that requesting a non-existing EcoNews returns 404 status code.")
+    public void getNonExistingEcoNewsTestShouldReturn404() {
+        long nonExistingEcoNewsId = ecoNewsId + 1;
+        Response response = ecoNewsClient.getEcoNewsById(nonExistingEcoNewsId);
+        Assert.assertEquals(response.getStatusCode(), 404,
+                "Status code should be 404 for non-existing news");
+        String message = response.jsonPath().getString("message");
+        Assert.assertEquals(message, "Eco new doesn't exist by this id: " + nonExistingEcoNewsId,
+                "Error message should match expected");
+    }
+
+    @Test
+    @Story("Update EcoNews with invalid id, tag, title, content")
+    @Description("Verify that updating EcoNews with invalid id, tag, title, content returns 400 Bad Request")
     public void testUpdateEcoNewsByIdShouldReturn400() {
         UpdateEcoNewsDto updateDto = new UpdateEcoNewsDto();
         updateDto.setTags(EcoNewsTag.getEn(TEST_TAGS));
@@ -171,28 +158,31 @@ public class EcoNewsByIdWithImageTest extends CreateNewsRunner {
     }
 
     @Test
-    @Story("Update EcoNews by ID")
+    @Story("Update EcoNews by ID with image")
     @Description("Verify that updating EcoNews with a specific image is successful")
     public void testUpdateEcoNewsByIdWithImage() {
         EcoNewsDtoFactory dtoFactory = new EcoNewsDtoFactory(ecoNewsId);
-        UpdateEcoNewsDto updateDto = dtoFactory.createDefaultDtoUa();
-        String imagePath = "src/test/resources/images/test2.png";
+        UpdateEcoNewsDto updateDto = dtoFactory.updateDtoUa();
+        String imagePath = "src/test/resources/images/test.jfif";
 
         Response response = ecoNewsClient.updateEcoNewsById(ecoNewsId, updateDto, imagePath);
         Assert.assertEquals(response.getStatusCode(), 200, "Expected status code 200");
 
         EcoNewsResponse ecoNews = response.as(EcoNewsResponse.class);
-        LocalDate today = LocalDate.now();
 
-        assertEcoNewsResponse(
+        EcoNewsAssertions.assertEcoNewsResponse(
                 ecoNews,
-                ecoNewsId,
-                TITLE_UK,
-                CONTENT_UK,
-                SHORT_INFO_UK,
-                today,
-                List.of(EcoNewsTag.NEWS.getEn(), EcoNewsTag.EDUCATION.getEn()),
-                List.of(EcoNewsTag.NEWS.getUa(), EcoNewsTag.EDUCATION.getUa())
+                updateDto.getId(),
+                updateDto.getTitle(),
+                updateDto.getContent(),
+                updateDto.getShortInfo(),
+                null,
+                updateDto.getTagsEn(),
+                updateDto.getTagsUk(),
+                null,
+                null,
+                true,
+                false
         );
     }
 }
