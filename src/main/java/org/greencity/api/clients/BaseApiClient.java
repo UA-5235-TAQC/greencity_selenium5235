@@ -1,9 +1,14 @@
 package org.greencity.api.clients;
 
+import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public abstract class BaseApiClient {
     protected final String baseApiUrl;
@@ -39,6 +44,21 @@ public abstract class BaseApiClient {
             request.header("Authorization", "Bearer " + token);
         }
         return request;
+    }
+
+    @Step("Attach files to request: {imagePath}")
+    protected void attachFilesToRequest(RequestSpecification request, String imagePath) {
+        if (imagePath == null || imagePath.isEmpty()) {
+            return;
+        }
+        try {
+            File file = new File(imagePath);
+            String fileName = file.getName();
+            String mimeType = fileName.endsWith(".png") ? "image/png" : "image/jpeg";
+            request.multiPart("image", file, mimeType);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to attach file: " + e.getMessage(), e);
+        }
     }
 
 }

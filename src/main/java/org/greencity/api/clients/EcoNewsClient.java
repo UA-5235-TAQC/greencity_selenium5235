@@ -36,27 +36,11 @@ public class EcoNewsClient extends BaseApiClient {
     public Response postEcoNews(EcoNewsRequest body, String imagePath) {
         RequestSpecification request = prepareRequest().contentType(ContentType.MULTIPART).multiPart("addEcoNewsDtoRequest", body, "application/json; charset=UTF-8");
         attachFilesToRequest(request, imagePath);
-        return request.log().all().post(resourcePath).then().extract().response();
+        return request.post(resourcePath).then().extract().response();
     }
 
     @Step("Get EcoNews by ID: {id}")
     public Response getEcoNewsById(Integer id) {
         return prepareRequest().get(resourcePath + "/" + id).then().extract().response();
-    }
-
-    @Step("Attach files to request: {imagePath}")
-    private void attachFilesToRequest(RequestSpecification request, String imagePath) {
-        if (imagePath == null || imagePath.isEmpty()) {
-            request.multiPart("image", "", "");
-            return;
-        }
-        try {
-            File file = new File(imagePath);
-            String fileName = file.getName().toLowerCase();
-            String mineType = fileName.endsWith(".png") ? "image/png" : "image/jpeg";
-            request.multiPart("type", fileName, new FileInputStream(file), mineType);
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to attach file: " + e.getMessage(), e);
-        }
     }
 }
