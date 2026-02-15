@@ -24,60 +24,46 @@ public class EcoNewsCommentClient extends BaseApiClient{
         RequestSpecification request = prepareRequest()
                 .contentType(ContentType.MULTIPART)
                 .multiPart("request", jsonRequest, "application/json");
-        attachImagesToMultipart(request, "images", imagePaths);
-        return execute(request
-                .post(this.resourcePath + newsId + "/comments"));
+                attachImagesToMultipart(request, "images", imagePaths);
+        return request
+                .post(this.resourcePath + newsId + "/comments")
+                .then()
+                .log().ifValidationFails()
+                .extract()
+                .response();
     }
 
     @Step("API: Get comment details by ID {commentId}")
-    public Response getComment(int commentId) {
-        return execute(prepareRequest()
+    public Response getComment(int commentId){
+       return prepareRequest()
                 .contentType(ContentType.JSON)
-                .get(this.resourcePath + "comments/" + commentId));
+                .get(this.resourcePath + "comments/" + commentId)
+                .then()
+                .log().ifError()
+                .extract()
+                .response();
     }
 
     @Step("API: Like a comment by ID {commentId}")
-    public Response likeComment(int commentId) {
-        return execute(prepareRequest()
+    public Response likeComment(int commentId){
+        return prepareRequest()
                 .contentType(ContentType.JSON)
                 .queryParam("commentId", commentId)
-                .post(this.resourcePath + "comments/like"));
+                .post(this.resourcePath + "comments/like")
+                .then()
+                .log().ifValidationFails()
+                .extract()
+                .response();
     }
 
     @Step("API: Delete comment by ID {commentId}")
-    public Response deleteComment(int commentId) {
-        return execute(prepareRequest()
+    public Response deleteComment(int commentId){
+        return prepareRequest()
                 .contentType(ContentType.JSON)
-                .delete(this.resourcePath + "comments/" + commentId));
-    }
-
-    @Step("API: Get all active replies for comment ID {parentCommentId}, page {page}, size {size}, sort {sort}")
-    public Response getActiveReplies(long parentCommentId, Integer page, Integer size, List<String> sort) {
-        RequestSpecification request = prepareRequest()
-                .contentType("application/json");
-
-        if (page != null) request.queryParam("page", page);
-        if (size != null) request.queryParam("size", size);
-        if (sort != null && !sort.isEmpty()) request.queryParam("sort", String.join(",", sort));
-
-        return execute(request
-                .get(this.resourcePath + "comments/" + parentCommentId + "/replies/active"));
-    }
-
-    public Response getActiveReplies(long parentCommentId) {
-        return getActiveReplies(parentCommentId, 0, 20, null);
-    }
-
-    @Step("API: Delete comment by ID {commentId} along with all child comments")
-    public Response deleteCommentWithChildren(int commentId) {
-        Response repliesResponse = getActiveReplies(commentId);
-        GetCommentPageResponse repliesList = repliesResponse.as(GetCommentPageResponse.class);
-
-        if (repliesList.getPage() != null) {
-            for (GetCommentResponse reply : repliesList.getPage()) {
-                deleteCommentWithChildren(reply.getId());
-            }
-        }
-        return deleteComment(commentId);
+                .delete(this.resourcePath + "comments/" + commentId)
+                .then()
+                .log().ifError()
+                .extract()
+                .response();
     }
 }
