@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 @Epic("EcoNews API")
 @Feature("Delete EcoNews")
 @Severity(SeverityLevel.NORMAL)
-@Tag("API")
+@Tag("EcoNewsById API")
 public class DeleteEcoNewsByIdTest extends CreateNewsBeforeTestRunner {
 
     @Test

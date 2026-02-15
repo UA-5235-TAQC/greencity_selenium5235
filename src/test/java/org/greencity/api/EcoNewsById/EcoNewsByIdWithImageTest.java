@@ -1,7 +1,7 @@
 package org.greencity.api.EcoNewsById;
 
-import io.qameta.allure.*;
 import io.qameta.allure.testng.Tag;
+import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.greencity.api.models.econews.EcoNewsResponse;
 import org.greencity.api.models.econews.UpdateEcoNewsDto;
@@ -23,13 +23,14 @@ import static org.greencity.utils.api.EcoNewsDtoFactory.*;
 @Epic("EcoNews API")
 @Feature("CRUD operations with created news with image")
 @Severity(SeverityLevel.NORMAL)
-@Tag("API")
+@Tag("EcoNewsById API")
 public class EcoNewsByIdWithImageTest extends CreateNewsRunner {
 
+    @Override
     @BeforeClass
-    @Description("Set image path before running tests")
-    public void setupImage() {
+    public void createEcoNews() {
         setImagePath("src/test/resources/images/test2.png");
+        super.createEcoNews();
     }
 
     @Test

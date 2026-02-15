@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 @Epic("EcoNews API")
 @Feature("Update EcoNews without image")
 @Severity(SeverityLevel.NORMAL)
-@Tag("API")
+@Tag("EcoNewsById API")
 public class UpdateEcoNewsByIdWithoutImageTest extends CreateNewsRunner {
 
     @Test

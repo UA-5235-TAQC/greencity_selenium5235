@@ -19,12 +19,12 @@ public class UpdateEcoNewsDto {
     private List<String> tags;
     private String source;
 
-    @Step("Get tags in English from {tags}")
+    @Step("Get tags in English")
     public List<String> getTagsEn() {
         return EcoNewsTag.mapStringsToLocale(tags, "en");
     }
 
-    @Step("Get tags in Ukrainian from {tags}")
+    @Step("Get tags in Ukrainian")
     public List<String> getTagsUk() {
         return EcoNewsTag.mapStringsToLocale(tags, "uk");
     }

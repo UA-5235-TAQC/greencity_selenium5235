@@ -1,6 +1,7 @@
 package org.greencity.utils.api;
 
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.greencity.api.models.econews.EcoNewsRequest;
 import org.greencity.api.models.econews.UpdateEcoNewsDto;
 import org.greencity.ui.enums.EcoNewsTag;
@@ -8,6 +9,7 @@ import org.greencity.ui.enums.EcoNewsTag;
 import java.util.List;
 
 @Data
+@RequiredArgsConstructor
 public class EcoNewsDtoFactory {
 
     private final long ecoNewsId;
@@ -28,10 +30,6 @@ public class EcoNewsDtoFactory {
             "адвокат.";
     public static final String SHORT_INFO_UK = "Головна сторінка Вікіпедії українською";
     public static final String SOURCE_UK = "https://uk.wikipedia.org/wiki/Main_Page";
-
-    public EcoNewsDtoFactory(long ecoNewsId) {
-        this.ecoNewsId = ecoNewsId;
-    }
 
     public EcoNewsRequest createNewsEn() {
         return EcoNewsRequest.builder()

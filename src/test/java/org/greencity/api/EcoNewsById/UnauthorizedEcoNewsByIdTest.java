@@ -11,8 +11,8 @@ import org.testng.annotations.Test;
 @Epic("EcoNews API")
 @Feature("EcoNews CRUD without authorization")
 @Severity(SeverityLevel.NORMAL)
-@Tag("API")
-public class EcoNewsByIdWithoutTokenTest extends EcoNewsWithoutTokenRunner {
+@Tag("EcoNewsById API")
+public class UnauthorizedEcoNewsByIdTest extends EcoNewsWithoutTokenRunner {
 
     @Test
     @Story("Update EcoNews without token")

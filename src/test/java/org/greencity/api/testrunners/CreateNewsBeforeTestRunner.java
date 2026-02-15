@@ -1,11 +1,12 @@
 package org.greencity.api.testrunners;
 
+import io.qameta.allure.Description;
 import io.restassured.response.Response;
 import org.greencity.api.models.econews.EcoNewsRequest;
 import org.greencity.api.models.econews.EcoNewsResponse;
 import org.greencity.utils.api.EcoNewsDtoFactory;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeClass;
 
 import java.io.File;
 
@@ -18,7 +19,8 @@ public class CreateNewsBeforeTestRunner extends EcoNewsWithTokenRunner {
         this.imagePath = imagePath;
     }
 
-    @BeforeMethod(description = "Create a new EcoNews before each test")
+    @BeforeClass
+    @Description("Create a new EcoNews before each test")
     public void createEcoNews() {
         EcoNewsDtoFactory dtoFactory = new EcoNewsDtoFactory(0);
         EcoNewsRequest request = dtoFactory.createNewsEn();

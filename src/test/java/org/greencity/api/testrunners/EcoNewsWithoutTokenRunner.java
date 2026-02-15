@@ -2,6 +2,7 @@ package org.greencity.api.testrunners;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import io.qameta.allure.Description;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.greencity.api.clients.EcoNewsClient;
@@ -9,7 +10,6 @@ import org.greencity.api.models.econews.EcoNewsPageResponse;
 import org.greencity.api.models.econews.EcoNewsResponse;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +21,7 @@ public class EcoNewsWithoutTokenRunner extends ApiTestRunner {
     protected EcoNewsResponse firstNews;
 
     @BeforeClass
+    @Description("Get first EcoNews before each test")
     public void setUpEcoNewsClient() {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
@@ -31,10 +32,7 @@ public class EcoNewsWithoutTokenRunner extends ApiTestRunner {
         );
 
         ecoNewsClient = new EcoNewsClient(testValueProvider.getGreencityAPIUrl());
-    }
 
-    @BeforeMethod(description = "Get first EcoNews before each test")
-    public void fetchFirstEcoNews() {
         Map<String, Object> queryParams = new HashMap<>();
         queryParams.put("author-id", testValueProvider.getUserId());
         queryParams.put("favorite", false);

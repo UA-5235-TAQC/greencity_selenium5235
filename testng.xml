@@ -32,7 +32,7 @@
             <class name="org.greencity.api.EcoNewsTest"/>
             <class name="org.greencity.api.EcoNewsById.DeleteEcoNewsByIdTest"/>
             <class name="org.greencity.api.EcoNewsById.EcoNewsByIdWithImageTest"/>
-            <class name="org.greencity.api.EcoNewsById.EcoNewsByIdWithoutTokenTest"/>
+            <class name="org.greencity.api.EcoNewsById.UnauthorizedEcoNewsByIdTest"/>
             <class name="org.greencity.api.EcoNewsById.UpdateEcoNewsByIdWithoutImageTest"/>
         </classes>
     </test>

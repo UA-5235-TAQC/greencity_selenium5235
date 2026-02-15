@@ -8,6 +8,8 @@ import java.util.List;
 
 public class EcoNewsAssertions {
 
+    private EcoNewsAssertions() {}
+
     public static void assertEcoNewsResponse(EcoNewsResponse ecoNews,
                                              long expectedId,
                                              String expectedTitle,
