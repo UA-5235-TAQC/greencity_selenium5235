@@ -15,12 +15,8 @@ public class OwnSecurityClient extends BaseApiClient{
     }
 
     public Response signIn(String username, String password){
-        return prepareRequest()
+        return execute(prepareRequest()
                 .body(new SignInRequest(username, password))
-                .post(this.resourcePath + "/signIn")
-                .then()
-//                .log().all()
-                .extract()
-                .response();
+                .post(this.resourcePath + "/signIn"));
     }
 }

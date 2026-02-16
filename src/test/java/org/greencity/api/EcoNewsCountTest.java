@@ -8,7 +8,7 @@ import io.qameta.allure.Story;
 import io.qameta.allure.testng.Tag;
 import io.restassured.response.Response;
 import org.greencity.api.clients.EcoNewsClient;
-import org.greencity.utils.TestValueProvider;
+import org.greencity.api.testrunners.ApiTestRunner;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
