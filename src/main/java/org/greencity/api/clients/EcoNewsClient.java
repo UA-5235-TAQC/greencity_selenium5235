@@ -85,4 +85,14 @@ public class EcoNewsClient extends BaseApiClient {
         attachFilesToRequest(request, imagePath);
         return execute(request.post(resourcePath));
     }
+
+    @Step("Get EcoNews count by author id: {authorId}")
+    public Response getEcoNewsCountByAuthorId(int authorId) {
+        return prepareRequest()
+                .queryParam("author-id", authorId)
+                .get(resourcePath + "/count")
+                .then()
+                .extract()
+                .response();
+    }
 }
