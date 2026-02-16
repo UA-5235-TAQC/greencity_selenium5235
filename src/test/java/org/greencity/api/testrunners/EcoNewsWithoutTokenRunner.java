@@ -1,7 +1,6 @@
 package org.greencity.api.testrunners;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.qameta.allure.Description;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -24,7 +23,6 @@ public class EcoNewsWithoutTokenRunner extends ApiTestRunner {
     @Description("Get first EcoNews before each test")
     public void setUpEcoNewsClient() {
         ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
 
         RestAssured.config = RestAssured.config().objectMapperConfig(
                 RestAssured.config().getObjectMapperConfig()

@@ -86,13 +86,33 @@ public class EcoNewsClient extends BaseApiClient {
         return execute(request.post(resourcePath));
     }
 
+    @Step("Get EcoNews count by author id: {authorId}")
+    public Response getEcoNewsCountByAuthorId(int authorId) {
+        return prepareRequest()
+                .queryParam("author-id", authorId)
+                .get(resourcePath + "/count")
+                .then()
+                .extract()
+                .response();
+    }
+
     @Step("Like or remove like from EcoNews by ID: {ecoNewsId}")
     public Response likeEcoNewsById(long ecoNewsId) {
-        return prepareRequest().log().ifValidationFails().post(getPath(ecoNewsId) + "/likes").then().extract().response();
+        return prepareRequest()
+                .log().ifValidationFails()
+                .post(getPath(ecoNewsId) + "/likes")
+                .then()
+                .extract()
+                .response();
     }
 
     @Step("Count likes on EcoNews by ID: {ecoNewsId}")
     public Response countEcoNewsLikes(long ecoNewsId) {
-        return prepareRequest().log().ifValidationFails().get(getPath(ecoNewsId) + "/likes/count").then().extract().response();
+        return prepareRequest()
+                .log().ifValidationFails()
+                .get(getPath(ecoNewsId) + "/likes/count")
+                .then()
+                .extract()
+                .response();
     }
 }
