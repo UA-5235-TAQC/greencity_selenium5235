@@ -9,7 +9,7 @@ import org.greencity.api.testrunners.CreateNewsRunner;
 import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.utils.api.EcoNewsAssertions;
 import org.greencity.utils.api.EcoNewsDtoFactory;
-import org.greencity.utils.api.ValidationErrorResponse;
+import org.greencity.utils.api.ErrorResponse;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -42,7 +42,7 @@ public class EcoNewsByIdWithImageTest extends CreateNewsRunner {
                 "Expected status code 200");
 
         EcoNewsResponse ecoNews = response.as(EcoNewsResponse.class);
-        LocalDate creationDate = createdNews.getCreationDate().toLocalDate();
+        LocalDate creationDate = createdNews.getCreationDate();
 
         EcoNewsAssertions.assertEcoNewsResponse(
                 ecoNews,
@@ -85,9 +85,10 @@ public class EcoNewsByIdWithImageTest extends CreateNewsRunner {
         Response response = ecoNewsClient.getEcoNewsById(nonExistingEcoNewsId);
         Assert.assertEquals(response.getStatusCode(), 404,
                 "Status code should be 404 for non-existing news");
-        String message = response.jsonPath().getString("message");
-        Assert.assertEquals(message, "Eco new doesn't exist by this id: " + nonExistingEcoNewsId,
-                "Error message should match expected");
+        ErrorResponse error = response.as(ErrorResponse.class);
+        Assert.assertEquals(error.getMessage(),
+                "Eco new doesn't exist by this id: " + nonExistingEcoNewsId,
+                "Message should match expected");
     }
 
     @Test
@@ -102,8 +103,8 @@ public class EcoNewsByIdWithImageTest extends CreateNewsRunner {
         Response response = ecoNewsClient.updateEcoNewsById(ecoNewsId, updateDto, null);
         Assert.assertEquals(response.getStatusCode(), 400,
                 "Expected status code 400");
-        String message = response.jsonPath().getString("message");
-        Assert.assertEquals(message,
+        ErrorResponse error = response.as(ErrorResponse.class);
+        Assert.assertEquals(error.getMessage(),
                 "Eco news id in path param and eco news id in entity not equal",
                 "Message should match expected");
 
@@ -112,16 +113,17 @@ public class EcoNewsByIdWithImageTest extends CreateNewsRunner {
         response = ecoNewsClient.updateEcoNewsById(ecoNewsId, updateDto, null);
         Assert.assertEquals(response.getStatusCode(), 400,
                 "Expected status code 400");
-        message = response.jsonPath().getString("message");
-        Assert.assertEquals(message, "There should be at least one valid tag",
+        error = response.as(ErrorResponse.class);
+        Assert.assertEquals(error.getMessage(),
+                "There should be at least one valid tag",
                 "Message should match expected");
 
         updateDto.setId(ecoNewsId);
         updateDto.setTags(EcoNewsTag.getEn(TEST_TAGS));
         updateDto.setTitle("");
         response = ecoNewsClient.updateEcoNewsById(ecoNewsId, updateDto, null);
-        List<ValidationErrorResponse> errors =
-                response.jsonPath().getList("", ValidationErrorResponse.class);
+        List<ErrorResponse> errors =
+                response.jsonPath().getList("", ErrorResponse.class);
         Assert.assertEquals(response.getStatusCode(), 400,
                 "Expected status code 400");
         SoftAssert softAssert = new SoftAssert();
@@ -142,7 +144,7 @@ public class EcoNewsByIdWithImageTest extends CreateNewsRunner {
         updateDto.setTitle(TITLE_UK);
         updateDto.setContent("");
         response = ecoNewsClient.updateEcoNewsById(ecoNewsId, updateDto, null);
-        errors = response.jsonPath().getList("", ValidationErrorResponse.class);
+        errors = response.jsonPath().getList("", ErrorResponse.class);
         Assert.assertEquals(response.getStatusCode(), 400);
         softAssert = new SoftAssert();
         softAssert.assertTrue(

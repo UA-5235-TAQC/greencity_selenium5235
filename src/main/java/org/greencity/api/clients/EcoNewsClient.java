@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.greencity.api.models.econews.EcoNewsQuery;
 import org.greencity.api.models.econews.UpdateEcoNewsDto;
 import org.greencity.api.models.econews.EcoNewsRequest;
 
@@ -94,5 +95,17 @@ public class EcoNewsClient extends BaseApiClient {
                 .then()
                 .extract()
                 .response();
+    }
+
+    @Step("Get EcoNews with typed query parameters: {query}")
+    public Response getEcoNews(EcoNewsQuery query) {
+        RequestSpecification request = prepareRequest();
+
+        if (query.getAuthorId() != null) request.queryParam("author-id", query.getAuthorId());
+        if (query.getFavorite() != null) request.queryParam("favorite", query.getFavorite());
+        if (query.getPage() != null) request.queryParam("page", query.getPage());
+        if (query.getSize() != null) request.queryParam("size", query.getSize());
+
+        return request.get(resourcePath).then().extract().response();
     }
 }

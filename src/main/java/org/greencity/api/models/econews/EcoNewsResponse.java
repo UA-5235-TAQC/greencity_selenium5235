@@ -1,12 +1,11 @@
 package org.greencity.api.models.econews;
 
-
 import lombok.Data;
 import org.greencity.api.models.AuthorResponse;
+import org.greencity.api.utils.DateUtil;
 import org.greencity.ui.enums.EcoNewsTag;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -32,8 +31,9 @@ public class EcoNewsResponse {
     public List<String> getTagsUk() {
         return EcoNewsTag.mapStringsToLocale(tagsEn, "uk");
     }
-    public LocalDateTime getCreationDate() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return LocalDateTime.parse(creationDate, formatter);
+
+    public LocalDate getCreationDate() {
+        if (creationDate == null || creationDate.isEmpty()) return null;
+        return DateUtil.parseShortDate(creationDate);
     }
 }

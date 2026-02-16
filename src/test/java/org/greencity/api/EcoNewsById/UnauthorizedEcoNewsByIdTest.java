@@ -5,6 +5,7 @@ import io.qameta.allure.testng.Tag;
 import io.restassured.response.Response;
 import org.greencity.api.models.econews.UpdateEcoNewsDto;
 import org.greencity.api.testrunners.EcoNewsWithoutTokenRunner;
+import org.greencity.utils.api.ErrorResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -26,6 +27,10 @@ public class UnauthorizedEcoNewsByIdTest extends EcoNewsWithoutTokenRunner {
         Response response = ecoNewsClient.updateEcoNewsById(ecoNewsId, updateDto, null);
         Assert.assertEquals(response.getStatusCode(), 401,
                 "Status code should be 401 Unauthorized");
+        ErrorResponse error = response.as(ErrorResponse.class);
+        Assert.assertEquals(error.getError(),
+                "Unauthorized",
+                "Message should match expected");
     }
 
     @Test
@@ -35,5 +40,9 @@ public class UnauthorizedEcoNewsByIdTest extends EcoNewsWithoutTokenRunner {
         Response deleteResponse = ecoNewsClient.deleteEcoNewsById(ecoNewsId);
         Assert.assertEquals(deleteResponse.getStatusCode(), 401,
                 "Status code should be 401 Unauthorized");
+        ErrorResponse error = deleteResponse.as(ErrorResponse.class);
+        Assert.assertEquals(error.getError(),
+                "Unauthorized",
+                "Message should match expected");
     }
 }

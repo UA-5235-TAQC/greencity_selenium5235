@@ -1,6 +1,5 @@
 package org.greencity.api.models.econews;
 
-import io.qameta.allure.Step;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

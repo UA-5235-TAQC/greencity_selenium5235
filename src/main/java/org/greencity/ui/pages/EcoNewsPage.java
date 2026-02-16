@@ -127,12 +127,10 @@ public class EcoNewsPage extends BasePage {
 
     @Step("Remove all selected tags")
     public void removeAllSelectedTags() {
-        List<TagItem> tags = getAllTags();
-        tags.forEach(tag -> {
-            if (tag.isSelected()) {
-                tag.click();
-            }
-        });
+        List<TagItem> allTags = getAllTags();
+        allTags.stream()
+                .filter(TagItem::isSelected)
+                .forEach(TagItem::click);
     }
 
     @Step("Click on tag by name")
@@ -178,17 +176,5 @@ public class EcoNewsPage extends BasePage {
         }
 
         throw new IllegalArgumentException("News card with id " + newsId + " not found");
-    }
-
-    @Step("Click on a news card by index")
-    public void clickNewsCardByIndex(int index) {
-        NewsListItemComponent card = getNewsCardByIndex(index);
-        card.click();
-    }
-
-    @Step("Click on a news card by id")
-    public void clickNewsCardByNewsId(int newsId) {
-        NewsListItemComponent card = getNewsCardById(newsId);
-        card.click();
     }
 }

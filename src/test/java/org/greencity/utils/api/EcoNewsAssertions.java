@@ -33,7 +33,7 @@ public class EcoNewsAssertions {
         softAssert.assertEquals(ecoNews.getShortInfo(), expectedShortInfo,
                 "ShortInfo should match expected");
         if (expectedDate != null) {
-            softAssert.assertEquals(ecoNews.getCreationDate().toLocalDate(), expectedDate,
+            softAssert.assertEquals(ecoNews.getCreationDate(), expectedDate,
                     "Creation date should match expected");
         }
 
