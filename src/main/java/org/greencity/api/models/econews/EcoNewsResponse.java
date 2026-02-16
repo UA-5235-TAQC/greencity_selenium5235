@@ -1,11 +1,12 @@
 package org.greencity.api.models.econews;
 
-import io.qameta.allure.Step;
+
 import lombok.Data;
 import org.greencity.api.models.AuthorResponse;
 import org.greencity.ui.enums.EcoNewsTag;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Data
@@ -16,7 +17,7 @@ public class EcoNewsResponse {
     private String content;
     private String shortInfo;
     private AuthorResponse author;
-    private OffsetDateTime creationDate;
+    private String creationDate;
     private String imagePath;
     private String source;
     private List<String> tagsUk;
@@ -30,5 +31,9 @@ public class EcoNewsResponse {
 
     public List<String> getTagsUk() {
         return EcoNewsTag.mapStringsToLocale(tagsEn, "uk");
+    }
+    public LocalDateTime getCreationDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return LocalDateTime.parse(creationDate, formatter);
     }
 }
