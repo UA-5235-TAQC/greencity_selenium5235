@@ -8,6 +8,7 @@ import org.testng.annotations.BeforeClass;
 
 public class EcoNewsWithTokenRunner extends ApiTestRunner {
     protected EcoNewsClient ecoNewsClient;
+    protected String accessToken;
 
     @BeforeClass
     public void prepareTokens() {
@@ -22,7 +23,7 @@ public class EcoNewsWithTokenRunner extends ApiTestRunner {
 
         Assert.assertEquals(response.getStatusCode(), 200, "Login request failed");
 
-        String accessToken = response.jsonPath().getString("accessToken");
+        this.accessToken = response.jsonPath().getString("accessToken");
 
         ecoNewsClient = new EcoNewsClient(testValueProvider.getGreencityAPIUrl(), accessToken);
     }

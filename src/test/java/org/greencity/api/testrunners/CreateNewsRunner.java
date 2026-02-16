@@ -1,10 +1,12 @@
 package org.greencity.api.testrunners;
 
-import org.testng.annotations.AfterMethod;
+import io.qameta.allure.Description;
+import org.testng.annotations.AfterClass;
 
 public class CreateNewsRunner extends CreateNewsBeforeTestRunner {
 
-    @AfterMethod(description = "Delete the created EcoNews after each test")
+    @AfterClass
+    @Description("Delete the created EcoNews after each test")
     public void deleteEcoNews() {
         ecoNewsClient.deleteEcoNewsById(ecoNewsId);
     }

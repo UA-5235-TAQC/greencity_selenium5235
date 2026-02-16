@@ -66,19 +66,24 @@ public class EcoNewsClient extends BaseApiClient {
 
     @Step("Get EcoNews with query parameters: {queryParams}")
     public Response getEcoNews(Map<String, ?> queryParams) {
-        return prepareRequest().queryParams(queryParams).log().all().get(resourcePath).then().extract().response();
+        return execute(prepareRequest()
+                .queryParams(queryParams)
+                .get(resourcePath));
     }
 
     @Step("Post new EcoNews without image")
     public Response postEcoNews(EcoNewsRequest body) {
-        return prepareRequest().contentType(ContentType.MULTIPART).multiPart("addEcoNewsDtoRequest", body, "application/json; charset=UTF-8").log().all().post(resourcePath).then().extract().response();
+        return execute(prepareRequest()
+                .contentType(ContentType.MULTIPART)
+                .multiPart("addEcoNewsDtoRequest", body, "application/json; charset=UTF-8")
+                .post(resourcePath));
     }
 
     @Step("Post new EcoNews {body} with image: {imagePath}")
     public Response postEcoNews(EcoNewsRequest body, String imagePath) {
         RequestSpecification request = prepareRequest().contentType(ContentType.MULTIPART).multiPart("addEcoNewsDtoRequest", body, "application/json; charset=UTF-8");
         attachFilesToRequest(request, imagePath);
-        return request.log().all().post(resourcePath).then().extract().response();
+        return execute(request.post(resourcePath));
     }
 
     @Step("Like or remove like from EcoNews by ID: {ecoNewsId}")

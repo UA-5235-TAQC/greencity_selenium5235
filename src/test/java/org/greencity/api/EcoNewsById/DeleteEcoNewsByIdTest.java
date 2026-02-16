@@ -1,18 +1,22 @@
 package org.greencity.api.EcoNewsById;
 
-import io.qameta.allure.Description;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
+import io.qameta.allure.testng.Tag;
 import io.restassured.response.Response;
 import org.greencity.api.testrunners.CreateNewsBeforeTestRunner;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+@Epic("EcoNews API")
+@Feature("Delete EcoNews")
+@Severity(SeverityLevel.NORMAL)
+@Tag("EcoNewsById API")
 public class DeleteEcoNewsByIdTest extends CreateNewsBeforeTestRunner {
 
     @Test
     @Story("Delete existing EcoNews")
     @Description("Verify that an authorized user can successfully delete an existing EcoNews item")
-    public void testDeleteEcoNewsByIdShouldReturn200() {
+    public void testDeleteEcoNewsById() {
         Response deleteResponse = ecoNewsClient.deleteEcoNewsById(ecoNewsId);
         Assert.assertEquals(deleteResponse.getStatusCode(), 200,
                 "EcoNews should be deleted successfully");

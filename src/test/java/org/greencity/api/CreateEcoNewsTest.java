@@ -33,7 +33,6 @@ public class CreateEcoNewsTest extends EcoNewsWithTokenRunner {
                 .tags(List.of(EcoNewsTag.NEWS.getEn().toLowerCase()))
                 .source("https://example.com")
                 .shortInfo("Короткий опис")
-                .image(null)
                 .build();
 
         Response response = ecoNewsClient.postEcoNews(requestBody);

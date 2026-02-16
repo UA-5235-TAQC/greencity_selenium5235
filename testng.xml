@@ -28,6 +28,12 @@
     <test name="API Tests">
         <classes>
             <class name="org.greencity.api.OwnSecurityTest"/>
+            <class name="org.greencity.api.CreateEcoNewsTest"/>
+            <class name="org.greencity.api.EcoNewsTest"/>
+            <class name="org.greencity.api.EcoNewsById.DeleteEcoNewsByIdTest"/>
+            <class name="org.greencity.api.EcoNewsById.EcoNewsByIdWithImageTest"/>
+            <class name="org.greencity.api.EcoNewsById.UnauthorizedEcoNewsByIdTest"/>
+            <class name="org.greencity.api.EcoNewsById.UpdateEcoNewsByIdWithoutImageTest"/>
             <class name="org.greencity.api.EcoNewsById.CountEcoNewsLikesByIdTest"/>
             <class name="org.greencity.api.EcoNewsById.CountEcoNewsLikesByIdWithoutTokenTest"/>
             <class name="org.greencity.api.EcoNewsById.LikeEcoNewsByIdTest"/>
