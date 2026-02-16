@@ -1,5 +1,11 @@
 package org.greencity.api;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
+import io.qameta.allure.testng.Tag;
 import io.restassured.response.Response;
 import org.greencity.api.clients.EcoNewsClient;
 import org.greencity.utils.TestValueProvider;
@@ -21,6 +27,11 @@ public class EcoNewsCountTest extends ApiTestRunner {
         ecoNewsClient = new EcoNewsClient(testValueProvider.getGreencityAPIUrl());
     }
 
+    @Epic("EcoNews API")
+    @Feature("EcoNews Count")
+    @Story("Verify EcoNews count by author ID")
+    @Severity(SeverityLevel.NORMAL)
+    @Tag("API")
     @Test
     public void getEcoNewsCountByAuthorIdTest() {
 
