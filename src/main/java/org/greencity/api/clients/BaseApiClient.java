@@ -52,6 +52,9 @@ public abstract class BaseApiClient {
         }
         try {
             File file = new File(imagePath);
+            if (!file.exists()) {
+                throw new RuntimeException("File not found: " + imagePath);
+            }
             String fileName = file.getName();
             String mimeType = fileName.endsWith(".png") ? "image/png" : "image/jpeg";
             request.multiPart("image", file, mimeType);
