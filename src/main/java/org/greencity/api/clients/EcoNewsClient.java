@@ -59,4 +59,14 @@ public class EcoNewsClient extends BaseApiClient {
             throw new RuntimeException("Failed to attach file: " + e.getMessage(), e);
         }
     }
+
+    @Step("Get EcoNews count by author id: {authorId}")
+    public Response getEcoNewsCountByAuthorId(int authorId) {
+        return prepareRequest()
+                .queryParam("author-id", authorId)
+                .get(resourcePath + "/count")
+                .then()
+                .extract()
+                .response();
+    }
 }
