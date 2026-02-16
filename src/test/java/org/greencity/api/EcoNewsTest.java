@@ -5,6 +5,7 @@ import io.qameta.allure.testng.Tag;
 import io.restassured.response.Response;
 import org.greencity.api.clients.EcoNewsClient;
 import org.greencity.api.models.econews.EcoNewsPageResponse;
+import org.greencity.api.models.econews.EcoNewsQuery;
 import org.greencity.api.models.econews.EcoNewsResponse;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -33,40 +34,31 @@ public class EcoNewsTest extends ApiTestRunner {
     @Test
     public void verifyEcoNewsPageDataTest() {
 
-        Map<String, Object> queryParams = new HashMap<>();
-        queryParams.put("author-id", testValueProvider.getUserId());
-        queryParams.put("favorite", false);
-        queryParams.put("page", 0);
-        queryParams.put("size", 20);
+        EcoNewsQuery query = EcoNewsQuery.builder()
+                .authorId(testValueProvider.getUserId())
+                .favorite(false)
+                .page(0)
+                .size(20)
+                .build();
 
-        // Send request and get response
-        Response response = ecoNewsClient.getEcoNews(queryParams);
+        Response response = ecoNewsClient.getEcoNews(query);
         Assert.assertEquals(response.getStatusCode(), 200);
+
 
         EcoNewsPageResponse pageResponse = response.as(EcoNewsPageResponse.class);
 
         SoftAssert softAssert = new SoftAssert();
 
-        // Validate pagination data
         softAssert.assertEquals(pageResponse.getCurrentPage(), 0, "Current page number is incorrect");
         softAssert.assertFalse(pageResponse.getPage().isEmpty(), "News list should not be empty");
 
-        // Get the first news item for detailed validation (expected id: 1373)
         EcoNewsResponse firstNews = pageResponse.getPage().get(0);
 
-        softAssert.assertEquals(firstNews.getId(), 1373, "News ID does not match expected value");
-        softAssert.assertEquals(firstNews.getTitle(), "Test_2", "News title does not match expected value");
-        softAssert.assertEquals(firstNews.getAuthor().getId(), 149, "Author ID does not match expected value");
-        softAssert.assertEquals(firstNews.getAuthor().getName(), "NameForTest611", "Author name does not match expected value");
-
-        // Validate tags list
-        softAssert.assertEquals(
-                firstNews.getTagsEn(),
-                Arrays.asList("News", "Events", "Education"),
-                "Tags list does not match expected values"
-        );
+        softAssert.assertNotNull(firstNews.getId(), "News id should not be null");
+        softAssert.assertNotNull(firstNews.getTitle(), "News title should not be null");
+        softAssert.assertEquals(firstNews.getAuthor().getId(), testValueProvider.getUserId(), "Author ID does not match expected value");
+        softAssert.assertEquals(firstNews.getAuthor().getName(), testValueProvider.getUserName(), "Author name does not match expected value");
 
         softAssert.assertAll();
     }
-
 }

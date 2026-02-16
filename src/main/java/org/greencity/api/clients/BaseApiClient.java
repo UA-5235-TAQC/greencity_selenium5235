@@ -2,13 +2,12 @@ package org.greencity.api.clients;
 
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 
 public abstract class BaseApiClient {
     protected final String baseApiUrl;
@@ -59,6 +58,22 @@ public abstract class BaseApiClient {
         } catch (Exception e) {
             throw new RuntimeException("Failed to attach file: " + e.getMessage(), e);
         }
+    }
+
+    protected Response execute(Response response) {
+        return response
+                .then()
+                .log().ifError()
+                .extract()
+                .response();
+    }
+
+    @Step("DELETE request to {path}")
+    protected Response delete(String path) {
+        return execute(
+                prepareRequest()
+                        .delete(path)
+        );
     }
 
 }
