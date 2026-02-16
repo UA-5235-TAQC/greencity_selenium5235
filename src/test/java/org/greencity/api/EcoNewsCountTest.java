@@ -20,9 +20,6 @@ public class EcoNewsCountTest extends ApiTestRunner {
     @BeforeClass
     public void setUp() {
 
-        if (testValueProvider == null) {
-            testValueProvider = new TestValueProvider();
-        }
 
         ecoNewsClient = new EcoNewsClient(testValueProvider.getGreencityAPIUrl());
     }
