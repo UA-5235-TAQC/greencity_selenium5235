@@ -8,7 +8,18 @@ import org.greencity.api.models.ownsecurity.SignInResponse;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Tag;
 
+@Epic("EcoNews API")
+@Feature("EcoNews Tags")
+@Story("Get EcoNews tags by language")
+@Severity(SeverityLevel.NORMAL)
+@Tag("API")
 public class EcoNewsTagsTest extends ApiTestRunner {
 
     private EcoNewsClient client;
@@ -51,7 +62,7 @@ public class EcoNewsTagsTest extends ApiTestRunner {
 
         for (TagResponse tag : tags) {
             Assert.assertNotNull(tag.getName());
-            Assert.assertTrue(tag.getId() > 0);
+            Assert.assertTrue(tag.getId() > 0, "Tag ID should be greater than 0");
         }
     }
 }
