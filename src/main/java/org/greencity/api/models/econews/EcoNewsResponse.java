@@ -28,7 +28,6 @@ public class EcoNewsResponse {
     private int dislikes = 0;
     private boolean hidden;
 
-    @Step("Get tags in Ukrainian")
     public List<String> getTagsUk() {
         return EcoNewsTag.mapStringsToLocale(tagsEn, "uk");
     }

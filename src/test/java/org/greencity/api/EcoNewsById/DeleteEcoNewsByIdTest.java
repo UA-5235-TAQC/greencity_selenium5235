@@ -30,7 +30,7 @@ public class DeleteEcoNewsByIdTest extends CreateNewsBeforeTestRunner {
     @Story("Delete non-existing EcoNews")
     @Description("Verify that deleting a non-existing EcoNews returns 404 Not Found")
     public void testDeleteNonExistingEcoNewsShouldReturn404() {
-        long nonExistingId = 999999L;
+        long nonExistingId = ecoNewsId + 1;
         Response deleteResponse = ecoNewsClient.deleteEcoNewsById(nonExistingId);
         Assert.assertEquals(deleteResponse.getStatusCode(), 404, "Deleting non-existing EcoNews should return 404");
 

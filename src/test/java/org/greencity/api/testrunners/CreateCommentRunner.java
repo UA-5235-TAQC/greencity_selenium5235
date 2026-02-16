@@ -1,7 +1,7 @@
 package org.greencity.api.testrunners;
 
 import io.restassured.response.Response;
-import jdk.jfr.Description;
+import io.qameta.allure.Description;
 import org.greencity.api.clients.EcoNewsCommentClient;
 import org.greencity.api.models.ecoNewsComment.AddCommentResponse;
 import org.testng.Assert;

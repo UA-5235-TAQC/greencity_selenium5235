@@ -6,7 +6,7 @@ import org.testng.annotations.AfterClass;
 public class CreateNewsRunner extends CreateNewsBeforeTestRunner {
 
     @AfterClass
-    @Description("Delete the created EcoNews after each test")
+    @Description("Delete the created EcoNews after all tests")
     public void deleteEcoNews() {
         ecoNewsClient.deleteEcoNewsById(ecoNewsId);
     }
