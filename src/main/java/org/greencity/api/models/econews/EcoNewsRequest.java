@@ -16,5 +16,4 @@ public class EcoNewsRequest {
     private String source;
     private String shortInfo;
     private List<String> tags;
-    private String image;
 }

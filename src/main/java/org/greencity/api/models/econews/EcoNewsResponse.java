@@ -1,12 +1,18 @@
 package org.greencity.api.models.econews;
 
+
 import lombok.Data;
+import org.greencity.api.models.AuthorResponse;
+import org.greencity.ui.enums.EcoNewsTag;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Data
 public class EcoNewsResponse {
 
-    private int id;
+    private long id;
     private String title;
     private String content;
     private String shortInfo;
@@ -20,4 +26,14 @@ public class EcoNewsResponse {
     private int countComments;
     private int countOfEcoNews;
     private boolean favorite;
+    private int dislikes = 0;
+    private boolean hidden;
+
+    public List<String> getTagsUk() {
+        return EcoNewsTag.mapStringsToLocale(tagsEn, "uk");
+    }
+    public LocalDateTime getCreationDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return LocalDateTime.parse(creationDate, formatter);
+    }
 }

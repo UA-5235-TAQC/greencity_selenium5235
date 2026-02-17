@@ -57,4 +57,18 @@ public enum EcoNewsTag {
     public static List<String> getUa(List<EcoNewsTag> tags) {
         return getByLocale(tags, "uk");
     }
+
+    public static List<String> mapStringsToLocale(List<String> tags, String locale) {
+        if (tags == null) return List.of();
+
+        return tags.stream()
+                .map(value -> Arrays.stream(values())
+                        .filter(tag -> tag.en.equalsIgnoreCase(value) || tag.ua.equalsIgnoreCase(value))
+                        .findFirst()
+                        .orElse(null)
+                )
+                .filter(tag -> tag != null)
+                .map(tag -> tag.getByLocale(locale))
+                .toList();
+    }
 }
