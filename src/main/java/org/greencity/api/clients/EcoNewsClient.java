@@ -61,7 +61,7 @@ public class EcoNewsClient extends BaseApiClient {
     }
 
     @Step("Add EcoNews with id={ecoNewsId} to favorites")
-    public Response addToFavorites(int ecoNewsId) {
+    public Response addToFavorites(long ecoNewsId) {
         return prepareRequest()
                 .post(resourcePath + "/" + ecoNewsId + "/favorites")
                 .then()
@@ -70,9 +70,18 @@ public class EcoNewsClient extends BaseApiClient {
     }
 
     @Step("Remove EcoNews with id={ecoNewsId} from favorites")
-    public Response removeFromFavorites(int ecoNewsId) {
+    public Response removeFromFavorites(long ecoNewsId) {
         return prepareRequest()
                 .delete(resourcePath + "/" + ecoNewsId + "/favorites")
+                .then()
+                .extract()
+                .response();
+    }
+
+    @Step("Delete EcoNews by ID: {ecoNewsId}")
+    public Response deleteEcoNewsById(long ecoNewsId) {
+        return prepareRequest()
+                .delete(resourcePath + "/" + ecoNewsId)
                 .then()
                 .extract()
                 .response();

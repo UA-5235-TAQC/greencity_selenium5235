@@ -28,6 +28,8 @@
     <test name="API Tests">
         <classes>
             <class name="org.greencity.api.OwnSecurityTest"/>
+            <class name="org.greencity.api.EcoNewsById.FavoriteEcoNewsWithTokenTest"/>
+            <class name="org.greencity.api.EcoNewsById.FavoriteEcoNewsWithoutTokenTest"/>
         </classes>
     </test>
 </suite>
