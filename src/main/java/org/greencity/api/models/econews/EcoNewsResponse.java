@@ -33,7 +33,6 @@ public class EcoNewsResponse {
     }
 
     public LocalDate getCreationDate() {
-        if (creationDate == null || creationDate.isEmpty()) return null;
-        return DateUtil.parseShortDate(creationDate);
+        return DateUtil.parseDate(creationDate);
     }
 }

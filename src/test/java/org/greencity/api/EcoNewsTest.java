@@ -20,8 +20,10 @@ public class EcoNewsTest extends CreateNewsRunner {
 
     private EcoNewsService ecoNewsService;
 
+    @Override
     @BeforeClass
-    public void setupService() {
+    public void createEcoNews() {
+        super.createEcoNews();
         ecoNewsService = new EcoNewsService(ecoNewsClient);
     }
 

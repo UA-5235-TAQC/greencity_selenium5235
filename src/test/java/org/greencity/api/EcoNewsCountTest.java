@@ -7,22 +7,11 @@ import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
 import io.qameta.allure.testng.Tag;
 import io.restassured.response.Response;
-import org.greencity.api.clients.EcoNewsClient;
-import org.greencity.api.testrunners.ApiTestRunner;
+import org.greencity.api.testrunners.EcoNewsWithoutTokenRunner;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class EcoNewsCountTest extends ApiTestRunner {
-
-    private EcoNewsClient ecoNewsClient;
-
-    @BeforeClass
-    public void setUp() {
-
-
-        ecoNewsClient = new EcoNewsClient(testValueProvider.getGreencityAPIUrl());
-    }
+public class EcoNewsCountTest extends EcoNewsWithoutTokenRunner {
 
     @Epic("EcoNews API")
     @Feature("EcoNews Count")

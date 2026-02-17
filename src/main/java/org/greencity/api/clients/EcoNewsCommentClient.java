@@ -80,4 +80,15 @@ public class EcoNewsCommentClient extends BaseApiClient {
         }
         return deleteComment(commentId);
     }
+
+    @Step("API: Count active replies for comment ID {parentCommentId}")
+    public Response countActiveReplies(long parentCommentId) {
+        return execute(
+                prepareRequest()
+                        .contentType(ContentType.JSON)
+                        .get(this.resourcePath + "comments/"
+                                + parentCommentId
+                                + "/replies/active/count")
+        );
+    }
 }
