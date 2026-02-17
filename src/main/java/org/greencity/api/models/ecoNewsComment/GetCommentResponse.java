@@ -3,7 +3,6 @@ package org.greencity.api.models.ecoNewsComment;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.greencity.api.models.AuthorResponse;
-import org.greencity.api.utils.DateUtil;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -24,13 +23,14 @@ public class GetCommentResponse {
     private int dislikes = 0;
     private boolean currentUserLiked;
     private boolean currentUserDisliked;
+    private String status = "ORIGINAL";
     private String[] additionalImages;
 
-    public LocalDate getCreatedDate() {
+    public LocalDate getCreationDate() {
         return parseDate(createdDate);
     }
 
-    public LocalDate getModifiedDate() {
+    public LocalDate getModificationDate() {
         return parseDate(modifiedDate);
     }
 

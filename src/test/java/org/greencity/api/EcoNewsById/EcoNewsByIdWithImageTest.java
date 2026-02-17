@@ -15,7 +15,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import static org.greencity.utils.api.ApiTestAssertions.*;
@@ -42,19 +41,10 @@ public class EcoNewsByIdWithImageTest extends CreateNewsRunner {
         assertOk(response);
 
         EcoNewsResponse ecoNews = response.as(EcoNewsResponse.class);
-        LocalDate creationDate = createdNews.getCreationDate();
 
         EcoNewsAssertions.assertEcoNewsResponse(
                 ecoNews,
-                createdNews.getId(),
-                createdNews.getTitle(),
-                createdNews.getContent(),
-                createdNews.getShortInfo(),
-                creationDate,
-                createdNews.getTagsEn(),
-                createdNews.getTagsUk(),
-                createdNews.getAuthor().getId(),
-                createdNews.getAuthor().getName(),
+                createdNews,
                 true,
                 true
         );
@@ -161,15 +151,7 @@ public class EcoNewsByIdWithImageTest extends CreateNewsRunner {
 
         EcoNewsAssertions.assertEcoNewsResponse(
                 ecoNews,
-                updateDto.getId(),
-                updateDto.getTitle(),
-                updateDto.getContent(),
-                updateDto.getShortInfo(),
-                null,
-                updateDto.getTagsEn(),
-                updateDto.getTagsUk(),
-                null,
-                null,
+                updateDto,
                 true,
                 false
         );

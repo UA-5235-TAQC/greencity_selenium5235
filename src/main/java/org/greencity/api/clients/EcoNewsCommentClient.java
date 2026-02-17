@@ -5,6 +5,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.greencity.api.models.ecoNewsComment.AddCommentRequest;
+import org.greencity.api.models.ecoNewsComment.CommentQuery;
 import org.greencity.api.models.ecoNewsComment.GetCommentPageResponse;
 import org.greencity.api.models.ecoNewsComment.GetCommentResponse;
 
@@ -51,21 +52,27 @@ public class EcoNewsCommentClient extends BaseApiClient {
                 .delete(this.resourcePath + "comments/" + commentId));
     }
 
-    @Step("API: Get all active replies for comment ID {parentCommentId}, page {page}, size {size}, sort {sort}")
-    public Response getActiveReplies(long parentCommentId, Integer page, Integer size, List<String> sort) {
+    @Step("API: Get all active replies for comment ID {parentCommentId} with query params")
+    public Response getActiveReplies(long parentCommentId, CommentQuery query) {
         RequestSpecification request = prepareRequest()
                 .contentType("application/json");
 
-        if (page != null) request.queryParam("page", page);
-        if (size != null) request.queryParam("size", size);
-        if (sort != null && !sort.isEmpty()) request.queryParam("sort", String.join(",", sort));
+        if (query != null) {
+            if (query.getPage() != null) request.queryParam("page", query.getPage());
+            if (query.getSize() != null) request.queryParam("size", query.getSize());
+            if (query.getSort() != null && !query.getSort().isEmpty()) {
+                for (String s : query.getSort()) {
+                    request.queryParam("sort", s);
+                }
+            }
+        }
 
         return execute(request
                 .get(this.resourcePath + "comments/" + parentCommentId + "/replies/active"));
     }
 
     public Response getActiveReplies(long parentCommentId) {
-        return getActiveReplies(parentCommentId, 0, 20, null);
+        return getActiveReplies(parentCommentId, CommentQuery.builder().page(0).size(20).build());
     }
 
     @Step("API: Delete comment by ID {commentId} along with all child comments")

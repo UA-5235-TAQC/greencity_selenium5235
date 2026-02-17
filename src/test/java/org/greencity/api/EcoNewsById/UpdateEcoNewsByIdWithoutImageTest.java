@@ -10,9 +10,6 @@ import org.greencity.utils.api.EcoNewsAssertions;
 import org.greencity.utils.api.EcoNewsDtoFactory;
 import org.testng.annotations.Test;
 
-import java.time.LocalDate;
-import java.time.ZoneOffset;
-
 import static org.greencity.utils.api.ApiTestAssertions.assertOk;
 
 @Epic("EcoNews API")
@@ -32,18 +29,9 @@ public class UpdateEcoNewsByIdWithoutImageTest extends CreateNewsRunner {
         assertOk(response);
 
         EcoNewsResponse ecoNews = response.as(EcoNewsResponse.class);
-        LocalDate expectedDate = LocalDate.now(ZoneOffset.UTC);
         EcoNewsAssertions.assertEcoNewsResponse(
                 ecoNews,
-                updateDto.getId(),
-                updateDto.getTitle(),
-                updateDto.getContent(),
-                updateDto.getShortInfo(),
-                expectedDate,
-                updateDto.getTagsEn(),
-                updateDto.getTagsUk(),
-                null,
-                null,
+                updateDto,
                 false,
                 false
         );

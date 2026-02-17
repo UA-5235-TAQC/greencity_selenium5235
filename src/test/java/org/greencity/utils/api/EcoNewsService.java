@@ -7,6 +7,8 @@ import org.greencity.api.models.econews.EcoNewsPageResponse;
 import org.greencity.api.models.econews.EcoNewsQuery;
 import org.testng.Assert;
 
+import static org.greencity.utils.api.ApiTestAssertions.assertOk;
+
 @RequiredArgsConstructor
 public class EcoNewsService {
 
@@ -26,8 +28,7 @@ public class EcoNewsService {
                 .build();
 
         Response response = client.getEcoNews(query);
-        Assert.assertEquals(response.getStatusCode(), 200,
-                "Unexpected status code while getting EcoNews page");
+        assertOk(response);
 
         return response.as(EcoNewsPageResponse.class);
     }

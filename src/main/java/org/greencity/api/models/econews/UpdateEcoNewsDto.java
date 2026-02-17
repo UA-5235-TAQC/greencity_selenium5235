@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateEcoNewsDto {
+public class UpdateEcoNewsDto implements EcoNewsBase{
     private long id;
     private String title;
     private String content;

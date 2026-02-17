@@ -67,13 +67,11 @@ public class CreateCommentRunner extends CreateNewsRunner {
                 COMMENT_IMAGES_PATHS
         );
 
-        createdCommentIds = List.of(
-                parentCommentId,
-                commentIdWithImages,
-                parentSubCommentId,
-                subCommentId,
-                subCommentIdWithImages
-        );
+        createdCommentIds.add(parentCommentId);
+        createdCommentIds.add(commentIdWithImages);
+        createdCommentIds.add(parentSubCommentId);
+        createdCommentIds.add(subCommentId);
+        createdCommentIds.add(subCommentIdWithImages);
     }
 
     protected int createCommentAndGetId(long newsId,

@@ -3,18 +3,20 @@ package org.greencity.api.ecoNewsComment;
 import io.qameta.allure.*;
 import io.qameta.allure.testng.Tag;
 import io.restassured.response.Response;
+import org.greencity.api.models.ecoNewsComment.CommentQuery;
 import org.greencity.api.models.ecoNewsComment.GetCommentPageResponse;
 import org.greencity.api.models.ecoNewsComment.GetCommentResponse;
 import org.greencity.api.testrunners.CreateCommentRunner;
 import org.greencity.utils.api.CommentAssertions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.function.Function;
 
 import static org.greencity.utils.api.ApiTestAssertions.*;
-import static org.greencity.utils.api.EcoNewsCommentFactory.ANOTHER_SUB_COMMENT;
+import static org.greencity.utils.api.EcoNewsCommentFactory.*;
 
 @Epic("EcoNewsComment API")
 @Feature("EcoNews Comments")
@@ -24,44 +26,162 @@ import static org.greencity.utils.api.EcoNewsCommentFactory.ANOTHER_SUB_COMMENT;
 public class EcoNewsCommentRepliesTest extends CreateCommentRunner {
 
     @Test
-    @Description("Verify that active replies for a comment can be retrieved successfully without query parameters.")
+    @Description("Verify that active replies for a comment can be retrieved " +
+            "successfully without query parameters.")
     public void testGetActiveRepliesDefault() {
-        Response response = ecoNewsCommentClient.getActiveReplies(commentIdWithImages);
+        GetCommentPageResponse pageResponse = getActiveRepliesPage(commentIdWithImages, 0, 20, null);
+        CommentAssertions.assertPageMeta(pageResponse, 2, 0);
+        GetCommentResponse firstActiveReply = pageResponse.getPage().getFirst();
+        GetCommentResponse createdActiveReply = getCommentById(subCommentIdWithImages);
+        CommentAssertions.assertCommentResponse(firstActiveReply, createdActiveReply);
+    }
+
+    private GetCommentPageResponse getActiveRepliesPage(long parentCommentId, int page, int size, List<String> sort) {
+        CommentQuery query = CommentQuery.builder()
+                .page(page)
+                .size(size)
+                .sort(sort)
+                .build();
+
+        Response response = ecoNewsCommentClient.getActiveReplies(parentCommentId, query);
         assertOk(response);
 
-        GetCommentPageResponse pageResponse = response.as(GetCommentPageResponse.class);
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertNotNull(pageResponse.getPage(),
-                "Page list should not be null");
-        softAssert.assertEquals(pageResponse.getTotalElements(), 2,
-                "Comment with images should have exactly 2 active replies");
-        softAssert.assertEquals(pageResponse.getCurrentPage(), 0,
-                "Default current page should be 0");
-        softAssert.assertEquals(pageResponse.getTotalPages(), 1,
-                "The amount of pages should be 1");
-        softAssert.assertAll();
+        return response.as(GetCommentPageResponse.class);
+    }
+
+    private GetCommentResponse getCommentById(int commentId) {
+        Response response = ecoNewsCommentClient.getComment(commentId);
+        assertOk(response);
+        return response.as(GetCommentResponse.class);
+    }
+
+    @Test
+    @Description("Verify that active replies for a comment can be retrieved " +
+            "for a specific page (page=0, size=10).")
+    public void testGetActiveRepliesWithPage() {
+        GetCommentPageResponse pageResponse = getActiveRepliesPage(commentIdWithImages, 0, 10, null);
+
+        CommentAssertions.assertPageMeta(pageResponse, 2, 0);
+
+        GetCommentResponse secondActiveReply = pageResponse.getPage().get(1);
+        GetCommentResponse createdActiveReply = getCommentById(subCommentId);
+
+        CommentAssertions.assertCommentResponse(secondActiveReply, createdActiveReply);
+    }
+
+    @Test
+    @Description("Verify that active replies for a comment can be retrieved " +
+            "when page size is set to 1.")
+    public void testGetActiveRepliesWithSizeOne() {
+        GetCommentPageResponse pageResponse = getActiveRepliesPage(parentCommentId, 0, 1, null);
+
+        Assert.assertEquals(pageResponse.getPage().size(), 1, "Page size should be 1");
+        CommentAssertions.assertPageMeta(pageResponse, 1, 0);
 
         GetCommentResponse firstActiveReply = pageResponse.getPage().getFirst();
+        GetCommentResponse createdActiveReply = getCommentById(parentSubCommentId);
 
-        response = ecoNewsCommentClient.getComment(subCommentIdWithImages);
-        GetCommentResponse createdActiveReply = response.as(GetCommentResponse.class);
+        CommentAssertions.assertCommentResponse(firstActiveReply, createdActiveReply);
+    }
+
+    @Test
+    @Description("""
+        Verify that active replies are correctly sorted:
+        1. By createdDate in descending order
+        2. By modifiedDate in descending order
+        3. By multiple fields (createdDate, modifiedDate) in descending order
+        
+        Also verifies:
+        - Correct page metadata
+        - Correct reply order positions
+        """)
+    public void testSortByDates() {
+
+        int anotherSubCommentId = createCommentAndGetId(
+                ecoNewsId,
+                ANOTHER_SUB_COMMENT,
+                commentIdWithImages
+        );
+        createdCommentIds.add(anotherSubCommentId);
+
+        // -------- createdDate DESC --------
+
+        List<String> sort = List.of("createdDate,desc");
+        GetCommentPageResponse pageResponse =
+                getActiveRepliesPage(commentIdWithImages, 0, 20, sort);
+
+        List<GetCommentResponse> replies = pageResponse.getPage();
+
+        assertSortedByDate(replies, GetCommentResponse::getCreatedDate, "createdDate");
+
+        CommentAssertions.assertPageMeta(pageResponse, 3, 0);
 
         CommentAssertions.assertCommentResponse(
-                firstActiveReply,
-                createdActiveReply.getId(),
-                createdActiveReply.getParentCommentId(),
-                createdActiveReply.getText(),
-                createdActiveReply.getCreatedDate(),
-                createdActiveReply.getModifiedDate(),
-                createdActiveReply.getAuthor().getId(),
-                createdActiveReply.getAuthor().getName(),
-                createdActiveReply.getReplies(),
-                createdActiveReply.getLikes(),
-                createdActiveReply.getDislikes(),
-                createdActiveReply.getAdditionalImages(),
-                false,
-                false,
-                true);
+                replies.getFirst(),
+                getCommentById(anotherSubCommentId)
+        );
+
+        // -------- modifiedDate DESC --------
+
+        sort = List.of("modifiedDate,desc");
+        pageResponse = getActiveRepliesPage(commentIdWithImages, 0, 20, sort);
+        replies = pageResponse.getPage();
+
+        assertSortedByDate(replies, GetCommentResponse::getModifiedDate, "modifiedDate");
+
+        CommentAssertions.assertPageMeta(pageResponse, 3, 0);
+
+        CommentAssertions.assertCommentResponse(
+                replies.get(2),
+                getCommentById(subCommentId)
+        );
+
+        // -------- createdDate + modifiedDate DESC --------
+
+        sort = List.of("createdDate,desc", "modifiedDate,desc");
+        pageResponse = getActiveRepliesPage(commentIdWithImages, 0, 20, sort);
+        replies = pageResponse.getPage();
+
+        assertSortedByDate(replies, GetCommentResponse::getCreatedDate, "createdDate");
+        assertSortedByDate(replies, GetCommentResponse::getModifiedDate, "modifiedDate");
+
+        CommentAssertions.assertPageMeta(pageResponse, 3, 0);
+
+        CommentAssertions.assertCommentResponse(
+                replies.get(1),
+                getCommentById(subCommentIdWithImages)
+        );
+    }
+
+    private void assertSortedByDate(
+            List<GetCommentResponse> replies,
+            Function<GetCommentResponse, String> dateExtractor,
+            String fieldName
+    ) {
+        for (int i = 0; i < replies.size() - 1; i++) {
+
+            LocalDateTime current =
+                    LocalDateTime.parse(dateExtractor.apply(replies.get(i)));
+
+            LocalDateTime next =
+                    LocalDateTime.parse(dateExtractor.apply(replies.get(i + 1)));
+
+            Assert.assertFalse(
+                    current.isBefore(next),
+                    "Replies should be sorted descending by " + fieldName
+            );
+        }
+    }
+
+    @Test
+    @Description("Verify that comment without replies returns empty active replies page")
+    public void testNoActiveReplies() {
+        GetCommentPageResponse pageResponse = getActiveRepliesPage(subCommentId, 0, 20, null);
+        CommentAssertions.assertPageMeta(pageResponse, 0, 0);
+        Assert.assertTrue(
+                pageResponse.getPage().isEmpty(),
+                "Replies list should be empty"
+        );
     }
 
     @Test
@@ -70,44 +190,52 @@ public class EcoNewsCommentRepliesTest extends CreateCommentRunner {
     public void testGetActiveRepliesShouldReturn400() {
 
         // --- Invalid page ---
-        Response response = ecoNewsCommentClient
-                .getActiveReplies(parentCommentId, -1, 10, null);
+        CommentQuery invalidPageQuery = CommentQuery.builder()
+                .page(-1)
+                .size(10)
+                .build();
 
+        Response response = ecoNewsCommentClient.getActiveReplies(parentCommentId, invalidPageQuery);
         assertBadRequest(response, "page must be a positive number");
 
         // --- Invalid size ---
-        response = ecoNewsCommentClient
-                .getActiveReplies(parentCommentId, 0, -1, null);
+        CommentQuery invalidSizeQuery = CommentQuery.builder()
+                .page(0)
+                .size(-1)
+                .build();
 
+        response = ecoNewsCommentClient.getActiveReplies(parentCommentId, invalidSizeQuery);
         assertBadRequest(response, "size must be a positive number");
 
         // --- Unsupported sort field ---
-        List<String> unsupportedSortField = List.of("foo");
+        CommentQuery unsupportedSortQuery = CommentQuery.builder()
+                .page(0)
+                .size(10)
+                .sort(List.of("foo"))
+                .build();
 
-        response = ecoNewsCommentClient
-                .getActiveReplies(parentCommentId, 0, 10, unsupportedSortField);
-
-        assertBadRequest(response,
-                "Unsupported value for sorting: [foo]");
+        response = ecoNewsCommentClient.getActiveReplies(parentCommentId, unsupportedSortQuery);
+        assertBadRequest(response, "Unsupported value for sorting: [foo]");
 
         // --- Invalid sort direction (missing asc/desc) ---
-        List<String> missingSortDirection = List.of("createdDate", "foo");
+        CommentQuery missingSortDirectionQuery = CommentQuery.builder()
+                .page(0)
+                .size(10)
+                .sort(List.of("createdDate", "foo"))
+                .build();
 
-        response = ecoNewsCommentClient
-                .getActiveReplies(parentCommentId, 0, 10, missingSortDirection);
-
-        assertBadRequest(response,
-                "Invalid value 'foo' for orders given; Has to be either 'desc' or 'asc' (case insensitive)");
+        response = ecoNewsCommentClient.getActiveReplies(parentCommentId, missingSortDirectionQuery);
+        assertBadRequest(response, "Unsupported value for sorting: [foo]");
 
         // --- Invalid sort direction value ---
-        List<String> invalidSortDirection = List.of("text", "descending");
+        CommentQuery invalidSortDirectionQuery = CommentQuery.builder()
+                .page(0)
+                .size(10)
+                .sort(List.of("text", "descending"))
+                .build();
 
-        response = ecoNewsCommentClient
-                .getActiveReplies(parentCommentId, 0, 10, invalidSortDirection);
-
-        assertBadRequest(response,
-                "Invalid value 'descending' for orders given; " +
-                        "Has to be either 'desc' or 'asc' (case insensitive)");
+        response = ecoNewsCommentClient.getActiveReplies(parentCommentId, invalidSortDirectionQuery);
+        assertBadRequest(response, "Unsupported value for sorting: [text, descending]");
     }
 
     @Test

@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Data
-public class EcoNewsResponse {
+public class EcoNewsResponse implements EcoNewsBase {
 
     private long id;
     private String title;

@@ -56,15 +56,7 @@ public class EcoNewsTest extends CreateNewsRunner {
         // Detailed validation
         EcoNewsAssertions.assertEcoNewsResponse(
                 firstNews,
-                createdNews.getId(),
-                createdNews.getTitle(),
-                createdNews.getContent(),
-                createdNews.getShortInfo(),
-                createdNews.getCreationDate(),
-                createdNews.getTagsEn(),
-                createdNews.getTagsUk(),
-                createdNews.getAuthor().getId(),
-                createdNews.getAuthor().getName(),
+                createdNews,
                 false,
                 true
         );
