@@ -1,4 +1,4 @@
-package org.greencity.api.models.econews;
+package org.greencity.api.models;
 
 import lombok.Data;
 
@@ -6,4 +6,5 @@ import lombok.Data;
 public class AuthorResponse {
     private int id;
     private String name;
+    private String profilePicturePath = "";
 }

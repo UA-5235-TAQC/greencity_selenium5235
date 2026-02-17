@@ -11,23 +11,14 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 @Epic("EcoNews API")
 @Feature("Retrieve EcoNews Page")
 @Story("Verify EcoNews page data for a specific author and favorite status")
 @Severity(SeverityLevel.NORMAL)
 @Tag("API")
-public class EcoNewsTest extends ApiTestRunner {
-    private EcoNewsClient ecoNewsClient;
-
-    @BeforeClass
-    public void setUpEcoNews() {
-        ecoNewsClient = new EcoNewsClient(testValueProvider.getGreencityAPIUrl());
-    }
+public class EcoNewsTest extends EcoNewsWithoutTokenRunner {
 
     @Description("This test verifies that the EcoNews page API returns correct pagination data " +
             "and validates the first news item, including its ID, title, author details, and tags.")

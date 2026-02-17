@@ -7,7 +7,7 @@ import org.greencity.ui.testrunners.CreateNews.CreateNewsENTestRunner;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import static org.greencity.utils.NewsTestData.VALID_CONTENT;
+import static org.greencity.utils.ui.NewsTestData.VALID_CONTENT;
 
 @Tag("Create News")
 @Epic("EcoNews Management")

@@ -1,4 +1,4 @@
-package org.greencity.utils;
+package org.greencity.utils.ui;
 
 import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;

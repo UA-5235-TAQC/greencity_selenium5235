@@ -2,14 +2,13 @@ package org.greencity.ui.CreateNews;
 
 import io.qameta.allure.testng.Tag;
 import org.greencity.ui.components.CreateEditNewsPage.CancelModalComponent;
-import org.greencity.ui.pages.EcoNewsPage;
 import org.greencity.ui.pages.UbsCourierPage;
 import org.greencity.ui.testrunners.CreateNews.CreateNewsENTestRunner;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import io.qameta.allure.*;
 
-import static org.greencity.utils.NewsTestData.*;
+import static org.greencity.utils.ui.NewsTestData.*;
 
 @Tag("Create News")
 @Epic("EcoNews Management")

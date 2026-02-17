@@ -7,9 +7,6 @@ import io.restassured.specification.RequestSpecification;
 import org.greencity.api.models.econews.EcoNewsQuery;
 import org.greencity.api.models.econews.EcoNewsRequest;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Map;
 
 public class EcoNewsClient extends BaseApiClient {

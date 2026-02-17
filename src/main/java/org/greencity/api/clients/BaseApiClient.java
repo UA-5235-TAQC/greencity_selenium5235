@@ -6,6 +6,12 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import lombok.Getter;
 import lombok.Setter;
+import org.greencity.api.models.econews.UpdateEcoNewsDto;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
 
 import java.io.File;
 
@@ -34,10 +40,8 @@ public abstract class BaseApiClient {
         this.token = token;
     }
 
-
     protected RequestSpecification prepareRequest() {
         RequestSpecification request = io.restassured.RestAssured.given()
-//                .log().all()
                 .baseUri(baseApiUrl).contentType(contentType);
         if (token != null) {
             request.header("Authorization", "Bearer " + token);
