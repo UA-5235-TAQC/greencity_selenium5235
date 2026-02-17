@@ -2,6 +2,7 @@ package org.greencity.api.models.econews;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import org.greencity.api.models.AuthorResponse;
 
 import java.util.List;
 

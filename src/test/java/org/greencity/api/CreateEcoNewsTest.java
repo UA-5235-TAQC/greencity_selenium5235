@@ -3,8 +3,11 @@ package org.greencity.api;
 import io.qameta.allure.*;
 import io.qameta.allure.testng.Tag;
 import io.restassured.response.Response;
+import org.greencity.api.clients.EcoNewsClient;
+import org.greencity.api.clients.OwnSecurityClient;
 import org.greencity.api.models.econews.EcoNewsRequest;
 import org.greencity.api.models.econews.EcoNewsResponse;
+import org.greencity.api.testrunners.ApiTestRunner;
 import org.greencity.ui.enums.EcoNewsTag;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -103,7 +106,6 @@ public class CreateEcoNewsTest extends ApiTestRunner {
                 .tags(List.of(EcoNewsTag.NEWS.getEn().toLowerCase()))
                 .source("https://example.com")
                 .shortInfo("Короткий опис")
-                .image(null)
                 .build();
 
         Response response = ecoNewsClient.postEcoNews(requestBody, imagePath);
