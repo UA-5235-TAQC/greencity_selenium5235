@@ -4,8 +4,11 @@ import io.qameta.allure.*;
 import io.qameta.allure.testng.Tag;
 import io.restassured.response.Response;
 import org.greencity.api.testrunners.EcoNewsWithoutTokenRunner;
+import org.greencity.utils.api.EcoNewsPageResponse;
+import org.greencity.utils.api.ErrorResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.util.Map;
 
@@ -23,8 +26,14 @@ public class LikeEcoNewsByIdWithoutTokenTest extends EcoNewsWithoutTokenRunner {
         Response anotherUserEcoNewsPageResponse = ecoNewsClient.getEcoNews(queryParams);
         Assert.assertEquals(anotherUserEcoNewsPageResponse.getStatusCode(), 200, "Status code should be 200 for getting Eco News created by user with ID " + anotherUserId);
 
-        long anotherUserEcoNewsId = anotherUserEcoNewsPageResponse.jsonPath().getLong("page[0].id");
+        EcoNewsPageResponse ecoNewsPageResponse = anotherUserEcoNewsPageResponse.as(EcoNewsPageResponse.class);
+        long anotherUserEcoNewsId = ecoNewsPageResponse.getPage().getFirst().getId();
         Response anotherUserEcoNewsResponse = ecoNewsClient.likeEcoNewsById(anotherUserEcoNewsId);
-        Assert.assertEquals(anotherUserEcoNewsResponse.getStatusCode(), 401, "Status code should be 401 for liking Eco News without being authorized");
+        ErrorResponse error = anotherUserEcoNewsResponse.as(ErrorResponse.class);
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(error.getStatus(), 401, "Status code should be 401 for liking Eco News without being authorized");
+        softAssert.assertEquals(error.getError(), "Unauthorized", "Error message should be 'Unauthorized'");
+        softAssert.assertAll();
     }
 }

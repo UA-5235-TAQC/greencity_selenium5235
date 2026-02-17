@@ -4,8 +4,11 @@ import io.qameta.allure.*;
 import io.qameta.allure.testng.Tag;
 import io.restassured.response.Response;
 import org.greencity.api.testrunners.EcoNewsWithTokenRunner;
+import org.greencity.utils.api.EcoNewsPageResponse;
+import org.greencity.utils.api.ErrorResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.util.Map;
 
@@ -20,7 +23,12 @@ public class LikeEcoNewsByIdTest extends EcoNewsWithTokenRunner {
     public void likeNonExistingEcoNewsById() {
         long nonExistingId = 999999L;
         Response response = ecoNewsClient.likeEcoNewsById(nonExistingId);
-        Assert.assertEquals(response.getStatusCode(), 404, "Status code should be 404 for liking non-existing Eco News.");
+        ErrorResponse error = response.as(ErrorResponse.class);
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(response.getStatusCode(), 404, "Status code should be 404 for liking non-existing Eco News.");
+        softAssert.assertEquals(error.getMessage(), "Eco new doesn't exist by this id: " + nonExistingId, "Error message should be 'Eco new doesn't exist by this id: " + nonExistingId + "'");
+        softAssert.assertAll();
     }
 
     @Test
@@ -31,7 +39,8 @@ public class LikeEcoNewsByIdTest extends EcoNewsWithTokenRunner {
         Response anotherUserEcoNewsPageResponse = ecoNewsClient.getEcoNews(queryParams);
         Assert.assertEquals(anotherUserEcoNewsPageResponse.getStatusCode(), 200, "Status code should be 200 for getting Eco News created by user with ID " + anotherUserId);
 
-        long anotherUserEcoNewsId = anotherUserEcoNewsPageResponse.jsonPath().getLong("page[0].id");
+        EcoNewsPageResponse ecoNewsPageResponse = anotherUserEcoNewsPageResponse.as(EcoNewsPageResponse.class);
+        long anotherUserEcoNewsId = ecoNewsPageResponse.getPage().getFirst().getId();
         Response anotherUserEcoNewsResponse = ecoNewsClient.likeEcoNewsById(anotherUserEcoNewsId);
         Assert.assertEquals(anotherUserEcoNewsResponse.getStatusCode(), 200, "Status code should be 200 for liking Eco News by ID " + anotherUserEcoNewsId);
     }

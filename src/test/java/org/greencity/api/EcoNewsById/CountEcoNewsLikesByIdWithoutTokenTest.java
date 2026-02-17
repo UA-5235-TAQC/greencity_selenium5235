@@ -4,8 +4,10 @@ import io.qameta.allure.*;
 import io.qameta.allure.testng.Tag;
 import io.restassured.response.Response;
 import org.greencity.api.testrunners.EcoNewsWithoutTokenRunner;
+import org.greencity.utils.api.ErrorResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.math.BigInteger;
 
@@ -20,7 +22,11 @@ public class CountEcoNewsLikesByIdWithoutTokenTest extends EcoNewsWithoutTokenRu
     public void countNonExistingEcoNewsLikes() {
         long nonExistingId = 999999L;
         Response response = ecoNewsClient.countEcoNewsLikes(nonExistingId);
+        ErrorResponse error = response.as(ErrorResponse.class);
 
-        Assert.assertEquals(response.getStatusCode(), 404, "Status code should be 404 for getting likes count on non-existing Eco News.");
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(response.getStatusCode(), 404, "Status code should be 404 for getting likes count on non-existing Eco News.");
+        softAssert.assertEquals(error.getMessage(), "Eco new doesn't exist by this id: " + nonExistingId, "Error message should be 'Eco new doesn't exist by this id: " + nonExistingId + "'");
+        softAssert.assertAll();
     }
 }
