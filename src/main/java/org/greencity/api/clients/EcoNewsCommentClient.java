@@ -5,10 +5,6 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.greencity.api.models.ecoNewsComment.AddCommentRequest;
-import org.greencity.api.models.ecoNewsComment.GetCommentPageResponse;
-import org.greencity.api.models.ecoNewsComment.GetCommentResponse;
-
-import java.util.List;
 
 public class EcoNewsCommentClient extends BaseApiClient{
     protected final String resourcePath = "/eco-news/";
@@ -18,19 +14,34 @@ public class EcoNewsCommentClient extends BaseApiClient{
     }
 
     @Step("API: Add comment to news ID {newsId} with text: '{text}'")
-    public Response addComment(long newsId, String text, int parentComId, String... imagePaths) {
-        AddCommentRequest commentBody = new AddCommentRequest(text, parentComId);
-        String jsonRequest = serialize(commentBody);
+    public Response addComment(int newsId, String text, int parentComId, String... imagePaths){
+        String jsonRequest = serializeAddComment(text, parentComId);
+
         RequestSpecification request = prepareRequest()
                 .contentType(ContentType.MULTIPART)
                 .multiPart("request", jsonRequest, "application/json");
-                attachImagesToMultipart(request, "images", imagePaths);
+
+        attachImagesToMultipart(request, "images", imagePaths);
+
         return request
                 .post(this.resourcePath + newsId + "/comments")
                 .then()
                 .log().ifValidationFails()
                 .extract()
                 .response();
+    }
+
+    private String serializeAddComment(String text, int parentComId) {
+        if (text == null) text = "";
+
+        String escapedText = text
+                .replace("\\", "\\\\")
+                .replace("\"", "\\\"")
+                .replace("\n", "\\n")
+                .replace("\r", "\\r")
+                .replace("\t", "\\t");
+
+        return String.format("{\"text\":\"%s\",\"parentCommentId\":%d}", escapedText, parentComId);
     }
 
     @Step("API: Get comment details by ID {commentId}")
