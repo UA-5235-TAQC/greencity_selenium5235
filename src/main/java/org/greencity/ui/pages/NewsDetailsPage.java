@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import org.greencity.ui.components.CommentItemComponent;
 import org.greencity.ui.components.NewsDetailsContentComponent;
 import org.greencity.ui.components.NewsListItemComponent;
+import org.greencity.ui.pages.CreateEditNews.CreateEditNewsPage;
 import org.greencity.ui.pages.CreateEditNews.EditNewsPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -29,7 +30,7 @@ public class NewsDetailsPage extends BasePage {
     @FindBy(css = ".secondary-global-button.delete-news-button")
     protected WebElement deleteButton;
 
-    @FindBy(xpath = "//a[div[@class='edit-news']]")
+    @FindBy(css = "a > div.edit-news")
     protected WebElement editButton;
 
     @FindBy(css = "img.news_like")
@@ -94,6 +95,7 @@ public class NewsDetailsPage extends BasePage {
     @Step("Wait until news details page is loaded")
     @Override
     public NewsDetailsPage waitUntilOpened() {
+        waitUntilVisible(newsTitleText);
         return this;
     }
 

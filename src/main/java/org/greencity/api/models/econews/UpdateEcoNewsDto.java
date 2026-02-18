@@ -1,6 +1,5 @@
 package org.greencity.api.models.econews;
 
-import io.qameta.allure.Step;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +10,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateEcoNewsDto {
+public class UpdateEcoNewsDto implements EcoNewsBase{
     private long id;
     private String title;
     private String content;

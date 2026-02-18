@@ -5,10 +5,11 @@ import io.restassured.response.Response;
 import org.greencity.api.models.econews.EcoNewsRequest;
 import org.greencity.api.models.econews.EcoNewsResponse;
 import org.greencity.utils.api.EcoNewsDtoFactory;
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 
 import java.io.File;
+
+import static org.greencity.utils.api.ApiTestAssertions.assertCreated;
 
 public class CreateNewsBeforeTestRunner extends EcoNewsWithTokenRunner {
     protected long ecoNewsId;
@@ -36,7 +37,7 @@ public class CreateNewsBeforeTestRunner extends EcoNewsWithTokenRunner {
             response = ecoNewsClient.postEcoNews(request);
         }
 
-        Assert.assertEquals(response.getStatusCode(), 201, "New EcoNews should be created");
+        assertCreated(response);
 
         createdNews = response.as(EcoNewsResponse.class);
         ecoNewsId = createdNews.getId();

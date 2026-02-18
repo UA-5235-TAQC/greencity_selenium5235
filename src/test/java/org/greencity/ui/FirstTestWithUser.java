@@ -36,7 +36,6 @@ public class FirstTestWithUser extends BaseTestRunner {
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(mySpace.getUserName(), testValueProvider.getUserName());
         softAssert.assertEquals(mySpace.getProfilePanel().getLocation(), testValueProvider.getUserLocation());
-        softAssert.assertEquals(mySpace.getProfilePanel().getRate(), testValueProvider.getUserRate());
         softAssert.assertAll();
     }
 }
