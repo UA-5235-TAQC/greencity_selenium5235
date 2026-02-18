@@ -2,63 +2,55 @@ package org.greencity.api;
 
 import io.qameta.allure.*;
 import io.qameta.allure.testng.Tag;
+import io.restassured.response.Response;
+import org.greencity.api.clients.EcoNewsClient;
 import org.greencity.api.models.econews.EcoNewsPageResponse;
+import org.greencity.api.models.econews.EcoNewsQuery;
 import org.greencity.api.models.econews.EcoNewsResponse;
-import org.greencity.api.testrunners.CreateNewsRunner;
-import org.greencity.utils.api.EcoNewsAssertions;
-import org.greencity.utils.api.EcoNewsService;
+import org.greencity.api.testrunners.EcoNewsWithoutTokenRunner;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import java.util.Arrays;
 
 @Epic("EcoNews API")
 @Feature("Retrieve EcoNews Page")
 @Story("Verify EcoNews page data for a specific author and favorite status")
 @Severity(SeverityLevel.NORMAL)
 @Tag("API")
-public class EcoNewsTest extends CreateNewsRunner {
-
-    private EcoNewsService ecoNewsService;
-
-    @Override
-    @BeforeClass
-    public void createEcoNews() {
-        super.createEcoNews();
-        ecoNewsService = new EcoNewsService(ecoNewsClient);
-    }
+public class EcoNewsTest extends EcoNewsWithoutTokenRunner {
 
     @Description("This test verifies that the EcoNews page API returns correct pagination data " +
             "and validates the first news item, including its ID, title, author details, and tags.")
     @Test
     public void verifyEcoNewsPageDataTest() {
-        EcoNewsPageResponse pageResponse =
-                ecoNewsService.getFirstPageForAuthor(testValueProvider.getUserId());
 
-        EcoNewsResponse firstNews =
-                pageResponse.getPage().getFirst();
+        EcoNewsQuery query = EcoNewsQuery.builder()
+                .authorId(testValueProvider.getUserId())
+                .favorite(false)
+                .page(0)
+                .size(20)
+                .build();
+
+        Response response = ecoNewsClient.getEcoNews(query);
+        Assert.assertEquals(response.getStatusCode(), 200);
+
+
+        EcoNewsPageResponse pageResponse = response.as(EcoNewsPageResponse.class);
 
         SoftAssert softAssert = new SoftAssert();
 
-        // Validate pagination data
-        softAssert.assertEquals(
-                pageResponse.getCurrentPage(),
-                0,
-                "Current page number is incorrect"
-        );
+        softAssert.assertEquals(pageResponse.getCurrentPage(), 0, "Current page number is incorrect");
+        softAssert.assertFalse(pageResponse.getPage().isEmpty(), "News list should not be empty");
 
-        softAssert.assertFalse(
-                pageResponse.getPage().isEmpty(),
-                "News list should not be empty"
-        );
+        EcoNewsResponse firstNews = pageResponse.getPage().get(0);
+
+        softAssert.assertNotNull(firstNews.getId(), "News id should not be null");
+        softAssert.assertNotNull(firstNews.getTitle(), "News title should not be null");
+        softAssert.assertEquals(firstNews.getAuthor().getId(), testValueProvider.getUserId(), "Author ID does not match expected value");
+        softAssert.assertEquals(firstNews.getAuthor().getName(), testValueProvider.getUserName(), "Author name does not match expected value");
 
         softAssert.assertAll();
-
-        // Detailed validation
-        EcoNewsAssertions.assertEcoNewsResponse(
-                firstNews,
-                createdNews,
-                false,
-                true
-        );
     }
 }

@@ -9,5 +9,5 @@ public interface EcoNewsBase {
     List<String> getTagsEn();
     List<String> getTagsUk();
     String getSource();
-    long getId();
+    Long getId();
 }
