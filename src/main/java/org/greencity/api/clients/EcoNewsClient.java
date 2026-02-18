@@ -95,4 +95,12 @@ public class EcoNewsClient extends BaseApiClient {
                 .extract()
                 .response();
     }
+    public Response getTags(String lang) {
+        return prepareRequest()
+                .queryParam("lang", lang)
+                .get(resourcePath + "/tags")
+                .then()
+                .extract()
+                .response();
+    }
 }
