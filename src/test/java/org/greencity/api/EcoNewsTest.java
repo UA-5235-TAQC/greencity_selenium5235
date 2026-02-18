@@ -1,111 +1,56 @@
-package org.greencity.api.clients;
+package org.greencity.api;
 
-import io.qameta.allure.Step;
-import io.restassured.http.ContentType;
+import io.qameta.allure.*;
+import io.qameta.allure.testng.Tag;
 import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
+import org.greencity.api.clients.EcoNewsClient;
+import org.greencity.api.models.econews.EcoNewsPageResponse;
 import org.greencity.api.models.econews.EcoNewsQuery;
-import org.greencity.api.models.econews.UpdateEcoNewsDto;
-import org.greencity.api.models.econews.EcoNewsRequest;
+import org.greencity.api.models.econews.EcoNewsResponse;
+import org.greencity.api.testrunners.EcoNewsWithoutTokenRunner;
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+import java.util.Arrays;
 
-import java.util.Map;
+@Epic("EcoNews API")
+@Feature("Retrieve EcoNews Page")
+@Story("Verify EcoNews page data for a specific author and favorite status")
+@Severity(SeverityLevel.NORMAL)
+@Tag("API")
+public class EcoNewsTest extends EcoNewsWithoutTokenRunner {
 
-public class EcoNewsClient extends BaseApiClient {
-    protected final String resourcePath = "/eco-news";
+    @Description("This test verifies that the EcoNews page API returns correct pagination data " +
+            "and validates the first news item, including its ID, title, author details, and tags.")
+    @Test
+    public void verifyEcoNewsPageDataTest() {
 
-    public EcoNewsClient(String baseUrl) {
-        super(baseUrl);
-    }
+        EcoNewsQuery query = EcoNewsQuery.builder()
+                .authorId(testValueProvider.getUserId())
+                .favorite(false)
+                .page(0)
+                .size(20)
+                .build();
 
-    public EcoNewsClient(String baseApiUrl, String token) {
-        super(baseApiUrl, token);
-    }
+        Response response = ecoNewsClient.getEcoNews(query);
+        Assert.assertEquals(response.getStatusCode(), 200);
 
-    public String getPath(long ecoNewsId) {
-        String resourcePath = "/eco-news/";
-        return resourcePath + ecoNewsId;
-    }
 
-    @Step("Get EcoNews by ID: {ecoNewsId}")
-    public Response getEcoNewsById(long ecoNewsId) {
-        return get(getPath(ecoNewsId));
-    }
+        EcoNewsPageResponse pageResponse = response.as(EcoNewsPageResponse.class);
 
-    @Step("Get EcoNews by ID: {ecoNewsId} with language: {lang}")
-    public Response getEcoNewsByIdWithLang(long ecoNewsId, String lang) {
-        return execute(
-                prepareRequest()
-                        .queryParam("lang", lang)
-                        .get(getPath(ecoNewsId))
-        );
-    }
+        SoftAssert softAssert = new SoftAssert();
 
-    @Step("Update EcoNews by ID: {ecoNewsId} without image")
-    public Response updateEcoNewsById(long ecoNewsId,
-                                      UpdateEcoNewsDto updateDto) {
-        return updateEcoNewsById(ecoNewsId, updateDto, null);
-    }
+        softAssert.assertEquals(pageResponse.getCurrentPage(), 0, "Current page number is incorrect");
+        softAssert.assertFalse(pageResponse.getPage().isEmpty(), "News list should not be empty");
 
-    @Step("Update EcoNews by ID: {ecoNewsId} with image")
-    public Response updateEcoNewsById(long ecoNewsId,
-                                      UpdateEcoNewsDto updateDto,
-                                      String imagePath) {
+        EcoNewsResponse firstNews = pageResponse.getPage().get(0);
 
-        RequestSpecification request = prepareMultipartRequest(updateDto);
+        softAssert.assertNotNull(firstNews.getId(), "News id should not be null");
+        softAssert.assertNotNull(firstNews.getTitle(), "News title should not be null");
+        softAssert.assertEquals(firstNews.getAuthor().getId(), testValueProvider.getUserId(), "Author ID does not match expected value");
+        softAssert.assertEquals(firstNews.getAuthor().getName(), testValueProvider.getUserName(), "Author name does not match expected value");
 
-        if (imagePath != null) {
-            attachFilesToRequest(request, imagePath);
-        }
-
-        return execute(request.put(getPath(ecoNewsId)));
-    }
-
-    @Step("Delete EcoNews by ID: {ecoNewsId}")
-    public Response deleteEcoNewsById(long ecoNewsId) {
-        return delete(getPath(ecoNewsId));
-    }
-
-    @Step("Get EcoNews with query parameters: {queryParams}")
-    public Response getEcoNews(Map<String, ?> queryParams) {
-        return execute(prepareRequest()
-                .queryParams(queryParams)
-                .get(resourcePath));
-    }
-
-    @Step("Post new EcoNews without image")
-    public Response postEcoNews(EcoNewsRequest body) {
-        return execute(prepareRequest()
-                .contentType(ContentType.MULTIPART)
-                .multiPart("addEcoNewsDtoRequest", body, "application/json; charset=UTF-8")
-                .post(resourcePath));
-    }
-
-    @Step("Post new EcoNews {body} with image: {imagePath}")
-    public Response postEcoNews(EcoNewsRequest body, String imagePath) {
-        RequestSpecification request = prepareRequest().contentType(ContentType.MULTIPART).multiPart("addEcoNewsDtoRequest", body, "application/json; charset=UTF-8");
-        attachFilesToRequest(request, imagePath);
-        return execute(request.post(resourcePath));
-    }
-
-    @Step("Get EcoNews count by author id: {authorId}")
-    public Response getEcoNewsCountByAuthorId(int authorId) {
-        return prepareRequest()
-                .queryParam("author-id", authorId)
-                .get(resourcePath + "/count")
-                .then()
-                .extract()
-                .response();
-    }
-
-    @Step("Get EcoNews with typed query parameters: {query}")
-    public Response getEcoNews(EcoNewsQuery query) {
-        RequestSpecification request = prepareRequest();
-
-        if (query.getAuthorId() != null) request.queryParam("author-id", query.getAuthorId());
-        if (query.getFavorite() != null) request.queryParam("favorite", query.getFavorite());
-        if (query.getPage() != null) request.queryParam("page", query.getPage());
-        if (query.getSize() != null) request.queryParam("size", query.getSize());
-
-        return request.get(resourcePath).then().extract().response();
+        softAssert.assertAll();
     }
 }

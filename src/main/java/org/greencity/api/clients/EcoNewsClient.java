@@ -25,7 +25,7 @@ public class EcoNewsClient extends BaseApiClient {
         return resourcePath + ecoNewsId;
     }
 
-    @Deprecated
+    @Deprecated 
     @Step("Get EcoNews with query parameters: {queryParams}")
     public Response getEcoNews(Map<String, ?> queryParams) {
         return prepareRequest().queryParams(queryParams).get(resourcePath).then().extract().response();
