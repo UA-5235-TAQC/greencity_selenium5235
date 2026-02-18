@@ -46,7 +46,7 @@ public class EcoNewsClient extends BaseApiClient {
         return execute(request.post(resourcePath));
     }
     @Step("Get EcoNews by ID: {id}")
-    public Response getEcoNewsById(Integer id) {
+    public Response getEcoNewsById(Long id) {
         return prepareRequest().get(resourcePath + "/" + id).then().extract().response();
     }
 
@@ -106,4 +106,34 @@ public class EcoNewsClient extends BaseApiClient {
                 .log().ifValidationFails()
                 .get(getPath(ecoNewsId) + "/likes/count"));
     }
+
+    @Step("Update EcoNews by ID: {ecoNewsId} without image")
+    public Response updateEcoNewsById(long ecoNewsId,
+                                      UpdateEcoNewsDto updateDto) {
+        return updateEcoNewsById(ecoNewsId, updateDto, null);
+    }
+
+    @Step("Update EcoNews by ID: {ecoNewsId} with image")
+    public Response updateEcoNewsById(long ecoNewsId,
+                                      UpdateEcoNewsDto updateDto,
+                                      String imagePath) {
+
+        RequestSpecification request = prepareMultipartRequest(updateDto);
+
+        if (imagePath != null) {
+            attachFilesToRequest(request, imagePath);
+        }
+
+        return execute(request.put(getPath(ecoNewsId)));
+    }
+
+    @Step("Get EcoNews by ID: {ecoNewsId} with language: {lang}")
+    public Response getEcoNewsByIdWithLang(long ecoNewsId, String lang) {
+        return execute(
+                prepareRequest()
+                        .queryParam("lang", lang)
+                        .get(getPath(ecoNewsId))
+        );
+    }
+
 }

@@ -32,7 +32,8 @@ public class LikeEcoNewsByIdWithoutTokenTest extends EcoNewsWithoutTokenRunner {
         ErrorResponse error = anotherUserEcoNewsResponse.as(ErrorResponse.class);
 
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(error.getStatus(), 401, "Status code should be 401 for liking Eco News without being authorized");
+        int statusCode = anotherUserEcoNewsResponse.getStatusCode();
+        softAssert.assertEquals(statusCode, 401, "Status code should be 401 for liking Eco News without being authorized");
         softAssert.assertEquals(error.getError(), "Unauthorized", "Error message should be 'Unauthorized'");
         softAssert.assertAll();
     }

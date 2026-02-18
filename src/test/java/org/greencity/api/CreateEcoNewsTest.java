@@ -27,7 +27,7 @@ import java.util.List;
 public class CreateEcoNewsTest extends ApiTestRunner {
     private String accessToken;
     private EcoNewsClient ecoNewsClient;
-    private final List<Integer> newsToDelete = new ArrayList<>();
+    private final List<Long> newsToDelete = new ArrayList<>();
 
     @BeforeClass
     public void prepareTokens() {
@@ -48,7 +48,7 @@ public class CreateEcoNewsTest extends ApiTestRunner {
 
     @AfterClass
     public void deleteCreatedNews() {
-        for (Integer id : newsToDelete) {
+        for (Long id : newsToDelete) {
             ecoNewsClient.deleteEcoNewsById(id);
         }
     }
