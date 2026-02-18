@@ -105,8 +105,8 @@ public class EcoNewsClient extends BaseApiClient {
         try {
             File file = new File(imagePath);
             String fileName = file.getName().toLowerCase();
-            String mineType = fileName.endsWith(".png") ? "image/png" : "image/jpeg";
-            request.multiPart("type", fileName, new FileInputStream(file), mineType);
+            String mimeType = fileName.endsWith(".png") ? "image/png" : "image/jpeg";
+            request.multiPart("type", fileName, new FileInputStream(file), mimeType);
         } catch (IOException e) {
             throw new RuntimeException("Failed to attach file: " + e.getMessage(), e);
         }
