@@ -132,11 +132,10 @@ public class EcoNewsCommentTest extends ApiTestRunner {
         Assert.assertEquals(responseBody.getId(), commentId, "The server returned an object with a different ID");
     }
 
-    //A fragile test because it depends on the availability of specific news
-    @Test(description = "Like a comment")
+    @Test(dependsOnMethods = {"addCommentTest"}, description = "Like a comment")
     @Severity(SeverityLevel.TRIVIAL)
     public void likeCommentTest() {
-        Response response = ecoNewsCommentClient.likeComment(1815);
+        Response response = ecoNewsCommentClient.likeComment(commentId);
         Assert.assertEquals(response.getStatusCode(), 200);
     }
 
