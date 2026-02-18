@@ -31,6 +31,8 @@
             <class name="org.greencity.api.EcoNewsCommentTest"/>
             <class name="org.greencity.api.CreateEcoNewsTest"/>
             <class name="org.greencity.api.EcoNewsTest"/>
+            <class name="org.greencity.api.EcoNewsCountTest"/>
+            <class name="org.greencity.api.EcoNewsTagsTest"/>
             <class name="org.greencity.api.EcoNewsById.DeleteEcoNewsByIdTest"/>
             <class name="org.greencity.api.EcoNewsById.EcoNewsByIdWithImageTest"/>
             <class name="org.greencity.api.EcoNewsById.UnauthorizedEcoNewsByIdTest"/>
