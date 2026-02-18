@@ -5,7 +5,7 @@ import io.qameta.allure.testng.Tag;
 import io.restassured.response.Response;
 import org.greencity.api.testrunners.CreateNewsRunner;
 import org.greencity.utils.api.ErrorResponse;
-import org.testng.Assert;
+
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 

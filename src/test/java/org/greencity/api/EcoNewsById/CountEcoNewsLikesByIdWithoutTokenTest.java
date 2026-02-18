@@ -9,7 +9,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import java.math.BigInteger;
 
 @Epic("EcoNews API")
 @Feature("Count likes on EcoNews by ID")

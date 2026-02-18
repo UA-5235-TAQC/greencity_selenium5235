@@ -6,7 +6,7 @@ import io.restassured.response.Response;
 import org.greencity.api.testrunners.CreateNewsRunner;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
+
 
 @Epic("EcoNews API")
 @Feature("Count likes on EcoNews by ID")

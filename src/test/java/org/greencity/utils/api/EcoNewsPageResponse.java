@@ -6,13 +6,5 @@ import java.util.List;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class EcoNewsPageResponse {
-
-    private List<Page> page;
-
-    @Data
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    public static class Page {
-        private long id;
-    }
+public class EcoNewsPageResponse extends org.greencity.api.models.econews.EcoNewsPageResponse {
 }
