@@ -89,12 +89,9 @@ public class EcoNewsClient extends BaseApiClient {
 
     @Step("Get EcoNews count by author id: {authorId}")
     public Response getEcoNewsCountByAuthorId(int authorId) {
-        return prepareRequest()
+        return execute(prepareRequest()
                 .queryParam("author-id", authorId)
-                .get(resourcePath + "/count")
-                .then()
-                .extract()
-                .response();
+                .get(resourcePath + "/count"));
     }
 
     @Step("Get EcoNews with typed query parameters: {query}")
@@ -106,33 +103,24 @@ public class EcoNewsClient extends BaseApiClient {
         if (query.getPage() != null) request.queryParam("page", query.getPage());
         if (query.getSize() != null) request.queryParam("size", query.getSize());
 
-        return request.get(resourcePath).then().extract().response();
+        return execute(request.get(resourcePath));
     }
 
     public Response getTags(String lang) {
-        return prepareRequest()
+        return execute(prepareRequest()
                 .queryParam("lang", lang)
-                .get(resourcePath + "/tags")
-                .then()
-                .extract()
-                .response();
+                .get(resourcePath + "/tags"));
     }
 
     @Step("Add EcoNews with id={ecoNewsId} to favorites")
     public Response addToFavorites(long ecoNewsId) {
-        return prepareRequest()
-                .post(resourcePath + "/" + ecoNewsId + "/favorites")
-                .then()
-                .extract()
-                .response();
+        return execute(prepareRequest()
+                .post(resourcePath + "/" + ecoNewsId + "/favorites"));
     }
 
     @Step("Remove EcoNews with id={ecoNewsId} from favorites")
     public Response removeFromFavorites(long ecoNewsId) {
-        return prepareRequest()
-                .delete(resourcePath + "/" + ecoNewsId + "/favorites")
-                .then()
-                .extract()
-                .response();
+        return execute(prepareRequest()
+                .delete(resourcePath + "/" + ecoNewsId + "/favorites"));
     }
 }
