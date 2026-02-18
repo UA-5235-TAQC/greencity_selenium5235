@@ -81,7 +81,9 @@ public class EcoNewsClient extends BaseApiClient {
 
     @Step("Post new EcoNews {body} with image: {imagePath}")
     public Response postEcoNews(EcoNewsRequest body, String imagePath) {
-        RequestSpecification request = prepareRequest().contentType(ContentType.MULTIPART).multiPart("addEcoNewsDtoRequest", body, "application/json; charset=UTF-8");
+        RequestSpecification request = prepareRequest()
+                .contentType(ContentType.MULTIPART)
+                .multiPart("addEcoNewsDtoRequest", body, "application/json; charset=UTF-8");
         attachFilesToRequest(request, imagePath);
         return execute(request.post(resourcePath));
     }
@@ -91,6 +93,34 @@ public class EcoNewsClient extends BaseApiClient {
         return prepareRequest()
                 .queryParam("author-id", authorId)
                 .get(resourcePath + "/count")
+                .then()
+                .extract()
+                .response();
+    }
+
+    @Step("Get tags with language: {lang}")
+    public Response getTags(String lang) {
+        return prepareRequest()
+                .queryParam("lang", lang)
+                .get(resourcePath + "/tags")
+                .then()
+                .extract()
+                .response();
+    }
+
+    @Step("Add EcoNews with id={ecoNewsId} to favorites")
+    public Response addToFavorites(long ecoNewsId) {
+        return prepareRequest()
+                .post(resourcePath + "/" + ecoNewsId + "/favorites")
+                .then()
+                .extract()
+                .response();
+    }
+
+    @Step("Remove EcoNews with id={ecoNewsId} from favorites")
+    public Response removeFromFavorites(long ecoNewsId) {
+        return prepareRequest()
+                .delete(resourcePath + "/" + ecoNewsId + "/favorites")
                 .then()
                 .extract()
                 .response();
