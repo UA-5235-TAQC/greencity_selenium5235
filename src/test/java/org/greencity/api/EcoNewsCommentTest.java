@@ -32,9 +32,8 @@ public class EcoNewsCommentTest extends ApiTestRunner {
             .tags(List.of(EcoNewsTag.NEWS.getEn().toLowerCase()))
             .source("https://example.com")
             .shortInfo("Short info")
-            .image(null)
             .build();
-    private int newsId;
+    private Long newsId;
     private final String[] imagesPaths = {
             "src/test/resources/images/test.jfif",
             "src/test/resources/images/test2.png",

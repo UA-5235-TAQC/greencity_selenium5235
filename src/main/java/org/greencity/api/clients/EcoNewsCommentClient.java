@@ -19,7 +19,7 @@ public class EcoNewsCommentClient extends BaseApiClient{
     }
 
     @Step("API: Add comment to news ID {newsId} with text: '{text}'")
-    public Response addComment(int newsId, String text, int parentComId, String... imagePaths){
+    public Response addComment(Long newsId, String text, int parentComId, String... imagePaths){
         String jsonRequest = serializeAddComment(text, parentComId);
 
         RequestSpecification request = prepareRequest()
