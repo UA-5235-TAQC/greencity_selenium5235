@@ -37,6 +37,11 @@
             <class name="org.greencity.api.ecoNewsComment.EcoNewsCommentRepliesTest"/>
             <class name="org.greencity.api.EcoNewsById.FavoriteEcoNewsWithTokenTest"/>
             <class name="org.greencity.api.EcoNewsById.FavoriteEcoNewsWithoutTokenTest"/>
+            <class name="org.greencity.api.EcoNewsById.CountEcoNewsLikesByIdTest"/>
+            <class name="org.greencity.api.EcoNewsById.CountEcoNewsLikesByIdWithoutTokenTest"/>
+            <class name="org.greencity.api.EcoNewsById.LikeEcoNewsByIdTest"/>
+            <class name="org.greencity.api.EcoNewsById.LikeEcoNewsByIdWithoutTokenTest"/>
+            <class name="org.greencity.api.EcoNewsById.LikeOwnEcoNewsByIdTest"/>
         </classes>
     </test>
 </suite>
