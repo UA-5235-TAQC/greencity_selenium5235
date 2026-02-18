@@ -7,7 +7,6 @@ import java.io.File;
 import java.util.List;
 
 public class NewsTestData {
-
     public static final String TEST_TITLE_EN = "Test";
     public static final String TEST_CONTENT_EN = "Test content with 20 chars";
     public static final String TEST_TITLE_UA = "Tecт";

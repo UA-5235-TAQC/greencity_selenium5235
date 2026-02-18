@@ -1,10 +1,12 @@
 package org.greencity.api;
 
+import io.qameta.allure.testng.Tag;
 import io.restassured.response.Response;
 import org.greencity.api.clients.EcoNewsClient;
 import org.greencity.api.clients.OwnSecurityClient;
 import org.greencity.api.models.econews.TagResponse;
 import org.greencity.api.models.ownsecurity.SignInResponse;
+import org.greencity.api.testrunners.ApiTestRunner;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -13,7 +15,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
-import io.qameta.allure.Tag;
+
 
 @Epic("EcoNews API")
 @Feature("EcoNews Tags")
