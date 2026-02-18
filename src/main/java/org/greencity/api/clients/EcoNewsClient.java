@@ -108,4 +108,31 @@ public class EcoNewsClient extends BaseApiClient {
 
         return request.get(resourcePath).then().extract().response();
     }
+
+    public Response getTags(String lang) {
+        return prepareRequest()
+                .queryParam("lang", lang)
+                .get(resourcePath + "/tags")
+                .then()
+                .extract()
+                .response();
+    }
+
+    @Step("Add EcoNews with id={ecoNewsId} to favorites")
+    public Response addToFavorites(long ecoNewsId) {
+        return prepareRequest()
+                .post(resourcePath + "/" + ecoNewsId + "/favorites")
+                .then()
+                .extract()
+                .response();
+    }
+
+    @Step("Remove EcoNews with id={ecoNewsId} from favorites")
+    public Response removeFromFavorites(long ecoNewsId) {
+        return prepareRequest()
+                .delete(resourcePath + "/" + ecoNewsId + "/favorites")
+                .then()
+                .extract()
+                .response();
+    }
 }
