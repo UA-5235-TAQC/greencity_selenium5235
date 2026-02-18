@@ -26,58 +26,15 @@ public class EcoNewsClient extends BaseApiClient {
         return resourcePath + ecoNewsId;
     }
 
-    @Step("Get EcoNews by ID: {ecoNewsId}")
-    public Response getEcoNewsById(long ecoNewsId) {
-        return get(getPath(ecoNewsId));
-    }
-
-    @Step("Get EcoNews by ID: {ecoNewsId} with language: {lang}")
-    public Response getEcoNewsByIdWithLang(long ecoNewsId, String lang) {
-        return execute(
-                prepareRequest()
-                        .queryParam("lang", lang)
-                        .get(getPath(ecoNewsId))
-        );
-    }
-
-    @Step("Update EcoNews by ID: {ecoNewsId} without image")
-    public Response updateEcoNewsById(long ecoNewsId,
-                                      UpdateEcoNewsDto updateDto) {
-        return updateEcoNewsById(ecoNewsId, updateDto, null);
-    }
-
-    @Step("Update EcoNews by ID: {ecoNewsId} with image")
-    public Response updateEcoNewsById(long ecoNewsId,
-                                      UpdateEcoNewsDto updateDto,
-                                      String imagePath) {
-
-        RequestSpecification request = prepareMultipartRequest(updateDto);
-
-        if (imagePath != null) {
-            attachFilesToRequest(request, imagePath);
-        }
-
-        return execute(request.put(getPath(ecoNewsId)));
-    }
-
-    @Step("Delete EcoNews by ID: {ecoNewsId}")
-    public Response deleteEcoNewsById(long ecoNewsId) {
-        return delete(getPath(ecoNewsId));
-    }
-
+    @Deprecated
     @Step("Get EcoNews with query parameters: {queryParams}")
     public Response getEcoNews(Map<String, ?> queryParams) {
-        return execute(prepareRequest()
-                .queryParams(queryParams)
-                .get(resourcePath));
+        return prepareRequest().queryParams(queryParams).get(resourcePath).then().extract().response();
     }
 
     @Step("Post new EcoNews without image")
     public Response postEcoNews(EcoNewsRequest body) {
-        return execute(prepareRequest()
-                .contentType(ContentType.MULTIPART)
-                .multiPart("addEcoNewsDtoRequest", body, "application/json; charset=UTF-8")
-                .post(resourcePath));
+        return prepareRequest().contentType(ContentType.MULTIPART).multiPart("addEcoNewsDtoRequest", body, "application/json; charset=UTF-8").post(resourcePath).then().extract().response();
     }
 
     @Step("Post new EcoNews {body} with image: {imagePath}")
@@ -87,6 +44,15 @@ public class EcoNewsClient extends BaseApiClient {
                 .multiPart("addEcoNewsDtoRequest", body, "application/json; charset=UTF-8");
         attachFilesToRequest(request, imagePath);
         return execute(request.post(resourcePath));
+    }
+    @Step("Get EcoNews by ID: {id}")
+    public Response getEcoNewsById(Long id) {
+        return prepareRequest().get(resourcePath + "/" + id).then().extract().response();
+    }
+
+    @Step("Delete EcoNews by ID: {ecoNewsId}")
+    public Response deleteEcoNewsById(long ecoNewsId) {
+        return delete(getPath(ecoNewsId));
     }
 
     @Step("Get EcoNews count by author id: {authorId}")
@@ -140,4 +106,34 @@ public class EcoNewsClient extends BaseApiClient {
                 .log().ifValidationFails()
                 .get(getPath(ecoNewsId) + "/likes/count"));
     }
+
+    @Step("Update EcoNews by ID: {ecoNewsId} without image")
+    public Response updateEcoNewsById(long ecoNewsId,
+                                      UpdateEcoNewsDto updateDto) {
+        return updateEcoNewsById(ecoNewsId, updateDto, null);
+    }
+
+    @Step("Update EcoNews by ID: {ecoNewsId} with image")
+    public Response updateEcoNewsById(long ecoNewsId,
+                                      UpdateEcoNewsDto updateDto,
+                                      String imagePath) {
+
+        RequestSpecification request = prepareMultipartRequest(updateDto);
+
+        if (imagePath != null) {
+            attachFilesToRequest(request, imagePath);
+        }
+
+        return execute(request.put(getPath(ecoNewsId)));
+    }
+
+    @Step("Get EcoNews by ID: {ecoNewsId} with language: {lang}")
+    public Response getEcoNewsByIdWithLang(long ecoNewsId, String lang) {
+        return execute(
+                prepareRequest()
+                        .queryParam("lang", lang)
+                        .get(getPath(ecoNewsId))
+        );
+    }
+
 }

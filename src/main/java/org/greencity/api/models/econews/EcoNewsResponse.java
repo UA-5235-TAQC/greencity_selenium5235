@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 public class EcoNewsResponse implements EcoNewsBase {
 
-    private long id;
+    private Long id;
     private String title;
     private String content;
     private String shortInfo;

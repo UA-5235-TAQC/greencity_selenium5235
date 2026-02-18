@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateEcoNewsDto implements EcoNewsBase{
-    private long id;
+    private Long id;
     private String title;
     private String content;
     private String shortInfo;
