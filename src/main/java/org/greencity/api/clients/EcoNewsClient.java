@@ -81,7 +81,9 @@ public class EcoNewsClient extends BaseApiClient {
 
     @Step("Post new EcoNews {body} with image: {imagePath}")
     public Response postEcoNews(EcoNewsRequest body, String imagePath) {
-        RequestSpecification request = prepareRequest().contentType(ContentType.MULTIPART).multiPart("addEcoNewsDtoRequest", body, "application/json; charset=UTF-8");
+        RequestSpecification request = prepareRequest()
+                .contentType(ContentType.MULTIPART)
+                .multiPart("addEcoNewsDtoRequest", body, "application/json; charset=UTF-8");
         attachFilesToRequest(request, imagePath);
         return execute(request.post(resourcePath));
     }
@@ -95,6 +97,8 @@ public class EcoNewsClient extends BaseApiClient {
                 .extract()
                 .response();
     }
+
+    @Step("Get tags with language: {lang}")
     public Response getTags(String lang) {
         return prepareRequest()
                 .queryParam("lang", lang)
@@ -117,6 +121,26 @@ public class EcoNewsClient extends BaseApiClient {
     public Response removeFromFavorites(long ecoNewsId) {
         return prepareRequest()
                 .delete(resourcePath + "/" + ecoNewsId + "/favorites")
+                .then()
+                .extract()
+                .response();
+    }
+
+    @Step("Like or remove like from EcoNews by ID: {ecoNewsId}")
+    public Response likeEcoNewsById(long ecoNewsId) {
+        return prepareRequest()
+                .log().ifValidationFails()
+                .post(getPath(ecoNewsId) + "/likes")
+                .then()
+                .extract()
+                .response();
+    }
+
+    @Step("Count likes on EcoNews by ID: {ecoNewsId}")
+    public Response countEcoNewsLikes(long ecoNewsId) {
+        return prepareRequest()
+                .log().ifValidationFails()
+                .get(getPath(ecoNewsId) + "/likes/count")
                 .then()
                 .extract()
                 .response();
