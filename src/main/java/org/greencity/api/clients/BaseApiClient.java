@@ -1,6 +1,5 @@
 package org.greencity.api.clients;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -92,15 +91,6 @@ public abstract class BaseApiClient {
             request.multiPart("image", fileName, new FileInputStream(file), mimeType);
         } catch (IOException e) {
             throw new RuntimeException("Failed to attach file: " + e.getMessage(), e);
-        }
-    }
-
-    @Step("Serializing an object: {object}")
-    protected String serialize(Object object) {
-        try {
-            return new ObjectMapper().writeValueAsString(object);
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to serialize object to JSON string", e);
         }
     }
 

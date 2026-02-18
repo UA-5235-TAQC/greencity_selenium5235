@@ -28,6 +28,7 @@
     <test name="API Tests">
         <classes>
             <class name="org.greencity.api.OwnSecurityTest"/>
+            <class name="org.greencity.api.EcoNewsCommentTest"/>
             <class name="org.greencity.api.CreateEcoNewsTest"/>
             <class name="org.greencity.api.EcoNewsTest"/>
             <class name="org.greencity.api.EcoNewsById.DeleteEcoNewsByIdTest"/>

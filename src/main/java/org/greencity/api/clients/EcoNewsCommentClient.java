@@ -11,7 +11,7 @@ import org.greencity.api.models.ecoNewsComment.GetCommentResponse;
 
 import java.util.List;
 
-public class EcoNewsCommentClient extends BaseApiClient {
+public class EcoNewsCommentClient extends BaseApiClient{
     protected final String resourcePath = "/eco-news/";
 
     public EcoNewsCommentClient(String baseUrl, String token) {
@@ -19,37 +19,68 @@ public class EcoNewsCommentClient extends BaseApiClient {
     }
 
     @Step("API: Add comment to news ID {newsId} with text: '{text}'")
-    public Response addComment(long newsId, String text, int parentComId, String... imagePaths) {
-        AddCommentRequest commentBody = new AddCommentRequest(text, parentComId);
-        String jsonRequest = serialize(commentBody);
+    public Response addComment(Long newsId, String text, int parentComId, String... imagePaths){
+        String jsonRequest = serializeAddComment(text, parentComId);
+
         RequestSpecification request = prepareRequest()
                 .contentType(ContentType.MULTIPART)
                 .multiPart("request", jsonRequest, "application/json");
+
         attachImagesToMultipart(request, "images", imagePaths);
-        return execute(request
-                .post(this.resourcePath + newsId + "/comments"));
+
+        return request
+                .post(this.resourcePath + newsId + "/comments")
+                .then()
+                .log().ifValidationFails()
+                .extract()
+                .response();
+    }
+
+    private String serializeAddComment(String text, int parentComId) {
+        if (text == null) text = "";
+
+        String escapedText = text
+                .replace("\\", "\\\\")
+                .replace("\"", "\\\"")
+                .replace("\n", "\\n")
+                .replace("\r", "\\r")
+                .replace("\t", "\\t");
+
+        return String.format("{\"text\":\"%s\",\"parentCommentId\":%d}", escapedText, parentComId);
     }
 
     @Step("API: Get comment details by ID {commentId}")
-    public Response getComment(int commentId) {
-        return execute(prepareRequest()
+    public Response getComment(int commentId){
+       return prepareRequest()
                 .contentType(ContentType.JSON)
-                .get(this.resourcePath + "comments/" + commentId));
+                .get(this.resourcePath + "comments/" + commentId)
+                .then()
+                .log().ifError()
+                .extract()
+                .response();
     }
 
     @Step("API: Like a comment by ID {commentId}")
-    public Response likeComment(int commentId) {
-        return execute(prepareRequest()
+    public Response likeComment(int commentId){
+        return prepareRequest()
                 .contentType(ContentType.JSON)
                 .queryParam("commentId", commentId)
-                .post(this.resourcePath + "comments/like"));
+                .post(this.resourcePath + "comments/like")
+                .then()
+                .log().ifValidationFails()
+                .extract()
+                .response();
     }
 
     @Step("API: Delete comment by ID {commentId}")
-    public Response deleteComment(int commentId) {
-        return execute(prepareRequest()
+    public Response deleteComment(int commentId){
+        return prepareRequest()
                 .contentType(ContentType.JSON)
-                .delete(this.resourcePath + "comments/" + commentId));
+                .delete(this.resourcePath + "comments/" + commentId)
+                .then()
+                .log().ifError()
+                .extract()
+                .response();
     }
 
     @Step("API: Get all active replies for comment ID {parentCommentId} with query params")
