@@ -8,6 +8,7 @@ import org.greencity.ui.components.CreateEditNewsPage.ImageComponent;
 import org.greencity.ui.components.TagItem;
 import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.ui.pages.CreateEditNews.NewsPreviewPage;
+import org.greencity.ui.pages.EcoNewsPage;
 import org.greencity.ui.pages.UbsCourierPage;
 import org.greencity.ui.testrunners.EditNews.EditNewsUATestRunner;
 import org.testng.Assert;
@@ -261,16 +262,16 @@ public class EditNewsFormVisibilityTestUA extends EditNewsUATestRunner {
         Assert.assertNotNull(src, "Preview image src should not be null");
         Assert.assertFalse(src.isEmpty(), "Preview image src should not be empty");
 
-        editNewsPage = preview.backToEditing(getNewsId());
+        editNewsPage = preview.backToEditing(ecoNewsId);
         editNewsPage.reload();
         editNewsPage.getHeader().changeToUK();
         editNewsPage.editNews(TEST_TITLE_UA, EcoNewsTag.getUa(TEST_TAGS), TEST_SOURCE, TEST_CONTENT_UA, TEST_FILEPATH);
         editNewsPage.clickEdit();
-        UbsCourierPage ubsCourierPage = new UbsCourierPage(driver);
-        ubsCourierPage.getHeader().changeToUK();
-        Assert.assertTrue(ubsCourierPage.isPageOpened(),
-                "User should be directed to UbsCourierPage");
-        String message = ubsCourierPage.getMessageText();
+        EcoNewsPage ecoNewsPage = new EcoNewsPage(driver);
+        ecoNewsPage.getHeader().changeToUK();
+        Assert.assertTrue(ecoNewsPage.isPageOpened(),
+                "User should be directed to EcoNews page");
+        String message = ecoNewsPage.getMessageText();
         Assert.assertEquals(
                 message,
                 "Ваша новина успішно опублікована",

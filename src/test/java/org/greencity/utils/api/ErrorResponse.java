@@ -9,7 +9,7 @@ public class ErrorResponse {
     private String name;
     private String message;
     private String error;
-    private int status;
+    private Integer status;
     private String path;
     private String timestamp;
 }

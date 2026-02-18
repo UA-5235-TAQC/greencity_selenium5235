@@ -1,72 +1,73 @@
 package org.greencity.utils.api;
 
+import org.greencity.api.models.econews.EcoNewsBase;
 import org.greencity.api.models.econews.EcoNewsResponse;
 import org.testng.asserts.SoftAssert;
-
-import java.time.LocalDate;
-import java.util.List;
 
 public class EcoNewsAssertions {
 
     private EcoNewsAssertions() {}
 
-    public static void assertEcoNewsResponse(EcoNewsResponse ecoNews,
-                                             long expectedId,
-                                             String expectedTitle,
-                                             String expectedContent,
-                                             String expectedShortInfo,
-                                             LocalDate expectedDate,
-                                             List<String> expectedTagsEn,
-                                             List<String> expectedTagsUk,
-                                             Integer expectedAuthorId,
-                                             String expectedAuthorName,
-                                             boolean checkImageNotNull,
+    public static void assertEcoNewsResponse(EcoNewsResponse actual,
+                                             EcoNewsBase expected,
+                                             boolean checkImage,
                                              boolean checkAuthor) {
         SoftAssert softAssert = new SoftAssert();
 
-        softAssert.assertEquals(ecoNews.getId(), expectedId,
-                "EcoNews ID should match");
-        softAssert.assertEquals(ecoNews.getTitle(), expectedTitle,
-                "Title should match expected");
-        softAssert.assertEquals(ecoNews.getContent(), expectedContent,
-                "Content should match expected");
-        softAssert.assertEquals(ecoNews.getShortInfo(), expectedShortInfo,
-                "ShortInfo should match expected");
-        if (expectedDate != null) {
-            softAssert.assertEquals(ecoNews.getCreationDate().toLocalDate(), expectedDate,
-                    "Creation date should match expected");
-        }
+        softAssert.assertEquals(actual.getId(), expected.getId(),
+                "ID should match");
+        softAssert.assertEquals(actual.getTitle(), expected.getTitle(),
+                "Title should match");
+        softAssert.assertEquals(actual.getContent(), expected.getContent(),
+                "Content should match");
+        softAssert.assertEquals(actual.getShortInfo(), expected.getShortInfo(),
+                "ShortInfo should match");
 
-        if (checkImageNotNull) {
-            softAssert.assertNotNull(ecoNews.getImagePath(),
+        softAssert.assertNotNull(actual.getTagsEn(),
+                "Tags EN should not be null");
+        softAssert.assertEquals(actual.getTagsEn(), expected.getTagsEn(),
+                "Tags EN should match");
+        softAssert.assertNotNull(actual.getTagsUk(),
+                "Tags UK should not be null");
+        softAssert.assertEquals(actual.getTagsUk(), expected.getTagsUk(),
+                "Tags UK should match");
+
+        if (checkImage) {
+            softAssert.assertNotNull(actual.getImagePath(),
                     "Image path should not be null");
         } else {
-            softAssert.assertNull(ecoNews.getImagePath(),
+            softAssert.assertNull(actual.getImagePath(),
                     "Image path should be null");
         }
-        if (checkAuthor) {
-            softAssert.assertNotNull(ecoNews.getAuthor(), "Author should not be null");
-            softAssert.assertEquals(Integer.valueOf(ecoNews.getAuthor().getId()),
-                    expectedAuthorId,
-                    "Author ID should match expected");
-            softAssert.assertEquals(ecoNews.getAuthor().getName(), expectedAuthorName,
-                    "Author name should match expected");
+
+        if (expected instanceof EcoNewsResponse expectedResponse) {
+            if (expectedResponse.getCreationDate() != null) {
+                softAssert.assertEquals(actual.getCreationDate(), expectedResponse.getCreationDate(),
+                        "Creation date should match expected");
+            }
         }
 
-        softAssert.assertEquals(ecoNews.getLikes(), 0, "Likes should be 0");
-        softAssert.assertEquals(ecoNews.getDislikes(), 0, "Dislikes should be 0");
-        softAssert.assertEquals(ecoNews.getCountComments(), 0,
-                "Count of comments should be 0");
-        softAssert.assertFalse(ecoNews.isHidden(), "Hidden should be false");
+        if (checkAuthor) {
+            softAssert.assertNotNull(actual.getAuthor(),
+                    "Author should not be null");
+            if (expected instanceof EcoNewsResponse expectedResponse) {
+                if (expectedResponse.getAuthor() != null) {
+                    softAssert.assertEquals(actual.getAuthor().getId(), expectedResponse.getAuthor().getId(),
+                            "Author ID should match expected");
+                    softAssert.assertEquals(actual.getAuthor().getName(), expectedResponse.getAuthor().getName(),
+                            "Author name should match expected");
+                }
+            }
+        }
 
-        softAssert.assertNotNull(ecoNews.getTagsEn(),
-                "Tags in English should not be null");
-        softAssert.assertEquals(ecoNews.getTagsEn(), expectedTagsEn,
-                "Tags in English should match expected");
-        softAssert.assertNotNull(ecoNews.getTagsUk(),
-                "Tags in Ukrainian should not be null");
-        softAssert.assertEquals(ecoNews.getTagsUk(), expectedTagsUk,
-                "Tags in Ukrainian should match expected");
+        softAssert.assertEquals(actual.getLikes(), 0,
+                "Likes should be 0");
+        softAssert.assertEquals(actual.getDislikes(), 0,
+                "Dislikes should be 0");
+        softAssert.assertEquals(actual.getCountComments(), 0,
+                "Count of comments should be 0");
+        softAssert.assertFalse(actual.isHidden(),
+                "Hidden should be false");
 
         softAssert.assertAll();
     }

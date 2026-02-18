@@ -74,26 +74,26 @@ public class MySpaceBasePage extends BasePage {
 
     @Step("Get fact of the day")
     public String getFactOfTheDay() {
-        wait.until(ExpectedConditions.visibilityOf(factOfTheDay));
+        waitUntilVisible(factOfTheDay);
         return factOfTheDay.getText();
     }
 
     @Step("Get user rating")
     public String getUserRating() {
-        wait.until(ExpectedConditions.visibilityOf(userRating));
+        waitUntilVisible(userRating);
         return userRating.getText();
     }
 
     @Step("Get user name")
     public String getUserName() {
-        wait.until(ExpectedConditions.visibilityOf(userName));
+        waitUntilVisible(userName);
         return userName.getText();
     }
 
     @Step("Open edit profile page")
     public void openProfile() {
-        WebElement clickableEditProfile = wait.until(ExpectedConditions.elementToBeClickable(editProfile));
-        clickableEditProfile.click();
+        waitUntilClickable(editProfile);
+        editProfile.click();
     }
 
     @Step("Get list of to-do items")
@@ -119,14 +119,14 @@ public class MySpaceBasePage extends BasePage {
 
     @Step("Get active tab")
     public String getActiveTab() {
-        wait.until(ExpectedConditions.visibilityOf(activeTab));
+        waitUntilVisible(activeTab);
         return activeTab.getText();
     }
 
-    @Step("Switch to 'selected' tab")
+    @Step("Switch to {tab}")
     public MySpaceBasePage switchTo(MySpaceTab tab) {
+        waitUntilVisible(tabList);
         for (WebElement el : tabList) {
-            wait.until(ExpectedConditions.visibilityOf(el));
             if (tab.matches(el.getText())) {
                 el.click();
                 return this;

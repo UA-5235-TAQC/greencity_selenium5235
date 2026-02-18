@@ -1,9 +1,13 @@
 package org.greencity.ui.components;
 
+import lombok.Getter;
 import org.greencity.ui.pages.EcoNewsPage;
+import org.greencity.ui.pages.NewsDetailsPage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
@@ -12,6 +16,7 @@ public class NewsListItemComponent extends BaseComponent {
     private WebElement image;
 
     @FindBy(css = ".favourite-button")
+    @Getter
     private WebElement bookmarkBtn;
 
     @FindBy(css = ".filter-tag div")
@@ -35,8 +40,12 @@ public class NewsListItemComponent extends BaseComponent {
     @FindBy(xpath = ".//img[contains(@alt, 'likes')]/parent::*/span")
     private WebElement likesCount;
 
+    @Getter
+    private final long newsId;
+
     public NewsListItemComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
+        this.newsId = 0;
     }
 
     public EcoNewsPage clickBookmark() {
@@ -46,10 +55,6 @@ public class NewsListItemComponent extends BaseComponent {
 
     public WebElement getImageElement() {
         return image;
-    }
-
-    public WebElement getBookmarkBtn() {
-        return bookmarkBtn;
     }
 
     public List<WebElement> getTagsList() {
@@ -116,11 +121,11 @@ public class NewsListItemComponent extends BaseComponent {
         return Integer.parseInt(likesCount.getText());
     }
 
-    public Integer getNewsId(){
-        return 0;
-    }
-
-    public void click() {
-        // ToDo return EcoDetailsPage
+    public NewsDetailsPage click() {
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(
+                By.cssSelector(".cdk-overlay-backdrop-showing")
+        ));
+        image.click();
+        return new NewsDetailsPage(driver, getNewsId());
     }
 }

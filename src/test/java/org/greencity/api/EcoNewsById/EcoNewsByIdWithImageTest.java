@@ -9,15 +9,15 @@ import org.greencity.api.testrunners.CreateNewsRunner;
 import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.utils.api.EcoNewsAssertions;
 import org.greencity.utils.api.EcoNewsDtoFactory;
-import org.greencity.utils.api.ValidationErrorResponse;
+import org.greencity.utils.api.ErrorResponse;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import java.time.LocalDate;
 import java.util.List;
 
+import static org.greencity.utils.api.ApiTestAssertions.*;
 import static org.greencity.utils.api.EcoNewsDtoFactory.*;
 
 @Epic("EcoNews API")
@@ -38,23 +38,13 @@ public class EcoNewsByIdWithImageTest extends CreateNewsRunner {
     @Description("Verify that EcoNews can be successfully retrieved by ID.")
     public void getEcoNewsByIdTest() {
         Response response = ecoNewsClient.getEcoNewsById(ecoNewsId);
-        Assert.assertEquals(response.getStatusCode(), 200,
-                "Expected status code 200");
+        assertOk(response);
 
         EcoNewsResponse ecoNews = response.as(EcoNewsResponse.class);
-        LocalDate creationDate = createdNews.getCreationDate().toLocalDate();
 
         EcoNewsAssertions.assertEcoNewsResponse(
                 ecoNews,
-                createdNews.getId(),
-                createdNews.getTitle(),
-                createdNews.getContent(),
-                createdNews.getShortInfo(),
-                creationDate,
-                createdNews.getTagsEn(),
-                createdNews.getTagsUk(),
-                createdNews.getAuthor().getId(),
-                createdNews.getAuthor().getName(),
+                createdNews,
                 true,
                 true
         );
@@ -64,17 +54,15 @@ public class EcoNewsByIdWithImageTest extends CreateNewsRunner {
     @Story("Get EcoNews in English and Ukrainian")
     @Description("Verify that EcoNews can be retrieved in English and Ukrainian using lang parameter.")
     public void getEcoNewsLangTest() {
-        Response response = ecoNewsClient.getEcoNewsByIdWithLang(ecoNewsId, "en");
-        Assert.assertEquals(response.getStatusCode(), 200,
-                "Status code should be 200 with lang parameter");
-        EcoNewsResponse ecoNews = response.as(EcoNewsResponse.class);
-        Assert.assertNotNull(ecoNews.getTitle(), "Title in English should not be null");
+        verifyEcoNewsTitleByLang("en", "Title in English should not be null");
+        verifyEcoNewsTitleByLang("uk", "Title in Ukrainian should not be null");
+    }
 
-        response = ecoNewsClient.getEcoNewsByIdWithLang(ecoNewsId, "uk");
-        Assert.assertEquals(response.getStatusCode(), 200,
-                "Status code should be 200 with lang parameter");
-        ecoNews = response.as(EcoNewsResponse.class);
-        Assert.assertNotNull(ecoNews.getTitle(), "Title in Ukrainian should not be null");
+    private void verifyEcoNewsTitleByLang(String lang, String message) {
+        Response response = ecoNewsClient.getEcoNewsByIdWithLang(ecoNewsId, lang);
+        assertOk(response);
+        EcoNewsResponse ecoNews = response.as(EcoNewsResponse.class);
+        Assert.assertNotNull(ecoNews.getTitle(), message);
     }
 
     @Test
@@ -83,11 +71,8 @@ public class EcoNewsByIdWithImageTest extends CreateNewsRunner {
     public void getNonExistingEcoNewsTestShouldReturn404() {
         long nonExistingEcoNewsId = ecoNewsId + 1;
         Response response = ecoNewsClient.getEcoNewsById(nonExistingEcoNewsId);
-        Assert.assertEquals(response.getStatusCode(), 404,
-                "Status code should be 404 for non-existing news");
-        String message = response.jsonPath().getString("message");
-        Assert.assertEquals(message, "Eco new doesn't exist by this id: " + nonExistingEcoNewsId,
-                "Error message should match expected");
+        assertNotFound(response,
+                "Eco new doesn't exist by this id: " + nonExistingEcoNewsId);
     }
 
     @Test
@@ -100,28 +85,21 @@ public class EcoNewsByIdWithImageTest extends CreateNewsRunner {
         updateDto.setContent(CONTENT_UK);
         updateDto.setId(ecoNewsId + 1);
         Response response = ecoNewsClient.updateEcoNewsById(ecoNewsId, updateDto, null);
-        Assert.assertEquals(response.getStatusCode(), 400,
-                "Expected status code 400");
-        String message = response.jsonPath().getString("message");
-        Assert.assertEquals(message,
-                "Eco news id in path param and eco news id in entity not equal",
-                "Message should match expected");
+        assertBadRequest(response,
+                "Eco news id in path param and eco news id in entity not equal");
 
         updateDto.setId(ecoNewsId);
         updateDto.setTags(List.of("string"));
         response = ecoNewsClient.updateEcoNewsById(ecoNewsId, updateDto, null);
-        Assert.assertEquals(response.getStatusCode(), 400,
-                "Expected status code 400");
-        message = response.jsonPath().getString("message");
-        Assert.assertEquals(message, "There should be at least one valid tag",
-                "Message should match expected");
+        assertBadRequest(response,
+                "There should be at least one valid tag");
 
         updateDto.setId(ecoNewsId);
         updateDto.setTags(EcoNewsTag.getEn(TEST_TAGS));
         updateDto.setTitle("");
         response = ecoNewsClient.updateEcoNewsById(ecoNewsId, updateDto, null);
-        List<ValidationErrorResponse> errors =
-                response.jsonPath().getList("", ValidationErrorResponse.class);
+        List<ErrorResponse> errors =
+                response.jsonPath().getList("", ErrorResponse.class);
         Assert.assertEquals(response.getStatusCode(), 400,
                 "Expected status code 400");
         SoftAssert softAssert = new SoftAssert();
@@ -142,7 +120,7 @@ public class EcoNewsByIdWithImageTest extends CreateNewsRunner {
         updateDto.setTitle(TITLE_UK);
         updateDto.setContent("");
         response = ecoNewsClient.updateEcoNewsById(ecoNewsId, updateDto, null);
-        errors = response.jsonPath().getList("", ValidationErrorResponse.class);
+        errors = response.jsonPath().getList("", ErrorResponse.class);
         Assert.assertEquals(response.getStatusCode(), 400);
         softAssert = new SoftAssert();
         softAssert.assertTrue(
@@ -167,21 +145,13 @@ public class EcoNewsByIdWithImageTest extends CreateNewsRunner {
         String imagePath = "src/test/resources/images/test.jfif";
 
         Response response = ecoNewsClient.updateEcoNewsById(ecoNewsId, updateDto, imagePath);
-        Assert.assertEquals(response.getStatusCode(), 200, "Expected status code 200");
+        assertOk(response);
 
         EcoNewsResponse ecoNews = response.as(EcoNewsResponse.class);
 
         EcoNewsAssertions.assertEcoNewsResponse(
                 ecoNews,
-                updateDto.getId(),
-                updateDto.getTitle(),
-                updateDto.getContent(),
-                updateDto.getShortInfo(),
-                null,
-                updateDto.getTagsEn(),
-                updateDto.getTagsUk(),
-                null,
-                null,
+                updateDto,
                 true,
                 false
         );
