@@ -46,8 +46,8 @@ public abstract class BasePage extends Base {
 
     @Step("Click on web element")
     protected void click(WebElement element) {
-        WebElement clickable = wait.until(ExpectedConditions.elementToBeClickable(element));
-        clickable.click();
+        waitUntilClickable(element);
+        element.click();
     }
 
     @Step("Get text from web element")

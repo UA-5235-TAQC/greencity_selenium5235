@@ -8,8 +8,9 @@ import org.greencity.api.models.econews.UpdateEcoNewsDto;
 import org.greencity.api.testrunners.CreateNewsRunner;
 import org.greencity.utils.api.EcoNewsAssertions;
 import org.greencity.utils.api.EcoNewsDtoFactory;
-import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import static org.greencity.utils.api.ApiTestAssertions.assertOk;
 
 @Epic("EcoNews API")
 @Feature("Update EcoNews without image")
@@ -25,21 +26,12 @@ public class UpdateEcoNewsByIdWithoutImageTest extends CreateNewsRunner {
         UpdateEcoNewsDto updateDto = dtoFactory.updateDtoUa();
 
         Response response = ecoNewsClient.updateEcoNewsById(ecoNewsId, updateDto);
-        Assert.assertEquals(response.getStatusCode(), 200);
+        assertOk(response);
 
         EcoNewsResponse ecoNews = response.as(EcoNewsResponse.class);
-
         EcoNewsAssertions.assertEcoNewsResponse(
                 ecoNews,
-                updateDto.getId(),
-                updateDto.getTitle(),
-                updateDto.getContent(),
-                updateDto.getShortInfo(),
-                null,
-                updateDto.getTagsEn(),
-                updateDto.getTagsUk(),
-                null,
-                null,
+                updateDto,
                 false,
                 false
         );

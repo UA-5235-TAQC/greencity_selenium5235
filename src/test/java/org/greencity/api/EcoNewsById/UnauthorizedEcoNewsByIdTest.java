@@ -5,8 +5,9 @@ import io.qameta.allure.testng.Tag;
 import io.restassured.response.Response;
 import org.greencity.api.models.econews.UpdateEcoNewsDto;
 import org.greencity.api.testrunners.EcoNewsWithoutTokenRunner;
-import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import static org.greencity.utils.api.ApiTestAssertions.assertUnauthorized;
 
 @Epic("EcoNews API")
 @Feature("EcoNews CRUD without authorization")
@@ -24,8 +25,7 @@ public class UnauthorizedEcoNewsByIdTest extends EcoNewsWithoutTokenRunner {
         updateDto.setContent("Test content with more than 20 chars");
         updateDto.setShortInfo("Short info");
         Response response = ecoNewsClient.updateEcoNewsById(ecoNewsId, updateDto, null);
-        Assert.assertEquals(response.getStatusCode(), 401,
-                "Status code should be 401 Unauthorized");
+        assertUnauthorized(response);
     }
 
     @Test
@@ -33,7 +33,6 @@ public class UnauthorizedEcoNewsByIdTest extends EcoNewsWithoutTokenRunner {
     @Description("Verify that deleting EcoNews without authorization returns 401 status code.")
     public void testDeleteEcoNewsByIdWithoutTokenShouldReturn401() {
         Response deleteResponse = ecoNewsClient.deleteEcoNewsById(ecoNewsId);
-        Assert.assertEquals(deleteResponse.getStatusCode(), 401,
-                "Status code should be 401 Unauthorized");
+        assertUnauthorized(deleteResponse);
     }
 }

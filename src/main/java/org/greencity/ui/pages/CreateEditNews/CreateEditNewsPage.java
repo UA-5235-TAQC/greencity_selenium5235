@@ -9,7 +9,6 @@ import org.greencity.ui.pages.BasePage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.remote.UnreachableBrowserException;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 import java.util.stream.Collectors;

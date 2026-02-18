@@ -5,6 +5,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.greencity.api.models.econews.EcoNewsQuery;
+import org.greencity.api.models.econews.UpdateEcoNewsDto;
 import org.greencity.api.models.econews.EcoNewsRequest;
 
 import java.util.Map;
@@ -25,7 +26,7 @@ public class EcoNewsClient extends BaseApiClient {
         return resourcePath + ecoNewsId;
     }
 
-    @Deprecated 
+    @Deprecated
     @Step("Get EcoNews with query parameters: {queryParams}")
     public Response getEcoNews(Map<String, ?> queryParams) {
         return prepareRequest().queryParams(queryParams).get(resourcePath).then().extract().response();
@@ -38,11 +39,12 @@ public class EcoNewsClient extends BaseApiClient {
 
     @Step("Post new EcoNews {body} with image: {imagePath}")
     public Response postEcoNews(EcoNewsRequest body, String imagePath) {
-        RequestSpecification request = prepareRequest().contentType(ContentType.MULTIPART).multiPart("addEcoNewsDtoRequest", body, "application/json; charset=UTF-8");
+        RequestSpecification request = prepareRequest()
+                .contentType(ContentType.MULTIPART)
+                .multiPart("addEcoNewsDtoRequest", body, "application/json; charset=UTF-8");
         attachFilesToRequest(request, imagePath);
-        return request.post(resourcePath).then().extract().response();
+        return execute(request.post(resourcePath));
     }
-
     @Step("Get EcoNews by ID: {id}")
     public Response getEcoNewsById(Integer id) {
         return prepareRequest().get(resourcePath + "/" + id).then().extract().response();
@@ -53,6 +55,12 @@ public class EcoNewsClient extends BaseApiClient {
         return delete(getPath(ecoNewsId));
     }
 
+    @Step("Get EcoNews count by author id: {authorId}")
+    public Response getEcoNewsCountByAuthorId(int authorId) {
+        return execute(prepareRequest()
+                .queryParam("author-id", authorId)
+                .get(resourcePath + "/count"));
+    }
 
     @Step("Get EcoNews with typed query parameters: {query}")
     public Response getEcoNews(EcoNewsQuery query) {
@@ -63,6 +71,39 @@ public class EcoNewsClient extends BaseApiClient {
         if (query.getPage() != null) request.queryParam("page", query.getPage());
         if (query.getSize() != null) request.queryParam("size", query.getSize());
 
-        return request.get(resourcePath).then().extract().response();
+        return execute(request.get(resourcePath));
+    }
+
+    @Step("Get tags with language: {lang}")
+    public Response getTags(String lang) {
+        return execute(prepareRequest()
+                .queryParam("lang", lang)
+                .get(resourcePath + "/tags"));
+    }
+
+    @Step("Add EcoNews with id={ecoNewsId} to favorites")
+    public Response addToFavorites(long ecoNewsId) {
+        return execute(prepareRequest()
+                .post(resourcePath + "/" + ecoNewsId + "/favorites"));
+    }
+
+    @Step("Remove EcoNews with id={ecoNewsId} from favorites")
+    public Response removeFromFavorites(long ecoNewsId) {
+        return execute(prepareRequest()
+                .delete(resourcePath + "/" + ecoNewsId + "/favorites"));
+    }
+
+    @Step("Like or remove like from EcoNews by ID: {ecoNewsId}")
+    public Response likeEcoNewsById(long ecoNewsId) {
+        return execute(prepareRequest()
+                .log().ifValidationFails()
+                .post(getPath(ecoNewsId) + "/likes"));
+    }
+
+    @Step("Count likes on EcoNews by ID: {ecoNewsId}")
+    public Response countEcoNewsLikes(long ecoNewsId) {
+        return execute(prepareRequest()
+                .log().ifValidationFails()
+                .get(getPath(ecoNewsId) + "/likes/count"));
     }
 }
