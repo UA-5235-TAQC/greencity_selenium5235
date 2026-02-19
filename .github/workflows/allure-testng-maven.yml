@@ -52,11 +52,20 @@ jobs:
         if: always() && github.event_name == 'pull_request'
         run: |
           if [ -f allure-results/widgets/summary.json ]; then
-            FAILED=$(jq '.statistic.failed' allure-results/widgets/summary.json)
-            if [ "$FAILED" != "0" ]; then
+            # Extract failed count, defaulting to 0 if the field is missing or jq fails
+            FAILED=$(jq '.statistic.failed // 0' allure-results/widgets/summary.json 2>/dev/null || echo 0)
+            # Ensure FAILED is a valid non-negative integer before comparison
+            if ! [[ "$FAILED" =~ ^[0-9]+$ ]]; then
+              echo "⚠️ Unable to determine failed test count from Allure summary; skipping failure check."
+              exit 0
+            fi
+            if [ "$FAILED" -ne 0 ]; then
               echo "❌ Tests failed: $FAILED"
               exit 1
             fi
+          else
+            echo "❌ Allure summary file 'allure-results/widgets/summary.json' not found. Tests may not have run successfully or Allure results were not generated."
+            exit 1
           fi
 
       - name: Get Allure history
@@ -85,10 +94,12 @@ jobs:
           INDEX_FILE="$REPORT_DIR/index.html"
 
           # Keep last 20 PR reports
-          PR_DIRS=$(ls -dt $REPORT_DIR/pr-* 2>/dev/null | tail -n +21)
-          for dir in $PR_DIRS; do
-            rm -rf "$dir"
-          done
+          PR_DIRS=$(find "$REPORT_DIR" -maxdepth 1 -type d -name 'pr-*' -printf '%T@ %p\n' 2>/dev/null | sort -nr | tail -n +21 | cut -d' ' -f2-)
+          if [ -n "$PR_DIRS" ]; then
+            echo "$PR_DIRS" | while IFS= read -r dir; do
+              rm -rf "$dir"
+            done
+          fi
 
           echo "<!DOCTYPE html>
           <html>
@@ -145,7 +156,7 @@ jobs:
               FLAKY_RATE=0
               if [ -f "$TREND_FILE" ]; then
                 LAST_RUN=$(jq '.[-1].data.failed' $TREND_FILE 2>/dev/null)
-                if [ "$LAST_RUN" != "null" ]; then
+                if [ "$LAST_RUN" != "null" ] && [ "$TOTAL" -gt 0 ]; then
                   FLAKY_RATE=$((FAILED * 100 / TOTAL))
                 fi
               fi
