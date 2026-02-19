@@ -48,17 +48,6 @@ jobs:
           BASE_GREEN_CITY_USER_API_URL: ${{ secrets.BASE_GREEN_CITY_USER_API_URL }}
           BASE_GREEN_CITY_API_URL: ${{ secrets.BASE_GREEN_CITY_API_URL }}
 
-      - name: Fail PR if tests failed
-        if: always() && github.event_name == 'pull_request'
-        run: |
-          if [ -f allure-results/widgets/summary.json ]; then
-            FAILED=$(jq '.statistic.failed' allure-results/widgets/summary.json)
-            if [ "$FAILED" != "0" ]; then
-              echo "❌ Tests failed: $FAILED"
-              exit 1
-            fi
-          fi
-
       - name: Get Allure history
         uses: actions/checkout@v4
         if: always()
@@ -77,6 +66,31 @@ jobs:
           allure_report: allure-report
           allure_history: allure-history
           subfolder: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || 'main' }}
+
+      - name: Fix permissions
+        run: sudo chmod -R 777 allure-history
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Fail PR if tests failed
+        if: always() && github.event_name == 'pull_request'
+        run: |
+          SUMMARY_FILE="allure-history/pr-${{ github.event.number }}/widgets/summary.json"
+
+          if [ -f "$SUMMARY_FILE" ]; then
+            FAILED=$(jq '.statistic.failed' "$SUMMARY_FILE")
+            echo "Failed tests: $FAILED"
+
+            if [ "$FAILED" -gt 0 ]; then
+              echo "❌ Tests failed"
+              exit 1
+            else
+              echo "✅ All tests passed"
+            fi
+          else
+            echo "⚠️ Summary file not found. Skipping fail check."
+          fi
 
       - name: Generate DevOps Allure Dashboard
         if: always()
@@ -146,7 +160,11 @@ jobs:
               if [ -f "$TREND_FILE" ]; then
                 LAST_RUN=$(jq '.[-1].data.failed' $TREND_FILE 2>/dev/null)
                 if [ "$LAST_RUN" != "null" ]; then
-                  FLAKY_RATE=$((FAILED * 100 / TOTAL))
+                  if [ "$TOTAL" -gt 0 ]; then
+                    FLAKY_RATE=$((FAILED * 100 / TOTAL))
+                  else
+                    FLAKY_RATE=0
+                  fi
                 fi
               fi
 
