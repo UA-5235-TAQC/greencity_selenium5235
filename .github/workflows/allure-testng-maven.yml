@@ -155,10 +155,7 @@ jobs:
 
               FLAKY_RATE=0
               if [ -f "$TREND_FILE" ]; then
-                LAST_RUN=$(jq '.[-1].data.failed' $TREND_FILE 2>/dev/null)
-                if [ "$LAST_RUN" != "null" ] && [ "$TOTAL" -gt 0 ]; then
-                  FLAKY_RATE=$((FAILED * 100 / TOTAL))
-                fi
+                FLAKY_RATE=$((FAILED * 100 / TOTAL))
               fi
 
               CLASS="pr"
