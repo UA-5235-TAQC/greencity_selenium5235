@@ -9,7 +9,6 @@ import org.greencity.ui.components.TagItem;
 import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.ui.pages.CreateEditNews.NewsPreviewPage;
 import org.greencity.ui.pages.EcoNewsPage;
-import org.greencity.ui.pages.UbsCourierPage;
 import org.greencity.ui.testrunners.EditNews.EditNewsUATestRunner;
 import org.testng.Assert;
 import org.testng.annotations.Test;

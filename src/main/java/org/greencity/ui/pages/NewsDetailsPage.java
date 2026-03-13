@@ -4,7 +4,6 @@ import io.qameta.allure.Step;
 import org.greencity.ui.components.CommentItemComponent;
 import org.greencity.ui.components.NewsDetailsContentComponent;
 import org.greencity.ui.components.NewsListItemComponent;
-import org.greencity.ui.pages.CreateEditNews.CreateEditNewsPage;
 import org.greencity.ui.pages.CreateEditNews.EditNewsPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

@@ -41,7 +41,7 @@ public class HomePage extends BasePage {
     @FindBy(css = "div #subscribe")
     protected WebElement subscribeButton;
 
-    @FindBy(css = ".eco-events a") // "Read all news" link
+    @FindBy(css = ".eco-events a") 
     protected WebElement readAllNewsLink;
 
     public HomePage(WebDriver driver) {

@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.greencity.api.clients.EcoNewsClient;
 import org.greencity.api.models.econews.EcoNewsPageResponse;
 import org.greencity.api.models.econews.EcoNewsQuery;
-import org.testng.Assert;
 
 import static org.greencity.utils.api.ApiTestAssertions.assertOk;
 

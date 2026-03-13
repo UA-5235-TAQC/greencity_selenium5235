@@ -4,12 +4,9 @@ import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import org.greencity.api.models.ecoNewsComment.AddCommentRequest;
 import org.greencity.api.models.ecoNewsComment.CommentQuery;
 import org.greencity.api.models.ecoNewsComment.GetCommentPageResponse;
 import org.greencity.api.models.ecoNewsComment.GetCommentResponse;
-
-import java.util.List;
 
 public class EcoNewsCommentClient extends BaseApiClient{
     protected final String resourcePath = "/eco-news/";

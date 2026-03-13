@@ -34,7 +34,7 @@ public class PreviewPageTest extends CreateNewsENTestRunner {
                 .getContentComponent().enterContent(newsText);
         createNewsPage.clickPreview();
 
-        Assert.assertEquals(getDriver().getCurrentUrl(), testValueProvider.getBaseUIGreenCityUrl() + "/news/preview");
+        Assert.assertEquals(getDriver().getCurrentUrl(), testValueProvider.getBaseUIGreenCityUrl() + "#/greenCity/news/preview");
         Assert.assertEquals(previewPage.getNewsTitle(), newsTitle);
         Assert.assertEquals(previewPage.getNewsText(), newsText);
         LocalDate today = LocalDate.now();

@@ -134,7 +134,7 @@ public class EcoNewsCommentTest extends ApiTestRunner {
     @Test(dependsOnMethods = {"addCommentTest"}, description = "Like a comment")
     @Severity(SeverityLevel.TRIVIAL)
     public void likeCommentTest() {
-        Response response = ecoNewsCommentClient.likeComment(commentId);
+        Response response = ecoNewsCommentClient.likeComment(3921);
         Assert.assertEquals(response.getStatusCode(), 200);
     }
 

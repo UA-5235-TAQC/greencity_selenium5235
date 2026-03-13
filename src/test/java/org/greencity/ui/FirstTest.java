@@ -5,12 +5,9 @@ import org.greencity.ui.pages.EcoNewsPage;
 import org.greencity.ui.pages.HomePage;
 import org.greencity.ui.testrunners.BaseTestRunner;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-
 public class FirstTest extends BaseTestRunner {
-
 
     @Test
     public void isLogin() {
@@ -32,7 +29,6 @@ public class FirstTest extends BaseTestRunner {
                 .enterPassword(testValueProvider.getUserPassword())
                 .enterConfirmPassword(testValueProvider.getUserPassword())
                 .togglePasswordVisibility();
-
     }
 
 }

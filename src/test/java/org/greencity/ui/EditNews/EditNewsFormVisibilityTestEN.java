@@ -9,7 +9,6 @@ import org.greencity.ui.components.TagItem;
 import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.ui.pages.CreateEditNews.NewsPreviewPage;
 import org.greencity.ui.pages.EcoNewsPage;
-import org.greencity.ui.pages.UbsCourierPage;
 import org.greencity.ui.testrunners.EditNews.EditNewsENTestRunner;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -325,7 +324,6 @@ public class EditNewsFormVisibilityTestEN extends EditNewsENTestRunner {
         String currentUrl = driver.getCurrentUrl();
         Assert.assertNotNull(currentUrl, "Current URL should not be null");
         Assert.assertTrue(currentUrl.contains("/create-news"), "URL should contain /create-news after close the cancel modal");
-
         testTitle = "Max";
         List<String> testTags = EcoNewsTag.getEn(List.of(EcoNewsTag.INITIATIVES, EcoNewsTag.EVENTS));
         String testSource = "https://en.wikipedia.org/wiki/Main_Page";

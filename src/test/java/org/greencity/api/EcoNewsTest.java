@@ -3,16 +3,13 @@ package org.greencity.api;
 import io.qameta.allure.*;
 import io.qameta.allure.testng.Tag;
 import io.restassured.response.Response;
-import org.greencity.api.clients.EcoNewsClient;
 import org.greencity.api.models.econews.EcoNewsPageResponse;
 import org.greencity.api.models.econews.EcoNewsQuery;
 import org.greencity.api.models.econews.EcoNewsResponse;
 import org.greencity.api.testrunners.EcoNewsWithoutTokenRunner;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import java.util.Arrays;
 
 @Epic("EcoNews API")
 @Feature("Retrieve EcoNews Page")
