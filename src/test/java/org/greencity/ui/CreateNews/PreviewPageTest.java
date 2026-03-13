@@ -31,8 +31,9 @@ public class PreviewPageTest extends CreateNewsENTestRunner {
                 .changeToEN();
         createNewsPage
                 .enterTitle(newsTitle)
-                .getContentComponent().enterContent(newsText);
-        createNewsPage.clickPreview();
+                .getContentComponent()
+                .enterContent(newsText);
+        previewPage = createNewsPage.clickPreview();
 
         Assert.assertEquals(getDriver().getCurrentUrl(), testValueProvider.getBaseUIGreenCityUrl() + "#/greenCity/news/preview");
         Assert.assertEquals(previewPage.getNewsTitle(), newsTitle);
@@ -44,7 +45,7 @@ public class PreviewPageTest extends CreateNewsENTestRunner {
         Assert.assertEquals(previewPage.getAuthorName(), testValueProvider.getUserName());
 
         previewPage.clickBackToCreateNewsBtn();
-        Assert.assertEquals(getDriver().getCurrentUrl(), testValueProvider.getBaseUIGreenCityUrl() + "/news/create-news");
+        Assert.assertEquals(getDriver().getCurrentUrl(), testValueProvider.getBaseUIGreenCityUrl() + "#/greenCity/news/create-news");
         //There will be an error because of page components loading bug
         Assert.assertTrue(createNewsPage.isPageOpened());
     }
