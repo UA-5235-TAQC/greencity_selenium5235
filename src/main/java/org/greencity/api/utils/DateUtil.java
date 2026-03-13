@@ -18,4 +18,9 @@ public class DateUtil {
         if (dateStr == null || dateStr.isEmpty()) return null;
         return parseShortDate(dateStr);
     }
+
+    public static String getCurrentDateTimeToMinutes() {
+        return ZonedDateTime.now(ZoneOffset.UTC)
+                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
+    }
 }

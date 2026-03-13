@@ -9,7 +9,6 @@ import org.greencity.ui.components.TagItem;
 import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.ui.pages.CreateEditNews.NewsPreviewPage;
 import org.greencity.ui.pages.EcoNewsPage;
-import org.greencity.ui.pages.UbsCourierPage;
 import org.greencity.ui.testrunners.EditNews.EditNewsENTestRunner;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -335,11 +334,11 @@ public class EditNewsFormVisibilityTestEN extends EditNewsENTestRunner {
         NewsPreviewPage preview = editNewsPage.clickPreview();
         Assert.assertTrue(preview.isPageOpened(),
                 "User should be directed to NewsPreviewPage");
-        Assert.assertTrue(preview.getBackToCreateNewsBtnElement().isDisplayed(),
+        Assert.assertTrue(preview.getBackToCreateNewsBtn().isDisplayed(),
                 "Back to Create News button should be displayed");
-        Assert.assertTrue(preview.getPublicNewsBtnElement().isDisplayed(),
+        Assert.assertTrue(preview.getPublicNewsBtn().isDisplayed(),
                 "Publish News button should be displayed");
-        Assert.assertEquals(preview.getNewsTitle(), testTitle,
+        Assert.assertEquals(preview.getNewsTitleText(), testTitle,
                 "News title on Preview page should match entered title");
 
         Assert.assertFalse(preview.getTagItems().isEmpty(),
@@ -352,13 +351,13 @@ public class EditNewsFormVisibilityTestEN extends EditNewsENTestRunner {
         Assert.assertEquals(actual, expected,
                 "Tags on Preview page should match entered tags");
 
-        Assert.assertTrue(preview.getNewsCreatingDateElement().isDisplayed(),
+        Assert.assertTrue(preview.getNewsCreatingDate().isDisplayed(),
                 "News creating date should be displayed");
         Assert.assertFalse(preview.getAuthorName().isEmpty(),
                 "Author name should be displayed on Preview page");
-        Assert.assertEquals(preview.getNewsSource(), testSource,
+        Assert.assertEquals(preview.getNewsSourceValue(), testSource,
                 "News source on Preview page should match entered source");
-        Assert.assertEquals(preview.getNewsText(), testContent,
+        Assert.assertEquals(preview.getNewsTextValue(), testContent,
                 "News content on Preview page should match entered content");
         Assert.assertTrue(preview.isImageUploadInputVisible(),
                 "News image input should be displayed on Preview page");

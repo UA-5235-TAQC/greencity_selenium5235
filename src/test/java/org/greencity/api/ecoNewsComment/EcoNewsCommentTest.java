@@ -1,4 +1,4 @@
-package org.greencity.api;
+package org.greencity.api.ecoNewsComment;
 
 import io.restassured.response.Response;
 import org.greencity.api.clients.EcoNewsClient;
@@ -11,8 +11,8 @@ import org.greencity.api.models.econews.EcoNewsRequest;
 import org.greencity.api.models.econews.EcoNewsResponse;
 import org.greencity.api.models.ownsecurity.SignInResponse;
 import org.greencity.api.testrunners.ApiTestRunner;
+import org.greencity.api.utils.DateUtil;
 import org.greencity.ui.enums.EcoNewsTag;
-import org.greencity.utils.api.DateUtil;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -20,6 +20,9 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import java.util.List;
+
+import static org.greencity.utils.api.ApiTestAssertions.assertCreated;
+import static org.greencity.utils.api.ApiTestAssertions.assertOk;
 
 @Epic("Eco News")
 @Feature("Comments")
@@ -46,12 +49,12 @@ public class EcoNewsCommentTest extends ApiTestRunner {
     public void setUpEcoNewsComment() {
         OwnSecurityClient securityClient = new OwnSecurityClient(testValueProvider.getBaseGreencityUserAPIUrl());
         Response signInResponseRaw = securityClient.signIn(testValueProvider.getUserEmail(), testValueProvider.getUserPassword());
-        Assert.assertEquals(signInResponseRaw.getStatusCode(), 200, "Login failed during setup");
+        assertOk(signInResponseRaw);
         String accessToken = signInResponseRaw.as(SignInResponse.class).getAccessToken();
         this.ecoNewsCommentClient = new EcoNewsCommentClient(testValueProvider.getGreencityAPIUrl(), accessToken);
         this.ecoNewsClient = new EcoNewsClient(testValueProvider.getGreencityAPIUrl(), accessToken);
         Response response = ecoNewsClient.postEcoNews(newsRequestBody);
-        Assert.assertEquals(response.getStatusCode(), 201, "Eco News was not created!");
+        assertCreated(response);
         this.newsId = response.as(EcoNewsResponse.class).getId();
     }
 
@@ -61,7 +64,7 @@ public class EcoNewsCommentTest extends ApiTestRunner {
     @Description("Verified that a text-only comment is successfully created and returns correct data.")
     public void addCommentTest() {
         Response response = ecoNewsCommentClient.addComment(newsId, "Test comment from API Automation", 0);
-        Assert.assertEquals(response.getStatusCode(), 201);
+        assertCreated(response);
 
         AddCommentResponse responseBody = response.as(AddCommentResponse.class);
         this.commentId = responseBody.getId();
@@ -74,7 +77,7 @@ public class EcoNewsCommentTest extends ApiTestRunner {
     @Story("User should be able to add a comment with images")
     public void addCommentWithImagesTest() {
         Response response = ecoNewsCommentClient.addComment(newsId, "Test comment from API Automation with images", 0, imagesPaths);
-        Assert.assertEquals(response.getStatusCode(), 201);
+        assertCreated(response);
 
         AddCommentResponse responseBody = response.as(AddCommentResponse.class);
         this.commentIdWithImage = responseBody.getId();
@@ -87,7 +90,7 @@ public class EcoNewsCommentTest extends ApiTestRunner {
     public void addSubCommentTestWithImages() {
         String text = "Test subComment from API Automation with images";
         Response response = ecoNewsCommentClient.addComment(newsId, text, commentIdWithImage, imagesPaths);
-        Assert.assertEquals(response.getStatusCode(), 201);
+        assertCreated(response);
         AddCommentResponse responseBody = response.as(AddCommentResponse.class);
         this.subCommentId = responseBody.getId();
         verifyCommentResponse(responseBody, text, imagesPaths.length);
@@ -99,10 +102,9 @@ public class EcoNewsCommentTest extends ApiTestRunner {
     public void addSubCommentTest() {
         String text = "Test subComment from API Automation";
         Response response = ecoNewsCommentClient.addComment(newsId, text, commentId);
-        Assert.assertEquals(response.getStatusCode(), 201);
+        assertCreated(response);
         AddCommentResponse responseBody = response.as(AddCommentResponse.class);
         verifyCommentResponse(responseBody, text, 0);
-
     }
 
     @Test(dependsOnMethods = {"addSubCommentTest"})
@@ -110,7 +112,7 @@ public class EcoNewsCommentTest extends ApiTestRunner {
     @Story("User should be able to delete the subcomment")
     public void deleteSubCommentTest() {
         Response response = ecoNewsCommentClient.deleteComment(subCommentId);
-        Assert.assertEquals(response.getStatusCode(), 200);
+        assertOk(response);
     }
 
     @Test(dependsOnMethods = {"deleteSubCommentTest"})
@@ -118,15 +120,14 @@ public class EcoNewsCommentTest extends ApiTestRunner {
     @Story("User should be able to delete the comment")
     public void deleteCommentTest() {
         Response response = ecoNewsCommentClient.deleteComment(commentId);
-        Assert.assertEquals(response.getStatusCode(), 200);
-
+        assertOk(response);
     }
 
     @Test(dependsOnMethods = {"addCommentTest"}, description = "Testing if GET comment by ID works correctly")
     @Severity(SeverityLevel.TRIVIAL)
     public void getCommentTest() {
         Response response = ecoNewsCommentClient.getComment(commentId);
-        Assert.assertEquals(response.getStatusCode(), 200);
+        assertOk(response);
         GetCommentResponse responseBody = response.as(GetCommentResponse.class);
         Assert.assertEquals(responseBody.getId(), commentId, "The server returned an object with a different ID");
     }
@@ -135,7 +136,7 @@ public class EcoNewsCommentTest extends ApiTestRunner {
     @Severity(SeverityLevel.TRIVIAL)
     public void likeCommentTest() {
         Response response = ecoNewsCommentClient.likeComment(commentId);
-        Assert.assertEquals(response.getStatusCode(), 200);
+        assertOk(response);
     }
 
     @Step("Verify comment response: text='{expectedText}', images count='{expectedImagesCount}'")

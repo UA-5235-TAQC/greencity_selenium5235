@@ -16,6 +16,8 @@ import io.qameta.allure.Story;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 
+import static org.greencity.utils.api.ApiTestAssertions.assertOk;
+
 
 @Epic("EcoNews API")
 @Feature("EcoNews Tags")
@@ -55,8 +57,7 @@ public class EcoNewsTagsTest extends ApiTestRunner {
     public void getTagsByLanguageTest() {
 
         Response response = client.getTags("en");
-
-        Assert.assertEquals(response.getStatusCode(), 200);
+        assertOk(response);
 
         TagResponse[] tags = response.as(TagResponse[].class);
 

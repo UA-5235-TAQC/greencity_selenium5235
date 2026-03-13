@@ -10,6 +10,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.Objects;
+
 public abstract class BasePage extends Base {
 
     @FindBy(xpath = "//app-header")
@@ -52,7 +54,7 @@ public abstract class BasePage extends Base {
 
     @Step("Get text from web element")
     protected String getText(WebElement element) {
-        return wait.until(ExpectedConditions.visibilityOf(element)).getText();
+        return Objects.requireNonNull(wait.until(ExpectedConditions.visibilityOf(element))).getText();
     }
 
     @Step("Wait for snackbar message to appear")

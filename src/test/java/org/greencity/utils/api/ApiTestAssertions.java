@@ -1,6 +1,7 @@
 package org.greencity.utils.api;
 
 import io.restassured.response.Response;
+import org.greencity.api.models.common.ErrorResponse;
 import org.testng.Assert;
 
 public final class ApiTestAssertions {

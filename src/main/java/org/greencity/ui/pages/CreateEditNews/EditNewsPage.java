@@ -1,6 +1,7 @@
 package org.greencity.ui.pages.CreateEditNews;
 
 import io.qameta.allure.Step;
+import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,6 +13,7 @@ public class EditNewsPage extends CreateEditNewsPage {
     @FindBy(xpath = "//button[@type='submit' and contains(@class,'primary-global-button')]")
     private WebElement editButton;
 
+    @Getter
     private final long newsId;
 
     public EditNewsPage(WebDriver driver, long newsId) {
@@ -71,10 +73,5 @@ public class EditNewsPage extends CreateEditNewsPage {
             getImageComponent().changeImage(imagePath);
         }
         return this;
-    }
-
-    @Step("Get news ID")
-    public long getId() {
-        return newsId;
     }
 }

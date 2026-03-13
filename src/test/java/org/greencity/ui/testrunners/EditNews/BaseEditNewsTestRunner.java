@@ -1,7 +1,6 @@
 package org.greencity.ui.testrunners.EditNews;
 
 import io.qameta.allure.Description;
-import org.greencity.ui.components.CreateEditNewsPage.CancelModalComponent;
 import org.greencity.ui.components.HeaderComponent;
 import org.greencity.ui.components.NewsListItemComponent;
 import org.greencity.ui.pages.CreateEditNews.EditNewsPage;
@@ -27,7 +26,7 @@ public abstract class BaseEditNewsTestRunner extends BaseCreateNewsTestRunner {
         NewsDetailsPage newsDetailsPage = newsListItem.click();
         newsDetailsPage.waitUntilOpened();
         newsDetailsPage.clickEditButton();
-        ecoNewsId = newsDetailsPage.getId();
+        ecoNewsId = newsDetailsPage.getNewsId();
         editNewsPage = new EditNewsPage(driver, ecoNewsId);
         switchLanguage(editNewsPage.getHeader());
     }

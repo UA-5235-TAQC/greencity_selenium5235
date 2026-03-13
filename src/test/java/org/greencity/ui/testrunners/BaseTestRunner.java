@@ -29,9 +29,6 @@ public class BaseTestRunner {
 
     @BeforeSuite(alwaysRun = true)
     public void beforeSuite(ITestContext context) {
-//        for(ITestNGMethod method : context.getAllTestMethods()) {
-//            method.setRetryAnalyzerClass(RetryAnalyzer.class);
-//        }
         WebDriverManager.chromedriver().setup();
         testValueProvider = new TestValueProvider();
     }
@@ -43,7 +40,7 @@ public class BaseTestRunner {
             options.addArguments("--headless=new");
         }
         // Allow remote origins (used by newer Chrome/Chromedriver combinations)
-        options.addArguments("--window-size=1920,1080");
+        options.addArguments("--window-size=2560,1440");
         options.addArguments("--remote-allow-origins=*");
         options.addArguments("--disable-popups-blocking");
         options.addArguments("--no-sandbox");
@@ -54,7 +51,7 @@ public class BaseTestRunner {
 
 
         WebDriver driver = new ChromeDriver(options);
-        Dimension dimension = new Dimension(1920, 1080);
+        Dimension dimension = new Dimension(2560, 1440);
         driver.manage().window().setSize(dimension);
         Long implicitlyWait = testValueProvider.getImplicitlyWait();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(implicitlyWait));

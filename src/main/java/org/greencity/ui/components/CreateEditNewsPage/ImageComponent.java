@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.Objects;
+
 public class ImageComponent extends BaseComponent {
 
     @FindBy(css = "input[type='file']")
@@ -164,7 +166,8 @@ public class ImageComponent extends BaseComponent {
 
     @Step("Check if image error message is displayed")
     public boolean isImageErrorMsg() {
-        return imageMessage.getAttribute("class").contains("warning-color");
+        return Objects.requireNonNull(imageMessage.getAttribute("class"))
+                .contains("warning-color");
     }
 
     @Step("Check if image preview is displayed")

@@ -3,14 +3,14 @@ package org.greencity.api.EcoNewsById;
 import io.qameta.allure.*;
 import io.qameta.allure.testng.Tag;
 import io.restassured.response.Response;
+import org.greencity.api.models.common.ErrorResponse;
+import org.greencity.api.models.econews.EcoNewsPageResponse;
+import org.greencity.api.models.econews.EcoNewsQuery;
 import org.greencity.api.testrunners.EcoNewsWithTokenRunner;
-import org.greencity.utils.api.EcoNewsPageResponse;
-import org.greencity.utils.api.ErrorResponse;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import java.util.Map;
+import static org.greencity.utils.api.ApiTestAssertions.assertOk;
 
 @Epic("EcoNews API")
 @Feature("Like EcoNews by ID")
@@ -34,14 +34,16 @@ public class LikeEcoNewsByIdTest extends EcoNewsWithTokenRunner {
     @Test
     @Description("Verify that an attempt to like another user's EcoNews returns 200 status code")
     public void likeAnotherUsersEcoNewsById() {
-        long anotherUserId = 3;
-        Map<String, Object> queryParams = Map.of("author-id", anotherUserId);
-        Response anotherUserEcoNewsPageResponse = ecoNewsClient.getEcoNews(queryParams);
-        Assert.assertEquals(anotherUserEcoNewsPageResponse.getStatusCode(), 200, "Status code should be 200 for getting Eco News created by user with ID " + anotherUserId);
+        int anotherUserId = 3;
+        EcoNewsQuery query = EcoNewsQuery.builder()
+                .authorId(anotherUserId)
+                .build();
+        Response anotherUserEcoNewsPageResponse = ecoNewsClient.getEcoNews(query);
+        assertOk(anotherUserEcoNewsPageResponse);
 
         EcoNewsPageResponse ecoNewsPageResponse = anotherUserEcoNewsPageResponse.as(EcoNewsPageResponse.class);
         long anotherUserEcoNewsId = ecoNewsPageResponse.getPage().getFirst().getId();
         Response anotherUserEcoNewsResponse = ecoNewsClient.likeEcoNewsById(anotherUserEcoNewsId);
-        Assert.assertEquals(anotherUserEcoNewsResponse.getStatusCode(), 200, "Status code should be 200 for liking Eco News by ID " + anotherUserEcoNewsId);
+        assertOk(anotherUserEcoNewsResponse);
     }
 }

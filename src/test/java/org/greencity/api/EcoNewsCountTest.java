@@ -11,6 +11,8 @@ import org.greencity.api.testrunners.EcoNewsWithoutTokenRunner;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import static org.greencity.utils.api.ApiTestAssertions.assertOk;
+
 public class EcoNewsCountTest extends EcoNewsWithoutTokenRunner {
 
     @Epic("EcoNews API")
@@ -24,12 +26,7 @@ public class EcoNewsCountTest extends EcoNewsWithoutTokenRunner {
         int authorId = testValueProvider.getUserId();
 
         Response response = ecoNewsClient.getEcoNewsCountByAuthorId(authorId);
-
-        // verify status code
-        Assert.assertEquals(
-                response.getStatusCode(),
-                200,
-                "Status code should be 200");
+        assertOk(response);
 
         // verify response body
         int count = response.as(Integer.class);

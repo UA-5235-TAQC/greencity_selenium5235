@@ -5,11 +5,12 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.restassured.response.Response;
-import org.greencity.api.models.common.ErrorResponse;
 import org.greencity.api.testrunners.CreateNewsRunner;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import static org.greencity.utils.api.ApiTestAssertions.assertBadRequest;
 
 @Feature("Add News to Favorites with a token")
 @Severity(SeverityLevel.CRITICAL)
@@ -33,9 +34,7 @@ public class FavoriteEcoNewsWithTokenTest extends CreateNewsRunner {
         Assert.assertEquals(ecoNewsClient.addToFavorites(ecoNewsId).getStatusCode(), 200);
 
         Response duplicateAddResponse = ecoNewsClient.addToFavorites(ecoNewsId);
-        Assert.assertEquals(duplicateAddResponse.getStatusCode(), 400);
-
-        ErrorResponse error = duplicateAddResponse.as(ErrorResponse.class);
-        Assert.assertEquals(error.getMessage(), "User has already added this eco new to favorites.");
+        assertBadRequest(duplicateAddResponse,
+                "User has already added this eco new to favorites.");
     }
 }

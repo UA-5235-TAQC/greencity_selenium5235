@@ -9,7 +9,6 @@ import org.greencity.ui.components.TagItem;
 import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.ui.pages.CreateEditNews.NewsPreviewPage;
 import org.greencity.ui.pages.EcoNewsPage;
-import org.greencity.ui.pages.UbsCourierPage;
 import org.greencity.ui.testrunners.EditNews.EditNewsUATestRunner;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -239,7 +238,7 @@ public class EditNewsFormVisibilityTestUA extends EditNewsUATestRunner {
         String testContent = "Гора Едзіза — вулканічна гора в окрузі Кассіар-Ленд на північному заході Британської Колумбії , Канада.";
         editNewsPage.editNews(testTitle, testTags, testSource, testContent, TEST2_FILEPATH);
         NewsPreviewPage preview = editNewsPage.clickPreview();
-        Assert.assertEquals(preview.getNewsTitle(), testTitle,
+        Assert.assertEquals(preview.getNewsTitleText(), testTitle,
                 "News title on Preview page should match entered title");
 
         Assert.assertFalse(preview.getTagItems().isEmpty(),
@@ -252,9 +251,9 @@ public class EditNewsFormVisibilityTestUA extends EditNewsUATestRunner {
         Assert.assertEquals(actual, expected,
                 "Tags on Preview page should match entered tags");
 
-        Assert.assertEquals(preview.getNewsSource(), testSource,
+        Assert.assertEquals(preview.getNewsSourceValue(), testSource,
                 "News source on Preview page should match entered source");
-        Assert.assertEquals(preview.getNewsText(), testContent,
+        Assert.assertEquals(preview.getNewsTextValue(), testContent,
                 "News content on Preview page should match entered content");
         Assert.assertTrue(preview.isImageUploadInputVisible(),
                 "News image input should be displayed on Preview page");

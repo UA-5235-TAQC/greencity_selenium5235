@@ -57,7 +57,7 @@ public class MySpaceNewsTabPage extends MySpaceBasePage {
     public MySpaceNewsItemComponent getNewsById(Long newsId) {
         List<MySpaceNewsItemComponent> news = getNewsList();
         return news.stream()
-                .filter(n -> n.getId().equals(newsId))
+                .filter(n -> n.getNewsId().equals(newsId))
                 .findFirst()
                 .orElseThrow(() ->
                         new NoSuchElementException("News with ID " + newsId + " not found"));

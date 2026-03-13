@@ -4,10 +4,11 @@ import io.restassured.response.Response;
 import org.greencity.api.clients.OwnSecurityClient;
 import org.greencity.api.models.ownsecurity.SignInResponse;
 import org.greencity.api.testrunners.ApiTestRunner;
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+
+import static org.greencity.utils.api.ApiTestAssertions.assertOk;
 
 public class OwnSecurityTest extends ApiTestRunner {
     private OwnSecurityClient client;
@@ -20,7 +21,7 @@ public class OwnSecurityTest extends ApiTestRunner {
     @Test
     public void signInTest(){
         Response response = client.signIn(testValueProvider.getUserEmail(), testValueProvider.getUserPassword());
-        Assert.assertEquals(response.getStatusCode(), 200);
+        assertOk(response);
 
         SignInResponse signInResponse = response.as(SignInResponse.class);
         SoftAssert softAssert = new SoftAssert();

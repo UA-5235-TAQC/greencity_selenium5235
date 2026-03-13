@@ -25,7 +25,7 @@ public class EditOwnNewsTest extends NewsDetailsTestRunner {
     @Description("Verify that the author can edit their own news and the changes are saved")
     @Test
     public void verifyAuthorCanEditOwnNews() {
-        long newsId = newsDetailsPage.getId();
+        long newsId = newsDetailsPage.getNewsId();
         String originalTitle = newsDetailsPage.getTitleValue();
 
         Assert.assertTrue(newsDetailsPage.areTagsVisible(),

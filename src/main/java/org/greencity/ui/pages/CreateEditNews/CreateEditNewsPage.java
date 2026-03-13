@@ -1,6 +1,7 @@
 package org.greencity.ui.pages.CreateEditNews;
 
 import io.qameta.allure.Step;
+import lombok.Getter;
 import org.greencity.ui.components.CreateEditNewsPage.CancelModalComponent;
 import org.greencity.ui.components.CreateEditNewsPage.ContentComponent;
 import org.greencity.ui.components.CreateEditNewsPage.ImageComponent;
@@ -11,18 +12,21 @@ import org.openqa.selenium.remote.UnreachableBrowserException;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class CreateEditNewsPage extends BasePage {
 
     @FindBy(css = "div.main-content")
     private WebElement root;
+    @Getter
     @FindBy(css = "textarea[formcontrolname='title']")
     private WebElement titleInput;
     @FindBy(css = "div.title h2.title-header")
     protected WebElement pageTitleHeader;
     @FindBy(css = "div.tags-box button.tag-button")
     private List<WebElement> tagRootElements;
+    @Getter
     @FindBy(css = "input[formcontrolname='source']")
     private WebElement sourceInput;
     @FindBy(css = "div.image-block")
@@ -182,19 +186,9 @@ public class CreateEditNewsPage extends BasePage {
         return titleInput.getAttribute("value");
     }
 
-    @Step("Get title input WebElement")
-    public WebElement getTitleInput() {
-        return titleInput;
-    }
-
     @Step("Check if source input is visible")
     public boolean isSourceVisible() {
         return isVisible(sourceInput);
-    }
-
-    @Step("Get source input WebElement")
-    public WebElement getSourceInput() {
-        return sourceInput;
     }
 
     @Step("Get source validation message text")
@@ -272,7 +266,7 @@ public class CreateEditNewsPage extends BasePage {
 
     @Step("Get news source text")
     public String getSource() {
-        return sourceInput.getAttribute("value").trim();
+        return Objects.requireNonNull(sourceInput.getAttribute("value")).trim();
     }
 
     @Step("Get placeholder text of source input")

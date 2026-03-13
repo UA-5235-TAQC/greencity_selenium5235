@@ -4,12 +4,12 @@ import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import org.greencity.api.models.ecoNewsComment.AddCommentRequest;
 import org.greencity.api.models.ecoNewsComment.CommentQuery;
 import org.greencity.api.models.ecoNewsComment.GetCommentPageResponse;
 import org.greencity.api.models.ecoNewsComment.GetCommentResponse;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EcoNewsCommentClient extends BaseApiClient{
     protected final String resourcePath = "/eco-news/";
@@ -19,21 +19,13 @@ public class EcoNewsCommentClient extends BaseApiClient{
     }
 
     @Step("API: Add comment to news ID {newsId} with text: '{text}'")
-    public Response addComment(Long newsId, String text, int parentComId, String... imagePaths){
+    public Response addComment(Long newsId, String text, int parentComId, String... imagePaths) {
         String jsonRequest = serializeAddComment(text, parentComId);
-
         RequestSpecification request = prepareRequest()
                 .contentType(ContentType.MULTIPART)
                 .multiPart("request", jsonRequest, "application/json");
-
         attachImagesToMultipart(request, "images", imagePaths);
-
-        return request
-                .post(this.resourcePath + newsId + "/comments")
-                .then()
-                .log().ifValidationFails()
-                .extract()
-                .response();
+        return execute(request.post(resourcePath + newsId + "/comments"));
     }
 
     private String serializeAddComment(String text, int parentComId) {
@@ -51,55 +43,36 @@ public class EcoNewsCommentClient extends BaseApiClient{
 
     @Step("API: Get comment details by ID {commentId}")
     public Response getComment(int commentId){
-       return prepareRequest()
-                .contentType(ContentType.JSON)
-                .get(this.resourcePath + "comments/" + commentId)
-                .then()
-                .log().ifError()
-                .extract()
-                .response();
+        return get(resourcePath + "comments/" + commentId);
     }
 
     @Step("API: Like a comment by ID {commentId}")
-    public Response likeComment(int commentId){
-        return prepareRequest()
-                .contentType(ContentType.JSON)
-                .queryParam("commentId", commentId)
-                .post(this.resourcePath + "comments/like")
-                .then()
-                .log().ifValidationFails()
-                .extract()
-                .response();
+    public Response likeComment(int commentId) {
+        return execute(
+                prepareRequest()
+                        .queryParam("commentId", commentId)
+                        .post(resourcePath + "comments/like")
+        );
     }
 
     @Step("API: Delete comment by ID {commentId}")
     public Response deleteComment(int commentId){
-        return prepareRequest()
-                .contentType(ContentType.JSON)
-                .delete(this.resourcePath + "comments/" + commentId)
-                .then()
-                .log().ifError()
-                .extract()
-                .response();
+        return delete(resourcePath + "comments/" + commentId);
     }
 
     @Step("API: Get all active replies for comment ID {parentCommentId} with query params")
     public Response getActiveReplies(long parentCommentId, CommentQuery query) {
-        RequestSpecification request = prepareRequest()
-                .contentType("application/json");
+        Map<String, Object> queryParams = new HashMap<>();
 
         if (query != null) {
-            if (query.getPage() != null) request.queryParam("page", query.getPage());
-            if (query.getSize() != null) request.queryParam("size", query.getSize());
+            if (query.getPage() != null) queryParams.put("page", query.getPage());
+            if (query.getSize() != null) queryParams.put("size", query.getSize());
             if (query.getSort() != null && !query.getSort().isEmpty()) {
-                for (String s : query.getSort()) {
-                    request.queryParam("sort", s);
-                }
+                queryParams.put("sort", query.getSort());
             }
         }
 
-        return execute(request
-                .get(this.resourcePath + "comments/" + parentCommentId + "/replies/active"));
+        return get(resourcePath + "comments/" + parentCommentId + "/replies/active", queryParams);
     }
 
     public Response getActiveReplies(long parentCommentId) {
@@ -121,12 +94,6 @@ public class EcoNewsCommentClient extends BaseApiClient{
 
     @Step("API: Count active replies for comment ID {parentCommentId}")
     public Response countActiveReplies(long parentCommentId) {
-        return execute(
-                prepareRequest()
-                        .contentType(ContentType.JSON)
-                        .get(this.resourcePath + "comments/"
-                                + parentCommentId
-                                + "/replies/active/count")
-        );
+        return get(resourcePath + "comments/" + parentCommentId + "/replies/active/count");
     }
 }

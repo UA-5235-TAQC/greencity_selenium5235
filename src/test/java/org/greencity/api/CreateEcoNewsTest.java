@@ -9,7 +9,6 @@ import org.greencity.api.models.econews.EcoNewsRequest;
 import org.greencity.api.models.econews.EcoNewsResponse;
 import org.greencity.api.testrunners.ApiTestRunner;
 import org.greencity.ui.enums.EcoNewsTag;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -18,6 +17,9 @@ import org.testng.asserts.SoftAssert;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.greencity.utils.api.ApiTestAssertions.assertCreated;
+import static org.greencity.utils.api.ApiTestAssertions.assertOk;
 
 @Epic("EcoNews API")
 @Feature("Create EcoNews")
@@ -39,7 +41,7 @@ public class CreateEcoNewsTest extends ApiTestRunner {
                 testValueProvider.getUserEmail(),
                 testValueProvider.getUserPassword()
         );
-        Assert.assertEquals(response.getStatusCode(), 200, "Login request failed");
+        assertOk(response);
 
         accessToken = response.jsonPath().getString("accessToken");
 
@@ -76,8 +78,7 @@ public class CreateEcoNewsTest extends ApiTestRunner {
         if (responseBody.getId() != null) {
             newsToDelete.add(responseBody.getId());
         }
-
-        Assert.assertEquals(response.getStatusCode(), 201, "Eco News was not created!");
+        assertCreated(response);
 
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertNotNull(responseBody.getId());
@@ -109,8 +110,7 @@ public class CreateEcoNewsTest extends ApiTestRunner {
                 .build();
 
         Response response = ecoNewsClient.postEcoNews(requestBody, imagePath);
-
-        Assert.assertEquals(response.getStatusCode(), 201, "Eco News was not created!");
+        assertCreated(response);
 
         EcoNewsResponse responseBody = response.as(EcoNewsResponse.class);
 

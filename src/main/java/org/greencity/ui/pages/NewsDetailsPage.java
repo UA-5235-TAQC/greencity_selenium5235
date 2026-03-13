@@ -1,10 +1,10 @@
 package org.greencity.ui.pages;
 
 import io.qameta.allure.Step;
+import lombok.Getter;
 import org.greencity.ui.components.CommentItemComponent;
 import org.greencity.ui.components.NewsDetailsContentComponent;
 import org.greencity.ui.components.NewsListItemComponent;
-import org.greencity.ui.pages.CreateEditNews.CreateEditNewsPage;
 import org.greencity.ui.pages.CreateEditNews.EditNewsPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -72,6 +72,7 @@ public class NewsDetailsPage extends BasePage {
     @FindBy(css = "img.news-image-img")
     private WebElement newsImage;
 
+    @Getter
     private final long newsId;
 
     public NewsDetailsPage(WebDriver driver, long newsId) {
@@ -271,11 +272,6 @@ public class NewsDetailsPage extends BasePage {
     @Step("Get author name")
     public String getAuthor() {
         return authorName.getText().substring(3).trim();
-    }
-
-    @Step("Get news ID")
-    public long getId() {
-        return newsId;
     }
 
     @Step("Check if content is visible")

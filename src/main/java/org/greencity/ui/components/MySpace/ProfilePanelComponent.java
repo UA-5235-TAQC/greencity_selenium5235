@@ -1,5 +1,6 @@
 package org.greencity.ui.components.MySpace;
 
+import lombok.Getter;
 import org.greencity.ui.components.BaseComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,6 +16,7 @@ import java.util.List;
  */
 public class ProfilePanelComponent extends BaseComponent {
 
+    @Getter
     @FindBy(css = "app-user-profile-image img.profile-avatar")
     private WebElement avatar;
 
@@ -41,11 +43,6 @@ public class ProfilePanelComponent extends BaseComponent {
 
     public ProfilePanelComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
-    }
-
-    /** Returns the avatar WebElement */
-    public WebElement getAvatar() {
-        return avatar;
     }
 
     /** Returns the full name of the user */

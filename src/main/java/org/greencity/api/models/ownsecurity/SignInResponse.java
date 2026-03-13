@@ -9,7 +9,4 @@ public class SignInResponse {
     private String refreshToken;
     private String name;
     private boolean ownRegistrations;
-
-
 }
-

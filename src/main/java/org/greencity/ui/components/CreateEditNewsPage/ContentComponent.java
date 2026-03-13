@@ -1,12 +1,14 @@
 package org.greencity.ui.components.CreateEditNewsPage;
 
 import io.qameta.allure.Step;
+import lombok.Getter;
 import org.greencity.ui.components.BaseComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class ContentComponent extends BaseComponent {
+    @Getter
     @FindBy(css = ".ql-editor")
     private WebElement content;
 
@@ -83,11 +85,6 @@ public class ContentComponent extends BaseComponent {
     @Step("Check if informational validation message is visible at the top-right of the content editor")
     public boolean isContentMessageVisible() {
         return isVisible(contentMessage);
-    }
-
-    @Step("Get content WebElement")
-    public WebElement getContent() {
-        return content;
     }
 
     @Step("Get content text")

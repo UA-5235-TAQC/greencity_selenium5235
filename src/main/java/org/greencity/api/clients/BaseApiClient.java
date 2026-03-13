@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Map;
 
 public abstract class BaseApiClient {
     protected final String baseApiUrl;
@@ -68,6 +69,23 @@ public abstract class BaseApiClient {
         return execute(
                 prepareRequest()
                         .get(path)
+        );
+    }
+
+    @Step("GET request to {path} with query params: {queryParams}")
+    protected Response get(String path, Map<String, ?> queryParams) {
+        return execute(
+                prepareRequest()
+                        .queryParams(queryParams)
+                        .get(path)
+        );
+    }
+
+    @Step("POST request to {path}")
+    protected Response post(String path) {
+        return execute(
+                prepareRequest()
+                        .post(path)
         );
     }
 
