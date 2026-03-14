@@ -9,7 +9,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
@@ -59,7 +58,7 @@ public class EcoNewsPage extends BasePage {
     @Step("Wait until Eco News page is opened")
     @Override
     public EcoNewsPage waitUntilOpened() {
-        wait.until(ExpectedConditions.visibilityOf(pageTitle));
+        waitUntilVisible(pageTitle);
         return this;
     }
 
@@ -114,6 +113,7 @@ public class EcoNewsPage extends BasePage {
 
     @Step("Click on Create News button")
     public CreateNewsPage clickCreateNews() {
+        waitUntilClickable(createNewsBtn);
         createNewsBtn.click();
         return new CreateNewsPage(driver);
     }

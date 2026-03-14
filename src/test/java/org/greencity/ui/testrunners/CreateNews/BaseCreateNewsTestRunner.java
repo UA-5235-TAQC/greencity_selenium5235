@@ -13,7 +13,7 @@ public abstract class BaseCreateNewsTestRunner extends BaseTestRunner {
     @Description("Precondition: login user, switch language, and open Create News page")
     @BeforeMethod
     public void beforeMethod() {
-        var header = LoginUser().getHeader();
+        HeaderComponent header = LoginUser().getHeader();
 
         switchLanguage(header);
 

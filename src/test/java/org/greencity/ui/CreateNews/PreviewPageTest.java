@@ -33,7 +33,7 @@ public class PreviewPageTest extends CreateNewsENTestRunner {
                 .enterTitle(newsTitle)
                 .getContentComponent()
                 .enterContent(newsText);
-        createNewsPage.clickPreview();
+        previewPage = createNewsPage.clickPreview();
 
         Assert.assertEquals(getDriver().getCurrentUrl(),
                 testValueProvider.getBaseUIGreenCityUrl() + "#/greenCity/news/preview");

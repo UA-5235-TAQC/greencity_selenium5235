@@ -75,13 +75,28 @@ public class BaseTestRunner {
     }
 
     @Severity(SeverityLevel.CRITICAL)
-    protected MySpaceHabitsTabPage LoginUser() {
+    protected MySpaceHabitsTabPage login(String email, String password) {
         return new HomePage(getDriver())
                 .open()
                 .getHeader()
                 .changeToEN()
                 .clickSignInLink()
-                .loginAs(testValueProvider.getUserEmail(), testValueProvider.getUserPassword());
+                .loginAs(email, password);
     }
 
+    @Severity(SeverityLevel.CRITICAL)
+    protected MySpaceHabitsTabPage LoginUser() {
+        return login(
+                testValueProvider.getUserEmail(),
+                testValueProvider.getUserPassword()
+        );
+    }
+
+    @Severity(SeverityLevel.CRITICAL)
+    protected MySpaceHabitsTabPage LoginSecondUser() {
+        return login(
+                testValueProvider.getSecondUserEmail(),
+                testValueProvider.getSecondUserPassword()
+        );
+    }
 }

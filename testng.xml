@@ -22,7 +22,7 @@
 
             <class name="org.greencity.ui.FirstTest"/>
             <class name="org.greencity.ui.FirstTestWithUser"/>
-            <class name="org.greencity.ui.TagSelectionTest"/>
+            <class name="org.greencity.ui.CreateNews.TagSelectionTest"/>
         </classes>
     </test>
     <test name="API Tests">

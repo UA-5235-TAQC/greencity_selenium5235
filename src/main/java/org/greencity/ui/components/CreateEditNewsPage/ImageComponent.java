@@ -166,8 +166,8 @@ public class ImageComponent extends BaseComponent {
 
     @Step("Check if image error message is displayed")
     public boolean isImageErrorMsg() {
-        return Objects.requireNonNull(imageMessage.getAttribute("class"))
-                .contains("warning-color");
+        waitUntilVisible(imageMessage);
+        return imageMessage.getAttribute("class").contains("warning-color");
     }
 
     @Step("Check if image preview is displayed")

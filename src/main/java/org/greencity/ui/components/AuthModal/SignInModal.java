@@ -5,6 +5,7 @@ import org.greencity.ui.pages.MySpace.MySpaceHabitsTabPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.Keys;
 
 
 public class SignInModal extends AuthModalBase {
@@ -23,10 +24,16 @@ public class SignInModal extends AuthModalBase {
         super(driver);
     }
 
+    public void clearField(WebElement element) {
+        element.click();
+        element.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        element.sendKeys(Keys.DELETE);
+    }
+
     @Step("Enter password")
     @Override
     public SignInModal enterPassword(String password) {
-        passwordInput.clear();
+        clearField(passwordInput);
         passwordInput.sendKeys(password);
         return this;
     }
@@ -34,7 +41,8 @@ public class SignInModal extends AuthModalBase {
     @Step("Enter email: {email}")
     @Override
     public SignInModal enterEmail(String email) {
-        emailInput.clear();
+        waitUntilVisible(emailInput);
+        clearField(emailInput);
         emailInput.sendKeys(email);
         return this;
     }

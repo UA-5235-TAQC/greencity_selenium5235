@@ -104,6 +104,7 @@ public class ContentComponent extends BaseComponent {
 
     @Step("Check if informational validation message is highlighted in red because character count is less than 20")
     public boolean isContentMessageInvalid() {
+        waitUntilVisible(contentMessage);
         return contentMessage.getAttribute("class").contains("warning");
     }
 

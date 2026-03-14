@@ -30,6 +30,7 @@ public class CreateNewsPage extends CreateEditNewsPage {
 
     @Step("Check if Publish button is enabled")
     public boolean isPublishButtonEnabled() {
+        waitUntilVisible(publishBtn);
         return publishBtn.isEnabled();
     }
 

@@ -13,6 +13,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class NewsDetailsPage extends BasePage {
@@ -298,5 +300,19 @@ public class NewsDetailsPage extends BasePage {
     public boolean isNewsImagePresent() {
         String src = getNewsImageSrc();
         return src != null && src.startsWith("https://");
+    }
+
+    @Step("Get news id from URL")
+    public long getNewsIdFromUrl() {
+        String url = driver.getCurrentUrl();
+
+        Pattern pattern = Pattern.compile("(?:id=|/news/)(\\d+)");
+        Matcher matcher = pattern.matcher(url);
+
+        if (matcher.find()) {
+            return Long.parseLong(matcher.group(1));
+        }
+
+        throw new RuntimeException("News ID not found in URL: " + url);
     }
 }

@@ -4,9 +4,9 @@ import io.qameta.allure.*;
 import io.qameta.allure.testng.Tag;
 import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.ui.pages.CreateEditNews.EditNewsPage;
+import org.greencity.ui.pages.EcoNewsPage;
 import org.greencity.ui.pages.NewsDetailsPage;
-import org.greencity.ui.pages.UbsCourierPage;
-import org.greencity.ui.testrunners.NewsDetailsTestRunner;
+import org.greencity.ui.testrunners.NewsDetails.NewsDetailsENTestRunner;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -20,12 +20,11 @@ import static org.greencity.utils.ui.NewsTestData.*;
 @Story("Verify author can edit their own news and changes are saved")
 @Severity(SeverityLevel.CRITICAL)
 @Issue("13")
-public class EditOwnNewsTest extends NewsDetailsTestRunner {
+public class EditOwnNewsTest extends NewsDetailsENTestRunner {
 
     @Description("Verify that the author can edit their own news and the changes are saved")
     @Test
     public void verifyAuthorCanEditOwnNews() {
-        long newsId = newsDetailsPage.getNewsId();
         String originalTitle = newsDetailsPage.getTitleValue();
 
         Assert.assertTrue(newsDetailsPage.areTagsVisible(),
@@ -55,7 +54,8 @@ public class EditOwnNewsTest extends NewsDetailsTestRunner {
         Assert.assertTrue(newsDetailsPage.isNewsImagePresent(),
                 "News image should be present");
 
-        EditNewsPage editNewsPage = newsDetailsPage.clickEditButton().open();
+        long ecoNewsId = newsDetailsPage.getNewsIdFromUrl();
+        EditNewsPage editNewsPage = newsDetailsPage.clickEditButton();
         Assert.assertTrue(editNewsPage.isPageOpened(), "Edit News page should be opened");
 
         String updatedTitle = originalTitle + " Updated";
@@ -76,12 +76,12 @@ public class EditOwnNewsTest extends NewsDetailsTestRunner {
                 "Submit button should be enabled after valid changes");
         editNewsPage.clickEdit();
 
-        UbsCourierPage ubsCourierPage = new UbsCourierPage(driver);
-        ubsCourierPage.getHeader().changeToEN();
-        Assert.assertTrue(ubsCourierPage.isPageOpened(),
-                "User should be directed to UbsCourierPage");
+        EcoNewsPage ecoNewsPage = new EcoNewsPage(driver);
+        ecoNewsPage.getHeader().changeToEN();
+        Assert.assertTrue(ecoNewsPage.isPageOpened(),
+                "User should be directed to EcoNewsPage");
 
-        newsDetailsPage = new NewsDetailsPage(driver, newsId).open();
+        newsDetailsPage = new NewsDetailsPage(driver, ecoNewsId).open();
         newsDetailsPage.getHeader().changeToEN();
         Assert.assertTrue(newsDetailsPage.isPageOpened(), "News Details page should be opened");
 
@@ -129,14 +129,14 @@ public class EditOwnNewsTest extends NewsDetailsTestRunner {
         Assert.assertNotEquals(actualSrc, src,
                 "News image should not be the same as the original image before editing");
 
-        editNewsPage = new EditNewsPage(driver, newsId).open();
+        editNewsPage = new EditNewsPage(driver, ecoNewsId).open();
         editNewsPage.getHeader().changeToEN();
         editNewsPage.editNews(TEST_TITLE_EN, EcoNewsTag.getEn(TEST_TAGS), TEST_SOURCE, TEST_CONTENT_EN, TEST_FILEPATH);
         editNewsPage.clickEdit();
 
-        ubsCourierPage = new UbsCourierPage(driver);
-        ubsCourierPage.getHeader().changeToEN();
-        Assert.assertTrue(ubsCourierPage.isPageOpened(),
-                "User should be directed to UbsCourierPage");
+        EcoNewsPage newsPage = new EcoNewsPage(driver);
+        newsPage.getHeader().changeToEN();
+        Assert.assertTrue(newsPage.isPageOpened(),
+                "User should be directed to EcoNewsPage");
     }
 }
