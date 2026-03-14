@@ -7,6 +7,7 @@ import io.qameta.allure.SeverityLevel;
 import io.restassured.response.Response;
 import org.greencity.api.testrunners.CreateNewsRunner;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 

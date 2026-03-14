@@ -11,7 +11,7 @@ import org.greencity.api.models.ecoNewsComment.GetCommentResponse;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EcoNewsCommentClient extends BaseApiClient{
+public class EcoNewsCommentClient extends BaseApiClient {
     protected final String resourcePath = "/eco-news/";
 
     public EcoNewsCommentClient(String baseUrl, String token) {
@@ -42,7 +42,7 @@ public class EcoNewsCommentClient extends BaseApiClient{
     }
 
     @Step("API: Get comment details by ID {commentId}")
-    public Response getComment(int commentId){
+    public Response getComment(int commentId) {
         return get(resourcePath + "comments/" + commentId);
     }
 
@@ -56,7 +56,7 @@ public class EcoNewsCommentClient extends BaseApiClient{
     }
 
     @Step("API: Delete comment by ID {commentId}")
-    public Response deleteComment(int commentId){
+    public Response deleteComment(int commentId) {
         return delete(resourcePath + "comments/" + commentId);
     }
 

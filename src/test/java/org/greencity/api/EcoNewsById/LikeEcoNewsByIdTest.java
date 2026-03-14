@@ -19,12 +19,13 @@ import static org.greencity.utils.api.EcoNewsAssertions.getEcoNewsByAuthor;
 @Tag("API")
 public class LikeEcoNewsByIdTest extends CreateNewsRunner {
 
-    protected SecondUserRunner secondUser;
+    private EcoNewsClient secondUserClient;
 
     @BeforeClass
     public void prepareSecondUser() {
-        secondUser = new SecondUserRunner();
+        SecondUserRunner secondUser = new SecondUserRunner();
         secondUser.loginSecondUser();
+        secondUserClient = secondUser.getEcoNewsClient();
     }
 
     @Test
@@ -38,9 +39,8 @@ public class LikeEcoNewsByIdTest extends CreateNewsRunner {
     @Test
     @Description("Verify that an attempt to like another user's EcoNews returns 200 status code")
     public void likeAnotherUsersEcoNewsById() {
-        EcoNewsClient secondUserEcoNewsClient = secondUser.getEcoNewsClient();
-        getEcoNewsByAuthor(secondUserEcoNewsClient, testValueProvider.getSecondUserId());
-        Response response = secondUserEcoNewsClient.likeEcoNewsById(ecoNewsId);
+        getEcoNewsByAuthor(secondUserClient, testValueProvider.getSecondUserId());
+        Response response = secondUserClient.likeEcoNewsById(ecoNewsId);
         assertOk(response);
     }
 }
