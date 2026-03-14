@@ -4,9 +4,9 @@ import io.restassured.response.Response;
 import org.greencity.api.models.common.ErrorResponse;
 import org.testng.Assert;
 
-public final class ApiTestAssertions {
+import static org.apache.hc.core5.http.HttpStatus.*;
 
-    private ApiTestAssertions() {}
+public final class ApiTestAssertions {
 
     /**
      * Asserts that the response is 400 Bad Request and the error message matches.
@@ -15,7 +15,7 @@ public final class ApiTestAssertions {
      * @param expectedMessage Expected error message
      */
     public static void assertBadRequest(Response response, String expectedMessage) {
-        Assert.assertEquals(response.getStatusCode(), 400,
+        Assert.assertEquals(response.getStatusCode(), SC_BAD_REQUEST,
                 "Expected 400 Bad Request");
         assertErrorMessage(response, expectedMessage);
     }
@@ -27,7 +27,7 @@ public final class ApiTestAssertions {
      * @param expectedMessage Expected error message
      */
     public static void assertNotFound(Response response, String expectedMessage) {
-        Assert.assertEquals(response.getStatusCode(), 404,
+        Assert.assertEquals(response.getStatusCode(), SC_NOT_FOUND,
                 "Expected 404 Not Found");
         assertErrorMessage(response, expectedMessage);
     }
@@ -38,7 +38,7 @@ public final class ApiTestAssertions {
      * @param response Response from API call
      */
     public static void assertOk(Response response) {
-        Assert.assertEquals(response.getStatusCode(), 200,
+        Assert.assertEquals(response.getStatusCode(), SC_OK,
                 "Expected 200 OK");
     }
 
@@ -46,7 +46,7 @@ public final class ApiTestAssertions {
      * Asserts that the response is 201 Created.
      */
     public static void assertCreated(Response response) {
-        Assert.assertEquals(response.getStatusCode(), 201,
+        Assert.assertEquals(response.getStatusCode(), SC_CREATED,
                 "Expected 201 Created");
     }
 
@@ -56,7 +56,7 @@ public final class ApiTestAssertions {
      * @param response Response from API call
      */
     public static void assertUnauthorized(Response response) {
-        Assert.assertEquals(response.getStatusCode(), 401,
+        Assert.assertEquals(response.getStatusCode(), SC_UNAUTHORIZED,
                 "Expected 401 Unauthorized");
         ErrorResponse error = response.as(ErrorResponse.class);
         Assert.assertEquals(error.getError(), "Unauthorized",

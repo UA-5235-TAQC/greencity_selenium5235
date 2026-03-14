@@ -3,14 +3,11 @@ package org.greencity.api;
 import io.qameta.allure.*;
 import io.qameta.allure.testng.Tag;
 import io.restassured.response.Response;
-import org.greencity.api.clients.EcoNewsClient;
-import org.greencity.api.clients.OwnSecurityClient;
 import org.greencity.api.models.econews.EcoNewsRequest;
 import org.greencity.api.models.econews.EcoNewsResponse;
-import org.greencity.api.testrunners.ApiTestRunner;
+import org.greencity.api.testrunners.FirstUserRunner;
 import org.greencity.ui.enums.EcoNewsTag;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -19,34 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.greencity.utils.api.ApiTestAssertions.assertCreated;
-import static org.greencity.utils.api.ApiTestAssertions.assertOk;
 
 @Epic("EcoNews API")
 @Feature("Create EcoNews")
 @Story("Verify that an authorized user can create a new EcoNews item")
 @Severity(SeverityLevel.CRITICAL)
 @Tag("API")
-public class CreateEcoNewsTest extends ApiTestRunner {
-    private String accessToken;
-    private EcoNewsClient ecoNewsClient;
+public class CreateEcoNewsTest extends FirstUserRunner {
     private final List<Long> newsToDelete = new ArrayList<>();
-
-    @BeforeClass
-    public void prepareTokens() {
-
-        String userApiUrl = testValueProvider.getBaseGreencityUserAPIUrl();
-        OwnSecurityClient ownSecurityClient = new OwnSecurityClient(userApiUrl);
-
-        Response response = ownSecurityClient.signIn(
-                testValueProvider.getUserEmail(),
-                testValueProvider.getUserPassword()
-        );
-        assertOk(response);
-
-        accessToken = response.jsonPath().getString("accessToken");
-
-        ecoNewsClient = new EcoNewsClient(testValueProvider.getGreencityAPIUrl(), accessToken);
-    }
 
     @AfterClass
     public void deleteCreatedNews() {

@@ -72,13 +72,6 @@ public class TestValueProvider {
         return System.getenv("USER_LOCATION");
     }
 
-    public Integer getUserRate() {
-        if (properties != null) {
-            return Integer.parseInt(properties.getProperty("user.rating"));
-        }
-        return Integer.parseInt(System.getenv("USER_RATING"));
-    }
-
     public boolean isHeadlessMode() {
         if (properties != null) {
             return Boolean.parseBoolean(properties.getProperty("headless.mode"));
@@ -99,5 +92,34 @@ public class TestValueProvider {
         }
 
         return System.getenv("BASE_GREEN_CITY_API_URL");
+    }
+
+    public String getSecondUserName() {
+        if (properties != null) {
+            return properties.getProperty("second_user.name");
+        }
+        return System.getenv("SECOND_USER_NAME");
+    }
+
+    public String getSecondUserEmail() {
+        if (properties != null) {
+            return properties.getProperty("second_user.email");
+        }
+        return System.getenv("SECOND_USER_EMAIL");
+    }
+
+    public String getSecondUserPassword() {
+        if (properties != null) {
+            return properties.getProperty("second_user.password");
+        }
+        return System.getenv("SECOND_USER_PASSWORD");
+    }
+
+    public int getSecondUserId() {
+
+        if (properties != null) {
+            return Integer.parseInt(properties.getProperty("second_user.id"));
+        }
+        return Integer.parseInt(System.getenv("SECOND_USER_ID"));
     }
 }

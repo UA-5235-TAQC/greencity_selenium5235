@@ -1,12 +1,15 @@
 package org.greencity.utils.api;
 
+import org.greencity.api.clients.EcoNewsClient;
 import org.greencity.api.models.econews.EcoNewsBase;
+import org.greencity.api.models.econews.EcoNewsQuery;
 import org.greencity.api.models.econews.EcoNewsResponse;
 import org.testng.asserts.SoftAssert;
+import io.restassured.response.Response;
+
+import static org.greencity.utils.api.ApiTestAssertions.assertOk;
 
 public class EcoNewsAssertions {
-
-    private EcoNewsAssertions() {}
 
     public static void assertEcoNewsResponse(EcoNewsResponse actual,
                                              EcoNewsBase expected,
@@ -70,5 +73,14 @@ public class EcoNewsAssertions {
                 "Hidden should be false");
 
         softAssert.assertAll();
+    }
+
+    public static void getEcoNewsByAuthor(EcoNewsClient client, int authorId) {
+        EcoNewsQuery query = EcoNewsQuery.builder()
+                .authorId(authorId)
+                .build();
+
+        Response response = client.getEcoNews(query);
+        assertOk(response);
     }
 }

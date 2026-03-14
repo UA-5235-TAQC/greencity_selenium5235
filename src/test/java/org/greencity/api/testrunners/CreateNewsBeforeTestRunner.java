@@ -11,7 +11,7 @@ import java.io.File;
 
 import static org.greencity.utils.api.ApiTestAssertions.assertCreated;
 
-public class CreateNewsBeforeTestRunner extends EcoNewsWithTokenRunner {
+public class CreateNewsBeforeTestRunner extends FirstUserRunner {
     protected long ecoNewsId;
     protected String imagePath;
     protected EcoNewsResponse createdNews;

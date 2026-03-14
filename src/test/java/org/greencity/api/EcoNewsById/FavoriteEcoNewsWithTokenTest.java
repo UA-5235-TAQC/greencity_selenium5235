@@ -11,6 +11,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import static org.greencity.utils.api.ApiTestAssertions.assertBadRequest;
+import static org.greencity.utils.api.ApiTestAssertions.assertOk;
 
 @Feature("Add News to Favorites with a token")
 @Severity(SeverityLevel.CRITICAL)
@@ -24,14 +25,14 @@ public class FavoriteEcoNewsWithTokenTest extends CreateNewsRunner {
     @Test
     @Description("Add EcoNews to favorites and then remove it (authorized)")
     public void addAndRemoveEcoNewsFavorites_authorized() {
-        Assert.assertEquals(ecoNewsClient.addToFavorites(ecoNewsId).getStatusCode(), 200);
-        Assert.assertEquals(ecoNewsClient.removeFromFavorites(ecoNewsId).getStatusCode(), 200);
+        assertOk(ecoNewsClient.addToFavorites(ecoNewsId));
+        assertOk(ecoNewsClient.removeFromFavorites(ecoNewsId));
     }
 
     @Test
     @Description("Add the same EcoNews twice - should return 400 error")
     public void addToFavoritesTwiceShouldReturnError400() {
-        Assert.assertEquals(ecoNewsClient.addToFavorites(ecoNewsId).getStatusCode(), 200);
+        assertOk(ecoNewsClient.addToFavorites(ecoNewsId));
 
         Response duplicateAddResponse = ecoNewsClient.addToFavorites(ecoNewsId);
         assertBadRequest(duplicateAddResponse,

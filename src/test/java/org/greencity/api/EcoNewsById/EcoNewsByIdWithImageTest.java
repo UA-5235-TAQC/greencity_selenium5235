@@ -83,7 +83,7 @@ public class EcoNewsByIdWithImageTest extends CreateNewsRunner {
         updateDto.setTags(EcoNewsTag.getEn(TEST_TAGS));
         updateDto.setTitle(TITLE_UK);
         updateDto.setContent(CONTENT_UK);
-        updateDto.setId(ecoNewsId + 1);
+        updateDto.setId(ecoNewsId + 10);
         Response response = ecoNewsClient.updateEcoNewsById(ecoNewsId, updateDto, null);
         assertBadRequest(response,
                 "Eco news id in path param and eco news id in entity not equal");

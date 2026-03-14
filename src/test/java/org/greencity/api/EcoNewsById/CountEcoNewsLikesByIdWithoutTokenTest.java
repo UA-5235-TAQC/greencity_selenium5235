@@ -20,13 +20,13 @@ public class CountEcoNewsLikesByIdWithoutTokenTest extends EcoNewsWithoutTokenRu
     @Test
     @Description("Verify that an attempt to get likes count on non-existing Eco News returns 404 status code.")
     public void countNonExistingEcoNewsLikes() {
-        long nonExistingId = 999999L;
+        long nonExistingId = ecoNewsId + 10;
         Response response = ecoNewsClient.countEcoNewsLikes(nonExistingId);
         ErrorResponse error = response.as(ErrorResponse.class);
 
         SoftAssert softAssert = new SoftAssert();
         assertNotFound(response,
-                "Status code should be 404 for getting likes count on non-existing Eco News.");
+                "Eco new doesn't exist by this id: " + nonExistingId);
         softAssert.assertEquals(error.getMessage(), "Eco new doesn't exist by this id: " + nonExistingId, "Error message should be 'Eco new doesn't exist by this id: " + nonExistingId + "'");
         softAssert.assertAll();
     }

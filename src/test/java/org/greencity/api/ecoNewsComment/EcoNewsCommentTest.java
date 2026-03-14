@@ -3,59 +3,47 @@ package org.greencity.api.ecoNewsComment;
 import io.restassured.response.Response;
 import org.greencity.api.clients.EcoNewsClient;
 import org.greencity.api.clients.EcoNewsCommentClient;
-import org.greencity.api.clients.OwnSecurityClient;
 import org.greencity.api.models.ecoNewsComment.AddCommentResponse;
 import io.qameta.allure.*;
 import org.greencity.api.models.ecoNewsComment.GetCommentResponse;
 import org.greencity.api.models.econews.EcoNewsRequest;
 import org.greencity.api.models.econews.EcoNewsResponse;
-import org.greencity.api.models.ownsecurity.SignInResponse;
-import org.greencity.api.testrunners.ApiTestRunner;
-import org.greencity.api.utils.DateUtil;
-import org.greencity.ui.enums.EcoNewsTag;
+import org.greencity.api.testrunners.FirstUserRunner;
+import org.greencity.api.testrunners.SecondUserRunner;
+import org.greencity.utils.api.EcoNewsDtoFactory;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
-
-import java.util.List;
 
 import static org.greencity.utils.api.ApiTestAssertions.assertCreated;
 import static org.greencity.utils.api.ApiTestAssertions.assertOk;
+import static org.greencity.utils.api.CommentAssertions.verifyCommentResponse;
+import static org.greencity.utils.api.EcoNewsCommentFactory.COMMENT_IMAGES_PATHS;
 
 @Epic("Eco News")
 @Feature("Comments")
-public class EcoNewsCommentTest extends ApiTestRunner {
+public class EcoNewsCommentTest extends FirstUserRunner {
     private EcoNewsCommentClient ecoNewsCommentClient;
     private EcoNewsClient ecoNewsClient;
-    EcoNewsRequest newsRequestBody = EcoNewsRequest.builder()
-            .title("News title for testing api comment controller")
-            .text("News text for testing api comment controller. Should be more than 20 character, or no, I don't remember.")
-            .tags(List.of(EcoNewsTag.NEWS.getEn().toLowerCase()))
-            .source("https://example.com")
-            .shortInfo("Short info")
-            .build();
+    private final EcoNewsRequest newsRequestBody = EcoNewsDtoFactory.createTestNews();
     private Long newsId;
-    private final String[] imagesPaths = {
-            "src/test/resources/images/test.jfif",
-            "src/test/resources/images/test2.png",
-    };
     private int commentIdWithImage;
     private int commentId;
     private int subCommentId;
+    private String author;
+    private SecondUserRunner secondUser;
 
     @BeforeClass
     public void setUpEcoNewsComment() {
-        OwnSecurityClient securityClient = new OwnSecurityClient(testValueProvider.getBaseGreencityUserAPIUrl());
-        Response signInResponseRaw = securityClient.signIn(testValueProvider.getUserEmail(), testValueProvider.getUserPassword());
-        assertOk(signInResponseRaw);
-        String accessToken = signInResponseRaw.as(SignInResponse.class).getAccessToken();
         this.ecoNewsCommentClient = new EcoNewsCommentClient(testValueProvider.getGreencityAPIUrl(), accessToken);
         this.ecoNewsClient = new EcoNewsClient(testValueProvider.getGreencityAPIUrl(), accessToken);
         Response response = ecoNewsClient.postEcoNews(newsRequestBody);
         assertCreated(response);
         this.newsId = response.as(EcoNewsResponse.class).getId();
+        this.author = testValueProvider.getUserName();
+        secondUser = new SecondUserRunner();
+        secondUser.loginSecondUser();
     }
 
     @Test
@@ -68,20 +56,23 @@ public class EcoNewsCommentTest extends ApiTestRunner {
 
         AddCommentResponse responseBody = response.as(AddCommentResponse.class);
         this.commentId = responseBody.getId();
-
-        verifyCommentResponse(responseBody, "Test comment from API Automation", 0);
+        String text = "Test comment from API Automation";
+        verifyCommentResponse(responseBody, text, this.author, 0);
     }
 
     @Test
     @Severity(SeverityLevel.NORMAL)
     @Story("User should be able to add a comment with images")
     public void addCommentWithImagesTest() {
-        Response response = ecoNewsCommentClient.addComment(newsId, "Test comment from API Automation with images", 0, imagesPaths);
+        Response response = ecoNewsCommentClient.addComment(
+                newsId, "Test comment from API Automation with images", 0, COMMENT_IMAGES_PATHS
+        );
         assertCreated(response);
 
         AddCommentResponse responseBody = response.as(AddCommentResponse.class);
         this.commentIdWithImage = responseBody.getId();
-        verifyCommentResponse(responseBody, "Test comment from API Automation with images", imagesPaths.length);
+        String text = "Test comment from API Automation with images";
+        verifyCommentResponse(responseBody, text, this.author, COMMENT_IMAGES_PATHS.length);
     }
 
     @Test(dependsOnMethods = {"addCommentWithImagesTest"})
@@ -89,11 +80,13 @@ public class EcoNewsCommentTest extends ApiTestRunner {
     @Story("User should be able to reply to a comment with images")
     public void addSubCommentTestWithImages() {
         String text = "Test subComment from API Automation with images";
-        Response response = ecoNewsCommentClient.addComment(newsId, text, commentIdWithImage, imagesPaths);
+        Response response = ecoNewsCommentClient.addComment(
+                newsId, text, commentIdWithImage, COMMENT_IMAGES_PATHS
+        );
         assertCreated(response);
         AddCommentResponse responseBody = response.as(AddCommentResponse.class);
         this.subCommentId = responseBody.getId();
-        verifyCommentResponse(responseBody, text, imagesPaths.length);
+        verifyCommentResponse(responseBody, text, this.author, COMMENT_IMAGES_PATHS.length);
     }
 
     @Test(dependsOnMethods = {"addCommentTest"})
@@ -104,7 +97,7 @@ public class EcoNewsCommentTest extends ApiTestRunner {
         Response response = ecoNewsCommentClient.addComment(newsId, text, commentId);
         assertCreated(response);
         AddCommentResponse responseBody = response.as(AddCommentResponse.class);
-        verifyCommentResponse(responseBody, text, 0);
+        verifyCommentResponse(responseBody, text, this.author, 0);
     }
 
     @Test(dependsOnMethods = {"addSubCommentTest"})
@@ -115,7 +108,7 @@ public class EcoNewsCommentTest extends ApiTestRunner {
         assertOk(response);
     }
 
-    @Test(dependsOnMethods = {"deleteSubCommentTest"})
+    @Test(dependsOnMethods = {"likeCommentTest"})
     @Severity(SeverityLevel.MINOR)
     @Story("User should be able to delete the comment")
     public void deleteCommentTest() {
@@ -129,47 +122,22 @@ public class EcoNewsCommentTest extends ApiTestRunner {
         Response response = ecoNewsCommentClient.getComment(commentId);
         assertOk(response);
         GetCommentResponse responseBody = response.as(GetCommentResponse.class);
-        Assert.assertEquals(responseBody.getId(), commentId, "The server returned an object with a different ID");
+        Assert.assertEquals(
+                responseBody.getId(), commentId, "The server returned an object with a different ID"
+        );
     }
 
     @Test(dependsOnMethods = {"addCommentTest"}, description = "Like a comment")
     @Severity(SeverityLevel.TRIVIAL)
     public void likeCommentTest() {
-        Response response = ecoNewsCommentClient.likeComment(commentId);
+        EcoNewsCommentClient secondUserEcoNewsCommentClient = secondUser.getEcoNewsCommentClient();
+        Response response = secondUserEcoNewsCommentClient.likeComment(commentId);
         assertOk(response);
-    }
-
-    @Step("Verify comment response: text='{expectedText}', images count='{expectedImagesCount}'")
-    private void verifyCommentResponse(AddCommentResponse response, String expectedText, int expectedImagesCount) {
-        SoftAssert softAssert = new SoftAssert();
-
-        softAssert.assertEquals(response.getText(), expectedText, "Comment text mismatch!");
-        softAssert.assertEquals(response.getAuthor().getName(), testValueProvider.getUserName(), "Author name mismatch!");
-
-        String expectedDateTime = DateUtil.getCurrentDateTimeToMinutes();
-        softAssert.assertTrue(response.getCreatedDate().contains(expectedDateTime),
-                String.format("Creation date mismatch! Server: [%s], Expected contain: [%s] (UTC).",
-                        response.getCreatedDate(), expectedDateTime));
-
-        List<String> actualImages = response.getAdditionalImages();
-        int actualCount = (actualImages == null) ? 0 : actualImages.size();
-
-        softAssert.assertEquals(actualCount, expectedImagesCount, "Images count mismatch!");
-
-        if (actualImages != null && !actualImages.isEmpty()) {
-            for (String imageUrl : actualImages) {
-                softAssert.assertNotNull(imageUrl, "Image URL is null");
-                softAssert.assertTrue(imageUrl.startsWith("http"), "Image URL should start with 'http'");
-                softAssert.assertTrue(imageUrl.toLowerCase().matches(".*\\.(jpg|jpeg|png|jfif|webp)$"),
-                        "Invalid image format: " + imageUrl);
-            }
-        }
-        softAssert.assertAll();
     }
 
     @AfterClass
     public void clearAfterTest() {
         Response response = ecoNewsClient.deleteEcoNewsById(newsId);
-        Assert.assertEquals(response.getStatusCode(), 200);
+        assertOk(response);
     }
 }

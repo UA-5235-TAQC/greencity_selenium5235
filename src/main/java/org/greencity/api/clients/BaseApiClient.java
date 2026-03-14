@@ -89,6 +89,15 @@ public abstract class BaseApiClient {
         );
     }
 
+    @Step("POST request to {path} with query params: {queryParams}")
+    protected Response post(String path, Map<String, ?> queryParams) {
+        return execute(
+                prepareRequest()
+                        .queryParams(queryParams)
+                        .post(path)
+        );
+    }
+
     @Step("DELETE request to {path}")
     protected Response delete(String path) {
         return execute(
