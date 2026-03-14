@@ -101,7 +101,9 @@ public class NewsPreviewPage extends BasePage {
     @Step("Return to creating news with ID: {newsId}")
     public EditNewsPage backToEditing(long newsId) {
         waitUntilClickable(backToCreateNewsBtn);
-        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, 0);");
+        ((JavascriptExecutor) driver).executeScript(
+            "arguments[0].scrollIntoView({block: 'center'});", backToCreateNewsBtn
+        );
         backToCreateNewsBtn.click();
         return new EditNewsPage(driver, newsId);
     }
