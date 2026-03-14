@@ -82,14 +82,7 @@ public class EcoNewsClient extends BaseApiClient {
 
     @Step("Remove EcoNews with id={ecoNewsId} from favorites")
     public Response removeFromFavorites(long ecoNewsId) {
-        Response response = delete(getPath(ecoNewsId) + "/favorites");
-        if (response.statusCode() == 400) {
-            String message = response.jsonPath().getString("message");
-            if ("This eco new is not in favorites.".equals(message)) {
-                return response;
-            }
-        }
-        return response;
+        return delete(getPath(ecoNewsId) + "/favorites");
     }
 
     @Step("Like or remove like from EcoNews by ID: {ecoNewsId}")

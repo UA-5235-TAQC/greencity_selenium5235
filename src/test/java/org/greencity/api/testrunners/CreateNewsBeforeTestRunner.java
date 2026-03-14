@@ -23,8 +23,7 @@ public class CreateNewsBeforeTestRunner extends FirstUserRunner {
     @BeforeClass
     @Description("Create a new EcoNews before each test")
     public void createEcoNews() {
-        EcoNewsDtoFactory dtoFactory = new EcoNewsDtoFactory(0);
-        EcoNewsRequest request = dtoFactory.createNewsEn();
+        EcoNewsRequest request = EcoNewsDtoFactory.createNewsEn();
 
         Response response;
         if (imagePath != null) {

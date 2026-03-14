@@ -59,7 +59,7 @@ public abstract class BaseApiClient {
     protected Response execute(Response response) {
         return response
                 .then()
-                .log().all()
+                .log().ifError()
                 .extract()
                 .response();
     }

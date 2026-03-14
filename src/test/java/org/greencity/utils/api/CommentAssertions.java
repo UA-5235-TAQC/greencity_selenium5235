@@ -8,6 +8,7 @@ import org.greencity.api.utils.DateUtil;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 
 public final class CommentAssertions {
@@ -84,10 +85,10 @@ public final class CommentAssertions {
         softAssert.assertEquals(response.getText(), expectedText, "Comment text mismatch!");
         softAssert.assertEquals(response.getAuthor().getName(), expectedAuthorName, "Author name mismatch!");
 
-        String expectedDateTime = DateUtil.getCurrentDateTimeToMinutes();
-        softAssert.assertTrue(response.getCreatedDate().contains(expectedDateTime),
-                String.format("Creation date mismatch! Server: [%s], Expected contain: [%s] (UTC).",
-                        response.getCreatedDate(), expectedDateTime));
+        OffsetDateTime serverDate = DateUtil.parseToMinutes(response.getCreatedDate());
+        OffsetDateTime expectedDate = DateUtil.nowToMinutesUTC();
+
+        softAssert.assertEquals(serverDate, expectedDate, "Creation date mismatch!");
 
         List<String> actualImages = response.getAdditionalImages();
         int actualCount = (actualImages == null) ? 0 : actualImages.size();

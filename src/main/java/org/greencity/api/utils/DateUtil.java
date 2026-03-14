@@ -23,4 +23,20 @@ public class DateUtil {
         return ZonedDateTime.now(ZoneOffset.UTC)
                 .format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
     }
+
+    public static OffsetDateTime parseToMinutes(String date) {
+
+        LocalDateTime localDateTime = LocalDateTime.parse(date);
+
+        return localDateTime
+                .atOffset(ZoneOffset.UTC)
+                .withSecond(0)
+                .withNano(0);
+    }
+
+    public static OffsetDateTime nowToMinutesUTC() {
+        return OffsetDateTime.now(ZoneOffset.UTC)
+                .withSecond(0)
+                .withNano(0);
+    }
 }

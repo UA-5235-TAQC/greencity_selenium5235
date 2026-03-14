@@ -78,7 +78,7 @@ public class EcoNewsCommentTest extends FirstUserRunner {
     @Test(dependsOnMethods = {"addCommentWithImagesTest"})
     @Severity(SeverityLevel.NORMAL)
     @Story("User should be able to reply to a comment with images")
-    public void addSubCommentTestWithImages() {
+    public void addSubCommentWithImagesTest() {
         String text = "Test subComment from API Automation with images";
         Response response = ecoNewsCommentClient.addComment(
                 newsId, text, commentIdWithImage, COMMENT_IMAGES_PATHS
@@ -100,7 +100,7 @@ public class EcoNewsCommentTest extends FirstUserRunner {
         verifyCommentResponse(responseBody, text, this.author, 0);
     }
 
-    @Test(dependsOnMethods = {"addSubCommentTest"})
+    @Test(dependsOnMethods = {"addSubCommentWithImagesTest"})
     @Severity(SeverityLevel.MINOR)
     @Story("User should be able to delete the subcomment")
     public void deleteSubCommentTest() {
@@ -116,7 +116,7 @@ public class EcoNewsCommentTest extends FirstUserRunner {
         assertOk(response);
     }
 
-    @Test(dependsOnMethods = {"addCommentTest"}, description = "Testing if GET comment by ID works correctly")
+    @Test(dependsOnMethods = {"addSubCommentTest"}, description = "Testing if GET comment by ID works correctly")
     @Severity(SeverityLevel.TRIVIAL)
     public void getCommentTest() {
         Response response = ecoNewsCommentClient.getComment(commentId);
@@ -127,7 +127,7 @@ public class EcoNewsCommentTest extends FirstUserRunner {
         );
     }
 
-    @Test(dependsOnMethods = {"addCommentTest"}, description = "Like a comment")
+    @Test(dependsOnMethods = {"getCommentTest"}, description = "Like a comment")
     @Severity(SeverityLevel.TRIVIAL)
     public void likeCommentTest() {
         EcoNewsCommentClient secondUserEcoNewsCommentClient = secondUser.getEcoNewsCommentClient();
