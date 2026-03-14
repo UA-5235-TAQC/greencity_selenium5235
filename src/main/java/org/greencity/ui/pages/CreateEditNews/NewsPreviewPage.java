@@ -4,8 +4,10 @@ import io.qameta.allure.Step;
 import org.greencity.ui.pages.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -101,8 +103,11 @@ public class NewsPreviewPage extends BasePage {
     @Step("Return to creating news with ID: {newsId}")
     public EditNewsPage backToEditing(long newsId) {
         waitUntilClickable(backToCreateNewsBtn);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", backToCreateNewsBtn);
-        try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
+
+        Actions actions = new Actions(driver);
+        actions.moveToElement(backToCreateNewsBtn).perform(); 
+        
+        actions.sendKeys(Keys.PAGE_UP).perform();
         backToCreateNewsBtn.click();
         return new EditNewsPage(driver, newsId);
     }
