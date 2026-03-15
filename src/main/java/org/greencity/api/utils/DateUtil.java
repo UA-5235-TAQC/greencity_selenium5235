@@ -19,11 +19,6 @@ public class DateUtil {
         return parseShortDate(dateStr);
     }
 
-    public static String getCurrentDateTimeToMinutes() {
-        return ZonedDateTime.now(ZoneOffset.UTC)
-                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
-    }
-
     public static OffsetDateTime parseToMinutes(String date) {
 
         LocalDateTime localDateTime = LocalDateTime.parse(date);

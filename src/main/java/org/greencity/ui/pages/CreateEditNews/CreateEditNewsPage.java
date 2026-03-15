@@ -115,6 +115,7 @@ public class CreateEditNewsPage extends BasePage {
 
     @Step("Select multiple tags: {tagNames}")
     public CreateEditNewsPage selectTags(List<String> tagNames) {
+        waitUntilVisible(tagRootElements);
         tagNames.forEach(tagName -> {
             TagItem tag = getTagByName(tagName);
 

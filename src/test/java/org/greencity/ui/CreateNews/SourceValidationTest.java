@@ -4,6 +4,7 @@ import io.qameta.allure.*;
 import io.qameta.allure.testng.Tag;
 import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.ui.pages.EcoNewsPage;
+import org.greencity.ui.pages.UbsCourierPage;
 import org.greencity.ui.testrunners.CreateNews.CreateNewsENTestRunner;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -81,5 +82,6 @@ public class SourceValidationTest extends CreateNewsENTestRunner {
         EcoNewsPage ecoNewsPage = new EcoNewsPage(driver);
         ecoNewsPage.waitForMessageAppear();
         Assert.assertEquals(ecoNewsPage.getMessageText(), "Your news has been successfully published");
+        ecoNewsPage.waitForMessageDisappear();
     }
 }
