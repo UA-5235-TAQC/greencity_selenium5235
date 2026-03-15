@@ -120,7 +120,7 @@ public class EcoNewsPage extends BasePage {
 
     @Step("Get all available tags")
     public List<TagItem> getAllTags() {
-        return  tags.findElements(By.cssSelector("button.tag-button")).stream()
+        return tags.findElements(By.cssSelector("button.tag-button")).stream()
                 .map(tag -> new TagItem(driver, tag))
                 .toList();
     }

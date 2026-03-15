@@ -7,6 +7,7 @@ import org.greencity.api.models.econews.EcoNewsRequest;
 import org.greencity.api.models.econews.EcoNewsResponse;
 import org.greencity.api.testrunners.FirstUserRunner;
 import org.greencity.ui.enums.EcoNewsTag;
+import org.greencity.utils.ui.NewsTestData;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -23,7 +24,12 @@ import static org.greencity.utils.api.ApiTestAssertions.assertCreated;
 @Severity(SeverityLevel.CRITICAL)
 @Tag("API")
 public class CreateEcoNewsTest extends FirstUserRunner {
+
     private final List<Long> newsToDelete = new ArrayList<>();
+    String EXPECTED_TITLE = NewsTestData.TEST_TITLE_EN;
+    String EXPECTED_TEXT = NewsTestData.TEST_CONTENT_EN;
+    String EXPECTED_SOURCE = NewsTestData.TEST_SOURCE;
+    String SHORT_DESCRIPTION = "Short description";
 
     @AfterClass
     public void deleteCreatedNews() {
@@ -37,74 +43,97 @@ public class CreateEcoNewsTest extends FirstUserRunner {
             "and receive a valid response with generated ID and correct data.")
     public void createEcoNewsSuccessTest() {
 
-        String expectedTitle = "Новина про екологію " + System.currentTimeMillis();
-        String expectedText = "Це дуже важливий текст новини, який має бути довшим за 20 символів.";
+        EcoNewsRequest requestBody = Allure.step("Prepare request body with title: " + EXPECTED_TITLE, () ->
+                EcoNewsRequest.builder()
+                        .title(EXPECTED_TITLE)
+                        .text(EXPECTED_TEXT)
+                        .tags(List.of(EcoNewsTag.NEWS.getEn().toLowerCase()))
+                        .source(EXPECTED_SOURCE)
+                        .shortInfo(SHORT_DESCRIPTION)
+                        .build()
+        );
 
-        EcoNewsRequest requestBody = EcoNewsRequest.builder()
-                .title(expectedTitle)
-                .text(expectedText)
-                .tags(List.of(EcoNewsTag.NEWS.getEn().toLowerCase()))
-                .source("https://example.com")
-                .shortInfo("Короткий опис")
-                .build();
+        Response response = Allure.step("Send POST request to create news", () ->
+                ecoNewsClient.postEcoNews(requestBody)
+        );
 
-        Response response = ecoNewsClient.postEcoNews(requestBody);
-
-        EcoNewsResponse responseBody = response.as(EcoNewsResponse.class);
+        EcoNewsResponse responseBody = Allure.step("Parse response body", () ->
+                response.as(EcoNewsResponse.class)
+        );
 
         if (responseBody.getId() != null) {
             newsToDelete.add(responseBody.getId());
         }
-        assertCreated(response);
 
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertNotNull(responseBody.getId());
-        softAssert.assertEquals(responseBody.getTitle(), expectedTitle);
-        softAssert.assertEquals(responseBody.getContent(), expectedText);
-        softAssert.assertEquals(responseBody.getAuthor().getId(), testValueProvider.getUserId(),
-                "Author ID does not match expected value");
-        softAssert.assertEquals(responseBody.getAuthor().getName(), testValueProvider.getUserName(),
-                "Author name does not match expected value");
+        Allure.step("Verify that status code is 201 Created", () ->
+                assertCreated(response)
+        );
 
-        softAssert.assertAll();
+        Allure.step("Verify response data fields", () -> {
+            SoftAssert softAssert = new SoftAssert();
+            softAssert.assertNotNull(responseBody.getId(), "EcoNews ID should not be null");
+            softAssert.assertEquals(responseBody.getTitle(), EXPECTED_TITLE,
+                    "Response title should match the expected title");
+            softAssert.assertEquals(responseBody.getContent(), EXPECTED_TEXT,
+                    "Response content should match the expected text");
+            softAssert.assertEquals(responseBody.getAuthor().getId(), testValueProvider.getUserId(),
+                    "Author ID does not match the current user ID");
+            softAssert.assertEquals(responseBody.getAuthor().getName(), testValueProvider.getUserName(),
+                    "Author name does not match the current user name");
+            softAssert.assertAll();
+        });
     }
 
     @Test
     @Description("This test verifies that an authorized user can successfully create a new EcoNews item with image " +
             "and receive a valid response with generated ID and correct data.")
     public void createEcoNewsWithImageTest() {
-        String expectedTitle = "Новина про екологію " + System.currentTimeMillis();
-        String expectedText = "Це дуже важливий текст новини, який має бути довшим за 20 символів.";
         String imagePath = "src/test/resources/images/test2.png";
         String expectedFileName = new File(imagePath).getName();
 
-        EcoNewsRequest requestBody = EcoNewsRequest.builder()
-                .title(expectedTitle)
-                .text(expectedText)
-                .tags(List.of(EcoNewsTag.NEWS.getEn().toLowerCase()))
-                .source("https://example.com")
-                .shortInfo("Короткий опис")
-                .build();
+        EcoNewsRequest requestBody = Allure.step("Prepare request body for news with image", () ->
+                EcoNewsRequest.builder()
+                        .title(EXPECTED_TITLE)
+                        .text(EXPECTED_TEXT)
+                        .tags(List.of(EcoNewsTag.NEWS.getEn().toLowerCase()))
+                        .source(EXPECTED_SOURCE)
+                        .shortInfo(SHORT_DESCRIPTION)
+                        .build()
+        );
 
-        Response response = ecoNewsClient.postEcoNews(requestBody, imagePath);
-        assertCreated(response);
+        Response response = Allure.step("Send POST request with image: " + expectedFileName, () ->
+                ecoNewsClient.postEcoNews(requestBody, imagePath)
+        );
 
-        EcoNewsResponse responseBody = response.as(EcoNewsResponse.class);
+        Allure.step("Verify that status code is 201 Created", () ->
+                assertCreated(response)
+        );
 
-        newsToDelete.add(responseBody.getId());
+        EcoNewsResponse responseBody = Allure.step("Parse response body", () ->
+                response.as(EcoNewsResponse.class)
+        );
 
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertNotNull(responseBody.getId());
-        softAssert.assertEquals(responseBody.getTitle(), expectedTitle, "Title are not equal!");
-        softAssert.assertEquals(responseBody.getContent(), expectedText,  "Content are not equal!");
-        softAssert.assertNotNull(responseBody.getImagePath(), "Image are not posted in response!");
-        softAssert.assertTrue(responseBody.getImagePath().endsWith(expectedFileName),
-                "Image name mismatch!");
-        softAssert.assertEquals(responseBody.getAuthor().getId(), testValueProvider.getUserId(),
-                "Author ID does not match expected value");
-        softAssert.assertEquals(responseBody.getAuthor().getName(), testValueProvider.getUserName(),
-                "Author name does not match expected value");
+        if (responseBody.getId() != null) {
+            newsToDelete.add(responseBody.getId());
+        }
 
-        softAssert.assertAll();
+        Allure.step("Verify response data fields and image presence", () -> {
+            SoftAssert softAssert = new SoftAssert();
+            softAssert.assertNotNull(responseBody.getId(), "EcoNews ID should not be null");
+            softAssert.assertEquals(responseBody.getTitle(), EXPECTED_TITLE,
+                    "Response title should match the expected title");
+            softAssert.assertEquals(responseBody.getContent(), EXPECTED_TEXT,
+                    "Response content should match the expected text");
+            softAssert.assertNotNull(responseBody.getImagePath(),
+                    "Image path should be present in response");
+            softAssert.assertTrue(responseBody.getImagePath().endsWith(expectedFileName),
+                    String.format("Image path '%s' should end with expected file name '%s'",
+                            responseBody.getImagePath(), expectedFileName));
+            softAssert.assertEquals(responseBody.getAuthor().getId(), testValueProvider.getUserId(),
+                    "Author ID does not match the current user ID");
+            softAssert.assertEquals(responseBody.getAuthor().getName(), testValueProvider.getUserName(),
+                    "Author name does not match the current user name");
+            softAssert.assertAll();
+        });
     }
 }
