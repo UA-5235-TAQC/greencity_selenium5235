@@ -4,7 +4,6 @@ import io.qameta.allure.*;
 import io.qameta.allure.testng.Tag;
 import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.ui.pages.EcoNewsPage;
-import org.greencity.ui.pages.UbsCourierPage;
 import org.greencity.ui.testrunners.CreateNews.CreateNewsENTestRunner;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -55,7 +54,7 @@ public class SourceValidationTest extends CreateNewsENTestRunner {
 
     @Description("Verify validation logic for invalid Source field and successful publish after correction")
     @Test
-    public void SourceFieldNonValidValidation() {
+    public void SourceFieldNonValidValidation() throws InterruptedException {
         // Create new news item with non-valid Source Field data
         createNewsPage
                 .createNews(
@@ -80,8 +79,9 @@ public class SourceValidationTest extends CreateNewsENTestRunner {
 
         // Verify that success message is appears and matches the given text
         EcoNewsPage ecoNewsPage = new EcoNewsPage(driver);
-        ecoNewsPage.waitForMessageAppear();
-        Assert.assertEquals(ecoNewsPage.getMessageText(), "Your news has been successfully published");
+        String text = ecoNewsPage.getMessageText();
+        Assert.assertEquals(text, "Your news has been successfully published");
         ecoNewsPage.waitForMessageDisappear();
+
     }
 }
