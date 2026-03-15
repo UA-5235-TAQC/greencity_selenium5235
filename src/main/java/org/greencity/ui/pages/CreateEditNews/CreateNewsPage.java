@@ -53,20 +53,6 @@ public class CreateNewsPage extends CreateEditNewsPage {
         return this;
     }
 
-    @Override
-    @Step("Clear source text")
-    public CreateNewsPage clearSourceField() {
-        super.clearSourceField();
-        return this;
-    }
-
-    @Override
-    @Step("Enter news source URL: {url}")
-    public CreateNewsPage enterSource(String url) {
-        super.enterSource(url);
-        return this;
-    }
-
     @Step("Fill out and create news with title: {title}, tags: {tags}, source: {source}, content: [hidden], image: {imagePath}")
     public CreateNewsPage createNews(String title, List<String> tags, String source, String content, String imagePath) {
         if (title != null) enterTitle(title);

@@ -6,8 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.Objects;
-
 public class ImageComponent extends BaseComponent {
 
     @FindBy(css = "input[type='file']")

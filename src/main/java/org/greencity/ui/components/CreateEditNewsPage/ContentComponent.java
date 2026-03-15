@@ -27,12 +27,13 @@ public class ContentComponent extends BaseComponent {
 
     @Step("Clear content text")
     public ContentComponent clearContent() {
-        content.clear();
+        clearField(content);
         return this;
     }
 
     @Step("Clear and enter content text")
     public ContentComponent enterContent(String text) {
+        waitUntilVisible(content);
         clearContent();
         content.sendKeys(text);
         return this;

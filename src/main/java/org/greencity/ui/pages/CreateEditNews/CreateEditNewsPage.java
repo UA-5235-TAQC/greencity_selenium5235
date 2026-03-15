@@ -87,8 +87,8 @@ public class CreateEditNewsPage extends BasePage {
 
     @Step("Enter news title: {title}")
     public CreateEditNewsPage enterTitle(String title) {
-        titleInput.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-        titleInput.sendKeys(Keys.DELETE);
+        waitUntilVisible(titleInput);
+        clearField(titleInput);
         titleInput.sendKeys(title);
         return this;
     }
@@ -159,8 +159,10 @@ public class CreateEditNewsPage extends BasePage {
         return this;
     }
 
+    @Step("Enter news source URL: {url}")
     public CreateEditNewsPage enterSource(String url) {
-        sourceInput.clear();
+        waitUntilVisible(sourceInput);
+        clearSourceField();
         sourceInput.sendKeys(url);
         return this;
     }
@@ -274,8 +276,9 @@ public class CreateEditNewsPage extends BasePage {
         return sourceInput.getAttribute("placeholder").trim();
     }
 
+    @Step("Clear source text")
     public CreateEditNewsPage clearSourceField() {
-        getSourceInput().clear();
+        clearField(sourceInput);
         return this;
     }
 
@@ -308,7 +311,7 @@ public class CreateEditNewsPage extends BasePage {
         WebElement title = getTitleInput();
         String currentValue = title.getAttribute("value");
         String newValue = textToAdd + (currentValue != null ? currentValue : "");
-        title.clear();
+        clearField(title);
         title.sendKeys(newValue);
         return this;
     }
@@ -323,7 +326,7 @@ public class CreateEditNewsPage extends BasePage {
             } else {
                 newValue = currentValue.length() > count ? currentValue.substring(0, currentValue.length() - count) : "";
             }
-            title.clear();
+            clearField(title);
             title.sendKeys(newValue);
         }
         return this;
