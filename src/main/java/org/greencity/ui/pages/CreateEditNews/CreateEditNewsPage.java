@@ -1,6 +1,7 @@
 package org.greencity.ui.pages.CreateEditNews;
 
 import io.qameta.allure.Step;
+import lombok.Getter;
 import org.greencity.ui.components.CreateEditNewsPage.CancelModalComponent;
 import org.greencity.ui.components.CreateEditNewsPage.ContentComponent;
 import org.greencity.ui.components.CreateEditNewsPage.ImageComponent;
@@ -11,18 +12,21 @@ import org.openqa.selenium.remote.UnreachableBrowserException;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class CreateEditNewsPage extends BasePage {
 
     @FindBy(css = "div.main-content")
     private WebElement root;
+    @Getter
     @FindBy(css = "textarea[formcontrolname='title']")
     private WebElement titleInput;
     @FindBy(css = "div.title h2.title-header")
     protected WebElement pageTitleHeader;
     @FindBy(css = "div.tags-box button.tag-button")
     private List<WebElement> tagRootElements;
+    @Getter
     @FindBy(css = "input[formcontrolname='source']")
     private WebElement sourceInput;
     @FindBy(css = "div.image-block")
@@ -83,8 +87,8 @@ public class CreateEditNewsPage extends BasePage {
 
     @Step("Enter news title: {title}")
     public CreateEditNewsPage enterTitle(String title) {
-        titleInput.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-        titleInput.sendKeys(Keys.DELETE);
+        waitUntilVisible(titleInput);
+        clearField(titleInput);
         titleInput.sendKeys(title);
         return this;
     }
@@ -111,6 +115,7 @@ public class CreateEditNewsPage extends BasePage {
 
     @Step("Select multiple tags: {tagNames}")
     public CreateEditNewsPage selectTags(List<String> tagNames) {
+        waitUntilVisible(tagRootElements);
         tagNames.forEach(tagName -> {
             TagItem tag = getTagByName(tagName);
 
@@ -155,8 +160,10 @@ public class CreateEditNewsPage extends BasePage {
         return this;
     }
 
+    @Step("Enter news source URL: {url}")
     public CreateEditNewsPage enterSource(String url) {
-        sourceInput.clear();
+        waitUntilVisible(sourceInput);
+        clearSourceField();
         sourceInput.sendKeys(url);
         return this;
     }
@@ -182,19 +189,9 @@ public class CreateEditNewsPage extends BasePage {
         return titleInput.getAttribute("value");
     }
 
-    @Step("Get title input WebElement")
-    public WebElement getTitleInput() {
-        return titleInput;
-    }
-
     @Step("Check if source input is visible")
     public boolean isSourceVisible() {
         return isVisible(sourceInput);
-    }
-
-    @Step("Get source input WebElement")
-    public WebElement getSourceInput() {
-        return sourceInput;
     }
 
     @Step("Get source validation message text")
@@ -272,7 +269,7 @@ public class CreateEditNewsPage extends BasePage {
 
     @Step("Get news source text")
     public String getSource() {
-        return sourceInput.getAttribute("value").trim();
+        return Objects.requireNonNull(sourceInput.getAttribute("value")).trim();
     }
 
     @Step("Get placeholder text of source input")
@@ -280,8 +277,9 @@ public class CreateEditNewsPage extends BasePage {
         return sourceInput.getAttribute("placeholder").trim();
     }
 
+    @Step("Clear source text")
     public CreateEditNewsPage clearSourceField() {
-        getSourceInput().clear();
+        clearField(sourceInput);
         return this;
     }
 
@@ -314,7 +312,7 @@ public class CreateEditNewsPage extends BasePage {
         WebElement title = getTitleInput();
         String currentValue = title.getAttribute("value");
         String newValue = textToAdd + (currentValue != null ? currentValue : "");
-        title.clear();
+        clearField(title);
         title.sendKeys(newValue);
         return this;
     }
@@ -329,7 +327,7 @@ public class CreateEditNewsPage extends BasePage {
             } else {
                 newValue = currentValue.length() > count ? currentValue.substring(0, currentValue.length() - count) : "";
             }
-            title.clear();
+            clearField(title);
             title.sendKeys(newValue);
         }
         return this;

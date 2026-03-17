@@ -22,13 +22,13 @@
 
             <class name="org.greencity.ui.FirstTest"/>
             <class name="org.greencity.ui.FirstTestWithUser"/>
-            <class name="org.greencity.ui.TagSelectionTest"/>
+            <class name="org.greencity.ui.CreateNews.TagSelectionTest"/>
         </classes>
     </test>
     <test name="API Tests">
         <classes>
             <class name="org.greencity.api.OwnSecurityTest"/>
-            <class name="org.greencity.api.EcoNewsCommentTest"/>
+            <class name="org.greencity.api.ecoNewsComment.EcoNewsCommentTest"/>
             <class name="org.greencity.api.CreateEcoNewsTest"/>
             <class name="org.greencity.api.EcoNewsTest"/>
             <class name="org.greencity.api.EcoNewsCountTest"/>

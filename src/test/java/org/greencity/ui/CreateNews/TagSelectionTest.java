@@ -1,41 +1,22 @@
-package org.greencity.ui;
+package org.greencity.ui.CreateNews;
 
 import org.greencity.ui.components.CreateEditNewsPage.CancelModalComponent;
 import org.greencity.ui.components.NewsListItemComponent;
 import org.greencity.ui.enums.EcoNewsTag;
-import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
 import org.greencity.ui.pages.EcoNewsPage;
-import org.greencity.ui.testrunners.BaseTestRunner;
+import org.greencity.ui.pages.UbsCourierPage;
+import org.greencity.ui.testrunners.CreateNews.CreateNewsENTestRunner;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import java.util.List;
 
-public class TagSelectionTest extends BaseTestRunner {
-
-    private EcoNewsPage ecoNewsPage;
-
-
-    @BeforeMethod
-    public void openEcoNewsPage() {
-        LoginUser();
-        ecoNewsPage = new EcoNewsPage(getDriver()).open();
-    }
-
-    @AfterMethod
-    public void removeAllTags() {
-        // NOTE: due to site logic, selected tags aren't removed after publishing news.
-        // NOTE: so if we don't remove the tags here, they will be automatically selected when creating new news and in the EcoNewsPage filter too.
-        ecoNewsPage.removeAllSelectedTags();
-    }
+public class TagSelectionTest extends CreateNewsENTestRunner {
 
     @Test
     public void checkOneTagSelection() {
         // 1. Navigate to GreenCity News and click "Create News".
-        CreateNewsPage createNewsPage = ecoNewsPage.clickCreateNews();
         Assert.assertTrue(createNewsPage.isPageOpened(), "Create News page should be opened");
 
         // 2. In the "Tag" field, select one tag ("News").
@@ -46,19 +27,22 @@ public class TagSelectionTest extends BaseTestRunner {
         createNewsPage.clickPublish();
 
         // 5. Verify that the news is published with the "News" tag.
-        Assert.assertTrue(ecoNewsPage.isPageOpened(), "Eco News page should be opened after publishing a news");
+        EcoNewsPage ecoNewsPage = new EcoNewsPage(driver);
+        ecoNewsPage.waitUntilOpened();
+        Assert.assertTrue(ecoNewsPage.isPageOpened(),
+                "Eco News page should be opened after publishing a news");
 
         NewsListItemComponent newsListItem = ecoNewsPage.getNewsCardByIndex(0);
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(newsListItem.getTitle(), "Test", "News should have 'Test' title");
         softAssert.assertTrue(newsListItem.hasTags(tagNames), "News should have 'News' tag");
         softAssert.assertAll();
+        ecoNewsPage.removeAllSelectedTags();
     }
 
-    @Test
+    @Test(dependsOnMethods = {"checkOneTagSelection"})
     public void checkThreeTagsSelection() {
         // 6. Open the "Create News" form again.
-        CreateNewsPage createNewsPage = ecoNewsPage.clickCreateNews();
         Assert.assertTrue(createNewsPage.isPageOpened(), "Create News page should be opened");
 
         // 7. Select three tags: "News", "Events", "Education".
@@ -68,19 +52,22 @@ public class TagSelectionTest extends BaseTestRunner {
         createNewsPage.clickPublish();
 
         // 9. Verify that the news is published with all three selected tags.
-        Assert.assertTrue(ecoNewsPage.isPageOpened(), "Eco News page should be opened after publishing a news");
+        EcoNewsPage ecoNewsPage = new EcoNewsPage(driver);
+        ecoNewsPage.waitUntilOpened();
+        Assert.assertTrue(ecoNewsPage.isPageOpened(),
+                "Eco News page should be opened after publishing a news");
 
         NewsListItemComponent newsListItem = ecoNewsPage.getNewsCardByIndex(0);
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(newsListItem.getTitle(), "Test_2", "News should have 'Test_2' title");
         softAssert.assertTrue(newsListItem.hasTags(tagNames), "News should have 'News', 'Events' and 'Education' tags");
         softAssert.assertAll();
+        ecoNewsPage.removeAllSelectedTags();
     }
 
-    @Test
+    @Test(dependsOnMethods = {"checkThreeTagsSelection"})
     public void checkFourTagsSelection() {
         // 10. Attempt to select a fourth tag ("Initiatives").
-        CreateNewsPage createNewsPage = ecoNewsPage.clickCreateNews();
         Assert.assertTrue(createNewsPage.isPageOpened(), "Create News page should be opened");
 
         List<String> tagNames = List.of(EcoNewsTag.NEWS.getEn(), EcoNewsTag.EVENTS.getEn(), EcoNewsTag.EDUCATION.getEn(), EcoNewsTag.INITIATIVES.getEn());
@@ -91,11 +78,18 @@ public class TagSelectionTest extends BaseTestRunner {
         Assert.assertFalse(createNewsPage.isPublishButtonEnabled(), "Publishing a news with 4 tags should be blocked");
 
         // NOTE: we need to cancel news creation here, as without it the confirmation modal will appear and prevent other tests from working correctly.
+        createNewsPage.clearAllSelectedTags();
         createNewsPage.clickCancel();
         Assert.assertTrue(createNewsPage.isCancelModalDisplayed(),
                 "Confirmation modal should appear after clicking Cancel");
-
         CancelModalComponent cancelModal = createNewsPage.getCancelModal();
         cancelModal.clickYesCancel();
+        UbsCourierPage ubsCourierPage = cancelModal.clickYesCancel().open();
+        Assert.assertFalse(createNewsPage.isCancelModalDisplayed(),
+                "Cancel modal should be closed after clicking 'Yes, cancel'");
+        Assert.assertFalse(createNewsPage.isPageOpenedSafe(),
+                "User should be redirected away from Create News page after canceling");
+        Assert.assertTrue(ubsCourierPage.isPageOpenedAfterCancelModalClickYesCancel(),
+                "User should be directed to Ubs Courier page after canceling");
     }
 }

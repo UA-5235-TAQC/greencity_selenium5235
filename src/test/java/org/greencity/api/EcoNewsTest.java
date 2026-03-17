@@ -3,16 +3,14 @@ package org.greencity.api;
 import io.qameta.allure.*;
 import io.qameta.allure.testng.Tag;
 import io.restassured.response.Response;
-import org.greencity.api.clients.EcoNewsClient;
 import org.greencity.api.models.econews.EcoNewsPageResponse;
 import org.greencity.api.models.econews.EcoNewsQuery;
 import org.greencity.api.models.econews.EcoNewsResponse;
 import org.greencity.api.testrunners.EcoNewsWithoutTokenRunner;
-import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import java.util.Arrays;
+
+import static org.greencity.utils.api.ApiTestAssertions.assertOk;
 
 @Epic("EcoNews API")
 @Feature("Retrieve EcoNews Page")
@@ -34,8 +32,7 @@ public class EcoNewsTest extends EcoNewsWithoutTokenRunner {
                 .build();
 
         Response response = ecoNewsClient.getEcoNews(query);
-        Assert.assertEquals(response.getStatusCode(), 200);
-
+        assertOk(response);
 
         EcoNewsPageResponse pageResponse = response.as(EcoNewsPageResponse.class);
 
@@ -44,7 +41,7 @@ public class EcoNewsTest extends EcoNewsWithoutTokenRunner {
         softAssert.assertEquals(pageResponse.getCurrentPage(), 0, "Current page number is incorrect");
         softAssert.assertFalse(pageResponse.getPage().isEmpty(), "News list should not be empty");
 
-        EcoNewsResponse firstNews = pageResponse.getPage().get(0);
+        EcoNewsResponse firstNews = pageResponse.getPage().getFirst();
 
         softAssert.assertNotNull(firstNews.getId(), "News id should not be null");
         softAssert.assertNotNull(firstNews.getTitle(), "News title should not be null");

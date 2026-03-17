@@ -1,18 +1,13 @@
 package org.greencity.utils.api;
 
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import org.greencity.api.models.econews.EcoNewsRequest;
 import org.greencity.api.models.econews.UpdateEcoNewsDto;
 import org.greencity.ui.enums.EcoNewsTag;
 
 import java.util.List;
 
-@Data
-@RequiredArgsConstructor
-public class EcoNewsDtoFactory {
+public record EcoNewsDtoFactory(long ecoNewsId) {
 
-    private final long ecoNewsId;
     public static final List<EcoNewsTag> TEST_TAGS = List.of(EcoNewsTag.NEWS, EcoNewsTag.EDUCATION);
 
     // ENGLISH
@@ -31,7 +26,7 @@ public class EcoNewsDtoFactory {
     public static final String SHORT_INFO_UK = "Головна сторінка Вікіпедії українською";
     public static final String SOURCE_UK = "https://uk.wikipedia.org/wiki/Main_Page";
 
-    public EcoNewsRequest createNewsEn() {
+    public static EcoNewsRequest createNewsEn() {
         return EcoNewsRequest.builder()
                 .title(TITLE_EN)
                 .text(CONTENT_EN)
@@ -41,7 +36,7 @@ public class EcoNewsDtoFactory {
                 .build();
     }
 
-    public EcoNewsRequest createNewsUa() {
+    public static EcoNewsRequest createNewsUa() {
         return EcoNewsRequest.builder()
                 .title(TITLE_UK)
                 .text(CONTENT_UK)
@@ -71,5 +66,15 @@ public class EcoNewsDtoFactory {
         dto.setTags(EcoNewsTag.getUa(TEST_TAGS));
         dto.setSource(SOURCE_UK);
         return dto;
+    }
+
+    public static EcoNewsRequest createTestNews() {
+        return EcoNewsRequest.builder()
+                .title("News title for testing api comment controller")
+                .text("News text for testing api comment controller. Should be more than 20 characters.")
+                .tags(List.of(EcoNewsTag.NEWS.getEn().toLowerCase()))
+                .source("https://example.com")
+                .shortInfo("Short info")
+                .build();
     }
 }

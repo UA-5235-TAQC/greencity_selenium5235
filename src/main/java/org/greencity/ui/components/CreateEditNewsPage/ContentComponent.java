@@ -1,12 +1,14 @@
 package org.greencity.ui.components.CreateEditNewsPage;
 
 import io.qameta.allure.Step;
+import lombok.Getter;
 import org.greencity.ui.components.BaseComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class ContentComponent extends BaseComponent {
+    @Getter
     @FindBy(css = ".ql-editor")
     private WebElement content;
 
@@ -25,12 +27,13 @@ public class ContentComponent extends BaseComponent {
 
     @Step("Clear content text")
     public ContentComponent clearContent() {
-        content.clear();
+        clearField(content);
         return this;
     }
 
     @Step("Clear and enter content text")
     public ContentComponent enterContent(String text) {
+        waitUntilVisible(content);
         clearContent();
         content.sendKeys(text);
         return this;
@@ -85,11 +88,6 @@ public class ContentComponent extends BaseComponent {
         return isVisible(contentMessage);
     }
 
-    @Step("Get content WebElement")
-    public WebElement getContent() {
-        return content;
-    }
-
     @Step("Get content text")
     public String getContentText() {
         return content.getText();
@@ -107,6 +105,7 @@ public class ContentComponent extends BaseComponent {
 
     @Step("Check if informational validation message is highlighted in red because character count is less than 20")
     public boolean isContentMessageInvalid() {
+        waitUntilVisible(contentMessage);
         return contentMessage.getAttribute("class").contains("warning");
     }
 

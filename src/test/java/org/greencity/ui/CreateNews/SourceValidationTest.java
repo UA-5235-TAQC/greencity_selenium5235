@@ -4,6 +4,7 @@ import io.qameta.allure.*;
 import io.qameta.allure.testng.Tag;
 import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.ui.pages.EcoNewsPage;
+import org.greencity.ui.pages.UbsCourierPage;
 import org.greencity.ui.testrunners.CreateNews.CreateNewsENTestRunner;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -67,18 +68,20 @@ public class SourceValidationTest extends CreateNewsENTestRunner {
                         null
                 );
 
-       // Verify that publish button is "Disabled"
-       Assert.assertFalse(createNewsPage.isPublishButtonEnabled(), "Button is active, but should be disabled");
+        // Verify that publish button is "Disabled"
+        Assert.assertFalse(createNewsPage.isPublishButtonEnabled(), "Button is active, but should be disabled");
 
-       // Clear Source field and enter valid data
-       createNewsPage
-               .clearSourceField()
-               .enterSource("https://example.com")
-               .clickPublish();
+        // Clear Source field and enter valid data
+        createNewsPage.enterSource("https://example.com");
 
-       // Verify that success message is appears and matches the given text
-       EcoNewsPage ecoNewsPage = new EcoNewsPage(driver);
-       ecoNewsPage.waitForMessageAppear();
-       Assert.assertEquals(ecoNewsPage.getMessageText(), "Your news has been successfully published");
+        // Verify that publish button is enabled
+        Assert.assertTrue(createNewsPage.isPublishButtonEnabled(), "Button is disabled, but should be enabled");
+        createNewsPage.clickPublish();
+
+        // Verify that success message is appears and matches the given text
+        EcoNewsPage ecoNewsPage = new EcoNewsPage(driver);
+        ecoNewsPage.waitForMessageAppear();
+        Assert.assertEquals(ecoNewsPage.getMessageText(), "Your news has been successfully published");
+        ecoNewsPage.waitForMessageDisappear();
     }
 }

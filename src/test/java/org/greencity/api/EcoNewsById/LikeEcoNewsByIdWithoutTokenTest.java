@@ -3,38 +3,34 @@ package org.greencity.api.EcoNewsById;
 import io.qameta.allure.*;
 import io.qameta.allure.testng.Tag;
 import io.restassured.response.Response;
-import org.greencity.api.testrunners.EcoNewsWithoutTokenRunner;
-import org.greencity.utils.api.EcoNewsPageResponse;
-import org.greencity.utils.api.ErrorResponse;
-import org.testng.Assert;
+import org.greencity.api.clients.EcoNewsClient;
+import org.greencity.api.testrunners.CreateNewsRunner;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
-import java.util.Map;
+import static org.greencity.utils.api.ApiTestAssertions.assertUnauthorized;
+import static org.greencity.utils.api.EcoNewsAssertions.getEcoNewsByAuthor;
 
 @Epic("EcoNews API")
 @Feature("Like EcoNews by ID")
 @Severity(SeverityLevel.CRITICAL)
 @Tag("API")
-public class LikeEcoNewsByIdWithoutTokenTest extends EcoNewsWithoutTokenRunner {
+public class LikeEcoNewsByIdWithoutTokenTest extends CreateNewsRunner {
+
+    protected EcoNewsClient secondUserClient;
+
+    @BeforeClass
+    public void prepareSecondUserClient() {
+        secondUserClient = new EcoNewsClient(
+                testValueProvider.getGreencityAPIUrl()
+        );
+    }
 
     @Test
     @Description("Verify that an attempt to like another user's EcoNews without being authorized returns 401 status code")
     public void likeAnotherUsersEcoNewsByIdWithoutToken() {
-        long anotherUserId = 3;
-        Map<String, Object> queryParams = Map.of("author-id", anotherUserId);
-        Response anotherUserEcoNewsPageResponse = ecoNewsClient.getEcoNews(queryParams);
-        Assert.assertEquals(anotherUserEcoNewsPageResponse.getStatusCode(), 200, "Status code should be 200 for getting Eco News created by user with ID " + anotherUserId);
-
-        EcoNewsPageResponse ecoNewsPageResponse = anotherUserEcoNewsPageResponse.as(EcoNewsPageResponse.class);
-        long anotherUserEcoNewsId = ecoNewsPageResponse.getPage().getFirst().getId();
-        Response anotherUserEcoNewsResponse = ecoNewsClient.likeEcoNewsById(anotherUserEcoNewsId);
-        ErrorResponse error = anotherUserEcoNewsResponse.as(ErrorResponse.class);
-
-        SoftAssert softAssert = new SoftAssert();
-        int statusCode = anotherUserEcoNewsResponse.getStatusCode();
-        softAssert.assertEquals(statusCode, 401, "Status code should be 401 for liking Eco News without being authorized");
-        softAssert.assertEquals(error.getError(), "Unauthorized", "Error message should be 'Unauthorized'");
-        softAssert.assertAll();
+        getEcoNewsByAuthor(secondUserClient, testValueProvider.getSecondUserId());
+        Response anotherUserEcoNewsResponse = secondUserClient.likeEcoNewsById(ecoNewsId);
+        assertUnauthorized(anotherUserEcoNewsResponse);
     }
 }

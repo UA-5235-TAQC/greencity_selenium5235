@@ -1,20 +1,32 @@
 package org.greencity.utils.api;
 
+import io.qameta.allure.Step;
+import org.greencity.api.models.ecoNewsComment.AddCommentResponse;
 import org.greencity.api.models.ecoNewsComment.GetCommentPageResponse;
 import org.greencity.api.models.ecoNewsComment.GetCommentResponse;
+import org.greencity.api.utils.DateUtil;
+import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
+
+import java.time.OffsetDateTime;
+import java.util.List;
 
 public final class CommentAssertions {
 
-    private CommentAssertions() {}
+    public static void assertCommentResponse(
+            GetCommentResponse actual, GetCommentResponse expected
+    ) {
+        Assert.assertNotNull(actual, "Actual comment should not be null");
+        Assert.assertNotNull(expected, "Expected comment should not be null");
 
-    public static void assertCommentResponse(GetCommentResponse actual,
-                                             GetCommentResponse expected) {
+        verifyCommentResponse(
+                actual,
+                expected.getText(),
+                expected.getAuthor().getName(),
+                (actual.getAdditionalImages() == null ? 0 : actual.getAdditionalImages().size())
+        );
 
         SoftAssert softAssert = new SoftAssert();
-
-        softAssert.assertNotNull(actual, "Actual comment should not be null");
-        softAssert.assertNotNull(expected, "Expected comment should not be null");
 
         softAssert.assertEquals(actual.getId(), expected.getId(),
                 "Comment ID should match");
@@ -22,14 +34,6 @@ public final class CommentAssertions {
         softAssert.assertEquals(actual.getParentCommentId(),
                 expected.getParentCommentId(),
                 "ParentCommentId should match");
-
-        softAssert.assertEquals(actual.getText(),
-                expected.getText(),
-                "Text should match");
-
-        softAssert.assertEquals(actual.getCreationDate(),
-                expected.getCreationDate(),
-                "Created date should match");
 
         softAssert.assertEquals(actual.getModificationDate(),
                 expected.getModificationDate(),
@@ -51,7 +55,6 @@ public final class CommentAssertions {
                 expected.getStatus(),
                 "Status should match");
 
-        // Author
         softAssert.assertNotNull(actual.getAuthor(),
                 "Author should not be null");
 
@@ -63,7 +66,6 @@ public final class CommentAssertions {
                 expected.getAuthor().getName(),
                 "Author name should match");
 
-        // User reactions
         softAssert.assertEquals(actual.isCurrentUserLiked(),
                 expected.isCurrentUserLiked(),
                 "currentUserLiked should match");
@@ -72,30 +74,35 @@ public final class CommentAssertions {
                 expected.isCurrentUserDisliked(),
                 "currentUserDisliked should match");
 
-        // Images
-        String[] actualImages = actual.getAdditionalImages();
-        String[] expectedImages = expected.getAdditionalImages();
+        softAssert.assertAll();
+    }
 
-        if (expectedImages == null || expectedImages.length == 0) {
-            softAssert.assertTrue(
-                    actualImages == null || actualImages.length == 0,
-                    "Additional images should be null or empty"
-            );
-        } else {
-            softAssert.assertNotNull(actualImages,
-                    "Additional images should not be null");
+    @Step("Verify comment response: text='{expectedText}', images count='{expectedImagesCount}'")
+    public static void verifyCommentResponse(
+            AddCommentResponse response, String expectedText, String expectedAuthorName, int expectedImagesCount) {
+        SoftAssert softAssert = new SoftAssert();
 
-            softAssert.assertEquals(actualImages.length,
-                    expectedImages.length,
-                    "Additional images length should match");
+        softAssert.assertEquals(response.getText(), expectedText, "Comment text mismatch!");
+        softAssert.assertEquals(response.getAuthor().getName(), expectedAuthorName, "Author name mismatch!");
 
-            for (int i = 0; i < actualImages.length; i++) {
-                softAssert.assertEquals(actualImages[i],
-                        expectedImages[i],
-                        "Additional image at index " + i + " should match");
+        OffsetDateTime serverDate = DateUtil.parseToMinutes(response.getCreatedDate());
+        OffsetDateTime expectedDate = DateUtil.nowToMinutesUTC();
+
+        softAssert.assertEquals(serverDate, expectedDate, "Creation date mismatch!");
+
+        List<String> actualImages = response.getAdditionalImages();
+        int actualCount = (actualImages == null) ? 0 : actualImages.size();
+
+        softAssert.assertEquals(actualCount, expectedImagesCount, "Images count mismatch!");
+
+        if (actualImages != null && !actualImages.isEmpty()) {
+            for (String imageUrl : actualImages) {
+                softAssert.assertNotNull(imageUrl, "Image URL is null");
+                softAssert.assertTrue(imageUrl.startsWith("http"), "Image URL should start with 'http'");
+                softAssert.assertTrue(imageUrl.toLowerCase().matches(".*\\.(jpg|jpeg|png|jfif|webp)$"),
+                        "Invalid image format: " + imageUrl);
             }
         }
-
         softAssert.assertAll();
     }
 

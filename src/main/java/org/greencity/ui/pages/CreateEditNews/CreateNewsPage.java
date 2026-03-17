@@ -30,6 +30,7 @@ public class CreateNewsPage extends CreateEditNewsPage {
 
     @Step("Check if Publish button is enabled")
     public boolean isPublishButtonEnabled() {
+        waitUntilVisible(publishBtn);
         return publishBtn.isEnabled();
     }
 
@@ -49,20 +50,6 @@ public class CreateNewsPage extends CreateEditNewsPage {
     @Step("Reload CreateNewsPage")
     public CreateNewsPage reload() {
         super.reload();
-        return this;
-    }
-
-    @Override
-    @Step("Clear source text")
-    public CreateNewsPage clearSourceField() {
-        super.clearSourceField();
-        return this;
-    }
-
-    @Override
-    @Step("Enter news source URL: {url}")
-    public CreateNewsPage enterSource(String url) {
-        super.enterSource(url);
         return this;
     }
 

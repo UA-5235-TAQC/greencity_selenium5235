@@ -37,7 +37,7 @@ public abstract class AuthModalBase extends Base {
     //Enters the specified email address into the email input field of the authentication modal.
     @Step("Enter email: {email}")
     public AuthModalBase enterEmail(String email) {
-        emailInput.clear();
+        clearField(emailInput);
         emailInput.sendKeys(email);
         return this;
     }
@@ -68,7 +68,7 @@ public abstract class AuthModalBase extends Base {
 
     @Step("Enter password")
     public AuthModalBase enterPassword(String password) {
-        passwordInput.clear();
+        clearField(passwordInput);
         passwordInput.sendKeys(password);
         return this;
     }

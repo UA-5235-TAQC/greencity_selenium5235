@@ -152,13 +152,13 @@ public class CreateNewsFormVisibilityTestUA extends CreateNewsUATestRunner {
 
         new NewsTestData().applyToUa(createNewsPage);
         NewsPreviewPage preview = createNewsPage.clickPreview();
-        Assert.assertEquals(preview.getNewsTitle(), TEST_TITLE_UA,
+        Assert.assertEquals(preview.getNewsTitleText(), TEST_TITLE_UA,
                 "News title on Preview page should match entered title");
         String expectedTag = EcoNewsTag.getUa(TEST_TAGS).getFirst();
         List<String> previewTags = preview.getTagTexts();
         Assert.assertTrue(previewTags.contains(expectedTag),
                 "Preview page should contain tag: " + expectedTag);
-        Assert.assertEquals(preview.getNewsText(), TEST_CONTENT_UA,
+        Assert.assertEquals(preview.getNewsTextValue(), TEST_CONTENT_UA,
                 "News content on Preview page should match entered content");
 
         createNewsPage = preview.clickBackToCreateNewsBtn();

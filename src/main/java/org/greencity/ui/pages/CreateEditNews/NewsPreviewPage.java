@@ -1,10 +1,13 @@
 package org.greencity.ui.pages.CreateEditNews;
 
 import io.qameta.allure.Step;
+import lombok.Getter;
 import org.greencity.ui.pages.BasePage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -13,30 +16,37 @@ import java.util.List;
 
 public class NewsPreviewPage extends BasePage {
 
+    @Getter
     @FindBy(css = ".button-link")
     private WebElement backToCreateNewsBtn;
 
+    @Getter
     @FindBy(css = ".submit-form")
     private WebElement publicNewsBtn;
 
+    @Getter
     @FindBy(css = ".news-title")
     private WebElement newsTitle;
 
     @FindBy(css = ".tags")
     private WebElement tagsRoot;
 
+    @Getter
     @FindBy(css = ".news-info-date")
     private WebElement newsCreatingDate;
 
     @FindBy(css = ".news-info-author")
     private WebElement authorName;
 
+    @Getter
     @FindBy(css = ".news-image-img")
     private WebElement newsImage;
 
+    @Getter
     @FindBy(css = ".news-text-content p")
     private WebElement newsText;
 
+    @Getter
     @FindBy(css = ".source-text")
     private WebElement newsSource;
 
@@ -100,44 +110,22 @@ public class NewsPreviewPage extends BasePage {
     @Step("Return to creating news with ID: {newsId}")
     public EditNewsPage backToEditing(long newsId) {
         waitUntilClickable(backToCreateNewsBtn);
+        Actions actions = new Actions(driver);
+        actions.moveToElement(backToCreateNewsBtn).perform();
+
+        actions.sendKeys(Keys.PAGE_UP).perform();
         backToCreateNewsBtn.click();
         return new EditNewsPage(driver, newsId);
     }
 
-    //getters
-    @Step("Getting the 'Public' button element")
-    public WebElement getPublicNewsBtnElement() {
-        return publicNewsBtn;
-    }
-
-    @Step("Getting the 'BackToCreateNews' button element")
-    public WebElement getBackToCreateNewsBtnElement() {
-        return backToCreateNewsBtn;
-    }
-
-    @Step("Getting a news title element")
-    public WebElement getNewsTitleElement() {
-        return newsTitle;
-    }
-
     @Step("Getting a news title text")
-    public String getNewsTitle() {
+    public String getNewsTitleText() {
         return newsTitle.getText();
     }
 
-    @Step("Getting a news creating date element")
-    public WebElement getNewsCreatingDateElement() {
-        return newsCreatingDate;
-    }
-
     @Step("Getting a news creating date text")
-    public String getNewsCreatingDate() {
+    public String getNewsCreatingDateValue() {
         return newsCreatingDate.getText();
-    }
-
-    @Step("Getting a news image element")
-    public WebElement getNewsImageElement() {
-        return newsImage;
     }
 
     @Step("Checking the visibility of an uploaded image")
@@ -145,23 +133,13 @@ public class NewsPreviewPage extends BasePage {
         return isVisible(newsImage.findElement(By.xpath("..")));
     }
 
-    @Step("Getting a news content element")
-    public WebElement getNewsTextElement() {
-        return newsText;
-    }
-
     @Step("Getting a news content text")
-    public String getNewsText() {
+    public String getNewsTextValue() {
         return newsText.getText();
     }
 
-    @Step("Getting a news source element")
-    public WebElement getNewsSourceElement() {
-        return newsSource;
-    }
-
     @Step("Getting a news content text")
-    public String getNewsSource() {
+    public String getNewsSourceValue() {
         return newsSource.getText();
     }
 

@@ -25,7 +25,7 @@ public class SignUpModal extends AuthModalBase {
 
     @Step("Enter username: {name}")
     public SignUpModal enterUsername(String name) {
-        firstNameInput.clear();
+        clearField(firstNameInput);
         firstNameInput.sendKeys(name);
         return this;
     }
@@ -39,7 +39,7 @@ public class SignUpModal extends AuthModalBase {
 
     @Step("Enter confirm password")
     public SignUpModal enterConfirmPassword(String password) {
-        confirmPasswordInput.clear();
+        clearField(confirmPasswordInput);
         confirmPasswordInput.sendKeys(password);
         return this;
     }

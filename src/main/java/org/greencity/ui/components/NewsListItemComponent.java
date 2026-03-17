@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.List;
 
 public class NewsListItemComponent extends BaseComponent {
+    @Getter
     @FindBy(css = ".list-image-content")
     private WebElement image;
 
@@ -19,26 +20,33 @@ public class NewsListItemComponent extends BaseComponent {
     @Getter
     private WebElement bookmarkBtn;
 
+    @Getter
     @FindBy(css = ".filter-tag div")
     private List<WebElement> tagElements;
 
+    @Getter
     @FindBy(css = ".title-list")
-    private WebElement title;
+    private WebElement titleElement;
 
+    @Getter
     @FindBy(css = ".list-text")
-    private WebElement newsText;
+    private WebElement newsTextElement;
 
+    @Getter
     @FindBy(css = ".text-nowrap>span")
-    private WebElement creationDate;
+    private WebElement creationDateElement;
 
+    @Getter
     @FindBy(css = ".mw")
-    private WebElement authorName;
+    private WebElement authorNameElement;
 
+    @Getter
     @FindBy(xpath = ".//img[contains(@alt, 'comment')]/parent::*/span")
-    private WebElement commentsCount;
+    private WebElement commentsCountElement;
 
+    @Getter
     @FindBy(xpath = ".//img[contains(@alt, 'likes')]/parent::*/span")
-    private WebElement likesCount;
+    private WebElement likesCountElement;
 
     @Getter
     private final long newsId;
@@ -53,14 +61,6 @@ public class NewsListItemComponent extends BaseComponent {
         return new EcoNewsPage(driver);
     }
 
-    public WebElement getImageElement() {
-        return image;
-    }
-
-    public List<WebElement> getTagsList() {
-        return tagElements;
-    }
-
     public boolean hasTags(List<String> tagNames) {
         List<String> displayedTags = tagElements.stream()
                 .map(tag -> tag.getText().replace("|", "").trim())
@@ -73,52 +73,28 @@ public class NewsListItemComponent extends BaseComponent {
                 && expectedTags.stream().allMatch(displayedTags::contains);
     }
 
-    public WebElement getTitleElement() {
-        return title;
-    }
-
     public String getTitle() {
-        return title.getText();
+        return titleElement.getText();
     }
 
-    public WebElement getNewsTextElement() {
-        return newsText;
-    }
-
-    public String getNewsText() {
-        return newsText.getText();
-    }
-
-    public WebElement getCreationDateElement() {
-        return creationDate;
+    public String getNews() {
+        return newsTextElement.getText();
     }
 
     public String getCreationDate() {
-        return creationDate.getText();
-    }
-
-    public WebElement getAuthorNameElement() {
-        return authorName;
+        return creationDateElement.getText();
     }
 
     public String getAuthorName() {
-        return authorName.getText();
-    }
-
-    public WebElement getCommentsCountElement() {
-        return commentsCount;
+        return authorNameElement.getText();
     }
 
     public int getCommentsCount() {
-        return Integer.parseInt(commentsCount.getText());
-    }
-
-    public WebElement getLikesCountElement() {
-        return likesCount;
+        return Integer.parseInt(commentsCountElement.getText());
     }
 
     public int getLikesCount() {
-        return Integer.parseInt(likesCount.getText());
+        return Integer.parseInt(likesCountElement.getText());
     }
 
     public NewsDetailsPage click() {

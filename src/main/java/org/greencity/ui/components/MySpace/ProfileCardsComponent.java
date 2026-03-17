@@ -43,7 +43,7 @@ public class ProfileCardsComponent extends BaseComponent {
         return cardTitles.stream()
                 .map(WebElement::getText)
                 .map(String::trim)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     /** Returns descriptions of all visible profile cards */
@@ -51,7 +51,7 @@ public class ProfileCardsComponent extends BaseComponent {
         return cardDescriptions.stream()
                 .map(WebElement::getText)
                 .map(String::trim)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     /** Returns title of a profile card by index */

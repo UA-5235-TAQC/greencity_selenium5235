@@ -6,7 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-
 public class SignInModal extends AuthModalBase {
 
     //selector differs from SignUpModal
@@ -26,7 +25,7 @@ public class SignInModal extends AuthModalBase {
     @Step("Enter password")
     @Override
     public SignInModal enterPassword(String password) {
-        passwordInput.clear();
+        clearField(passwordInput);
         passwordInput.sendKeys(password);
         return this;
     }
@@ -34,7 +33,8 @@ public class SignInModal extends AuthModalBase {
     @Step("Enter email: {email}")
     @Override
     public SignInModal enterEmail(String email) {
-        emailInput.clear();
+        waitUntilVisible(emailInput);
+        clearField(emailInput);
         emailInput.sendKeys(email);
         return this;
     }

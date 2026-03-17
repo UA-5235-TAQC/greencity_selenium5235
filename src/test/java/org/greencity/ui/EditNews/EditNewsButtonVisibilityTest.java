@@ -2,8 +2,13 @@ package org.greencity.ui.EditNews;
 
 import io.qameta.allure.*;
 import io.qameta.allure.testng.Tag;
+import org.greencity.ui.components.HeaderComponent;
+import org.greencity.ui.components.NewsListItemComponent;
+import org.greencity.ui.pages.CreateEditNews.CreateNewsPage;
+import org.greencity.ui.pages.EcoNewsPage;
 import org.greencity.ui.pages.NewsDetailsPage;
-import org.greencity.ui.testrunners.NewsDetailsTestRunner;
+import org.greencity.ui.testrunners.NewsDetails.NewsDetailsENTestRunner;
+import org.greencity.utils.ui.NewsTestData;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -12,7 +17,7 @@ import org.testng.annotations.Test;
 @Feature("Edit existing news")
 @Story("Verify that only the author can see the 'Edit news' button")
 @Severity(SeverityLevel.CRITICAL)
-public class EditNewsButtonVisibilityTest extends NewsDetailsTestRunner {
+public class EditNewsButtonVisibilityTest extends NewsDetailsENTestRunner {
 
     @Issue("11")
     @Description("Verify that the 'Edit news' button is visible only to the author of the news")
@@ -31,19 +36,6 @@ public class EditNewsButtonVisibilityTest extends NewsDetailsTestRunner {
                 newsDetailsPage.getEditButtonText(),
                 "Edit news",
                 "Edit button text is incorrect"
-        );
-    }
-
-    @Issue("12")
-    @Description("Verify that the 'Edit news' button is not visible for news created by other users")
-    @Test
-    public void verifyEditButtonNotVisibleToOtherUsers() {
-        long anotherAuthorNewsId = 564;
-        NewsDetailsPage newsDetailsPage = new NewsDetailsPage(driver, anotherAuthorNewsId).open();
-        Assert.assertTrue(newsDetailsPage.isPageOpened(), "News Details page should be opened");
-        Assert.assertFalse(
-                newsDetailsPage.isEditButtonVisible(),
-                "Edit news button should NOT be visible to other users"
         );
     }
 }

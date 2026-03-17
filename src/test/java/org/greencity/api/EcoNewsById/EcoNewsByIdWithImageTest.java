@@ -3,13 +3,13 @@ package org.greencity.api.EcoNewsById;
 import io.qameta.allure.testng.Tag;
 import io.qameta.allure.*;
 import io.restassured.response.Response;
+import org.greencity.api.models.common.ErrorResponse;
 import org.greencity.api.models.econews.EcoNewsResponse;
 import org.greencity.api.models.econews.UpdateEcoNewsDto;
 import org.greencity.api.testrunners.CreateNewsRunner;
 import org.greencity.ui.enums.EcoNewsTag;
 import org.greencity.utils.api.EcoNewsAssertions;
 import org.greencity.utils.api.EcoNewsDtoFactory;
-import org.greencity.utils.api.ErrorResponse;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -83,7 +83,7 @@ public class EcoNewsByIdWithImageTest extends CreateNewsRunner {
         updateDto.setTags(EcoNewsTag.getEn(TEST_TAGS));
         updateDto.setTitle(TITLE_UK);
         updateDto.setContent(CONTENT_UK);
-        updateDto.setId(ecoNewsId + 1);
+        updateDto.setId(ecoNewsId + 10);
         Response response = ecoNewsClient.updateEcoNewsById(ecoNewsId, updateDto, null);
         assertBadRequest(response,
                 "Eco news id in path param and eco news id in entity not equal");

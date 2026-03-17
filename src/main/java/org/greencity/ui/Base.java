@@ -1,5 +1,6 @@
 package org.greencity.ui;
 
+import lombok.Getter;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
@@ -12,6 +13,7 @@ import java.time.Duration;
 import java.util.List;
 
 public abstract class Base {
+    @Getter
     protected WebDriver driver;
     protected WebDriverWait wait;
     protected JavascriptExecutor js;
@@ -72,5 +74,11 @@ public abstract class Base {
 
     protected void waitUntilClickable(WebElement element) {
         wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+
+    public void clearField(WebElement element) {
+        element.click();
+        element.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        element.sendKeys(Keys.DELETE);
     }
 }

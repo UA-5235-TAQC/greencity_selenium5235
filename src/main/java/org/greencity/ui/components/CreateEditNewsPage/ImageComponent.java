@@ -164,6 +164,7 @@ public class ImageComponent extends BaseComponent {
 
     @Step("Check if image error message is displayed")
     public boolean isImageErrorMsg() {
+        waitUntilVisible(imageMessage);
         return imageMessage.getAttribute("class").contains("warning-color");
     }
 

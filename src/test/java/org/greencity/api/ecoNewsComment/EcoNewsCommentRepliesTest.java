@@ -300,7 +300,7 @@ public class EcoNewsCommentRepliesTest extends CreateCommentRunner {
 
     @Test
     @Description("Verify that the system returns error when replying to a reply")
-    public void testReplyToPeplyShouldReturnError() {
+    public void testReplyToReplyShouldReturnError() {
         Response response = ecoNewsCommentClient.addComment(ecoNewsId, ANOTHER_SUB_COMMENT, parentSubCommentId);
         assertBadRequest(response, "You can't reply on reply");
     }

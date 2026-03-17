@@ -30,7 +30,6 @@ public class ContentValidationTest extends CreateNewsENTestRunner {
     @Description("Verify that the publish button is disabled and a warning is displayed when the content is shorter than 20 characters")
     @Test
     public void verifyContentValidationAndPublishButtonLogic20() {
-
         createNewsPage.getContentComponent().enterContent("Short text");
         Assert.assertFalse(createNewsPage.isPublishButtonEnabled(), "Publish button must be disabled when content is invalid");
         Assert.assertTrue(createNewsPage.getContentComponent().isContentWarningDisplayed(), "Warning should be displayed for content shorter than 20 symbols");
@@ -48,8 +47,9 @@ public class ContentValidationTest extends CreateNewsENTestRunner {
 
         Assert.assertTrue(createNewsPage.isPublishButtonEnabled(), "Publish button should be enabled for valid content");
         createNewsPage.clickPublish();
-        String message = new EcoNewsPage(driver).getMessageText();
-        Assert.assertEquals(message, "Your news has been successfully published", "Success message text is incorrect");
+        EcoNewsPage ecoNewsPage = new EcoNewsPage(driver);
+        ecoNewsPage.waitForMessageAppear();
+        Assert.assertEquals(ecoNewsPage.getMessageText(), "Your news has been successfully published");
     }
 
     @Description("Stress test: verify that the content is truncated correctly to 63,206 symbols")

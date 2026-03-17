@@ -11,7 +11,7 @@ import java.io.File;
 
 import static org.greencity.utils.api.ApiTestAssertions.assertCreated;
 
-public class CreateNewsBeforeTestRunner extends EcoNewsWithTokenRunner {
+public class CreateNewsBeforeTestRunner extends FirstUserRunner {
     protected long ecoNewsId;
     protected String imagePath;
     protected EcoNewsResponse createdNews;
@@ -23,8 +23,7 @@ public class CreateNewsBeforeTestRunner extends EcoNewsWithTokenRunner {
     @BeforeClass
     @Description("Create a new EcoNews before each test")
     public void createEcoNews() {
-        EcoNewsDtoFactory dtoFactory = new EcoNewsDtoFactory(0);
-        EcoNewsRequest request = dtoFactory.createNewsEn();
+        EcoNewsRequest request = EcoNewsDtoFactory.createNewsEn();
 
         Response response;
         if (imagePath != null) {

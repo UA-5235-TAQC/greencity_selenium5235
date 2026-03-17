@@ -1,10 +1,10 @@
 package org.greencity.ui.pages;
 
 import io.qameta.allure.Step;
+import lombok.Getter;
 import org.greencity.ui.components.CommentItemComponent;
 import org.greencity.ui.components.NewsDetailsContentComponent;
 import org.greencity.ui.components.NewsListItemComponent;
-import org.greencity.ui.pages.CreateEditNews.CreateEditNewsPage;
 import org.greencity.ui.pages.CreateEditNews.EditNewsPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,6 +13,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class NewsDetailsPage extends BasePage {
@@ -72,6 +74,7 @@ public class NewsDetailsPage extends BasePage {
     @FindBy(css = "img.news-image-img")
     private WebElement newsImage;
 
+    @Getter
     private final long newsId;
 
     public NewsDetailsPage(WebDriver driver, long newsId) {
@@ -273,11 +276,6 @@ public class NewsDetailsPage extends BasePage {
         return authorName.getText().substring(3).trim();
     }
 
-    @Step("Get news ID")
-    public long getId() {
-        return newsId;
-    }
-
     @Step("Check if content is visible")
     public boolean isContentVisible() {
         return isVisible(content);
@@ -302,5 +300,19 @@ public class NewsDetailsPage extends BasePage {
     public boolean isNewsImagePresent() {
         String src = getNewsImageSrc();
         return src != null && src.startsWith("https://");
+    }
+
+    @Step("Get news id from URL")
+    public long getNewsIdFromUrl() {
+        String url = driver.getCurrentUrl();
+
+        Pattern pattern = Pattern.compile("(?:id=|/news/)(\\d+)");
+        Matcher matcher = pattern.matcher(url);
+
+        if (matcher.find()) {
+            return Long.parseLong(matcher.group(1));
+        }
+
+        throw new RuntimeException("News ID not found in URL: " + url);
     }
 }

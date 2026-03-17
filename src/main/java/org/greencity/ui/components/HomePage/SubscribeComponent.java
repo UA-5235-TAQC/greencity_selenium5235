@@ -77,7 +77,7 @@ public class SubscribeComponent extends BaseComponent {
      * Enters the given email into the email input field
      */
     public void enterEmail(String email) {
-        emailInput.clear();
+        clearField(emailInput);
         emailInput.sendKeys(email);
     }
 

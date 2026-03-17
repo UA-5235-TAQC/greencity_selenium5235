@@ -1,8 +1,8 @@
 package org.greencity.ui.pages;
 
 import io.qameta.allure.Step;
-import org.greencity.ui.components.StatRowComponent;
-import org.greencity.ui.components.SubscribeComponent;
+import org.greencity.ui.components.HomePage.StatRowComponent;
+import org.greencity.ui.components.HomePage.SubscribeComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -41,7 +41,7 @@ public class HomePage extends BasePage {
     @FindBy(css = "div #subscribe")
     protected WebElement subscribeButton;
 
-    @FindBy(css = ".eco-events a") // "Read all news" link
+    @FindBy(css = ".eco-events a")
     protected WebElement readAllNewsLink;
 
     public HomePage(WebDriver driver) {

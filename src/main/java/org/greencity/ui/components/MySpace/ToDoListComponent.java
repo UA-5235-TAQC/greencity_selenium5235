@@ -61,7 +61,7 @@ public class ToDoListComponent extends BaseComponent {
         return toDoItems.stream()
                 .map(WebElement::getText)
                 .map(String::trim)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     /**

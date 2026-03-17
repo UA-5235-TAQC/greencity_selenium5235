@@ -14,4 +14,3 @@ public class SignInRequest {
         this.projectName = "GREENCITY";
     }
 }
-

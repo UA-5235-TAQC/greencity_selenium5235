@@ -1,5 +1,6 @@
 package org.greencity.ui.pages.MySpace;
 
+import lombok.Getter;
 import org.greencity.ui.components.MySpace.NoDataComponent;
 import org.greencity.ui.enums.MySpaceTab;
 import org.openqa.selenium.WebDriver;
@@ -10,6 +11,7 @@ import io.qameta.allure.Step;
 
 
 public class MySpaceHabitsTabPage extends MySpaceBasePage {
+    @Getter
     @FindBy(id = "create-button-add-new-habit")
     private WebElement addHabitButton;
 
@@ -22,8 +24,6 @@ public class MySpaceHabitsTabPage extends MySpaceBasePage {
         super(driver);
         this.noDataComponent = new NoDataComponent(driver, noDataRoot);
     }
-
-    public WebElement getAddHabitButton() { return addHabitButton; }
 
     @Step("Check if habits exist in My Space Habits tab")
     public boolean hasHabits() {

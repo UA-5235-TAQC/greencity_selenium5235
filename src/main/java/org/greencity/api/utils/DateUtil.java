@@ -18,4 +18,20 @@ public class DateUtil {
         if (dateStr == null || dateStr.isEmpty()) return null;
         return parseShortDate(dateStr);
     }
+
+    public static OffsetDateTime parseToMinutes(String date) {
+
+        LocalDateTime localDateTime = LocalDateTime.parse(date);
+
+        return localDateTime
+                .atOffset(ZoneOffset.UTC)
+                .withSecond(0)
+                .withNano(0);
+    }
+
+    public static OffsetDateTime nowToMinutesUTC() {
+        return OffsetDateTime.now(ZoneOffset.UTC)
+                .withSecond(0)
+                .withNano(0);
+    }
 }

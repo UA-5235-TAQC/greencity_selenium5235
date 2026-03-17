@@ -31,21 +31,24 @@ public class PreviewPageTest extends CreateNewsENTestRunner {
                 .changeToEN();
         createNewsPage
                 .enterTitle(newsTitle)
-                .getContentComponent().enterContent(newsText);
-        createNewsPage.clickPreview();
+                .getContentComponent()
+                .enterContent(newsText);
+        previewPage = createNewsPage.clickPreview();
 
-        Assert.assertEquals(getDriver().getCurrentUrl(), testValueProvider.getBaseUIGreenCityUrl() + "/news/preview");
-        Assert.assertEquals(previewPage.getNewsTitle(), newsTitle);
-        Assert.assertEquals(previewPage.getNewsText(), newsText);
+        Assert.assertEquals(getDriver().getCurrentUrl(),
+                testValueProvider.getBaseUIGreenCityUrl() + "#/greenCity/news/preview");
+        Assert.assertEquals(previewPage.getNewsTitleText(), newsTitle);
+        Assert.assertEquals(previewPage.getNewsTextValue(), newsText);
         LocalDate today = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d, yyyy").withLocale(Locale.US);
         String expectedDate = today.format(formatter);
-        Assert.assertEquals(previewPage.getNewsCreatingDate(), expectedDate);
+        Assert.assertEquals(previewPage.getNewsCreatingDateValue(), expectedDate);
         Assert.assertEquals(previewPage.getAuthorName(), testValueProvider.getUserName());
 
         previewPage.clickBackToCreateNewsBtn();
-        Assert.assertEquals(getDriver().getCurrentUrl(), testValueProvider.getBaseUIGreenCityUrl() + "/news/create-news");
+        Assert.assertEquals(getDriver().getCurrentUrl(),
+                testValueProvider.getBaseUIGreenCityUrl() + "#/greenCity/news/create-news");
         //There will be an error because of page components loading bug
-        Assert.assertTrue(createNewsPage.isPageOpened());
+        Assert.assertTrue(createNewsPage.isPageOpenedAfterPreviewClickBack());
     }
 }
